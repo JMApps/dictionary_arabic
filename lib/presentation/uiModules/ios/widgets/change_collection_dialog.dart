@@ -6,19 +6,31 @@ import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/collections_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
 
-class AddCollectionDialog extends StatefulWidget {
-  const AddCollectionDialog({super.key});
+class ChangeCollectionDialog extends StatefulWidget {
+  const ChangeCollectionDialog({
+    super.key,
+    required this.model,
+  });
+
+  final CollectionEntity model;
 
   @override
-  State<AddCollectionDialog> createState() => _AddCollectionDialogState();
+  State<ChangeCollectionDialog> createState() => _ChangeCollectionDialogState();
 }
 
-class _AddCollectionDialogState extends State<AddCollectionDialog> {
-  final TextEditingController _collectionController = TextEditingController();
+class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
+  late final TextEditingController _collectionController;
+
+  @override
+  void initState() {
+    _collectionController = TextEditingController(text: widget.model.title);
+    Provider.of<CollectionsState>(context, listen: false).setColorIndex = widget.model.color;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final CollectionsState collectionsState = Provider.of<CollectionsState>(context);
+    final CollectionsState collectionsState = Provider.of<CollectionsState>(context, listen: false);
     return CupertinoAlertDialog(
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -62,19 +74,25 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
         CupertinoButton(
           onPressed: () {
             if (_collectionController.text.trim().isNotEmpty) {
-              Navigator.pop(context);
-              final CollectionEntity model = CollectionEntity(
-                id: 0,
+              final CollectionEntity newModel = CollectionEntity(
+                id: widget.model.id,
                 title: _collectionController.text.trim(),
                 wordsCount: 0,
                 color: collectionsState.getColorIndex,
               );
-              collectionsState.addCollection(model: model);
-              collectionsState.setColorIndex = 0;
-              _collectionController.clear();
+              if (!widget.model.equals(newModel)) {
+                collectionsState.changeCollection(model: newModel);
+                collectionsState.setColorIndex = 0;
+                _collectionController.clear();
+                Navigator.pop(context);
+              } else {
+                collectionsState.setColorIndex = 0;
+                _collectionController.clear();
+                Navigator.pop(context);
+              }
             }
           },
-          child: const Text(AppStrings.add),
+          child: const Text(AppStrings.change),
         ),
         CupertinoButton(
           onPressed: () {
