@@ -13,12 +13,14 @@ dependencies:
 
   # IU
   cupertino_icons: ^1.0.6
+  flutter_slidable: ^3.0.1
 
   # Databases
   sqflite: ^2.3.0
+  hive_flutter: ^1.1.0
 
   # System
-  path: ^1.8.03
+  path: ^1.8.3
 
   # Copy/Share
   share_plus: ^7.2.1
