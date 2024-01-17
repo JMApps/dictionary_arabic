@@ -1,8 +1,8 @@
 import 'package:arabic/core/strings/app_strings.dart';
 import 'package:flutter/material.dart';
 
-class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+class MainMaterialPage extends StatelessWidget {
+  const MainMaterialPage({super.key});
 
   @override
   Widget build(BuildContext context) {
