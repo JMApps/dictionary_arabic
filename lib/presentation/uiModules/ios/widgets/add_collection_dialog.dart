@@ -31,7 +31,7 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
           onTap: () {
             showCupertinoDialog(
               context: context,
-              builder: (BuildContext context) {
+              builder: (context) {
                 return CupertinoAlertDialog(
                   content: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -39,7 +39,6 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
                       CupertinoTextField(
                         controller: _collectionController,
                         autofocus: true,
-                        maxLines: 1,
                         maxLength: 100,
                         placeholder: AppStrings.collectionTitle,
                         clearButtonMode: OverlayVisibilityMode.editing,
