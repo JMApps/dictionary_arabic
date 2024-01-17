@@ -1,12 +1,13 @@
-import 'package:arabic/presentation/uiModules/ios/pages/main_cupertino_page.dart';
+import 'package:arabic/core/routes/route_names.dart';
+import 'package:arabic/presentation/uiModules/ios/pages/all_collections_page.dart';
 import 'package:flutter/cupertino.dart';
 
 class CupertinoRoutes {
   static Route onGeneratorRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case '/':
+      case RouteNames.allCollectionsPage:
         return CupertinoPageRoute(
-          builder: (_) => const MainCupertinoPage(),
+          builder: (_) => const AllCollectionsPage(),
         );
       default:
         throw Exception('Invalid route ${routeSettings.name}');
