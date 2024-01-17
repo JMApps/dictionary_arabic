@@ -1,8 +1,9 @@
 class AppStrings {
   static const String appName = 'Манба';
   static const String searchWords = 'Поиск слов...';
+  static const String searchCollections = 'Поиск коллекций...';
   static const String lastCollections = 'Последние коллекции';
-  static const String allCollection = 'Все коллекции';
+  static const String allCollections = 'Все коллекции';
   static const String collectionsIfEmpty = 'Вы пока что не добавили ни одной коллекции';
   static const String addCollection = 'Добавить коллекцию';
   static const String collectionTitle = 'Название коллекции...';
@@ -11,6 +12,11 @@ class AppStrings {
   static const String cardMode = 'Режим карточек';
   static const String add = 'Добавить';
   static const String change = 'Изменить';
+  static const String deletingCollection = 'Удаление коллекции';
+  static const String deletingCollections = 'Удаление коллекций';
+  static const String delete = 'Удалить';
+  static const String deleteCollectionQuestion = 'Вы уверены, что хотите удалить данную коллекцию вместе с её содержимым?';
+  static const String deleteAllCollectionsQuestion = 'Вы уверены, что хотите удалить все коллекции вместе с их содержимым?';
   static const String deleteCollection = 'Удалить коллекцию';
   static const String deleteAll = 'Удалить все коллекции';
   static const String cancel = 'Отмена';
@@ -22,4 +28,5 @@ class AppStrings {
   static const String byWordsCount = 'По количеству слов';
   static const String orderASC = 'В обычном порядке';
   static const String orderDESC = 'В обратном порядке';
+  static const String main = 'Главная';
 }
