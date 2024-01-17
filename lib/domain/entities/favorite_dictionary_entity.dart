@@ -1,4 +1,4 @@
-class DictionaryEntity {
+class FavoriteDictionaryEntity {
   final int id;
   final String arabicWord;
   final String arabicWordWH;
@@ -7,8 +7,9 @@ class DictionaryEntity {
   final String? meaning;
   final String? shortMeaning;
   final String? other;
+  final int collectionId;
 
-  const DictionaryEntity({
+  const FavoriteDictionaryEntity({
     required this.id,
     required this.arabicWord,
     required this.arabicWordWH,
@@ -17,5 +18,6 @@ class DictionaryEntity {
     required this.meaning,
     required this.shortMeaning,
     required this.other,
+    required this.collectionId,
   });
 }
