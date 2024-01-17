@@ -15,4 +15,11 @@ class AppStrings {
   static const String deleteAll = 'Удалить все коллекции';
   static const String cancel = 'Отмена';
   static const String selectColor = 'Выбор цвета';
+  static const String orderCollection = 'Сортировка коллекций';
+  static const String order = 'Порядок';
+  static const String byAddDateTime = 'По дате добавления';
+  static const String byColor = 'По цвету';
+  static const String byWordsCount = 'По количеству слов';
+  static const String orderASC = 'В обычном порядке';
+  static const String orderDESC = 'В обратном порядке';
 }

@@ -47,7 +47,7 @@ class _MainCollectionsListState extends State<MainCollectionsList> {
             Expanded(
               child: FutureBuilder<List<CollectionEntity>>(
                 // Добавить методы сортировки
-                future: collectionsState.fetchAllCollections(sortedBy: 'id DESC'),
+                future: collectionsState.fetchAllCollections(),
                 builder: (BuildContext context, AsyncSnapshot<List<CollectionEntity>> snapshot) {
                   if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                     return CupertinoScrollbar(

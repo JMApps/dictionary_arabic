@@ -1,11 +1,19 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../core/strings/app_constraints.dart';
 import '../../domain/entities/collection_entity.dart';
 import '../../domain/usecases/collections_use_case.dart';
 import '../repositories/collections_data_repository.dart';
 
 class CollectionsState extends ChangeNotifier {
+  final Box _mainSettingsBox = Hive.box(AppConstraints.keyMainAppSettingsBox);
   final CollectionsUseCase _useCase = CollectionsUseCase(CollectionsDataRepository());
+
+  CollectionsState() {
+    _orderCollectionIndex = _mainSettingsBox.get(AppConstraints.keyOrderCollectionIndex, defaultValue: 0);
+    _orderIndex = _mainSettingsBox.get(AppConstraints.keyOrderIndex, defaultValue: 1);
+  }
 
   int _colorIndex = 0;
 
@@ -16,8 +24,39 @@ class CollectionsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<CollectionEntity>> fetchAllCollections({required String sortedBy}) async {
-    return await _useCase.fetchAllCollections(sortedBy: sortedBy);
+  late int _orderCollectionIndex;
+
+  int get getOrderCollectionIndex => _orderCollectionIndex;
+
+  set setOrderCollectionIndex(int index) {
+    _orderCollectionIndex = index;
+    _mainSettingsBox.put(AppConstraints.keyOrderCollectionIndex, _orderCollectionIndex);
+    notifyListeners();
+  }
+
+  late int _orderIndex;
+
+  int get getOrderIndex => _orderIndex;
+
+  set setOrderIndex(int index) {
+    _orderIndex = index;
+    _mainSettingsBox.put(AppConstraints.keyOrderIndex, _orderIndex);
+    notifyListeners();
+  }
+
+  final List<String> _collectionOrder = [
+    'id',
+    'color',
+    'words_count',
+  ];
+
+  final List<String> _order = [
+    'ASC',
+    'DESC',
+  ];
+
+  Future<List<CollectionEntity>> fetchAllCollections() async {
+    return await _useCase.fetchAllCollections(sortedBy: '${_collectionOrder[_orderCollectionIndex]} ${_order[_orderIndex]}');
   }
 
   Future<CollectionEntity> getCollectionById({required int collectionId}) async {

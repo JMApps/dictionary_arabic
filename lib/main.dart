@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import 'core/strings/app_constraints.dart';
 import 'presentation/uiModules/android/pages/root_material_page.dart';
 import 'presentation/uiModules/ios/pages/root_cupertino_page.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isAndroid) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
@@ -17,6 +19,8 @@ void main() {
       ),
     );
   }
+  await Hive.initFlutter();
+  await Hive.openBox(AppConstraints.keyMainAppSettingsBox);
   runApp(
     Platform.isIOS ? const RootCupertinoPage() : const RootMaterialPage(),
   );
