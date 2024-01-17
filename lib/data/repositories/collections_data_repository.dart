@@ -29,9 +29,9 @@ class CollectionsDataRepository implements CollectionsRepository {
   Future<int> getWordCount({required int collectionId}) async {
     final Database database = await _collectionsService.db;
     List<Map<String, dynamic>> result = await database.rawQuery('''
-    SELECT COUNT(*) as question_count
+    SELECT COUNT(*) as wordCount
     FROM $_tableName
-    WHERE id = ?
+    WHERE collectionId = ?
     ''', [collectionId]);
 
     if (result.isNotEmpty) {

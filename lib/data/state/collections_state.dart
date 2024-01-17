@@ -7,6 +7,15 @@ import '../repositories/collections_data_repository.dart';
 class CollectionsState extends ChangeNotifier {
   final CollectionsUseCase _useCase = CollectionsUseCase(CollectionsDataRepository());
 
+  int _colorIndex = 0;
+
+  int get getColorIndex => _colorIndex;
+
+  set setColorIndex(int index) {
+    _colorIndex = index;
+    notifyListeners();
+  }
+
   Future<List<CollectionEntity>> fetchAllCollections({required String sortedBy}) async {
     return await _useCase.fetchAllCollections(sortedBy: sortedBy);
   }

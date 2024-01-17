@@ -1,17 +1,17 @@
-import 'package:arabic/domain/entities/collection_entity.dart';
+import 'package:arabic/core/styles/app_styles.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../../../../domain/entities/collection_entity.dart';
 
 class CollectionItem extends StatelessWidget {
   const CollectionItem({
     super.key,
     required this.model,
     required this.index,
-    required this.wordCount,
   });
 
   final CollectionEntity model;
   final int index;
-  final int wordCount;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,8 @@ class CollectionItem extends StatelessWidget {
         // Navigate to collection page
       },
       title: Text(model.title),
-      additionalInfo: Text(wordCount.toString()),
+      leading: Icon(CupertinoIcons.circle_fill, color: AppStyles.collectionColors[model.color]),
+      additionalInfo: Text(model.wordsCount.toString()),
     );
   }
 }
