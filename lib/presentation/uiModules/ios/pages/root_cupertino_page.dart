@@ -1,3 +1,4 @@
+import 'package:arabic/core/routes/cupertino_routes.dart';
 import 'package:arabic/core/strings/app_strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,7 @@ class _RootCupertinoPageState extends State<RootCupertinoPage> {
       child: const CupertinoApp(
         debugShowCheckedModeBanner: false,
         title: AppStrings.appName,
+        onGenerateRoute: CupertinoRoutes.onGeneratorRoute,
         home: MainCupertinoPage(),
       ),
     );
