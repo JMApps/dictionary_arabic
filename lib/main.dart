@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'presentation/uiModules/ios/pages/root_page.dart';
+import 'presentation/uiModules/android/pages/root_material_page.dart';
+import 'presentation/uiModules/ios/pages/root_cupertino_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +18,6 @@ void main() {
     );
   }
   runApp(
-    Platform.isIOS ? const RootPage() : const RootPage(),
+    Platform.isIOS ? const RootCupertinoPage() : const RootMaterialPage(),
   );
 }
