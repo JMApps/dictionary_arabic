@@ -1,5 +1,5 @@
 class AppStrings {
-  static const String appName = 'Манба';
+  static const String appName = 'Арабский словарь';
   static const String searchWords = 'Поиск слов...';
   static const String searchCollections = 'Поиск коллекций...';
   static const String lastCollections = 'Последние коллекции';
@@ -29,4 +29,5 @@ class AppStrings {
   static const String orderASC = 'В обычном порядке';
   static const String orderDESC = 'В обратном порядке';
   static const String main = 'Главная';
+  static const String queryIsEmpty = 'По вашему запросу ничего не найдено';
 }

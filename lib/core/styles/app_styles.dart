@@ -6,7 +6,9 @@ class AppStyles {
   static const mainMarding = EdgeInsets.all(14);
   static const mainMardingMini = EdgeInsets.all(7);
   static const mardingWithoutBottom = EdgeInsets.fromLTRB(14, 14, 14, 0);
+  static const mardingWithoutBottomMini = EdgeInsets.fromLTRB(7, 7, 7, 0);
   static const mardingWithoutTop = EdgeInsets.fromLTRB(14, 0, 14, 14);
+  static const mardingWithoutTopMini = EdgeInsets.fromLTRB(7, 0, 7, 7);
   static const mardingSymmetricHor = EdgeInsets.symmetric(horizontal: 14);
   static const mardingSymmetricHorMini = EdgeInsets.symmetric(horizontal: 7);
   static const mardingSymmetricVer = EdgeInsets.symmetric(vertical: 14);
