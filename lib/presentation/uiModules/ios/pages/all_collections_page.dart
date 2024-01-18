@@ -1,99 +1,98 @@
-import 'package:arabic/core/styles/app_styles.dart';
-import 'package:arabic/data/state/collections_state.dart';
+import 'package:arabic/data/state/collection_search_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/strings/app_strings.dart';
+import '../../../../data/state/collections_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
 import '../items/collection_item.dart';
 import '../widgets/add_collection_dialog.dart';
 import '../widgets/error_data_text.dart';
+import 'collection_is_empty_page.dart';
 
-class AllCollectionsPage extends StatelessWidget {
+class AllCollectionsPage extends StatefulWidget {
   const AllCollectionsPage({super.key});
+
+  @override
+  State<AllCollectionsPage> createState() => _AllCollectionsPageState();
+}
+
+class _AllCollectionsPageState extends State<AllCollectionsPage> {
+  final TextEditingController _collectionsController = TextEditingController();
+  List<CollectionEntity> _collections = [];
+  List<CollectionEntity> _recentCollections = [];
 
   @override
   Widget build(BuildContext context) {
     final CollectionsState collectionsState = Provider.of<CollectionsState>(context);
-    return CupertinoPageScaffold(
-      child: FutureBuilder<List<CollectionEntity>>(
-        future: collectionsState.fetchAllCollections(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-            return CustomScrollView(
-              slivers: [
-                CupertinoSliverNavigationBar(
-                  middle: const Text(AppStrings.allCollections),
-                  trailing: CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    child: const Icon(CupertinoIcons.add_circled),
-                    onPressed: () {
-                      showCupertinoDialog(
-                        context: context,
-                        builder: (context) {
-                          return const AddCollectionDialog();
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => CollectionSearchState(),
+        ),
+      ],
+      child: CupertinoPageScaffold(
+        child: Consumer<CollectionSearchState>(
+          builder: (BuildContext context, CollectionSearchState query, _) {
+            return FutureBuilder<List<CollectionEntity>>(
+              future: collectionsState.fetchAllCollections(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                  _collections = snapshot.data!;
+                  _recentCollections = query.getQuery.isEmpty
+                      ? _collections
+                      : _collections.where((element) => element.title.toLowerCase().contains(query.getQuery.toLowerCase())).toList();
+                  return CustomScrollView(
+                    slivers: [
+                      CupertinoSliverNavigationBar(
+                        stretch: true,
+                        middle: const Text(AppStrings.allCollections),
+                        trailing: CupertinoButton(
+                          padding: EdgeInsets.zero,
+                          child: const Icon(CupertinoIcons.add_circled),
+                          onPressed: () {
+                            showCupertinoDialog(
+                              context: context,
+                              builder: (context) {
+                                return const AddCollectionDialog();
+                              },
+                            );
+                          },
+                        ),
+                        previousPageTitle: AppStrings.main,
+                        largeTitle: Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: CupertinoSearchTextField(
+                            // не забыть закрывать клавиатуру
+                            onChanged: (value) {
+                              query.setQuery = value;
+                            },
+                            controller: _collectionsController,
+                            placeholder: AppStrings.searchCollections,
+                          ),
+                        ),
+                      ),
+                      SliverList.builder(
+                        itemCount: _recentCollections.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final CollectionEntity model = _recentCollections[index];
+                          return CollectionItem(
+                            model: model,
+                            index: index,
+                          );
                         },
-                      );
-                    },
-                  ),
-                  previousPageTitle: AppStrings.main,
-                  largeTitle: CupertinoTextField(
-                    onTap: () {
-                      // To search delegate
-                    },
-                    readOnly: true,
-                    textAlign: TextAlign.center,
-                    placeholder: AppStrings.searchCollections,
-                    prefix: const Padding(
-                      padding: EdgeInsets.only(left: 7),
-                      child: Icon(CupertinoIcons.search),
-                    ),
-                  ),
-                ),
-                SliverList.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final CollectionEntity model = snapshot.data![index];
-                    return CollectionItem(
-                      model: model,
-                      index: index,
-                    );
-                  },
-                ),
-              ],
+                      ),
+                    ],
+                  );
+                } else if (snapshot.hasError) {
+                  return ErrorDataText(errorText: snapshot.error.toString());
+                } else {
+                  return const CollectionIsEmptyPage();
+                }
+              },
             );
-          } else if (snapshot.hasError) {
-            return ErrorDataText(errorText: snapshot.error.toString());
-          } else {
-            return CupertinoPageScaffold(
-              navigationBar: CupertinoNavigationBar(
-                middle: const Text(AppStrings.allCollections),
-                previousPageTitle: AppStrings.main,
-                trailing: CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  child: const Icon(CupertinoIcons.add_circled),
-                  onPressed: () {
-                    showCupertinoDialog(
-                      context: context,
-                      builder: (context) {
-                        return const AddCollectionDialog();
-                      },
-                    );
-                  },
-                ),
-              ),
-              child: const Center(
-                child: Padding(
-                  padding: AppStyles.mainMarding,
-                  child: Text(
-                    AppStrings.collectionsIfEmpty,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            );
-          }
-        },
+          },
+        ),
       ),
     );
   }

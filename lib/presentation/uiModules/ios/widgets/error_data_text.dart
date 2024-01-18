@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
+import '../../../../core/styles/app_styles.dart';
 
 class ErrorDataText extends StatelessWidget {
   const ErrorDataText({
@@ -11,14 +12,18 @@ class ErrorDataText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SelectableText(
-      errorText,
-      style: const TextStyle(
-        fontSize: 18,
-        color: CupertinoColors.destructiveRed,
-        fontWeight: FontWeight.bold,
+    return Center(
+      child: Padding(
+        padding: AppStyles.mainMarding,
+        child: Text(
+          errorText,
+          style: const TextStyle(
+            fontSize: 18,
+            color: CupertinoColors.destructiveRed,
+          ),
+          textAlign: TextAlign.center,
+        ),
       ),
-      textAlign: TextAlign.center,
     );
   }
 }

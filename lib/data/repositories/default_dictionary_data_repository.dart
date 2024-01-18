@@ -12,7 +12,7 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
   @override
   Future<List<DictionaryEntity>> getAllWords() async {
     final Database database = await _dictionaryService.db;
-    final List<Map<String, Object?>> resources = await database.query(tableName, where: 'id = ?', whereArgs: []);
+    final List<Map<String, Object?>> resources = await database.query(tableName);
     final List<DictionaryEntity> allWords = resources.isNotEmpty ? resources.map((c) => _mapToEntity(DictionaryModel.fromMap(c))).toList() : [];
     return allWords;
   }

@@ -20,7 +20,7 @@ class CollectionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      startActionPane: ActionPane(
+      endActionPane: ActionPane(
         motion: const StretchMotion(),
         children: [
           SlidableAction(
@@ -34,11 +34,6 @@ class CollectionItem extends StatelessWidget {
             foregroundColor: CupertinoColors.systemBackground,
             icon: CupertinoIcons.pencil,
           ),
-        ],
-      ),
-      endActionPane: ActionPane(
-        motion: const StretchMotion(),
-        children: [
           SlidableAction(
             onPressed: (context) {
               showCupertinoDialog(
@@ -48,7 +43,7 @@ class CollectionItem extends StatelessWidget {
             },
             backgroundColor: CupertinoColors.systemRed,
             foregroundColor: CupertinoColors.systemBackground,
-            icon: CupertinoIcons.delete,
+            icon: CupertinoIcons.delete_solid,
           ),
           SlidableAction(
             onPressed: (context) {
@@ -59,7 +54,7 @@ class CollectionItem extends StatelessWidget {
             },
             backgroundColor: CupertinoColors.systemBlue,
             foregroundColor: CupertinoColors.systemBackground,
-            icon: CupertinoIcons.delete,
+            icon: CupertinoIcons.delete_solid,
           ),
         ],
       ),
@@ -69,8 +64,12 @@ class CollectionItem extends StatelessWidget {
         },
         title: Text(model.title),
         leading: Icon(
-          CupertinoIcons.circle_fill,
+          CupertinoIcons.tags_solid,
           color: AppStyles.collectionColors[model.color],
+        ),
+        trailing: const Icon(
+          CupertinoIcons.forward,
+          color: CupertinoColors.systemGrey2,
         ),
         additionalInfo: Text(model.wordsCount.toString()),
       ),

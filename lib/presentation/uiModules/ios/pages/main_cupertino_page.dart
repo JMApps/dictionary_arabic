@@ -1,32 +1,21 @@
 import 'package:arabic/core/routes/route_names.dart';
 import 'package:arabic/core/strings/app_strings.dart';
 import 'package:arabic/core/styles/app_styles.dart';
+import 'package:arabic/presentation/uiModules/ios/pages/search_words_page.dart';
 import 'package:arabic/presentation/uiModules/ios/widgets/add_collection_dialog.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../lists/main_collections_list.dart';
 import '../widgets/collections_order_button.dart';
 
-class MainCupertinoPage extends StatefulWidget {
+class MainCupertinoPage extends StatelessWidget {
   const MainCupertinoPage({super.key});
 
   @override
-  State<MainCupertinoPage> createState() => _MainCupertinoPageState();
-}
-
-class _MainCupertinoPageState extends State<MainCupertinoPage> {
-  @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: const Text(AppStrings.appName),
-        trailing: CupertinoButton(
-          onPressed: () {
-            // Navigate to settings
-          },
-          padding: EdgeInsets.zero,
-          child: const Icon(CupertinoIcons.settings),
-        ),
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text(AppStrings.appName),
       ),
       child: SafeArea(
         right: false,
@@ -34,18 +23,29 @@ class _MainCupertinoPageState extends State<MainCupertinoPage> {
         child: Column(
           children: [
             Padding(
-              padding: AppStyles.mainMardingMini,
+              padding: AppStyles.mardingWithoutBottomMini,
               child: CupertinoTextField(
-                onTap: () {
-                  // To search delegate
-                },
                 readOnly: true,
-                textAlign: TextAlign.center,
-                placeholder: AppStrings.searchWords,
                 prefix: const Padding(
                   padding: EdgeInsets.only(left: 7),
-                  child: Icon(CupertinoIcons.search),
+                  child: Icon(
+                    CupertinoIcons.search,
+                    color: CupertinoColors.systemGrey,
+                  ),
                 ),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(9),
+                  ),
+                  color: CupertinoColors.systemGrey5,
+                ),
+                placeholder: AppStrings.searchWords,
+                onTap: () {
+                  showCupertinoModalPopup(
+                    context: context,
+                    builder: (_) => const SearchWordsPage(),
+                  );
+                },
               ),
             ),
             const Row(
@@ -62,11 +62,9 @@ class _MainCupertinoPageState extends State<MainCupertinoPage> {
                 ),
                 SizedBox(width: 7),
                 CollectionsOrderButton(),
-                SizedBox(width: 7),
               ],
             ),
             const MainCollectionsList(shortCollection: true),
-            const SizedBox(height: 7),
             CupertinoListSection.insetGrouped(
               backgroundColor: CupertinoColors.systemBackground,
               margin: AppStyles.mardingSymmetricHor,

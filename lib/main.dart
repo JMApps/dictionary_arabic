@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:arabic/data/services/default_dictionary_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -19,6 +20,7 @@ void main() async {
       ),
     );
   }
+  await DefaultDictionaryService().initializeDatabase();
   await Hive.initFlutter();
   await Hive.openBox(AppConstraints.keyMainAppSettingsBox);
   runApp(
