@@ -20,4 +20,8 @@ class FavoriteDictionaryEntity {
     required this.other,
     required this.collectionId,
   });
+
+  bool equals(FavoriteDictionaryEntity other) {
+    return meaning!.trim() == other.meaning!.trim();
+  }
 }
