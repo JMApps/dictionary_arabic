@@ -1,4 +1,3 @@
-import 'package:arabic/domain/entities/dictionary_entity.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../domain/entities/favorite_dictionary_entity.dart';

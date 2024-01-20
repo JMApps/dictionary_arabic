@@ -1,11 +1,10 @@
-import 'package:arabic/presentation/uiModules/ios/widgets/collection_color_circle_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/strings/app_strings.dart';
-import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/collections_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
+import 'collection_color_circle_button.dart';
 
 class AddCollectionDialog extends StatefulWidget {
   const AddCollectionDialog({super.key});
