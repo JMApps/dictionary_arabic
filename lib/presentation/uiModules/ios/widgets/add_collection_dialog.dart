@@ -1,3 +1,4 @@
+import 'package:arabic/presentation/uiModules/ios/widgets/collection_color_circle_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -20,9 +21,11 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
   Widget build(BuildContext context) {
     final CollectionsState collectionsState = Provider.of<CollectionsState>(context);
     return CupertinoAlertDialog(
+      title: const Text(AppStrings.addCollection),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          const SizedBox(height: 14),
           CupertinoTextField(
             controller: _collectionController,
             autofocus: true,
@@ -30,31 +33,19 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
             placeholder: AppStrings.collectionTitle,
             clearButtonMode: OverlayVisibilityMode.editing,
           ),
-          const SizedBox(height: 10),
-          Center(
-            child: SizedBox(
-              height: 14,
-              child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                itemCount: AppStyles.collectionColors.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      collectionsState.setColorIndex = index;
-                    },
-                    child: Icon(
-                      context.watch<CollectionsState>().getColorIndex == index
-                          ? CupertinoIcons.checkmark_circle_fill
-                          : CupertinoIcons.circle_fill,
-                      color: AppStyles.collectionColors[index],
-                    ),
-                  );
-                },
-              ),
-            ),
+          const SizedBox(height: 14),
+          const Wrap(
+            alignment: WrapAlignment.center,
+            children: [
+              CollectionColorCircleButton(buttonIndex: 0),
+              CollectionColorCircleButton(buttonIndex: 1),
+              CollectionColorCircleButton(buttonIndex: 2),
+              CollectionColorCircleButton(buttonIndex: 3),
+              CollectionColorCircleButton(buttonIndex: 4),
+              CollectionColorCircleButton(buttonIndex: 5),
+              CollectionColorCircleButton(buttonIndex: 6),
+              CollectionColorCircleButton(buttonIndex: 7),
+            ],
           ),
         ],
       ),

@@ -5,6 +5,7 @@ import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/collections_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
+import 'collection_color_circle_button.dart';
 
 class ChangeCollectionDialog extends StatefulWidget {
   const ChangeCollectionDialog({
@@ -32,9 +33,11 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
   Widget build(BuildContext context) {
     final CollectionsState collectionsState = Provider.of<CollectionsState>(context, listen: false);
     return CupertinoAlertDialog(
+      title: const Text(AppStrings.changeCollection),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          const SizedBox(height: 14),
           CupertinoTextField(
             controller: _collectionController,
             autofocus: true,
@@ -42,31 +45,19 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
             placeholder: AppStrings.collectionTitle,
             clearButtonMode: OverlayVisibilityMode.editing,
           ),
-          const SizedBox(height: 10),
-          Center(
-            child: SizedBox(
-              height: 14,
-              child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                itemCount: AppStyles.collectionColors.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      collectionsState.setColorIndex = index;
-                    },
-                    child: Icon(
-                      context.watch<CollectionsState>().getColorIndex == index
-                          ? CupertinoIcons.checkmark_circle_fill
-                          : CupertinoIcons.circle_fill,
-                      color: AppStyles.collectionColors[index],
-                    ),
-                  );
-                },
-              ),
-            ),
+          const SizedBox(height: 14),
+          const Wrap(
+            alignment: WrapAlignment.center,
+            children: [
+              CollectionColorCircleButton(buttonIndex: 0),
+              CollectionColorCircleButton(buttonIndex: 1),
+              CollectionColorCircleButton(buttonIndex: 2),
+              CollectionColorCircleButton(buttonIndex: 3),
+              CollectionColorCircleButton(buttonIndex: 4),
+              CollectionColorCircleButton(buttonIndex: 5),
+              CollectionColorCircleButton(buttonIndex: 6),
+              CollectionColorCircleButton(buttonIndex: 7),
+            ],
           ),
         ],
       ),
