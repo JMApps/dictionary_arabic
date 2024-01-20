@@ -5,7 +5,9 @@ class AppStrings {
   static const String lastCollections = 'Последние коллекции';
   static const String allCollections = 'Все коллекции';
   static const String collectionsIfEmpty = 'Вы пока что не добавили ни одной коллекции';
+  static const String favoriteWordsIfEmpty = 'Вы пока что не добавили ни одного слова в данную коллекцию';
   static const String addCollection = 'Добавить коллекцию';
+  static const String changeCollection = 'Изменить коллекцию';
   static const String collectionTitle = 'Название коллекции...';
   static const String quiz = 'Викторина';
   static const String wordsConstructor = 'Конструктор слов';
@@ -30,4 +32,5 @@ class AppStrings {
   static const String orderDESC = 'В обратном порядке';
   static const String main = 'Главная';
   static const String queryIsEmpty = 'По вашему запросу ничего не найдено';
+  static const String toBack = 'Назад';
 }

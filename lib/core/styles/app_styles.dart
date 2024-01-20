@@ -23,6 +23,5 @@ class AppStyles {
     CupertinoColors.systemTeal,
     CupertinoColors.systemPurple,
     CupertinoColors.systemIndigo,
-    CupertinoColors.systemFill,
   ];
 }
