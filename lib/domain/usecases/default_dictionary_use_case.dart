@@ -16,9 +16,9 @@ class DefaultDictionaryUseCase {
     }
   }
 
-  Future<List<DictionaryEntity>> fetchSearchWords({required String arabic, required String translation}) async {
+  Future<List<DictionaryEntity>> fetchSearchWords({required String searchQuery}) async {
     try {
-      final List<DictionaryEntity> searchResultWords = await _dictionaryRepository.searchWords(arabic: arabic, translation: translation);
+      final List<DictionaryEntity> searchResultWords = await _dictionaryRepository.searchWords(searchQuery: searchQuery);
       return searchResultWords;
     } catch (e) {
       throw Exception('Get search words data error: $e');

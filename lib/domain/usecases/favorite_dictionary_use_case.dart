@@ -26,9 +26,9 @@ class FavoriteDictionaryUseCase {
     }
   }
 
-  Future<List<FavoriteDictionaryEntity>> fetchSearchFavoriteWords({required String arabic, required String translation}) async {
+  Future<List<FavoriteDictionaryEntity>> fetchSearchFavoriteWords({required String searchQuery}) async {
     try {
-      final List<FavoriteDictionaryEntity> searchFavoriteWords = await _favoriteDictionaryRepository.searchFavoriteWords(arabic: arabic, translation: translation);
+      final List<FavoriteDictionaryEntity> searchFavoriteWords = await _favoriteDictionaryRepository.searchFavoriteWords(searchQuery: searchQuery);
       return searchFavoriteWords;
     } catch (e) {
       throw Exception('Get search favorite words data error: $e');

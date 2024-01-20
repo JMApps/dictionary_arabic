@@ -18,10 +18,7 @@ class SearchWordsPage extends StatefulWidget {
 
 class _SearchWordsPageState extends State<SearchWordsPage> {
   final TextEditingController _wordsController = TextEditingController();
-  final DefaultDictionaryUseCase _dictionaryUseCase =
-      DefaultDictionaryUseCase(DefaultDictionaryDataRepository());
-  List<DictionaryEntity> _words = [];
-  List<DictionaryEntity> _recentWords = [];
+  final DefaultDictionaryUseCase _dictionaryUseCase = DefaultDictionaryUseCase(DefaultDictionaryDataRepository());
 
   @override
   Widget build(BuildContext context) {
@@ -53,40 +50,20 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
               ),
             ),
             child: FutureBuilder<List<DictionaryEntity>>(
-              future: _dictionaryUseCase.fetchAllWords(),
+              future: _dictionaryUseCase.fetchSearchWords(searchQuery: query.getQuery),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  _words = snapshot.data!;
-                  _recentWords = query.getQuery.isEmpty
-                      ? _words
-                      : _words.where((element) {
-                          return (element.arabicWordWH
-                                  .contains(query.getQuery.toLowerCase()) ||
-                              (element.shortMeaning?.contains(
-                                      query.getQuery.toLowerCase()) ??
-                                  false));
-                        }).toList();
-                  return Column(
-                    children: [
-                      const Text(
-                        'This is a my short text',
-                        style: TextStyle(),
-                      ),
-                      Expanded(
-                        child: CupertinoScrollbar(
-                          child: ListView.builder(
-                            itemCount: _recentWords.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              final DictionaryEntity model = _recentWords[index];
-                              return WordItem(
-                                model: model,
-                                index: index,
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
+                  return CupertinoScrollbar(
+                    child: ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final DictionaryEntity model = snapshot.data![index];
+                        return WordItem(
+                          model: model,
+                          index: index,
+                        );
+                      },
+                    ),
                   );
                 } else if (snapshot.hasError) {
                   return ErrorDataText(errorText: snapshot.error.toString());

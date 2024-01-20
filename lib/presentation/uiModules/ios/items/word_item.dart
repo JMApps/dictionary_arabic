@@ -14,7 +14,7 @@ class WordItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoListTile(
-      title: Text(model.arabicWord),
+      title: Text(model.arabicWordWH),
       subtitle: Text(model.shortMeaning ?? 'Перевод недоступен'),
     );
   }

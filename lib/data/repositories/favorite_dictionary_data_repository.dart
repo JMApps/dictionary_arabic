@@ -29,9 +29,9 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   }
 
   @override
-  Future<List<FavoriteDictionaryEntity>> searchFavoriteWords({required String arabic, required String translation}) async {
+  Future<List<FavoriteDictionaryEntity>> searchFavoriteWords({required String searchQuery}) async {
     final Database database = await _collectionsService.db;
-    final List<Map<String, Object?>> resources = await database.query(_tableName, where: 'arabic_word_wh LIKE ? OR short_meaning LIKE ?', whereArgs: ['$arabic%', '$translation%']);
+    final List<Map<String, Object?>> resources = await database.query(_tableName, where: 'arabic_word_wh LIKE ? OR short_meaning LIKE ?', whereArgs: ['$searchQuery%']);
     final List<FavoriteDictionaryEntity> searchFavoriteWords = resources.isNotEmpty ? resources.map((c) => _mapToEntity(FavoriteDictionaryModel.fromMap(c))).toList() : [];
     return searchFavoriteWords;
   }
