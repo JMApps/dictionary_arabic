@@ -1,11 +1,13 @@
-import 'package:arabic/core/styles/app_styles.dart';
-import 'package:arabic/presentation/uiModules/ios/widgets/delete_all_collections_dialog.dart';
-import 'package:arabic/presentation/uiModules/ios/widgets/delete_collection_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import '../../../../core/routes/route_names.dart';
+import '../../../../core/styles/app_styles.dart';
+import '../../../../domain/entities/args/collection_args.dart';
 import '../../../../domain/entities/collection_entity.dart';
 import '../widgets/change_collection_dialog.dart';
+import '../widgets/delete_all_collections_dialog.dart';
+import '../widgets/delete_collection_dialog.dart';
 
 class CollectionItem extends StatelessWidget {
   const CollectionItem({
@@ -38,7 +40,9 @@ class CollectionItem extends StatelessWidget {
             onPressed: (context) {
               showCupertinoDialog(
                 context: context,
-                builder: (context) => DeleteCollectionDialog(collectionId: model.id),
+                builder: (context) => DeleteCollectionDialog(
+                  collectionId: model.id,
+                ),
               );
             },
             backgroundColor: CupertinoColors.systemRed,
@@ -60,7 +64,11 @@ class CollectionItem extends StatelessWidget {
       ),
       child: CupertinoListTile(
         onTap: () {
-          // Navigate to collection page
+          Navigator.pushNamed(
+            context,
+            RouteNames.collectionDetailPage,
+            arguments: CollectionArgs(collectionEntity: model),
+          );
         },
         title: Text(model.title),
         leading: Icon(

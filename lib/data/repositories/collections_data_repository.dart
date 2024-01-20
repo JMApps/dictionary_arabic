@@ -30,7 +30,7 @@ class CollectionsDataRepository implements CollectionsRepository {
     final Database database = await _collectionsService.db;
     List<Map<String, dynamic>> result = await database.rawQuery('''
     SELECT COUNT(*) as wordCount
-    FROM $_tableName
+    FROM Table_of_favorite_words
     WHERE collectionId = ?
     ''', [collectionId]);
 
