@@ -74,30 +74,6 @@ class MainCupertinoPage extends StatelessWidget {
               ),
               children: [
                 CupertinoListTile(
-                  padding: AppStyles.mardingSymmetricHor,
-                  title: const Text(AppStrings.addCollection),
-                  onTap: () {
-                    showCupertinoDialog(
-                      context: context,
-                      builder: (context) {
-                        return const AddCollectionDialog();
-                      },
-                    );
-                  },
-                  trailing: const Icon(CupertinoIcons.add_circled),
-                ),
-              ],
-            ),
-            const SizedBox(height: 7),
-            CupertinoListSection.insetGrouped(
-              backgroundColor: CupertinoColors.systemBackground,
-              margin: AppStyles.mardingSymmetricHor,
-              decoration: const BoxDecoration(
-                color: CupertinoColors.systemFill,
-                borderRadius: AppStyles.mainBorderMini,
-              ),
-              children: [
-                CupertinoListTile(
                   onTap: () {
                     Navigator.pushNamed(context, RouteNames.allCollectionsPage);
                   },
@@ -122,6 +98,52 @@ class MainCupertinoPage extends StatelessWidget {
                   leading: const Icon(CupertinoIcons.creditcard),
                   trailing: const Icon(CupertinoIcons.forward),
                   title: const Text(AppStrings.cardMode),
+                ),
+              ],
+            ),
+            const SizedBox(height: 7),
+            CupertinoListSection.insetGrouped(
+              backgroundColor: CupertinoColors.systemBackground,
+              margin: AppStyles.mardingSymmetricHor,
+              decoration: const BoxDecoration(
+                color: CupertinoColors.systemFill,
+                borderRadius: AppStyles.mainBorderMini,
+              ),
+              children: [
+                CupertinoListTile(
+                  padding: AppStyles.mardingSymmetricHor,
+                  title: const Text(AppStrings.addCollection),
+                  onTap: () {
+                    showCupertinoDialog(
+                      context: context,
+                      builder: (context) {
+                        return const AddCollectionDialog();
+                      },
+                    );
+                  },
+                  trailing: const Icon(CupertinoIcons.add_circled),
+                ),
+              ],
+            ),
+            const SizedBox(height: 7),
+            CupertinoListSection.insetGrouped(
+              backgroundColor: CupertinoColors.systemBackground,
+              margin: AppStyles.mardingSymmetricHor,
+              decoration: const BoxDecoration(
+                color: CupertinoColors.systemFill,
+                borderRadius: AppStyles.mainBorderMini,
+              ),
+              children: [
+                CupertinoListTile(
+                  padding: AppStyles.mardingSymmetricHor,
+                  title: const Text(AppStrings.searchWords),
+                  onTap: () {
+                    showCupertinoModalPopup(
+                      context: context,
+                      builder: (_) => const SearchWordsPage(),
+                    );
+                  },
+                  trailing: const Icon(CupertinoIcons.search),
                 ),
               ],
             ),
