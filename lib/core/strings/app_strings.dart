@@ -34,4 +34,5 @@ class AppStrings {
   static const String queryIsEmpty = 'По вашему запросу ничего не найдено';
   static const String toBack = 'Назад';
   static const String startSearch = 'Начните поиск...';
+  static const String translationNotAvailable = 'Перевод недоступен';
 }

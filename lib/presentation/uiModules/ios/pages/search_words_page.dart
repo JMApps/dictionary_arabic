@@ -65,7 +65,7 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
             child: FutureBuilder<List<DictionaryEntity>>(
               future: _dictionaryUseCase.fetchSearchWords(searchQuery: query.getQuery),
               builder: (context, snapshot) {
-                if (snapshot.hasData && query.getQuery.isNotEmpty) {
+                if (snapshot.hasData && snapshot.data!.isNotEmpty && query.getQuery.isNotEmpty) {
                   return CupertinoScrollbar(
                     child: ListView.builder(
                       itemCount: snapshot.data!.length,
@@ -78,7 +78,7 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                       },
                     ),
                   );
-                } else if (!snapshot.hasData && query.getQuery.isNotEmpty) {
+                } else if (snapshot.data!.isEmpty && query.getQuery.isNotEmpty) {
                   return const DataText(text: AppStrings.queryIsEmpty);
                 } else if (snapshot.hasError) {
                   return ErrorDataText(errorText: snapshot.error.toString());

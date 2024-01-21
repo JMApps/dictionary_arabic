@@ -1,6 +1,7 @@
-import 'package:arabic/core/styles/app_styles.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../../core/strings/app_strings.dart';
+import '../../../../core/styles/app_styles.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 
 class WordItem extends StatelessWidget {
@@ -44,7 +45,7 @@ class WordItem extends StatelessWidget {
           ],
         ),
         subtitle: Text(
-          model.meaning ?? 'Перевод недоступен',
+          model.meaning ?? AppStrings.translationNotAvailable,
           style: const TextStyle(
             fontSize: 16,
             fontFamily: 'Arial',
