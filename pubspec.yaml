@@ -21,6 +21,7 @@ dependencies:
 
   # System
   path: ^1.8.3
+  unicode: ^0.3.1
 
   # Copy/Share
   share_plus: ^7.2.1
@@ -41,3 +42,12 @@ flutter:
 
   assets:
     - assets/databases/
+    - assets/fonts/
+
+  fonts:
+    - family: 'Arial'
+      fonts:
+        - asset: assets/fonts/arial.ttf
+    - family: 'Uthmanic'
+      fonts:
+        - asset: assets/fonts/uthmanic.ttf
