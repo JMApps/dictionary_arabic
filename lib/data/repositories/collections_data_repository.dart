@@ -2,8 +2,8 @@ import 'package:arabic/data/models/collection_model.dart';
 import 'package:arabic/data/services/collections_service.dart';
 import 'package:arabic/domain/entities/collection_entity.dart';
 import 'package:arabic/domain/repositories/collections_repository.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqflite.dart' as sql;
+import 'package:sqflite/sqflite.dart';
 
 class CollectionsDataRepository implements CollectionsRepository {
   final CollectionsService _collectionsService = CollectionsService();
