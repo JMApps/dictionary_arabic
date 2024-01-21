@@ -51,3 +51,6 @@ flutter:
     - family: 'Uthmanic'
       fonts:
         - asset: assets/fonts/uthmanic.ttf
+    - family: 'SF Pro'
+      fonts:
+        - asset: assets/fonts/sf_pro.ttf
