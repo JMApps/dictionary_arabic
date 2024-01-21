@@ -6,7 +6,7 @@ import '../../domain/repositories/search_values_repository.dart';
 import '../models/word_search_model.dart';
 import '../services/collections_service.dart';
 
-class CollectionsDataRepository implements SearchValuesRepository {
+class SearchValuesDataRepository implements SearchValuesRepository {
   final CollectionsService _collectionsService = CollectionsService();
   final String _tableName = 'Table_of_searched_values';
 
