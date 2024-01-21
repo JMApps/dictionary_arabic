@@ -25,21 +25,25 @@ class MainCupertinoPage extends StatelessWidget {
             Padding(
               padding: AppStyles.mardingWithoutBottomMini,
               child: CupertinoTextField(
-                readOnly: true,
-                prefix: const Padding(
-                  padding: EdgeInsets.only(left: 7),
-                  child: Icon(
-                    CupertinoIcons.search,
-                    color: CupertinoColors.systemGrey,
-                  ),
-                ),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(9),
                   ),
                   color: CupertinoColors.systemGrey5,
                 ),
+                readOnly: true,
+                prefix: const Padding(
+                  padding: AppStyles.mardingOnlyLeftMini,
+                  child: Icon(
+                    CupertinoIcons.search,
+                    color: CupertinoColors.systemGrey,
+                  ),
+                ),
                 placeholder: AppStrings.searchWords,
+                placeholderStyle: const TextStyle(
+                  fontSize: 16,
+                  color: CupertinoColors.systemGrey,
+                ),
                 onTap: () {
                   showCupertinoModalPopup(
                     context: context,

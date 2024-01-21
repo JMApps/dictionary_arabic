@@ -1,13 +1,16 @@
-import 'package:arabic/data/repositories/default_dictionary_data_repository.dart';
-import 'package:arabic/data/state/words_search_state.dart';
-import 'package:arabic/domain/entities/dictionary_entity.dart';
-import 'package:arabic/domain/usecases/default_dictionary_use_case.dart';
-import 'package:arabic/presentation/uiModules/ios/items/word_item.dart';
-import 'package:arabic/presentation/uiModules/ios/widgets/error_data_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/strings/app_strings.dart';
+import '../../../../data/repositories/default_dictionary_data_repository.dart';
+import '../../../../data/state/search_values_state.dart';
+import '../../../../data/state/words_search_state.dart';
+import '../../../../domain/entities/dictionary_entity.dart';
+import '../../../../domain/usecases/default_dictionary_use_case.dart';
+import '../items/word_item.dart';
+import '../lists/search_values_list.dart';
+import '../widgets/data_text.dart';
+import '../widgets/error_data_text.dart';
 
 class SearchWordsPage extends StatefulWidget {
   const SearchWordsPage({super.key});
@@ -30,12 +33,22 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
       ],
       child: Consumer<WordsSearchState>(
         builder: (BuildContext context, WordsSearchState query, _) {
+          _wordsController.text = query.getQuery;
           return CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
               middle: CupertinoSearchTextField(
                 // не забыть закрывать клавиатуру
+                autofocus: true,
+                autocorrect: false,
                 onChanged: (value) {
                   query.setQuery = value;
+                },
+                onSubmitted: (value) async {
+                  if (value.trim().isNotEmpty) {
+                    await Provider.of<SearchValuesState>(context, listen: false).fetchAddSearchValue(
+                      searchValue: value.toLowerCase().trim(),
+                    );
+                  }
                 },
                 controller: _wordsController,
                 placeholder: AppStrings.searchWords,
@@ -52,7 +65,7 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
             child: FutureBuilder<List<DictionaryEntity>>(
               future: _dictionaryUseCase.fetchSearchWords(searchQuery: query.getQuery),
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
+                if (snapshot.hasData && query.getQuery.isNotEmpty) {
                   return CupertinoScrollbar(
                     child: ListView.builder(
                       itemCount: snapshot.data!.length,
@@ -65,10 +78,12 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                       },
                     ),
                   );
+                } else if (!snapshot.hasData && query.getQuery.isNotEmpty) {
+                  return const DataText(text: AppStrings.queryIsEmpty);
                 } else if (snapshot.hasError) {
                   return ErrorDataText(errorText: snapshot.error.toString());
                 } else {
-                  return const CupertinoActivityIndicator();
+                  return const SearchValuesList();
                 }
               },
             ),

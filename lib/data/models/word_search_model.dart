@@ -16,7 +16,7 @@ class WordSearchModel {
 
   Map<String, dynamic> toMap() {
     return {
-      searchValue: 'search_value',
+      'search_value': searchValue
     };
   }
 }

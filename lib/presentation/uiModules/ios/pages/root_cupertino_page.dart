@@ -1,5 +1,6 @@
 import 'package:arabic/core/routes/cupertino_routes.dart';
 import 'package:arabic/core/strings/app_strings.dart';
+import 'package:arabic/data/state/search_values_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +21,9 @@ class _RootCupertinoPageState extends State<RootCupertinoPage> {
       providers: [
         ChangeNotifierProvider(
           create: (_) => CollectionsState(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SearchValuesState(),
         ),
       ],
       child: const CupertinoApp(
