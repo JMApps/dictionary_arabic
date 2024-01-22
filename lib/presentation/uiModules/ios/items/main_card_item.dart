@@ -18,42 +18,47 @@ class MainCardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: AppStyles.mainMarding,
-      decoration: const BoxDecoration(
-        borderRadius: AppStyles.mainBorderMini,
-        color: CupertinoColors.quaternarySystemFill,
-      ),
-      child: CupertinoButton(
-        onPressed: () {
-          Navigator.pushNamed(context, routeName);
-        },
-        padding: EdgeInsets.zero,
-        borderRadius: BorderRadius.zero,
-        alignment: Alignment.centerLeft,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(
-              iconName,
-              color: color,
-              size: 30,
+    return CupertinoListSection.insetGrouped(
+      margin: EdgeInsets.zero,
+      children: [
+        Container(
+          padding: AppStyles.mainMarding,
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            borderRadius: AppStyles.mainBorderMini,
+          ),
+          child: CupertinoButton(
+            onPressed: () {
+              Navigator.pushNamed(context, routeName);
+            },
+            padding: EdgeInsets.zero,
+            borderRadius: BorderRadius.zero,
+            alignment: Alignment.centerLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  iconName,
+                  color: color,
+                  size: 30,
+                ),
+                const SizedBox(height: 7),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: CupertinoColors.systemGrey,
+                    fontFamily: 'SF Pro',
+                    fontWeight: FontWeight.w600,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
-            const SizedBox(height: 7),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 16,
-                color: CupertinoColors.systemGrey,
-                fontFamily: 'SF Pro',
-                fontWeight: FontWeight.w600,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
