@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:arabic/data/services/default_dictionary_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/strings/app_constraints.dart';
+import 'data/services/default_dictionary_service.dart';
 import 'presentation/uiModules/android/pages/root_material_page.dart';
 import 'presentation/uiModules/ios/pages/root_cupertino_page.dart';
 

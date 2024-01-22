@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/strings/app_strings.dart';
+import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/collection_search_state.dart';
 import '../../../../data/state/collections_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
@@ -39,6 +40,7 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
           }
         },
         child: CupertinoPageScaffold(
+          backgroundColor: CupertinoColors.systemGroupedBackground,
           child: Consumer<CollectionSearchState>(
             builder: (BuildContext context, CollectionSearchState query, _) {
               return FutureBuilder<List<CollectionEntity>>(
@@ -83,15 +85,25 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                             ),
                           ),
                         ),
-                        SliverList.builder(
-                          itemCount: _recentCollections.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            final CollectionEntity model = _recentCollections[index];
-                            return CollectionItem(
-                              model: model,
-                              index: index,
-                            );
-                          },
+                        SliverToBoxAdapter(
+                          child: CupertinoListSection.insetGrouped(
+                            margin: AppStyles.mardingWithoutBottomMini,
+                            children: [
+                              ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: _recentCollections.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final CollectionEntity model = _recentCollections[index];
+                                  return CollectionItem(
+                                    model: model,
+                                    index: index,
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     );
