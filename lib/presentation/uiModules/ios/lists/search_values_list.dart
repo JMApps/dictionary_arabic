@@ -19,7 +19,7 @@ class _SearchValuesListState extends State<SearchValuesList> {
     return FutureBuilder<List<WordSearchEntity>>(
       future: Provider.of<SearchValuesState>(context).fetchAllSearchValues(),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasData && snapshot.data!.isNotEmpty) {
           return CupertinoScrollbar(
             child: ListView.builder(
               itemCount: snapshot.data!.length,
@@ -34,7 +34,13 @@ class _SearchValuesListState extends State<SearchValuesList> {
           );
         } else {
           return const Center(
-            child: Text(AppStrings.startSearch),
+            child: Text(
+              AppStrings.startSearch,
+              style: TextStyle(
+                fontSize: 22,
+                fontFamily: 'SF Pro',
+              ),
+            ),
           );
         }
       },
