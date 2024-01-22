@@ -24,6 +24,7 @@ class CollectionDetailPage extends StatefulWidget {
 
 class _CollectionDetailPageState extends State<CollectionDetailPage> {
   final TextEditingController _collectionsController = TextEditingController();
+  final FocusNode focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -33,62 +34,83 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
           create: (_) => FavoriteWordsState(),
         ),
       ],
-      child: CupertinoPageScaffold(
-        child: Consumer<FavoriteWordsState>(
-          builder: (BuildContext context, FavoriteWordsState favoriteWordsState, _) {
-            return FutureBuilder<List<FavoriteDictionaryEntity>>(
-              future: favoriteWordsState.fetchFavoriteWordsByCollectionId(
-                  collectionId: widget.collectionModel.id),
-              builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                  return CustomScrollView(
-                    slivers: [
-                      CupertinoSliverNavigationBar(
-                        stretch: true,
-                        middle: Text(widget.collectionModel.title),
-                        previousPageTitle: AppStrings.toBack,
-                        largeTitle: Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: CupertinoSearchTextField(
-                            // не забыть закрывать клавиатуру
-                            onChanged: (value) {},
-                            controller: _collectionsController,
-                            placeholder: AppStrings.searchCollections,
+      child: GestureDetector(
+        onTap: () {
+          if (!focusNode.hasFocus) {
+            FocusScope.of(context).unfocus();
+          }
+        },
+        child: CupertinoPageScaffold(
+          child: Consumer<FavoriteWordsState>(
+            builder: (context, favoriteWordsState, _) {
+              return FutureBuilder<List<FavoriteDictionaryEntity>>(
+                future: favoriteWordsState.fetchFavoriteWordsByCollectionId(
+                  collectionId: widget.collectionModel.id,
+                ),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                    return CustomScrollView(
+                      slivers: [
+                        CupertinoSliverNavigationBar(
+                          stretch: true,
+                          middle: Text(widget.collectionModel.title),
+                          previousPageTitle: AppStrings.toBack,
+                          largeTitle: Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: CupertinoSearchTextField(
+                              onChanged: (value) {
+                                // Поиск слов
+                              },
+                              controller: _collectionsController,
+                              placeholder: AppStrings.searchWords,
+                            ),
+                          ),
+                          trailing: CupertinoButton(
+                            padding: EdgeInsets.zero,
+                            child: const Text(
+                              AppStrings.add,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            onPressed: () {
+                              showCupertinoModalPopup(
+                                context: context,
+                                builder: (_) => const SearchWordsPage(),
+                              );
+                            },
                           ),
                         ),
-                        trailing: CupertinoButton(
-                          padding: EdgeInsets.zero,
-                          child: const Icon(CupertinoIcons.add_circled),
-                          onPressed: () {
-                            showCupertinoModalPopup(
-                              context: context,
-                              builder: (_) => const SearchWordsPage(),
-                            );
-                          },
+                        SliverToBoxAdapter(
+                          child: CupertinoListSection.insetGrouped(
+                            children: [
+                              ListView.builder(
+                                itemCount: snapshot.data!.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final FavoriteDictionaryEntity model =
+                                  snapshot.data![index];
+                                  return FavoriteWordItem(
+                                    model: model,
+                                    index: index,
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      SliverList.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final FavoriteDictionaryEntity model = snapshot.data![index];
-                          return FavoriteWordItem(
-                            model: model,
-                            index: index,
-                          );
-                        },
-                      ),
-                    ],
-                  );
-                } else if (snapshot.hasError) {
-                  return ErrorDataText(errorText: snapshot.error.toString());
-                } else {
-                  return FavoriteWordsIsEmptyPage(
-                    collectionTitle: widget.collectionModel.title,
-                  );
-                }
-              },
-            );
-          },
+                      ],
+                    );
+                  } else if (snapshot.hasError) {
+                    return ErrorDataText(errorText: snapshot.error.toString());
+                  } else {
+                    return FavoriteWordsIsEmptyPage(
+                      collectionTitle: widget.collectionModel.title,
+                    );
+                  }
+                },
+              );
+            },
+          ),
         ),
       ),
     );

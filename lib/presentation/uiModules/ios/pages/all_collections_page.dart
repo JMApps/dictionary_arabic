@@ -20,13 +20,13 @@ class AllCollectionsPage extends StatefulWidget {
 
 class _AllCollectionsPageState extends State<AllCollectionsPage> {
   final TextEditingController _collectionsController = TextEditingController();
+  final FocusNode focusNode = FocusNode();
   List<CollectionEntity> _collections = [];
   List<CollectionEntity> _recentCollections = [];
 
   @override
   Widget build(BuildContext context) {
     final CollectionsState collectionsState = Provider.of<CollectionsState>(context);
-    final FocusNode focusNode = FocusNode();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
