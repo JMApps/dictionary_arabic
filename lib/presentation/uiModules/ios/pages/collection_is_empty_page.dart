@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
-import '../widgets/add_collection_dialog.dart';
+import '../dialogs/add_collection_dialog.dart';
 
 class CollectionIsEmptyPage extends StatelessWidget {
   const CollectionIsEmptyPage({super.key});
@@ -15,7 +15,12 @@ class CollectionIsEmptyPage extends StatelessWidget {
         previousPageTitle: AppStrings.main,
         trailing: CupertinoButton(
           padding: EdgeInsets.zero,
-          child: const Icon(CupertinoIcons.add_circled),
+          child: const Text(
+            AppStrings.add,
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+            ),
+          ),
           onPressed: () {
             showCupertinoDialog(
               context: context,

@@ -7,12 +7,12 @@ import '../services/default_dictionary_service.dart';
 
 class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
   final DefaultDictionaryService _dictionaryService = DefaultDictionaryService();
-  final String tableName = 'Table_of_search_fts';
+  final String _tableName = 'Table_of_search_fts';
 
   @override
   Future<List<DictionaryEntity>> getAllWords() async {
     final Database database = await _dictionaryService.db;
-    final List<Map<String, Object?>> resources = await database.query(tableName);
+    final List<Map<String, Object?>> resources = await database.query(_tableName);
     final List<DictionaryEntity> allWords = resources.isNotEmpty ? resources.map((c) => _mapToEntity(DictionaryModel.fromMap(c))).toList() : [];
     return allWords;
   }
@@ -20,7 +20,7 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
   @override
   Future<DictionaryEntity> getWordById({required int wordId}) async {
     final Database database = await _dictionaryService.db;
-    final List<Map<String, Object?>> resources = await database.query(tableName, where: 'id = ?', whereArgs: [wordId]);
+    final List<Map<String, Object?>> resources = await database.query(_tableName, where: 'id = ?', whereArgs: [wordId]);
     final DictionaryEntity? wordById = resources.isNotEmpty ? _mapToEntity(DictionaryModel.fromMap(resources.first)) : null;
     return wordById!;
   }
@@ -29,7 +29,7 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
   Future<List<DictionaryEntity>> searchWords({required String searchQuery}) async {
     final Database database = await _dictionaryService.db;
     final List<Map<String, Object?>> resources = await database.rawQuery(
-        "SELECT * FROM $tableName WHERE arabic_word_wh MATCH ? OR short_meaning MATCH ?",
+        "SELECT * FROM $_tableName WHERE arabic_word_wh MATCH ? OR short_meaning MATCH ?",
         ['$searchQuery*', '$searchQuery*']
     );
     final List<DictionaryEntity> searchWords = resources.isNotEmpty ? resources.map((c) => _mapToEntity(DictionaryModel.fromMap(c))).toList() : [];

@@ -20,7 +20,12 @@ class FavoriteWordsIsEmptyPage extends StatelessWidget {
         previousPageTitle: AppStrings.toBack,
         trailing: CupertinoButton(
           padding: EdgeInsets.zero,
-          child: const Icon(CupertinoIcons.add_circled),
+          child: const Text(
+            AppStrings.add,
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+            ),
+          ),
           onPressed: () {
             showCupertinoModalPopup(
               context: context,

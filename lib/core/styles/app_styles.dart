@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class AppStyles {
-  static const mainBorder = BorderRadius.all(Radius.circular(14));
-  static const mainBorderMini = BorderRadius.all(Radius.circular(7));
+  static const mainBorder = BorderRadius.all(Radius.circular(18));
+  static const mainBorderMini = BorderRadius.all(Radius.circular(9));
 
   static const mainMarding = EdgeInsets.all(14);
   static const mainMardingMini = EdgeInsets.all(7);
@@ -25,6 +25,9 @@ class AppStyles {
 
   static const mardingOnlyLeft = EdgeInsets.only(left: 14);
   static const mardingOnlyLeftMini = EdgeInsets.only(left: 7);
+
+  static const mardingOnlyRight = EdgeInsets.only(right: 14);
+  static const mardingOnlyRightMini = EdgeInsets.only(right: 7);
 
   static const collectionColors = <Color>[
     CupertinoColors.systemBlue,

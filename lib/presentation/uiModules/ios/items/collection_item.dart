@@ -5,9 +5,9 @@ import '../../../../core/routes/route_names.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../domain/entities/args/collection_args.dart';
 import '../../../../domain/entities/collection_entity.dart';
-import '../widgets/change_collection_dialog.dart';
-import '../widgets/delete_all_collections_dialog.dart';
-import '../widgets/delete_collection_dialog.dart';
+import '../dialogs/change_collection_dialog.dart';
+import '../dialogs/delete_all_collections_dialog.dart';
+import '../dialogs/delete_collection_dialog.dart';
 
 class CollectionItem extends StatelessWidget {
   const CollectionItem({
@@ -63,6 +63,7 @@ class CollectionItem extends StatelessWidget {
         ],
       ),
       child: CupertinoListTile(
+        padding: AppStyles.mardingSymmetricHorMini,
         onTap: () {
           Navigator.pushNamed(
             context,
@@ -70,16 +71,23 @@ class CollectionItem extends StatelessWidget {
             arguments: CollectionArgs(collectionEntity: model),
           );
         },
-        title: Text(model.title),
+        title: Text(
+          model.title,
+          style: const TextStyle(
+            fontSize: 20,
+          ),
+        ),
         leading: Icon(
-          CupertinoIcons.tags_solid,
+          CupertinoIcons.tag_solid,
           color: AppStyles.collectionColors[model.color],
         ),
         trailing: const Icon(
           CupertinoIcons.forward,
           color: CupertinoColors.systemGrey2,
         ),
-        additionalInfo: Text(model.wordsCount.toString()),
+        additionalInfo: Text(
+          model.wordsCount.toString(),
+        ),
       ),
     );
   }

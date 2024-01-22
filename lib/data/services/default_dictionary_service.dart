@@ -24,7 +24,7 @@ class DefaultDictionaryService {
   Future<Database> initializeDatabase() async {
     const int dbVersion = 1;
     const String sfqDatabaseName = 'arabic_dictionary.db';
-    final databasePath = await getDatabasesPath();
+    final String databasePath = await getDatabasesPath();
     String path = join(databasePath, sfqDatabaseName);
 
     Database database = await openDatabase(path);

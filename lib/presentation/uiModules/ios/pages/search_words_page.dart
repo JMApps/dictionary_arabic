@@ -37,7 +37,6 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
           return CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
               middle: CupertinoSearchTextField(
-                // не забыть закрывать клавиатуру
                 autofocus: true,
                 autocorrect: false,
                 onChanged: (value) {

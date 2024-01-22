@@ -22,10 +22,6 @@ class MainCupertinoPage extends StatelessWidget {
             stretch: true,
             middle: Text(
               AppStrings.appName,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'SF Pro',
-              ),
             ),
             largeTitle: Padding(
               padding: AppStyles.mardingOnlyRight,

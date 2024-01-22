@@ -4,23 +4,35 @@ import 'package:provider/provider.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../data/state/collections_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
-import 'collection_color_circle_button.dart';
+import '../widgets/collection_color_circle_button.dart';
 
-class AddCollectionDialog extends StatefulWidget {
-  const AddCollectionDialog({super.key});
+class ChangeCollectionDialog extends StatefulWidget {
+  const ChangeCollectionDialog({
+    super.key,
+    required this.model,
+  });
+
+  final CollectionEntity model;
 
   @override
-  State<AddCollectionDialog> createState() => _AddCollectionDialogState();
+  State<ChangeCollectionDialog> createState() => _ChangeCollectionDialogState();
 }
 
-class _AddCollectionDialogState extends State<AddCollectionDialog> {
-  final TextEditingController _collectionController = TextEditingController();
+class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
+  late final TextEditingController _collectionController;
+
+  @override
+  void initState() {
+    _collectionController = TextEditingController(text: widget.model.title);
+    Provider.of<CollectionsState>(context, listen: false).setColorIndex = widget.model.color;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final CollectionsState collectionsState = Provider.of<CollectionsState>(context);
+    final CollectionsState collectionsState = Provider.of<CollectionsState>(context, listen: false);
     return CupertinoAlertDialog(
-      title: const Text(AppStrings.addCollection),
+      title: const Text(AppStrings.changeCollection),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -28,8 +40,21 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
           CupertinoTextField(
             controller: _collectionController,
             autofocus: true,
+            autocorrect: true,
             maxLength: 100,
-            placeholder: AppStrings.collectionTitle,
+            textAlign: TextAlign.center,
+            placeholder: AppStrings.title,
+            placeholderStyle: const TextStyle(
+              color: CupertinoColors.placeholderText,
+              fontFamily: 'SF Pro',
+              fontWeight: FontWeight.w900,
+              letterSpacing: 0.75,
+            ),
+            style: const TextStyle(
+              fontFamily: 'SF Pro',
+              fontWeight: FontWeight.w900,
+              letterSpacing: 0.75,
+            ),
             clearButtonMode: OverlayVisibilityMode.editing,
           ),
           const SizedBox(height: 14),
@@ -52,19 +77,25 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
         CupertinoButton(
           onPressed: () {
             if (_collectionController.text.trim().isNotEmpty) {
-              Navigator.pop(context);
-              final CollectionEntity model = CollectionEntity(
-                id: 0,
+              final CollectionEntity newModel = CollectionEntity(
+                id: widget.model.id,
                 title: _collectionController.text.trim(),
                 wordsCount: 0,
                 color: collectionsState.getColorIndex,
               );
-              collectionsState.addCollection(model: model);
-              collectionsState.setColorIndex = 0;
-              _collectionController.clear();
+              if (!widget.model.equals(newModel)) {
+                Navigator.pop(context);
+                collectionsState.changeCollection(model: newModel);
+                collectionsState.setColorIndex = 0;
+                _collectionController.clear();
+              } else {
+                Navigator.pop(context);
+                collectionsState.setColorIndex = 0;
+                _collectionController.clear();
+              }
             }
           },
-          child: const Text(AppStrings.add),
+          child: const Text(AppStrings.change),
         ),
         CupertinoButton(
           onPressed: () {

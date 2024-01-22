@@ -50,7 +50,7 @@ class CollectionsDataRepository implements CollectionsRepository {
       wordsCount: model.wordsCount,
       color: model.color,
     );
-    final int addCollection = await database.insert(_tableName, collectionModel.toMap(), conflictAlgorithm: sql.ConflictAlgorithm.ignore);
+    final int addCollection = await database.insert(_tableName, collectionModel.toMap(), conflictAlgorithm: sql.ConflictAlgorithm.replace);
     return addCollection;
   }
 

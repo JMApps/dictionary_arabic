@@ -9,7 +9,6 @@ class DeleteAllCollectionsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CollectionsState collectionsState = Provider.of<CollectionsState>(context, listen: false);
     return CupertinoAlertDialog(
       title: const Text(AppStrings.deletingCollections),
       content: const Text(AppStrings.deleteAllCollectionsQuestion),
@@ -17,7 +16,7 @@ class DeleteAllCollectionsDialog extends StatelessWidget {
         CupertinoButton(
           onPressed: () {
             Navigator.pop(context);
-            collectionsState.deleteAllCollections();
+            Provider.of<CollectionsState>(context, listen: false).deleteAllCollections();
           },
           child: const Text(AppStrings.delete),
         ),

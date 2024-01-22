@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 import '../../../../core/styles/app_styles.dart';
 
@@ -16,7 +15,7 @@ class ErrorDataText extends StatelessWidget {
     return Center(
       child: Padding(
         padding: AppStyles.mainMarding,
-        child: SelectableText(
+        child: Text(
           errorText,
           style: const TextStyle(
             fontSize: 18,

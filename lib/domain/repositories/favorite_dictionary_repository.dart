@@ -6,8 +6,6 @@ abstract class FavoriteDictionaryRepository {
 
   Future<List<FavoriteDictionaryEntity>> getFavoriteWordsByCollectionId({required int collectionId});
 
-  Future<List<FavoriteDictionaryEntity>> searchFavoriteWords({required String searchQuery});
-
   Future<FavoriteDictionaryEntity> getFavoriteWordById({required int favoriteWordId});
 
   Future<int> addFavoriteWord({required FavoriteDictionaryEntity model});

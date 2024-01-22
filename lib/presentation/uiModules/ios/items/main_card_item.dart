@@ -22,7 +22,7 @@ class MainCardItem extends StatelessWidget {
       padding: AppStyles.mainMarding,
       decoration: const BoxDecoration(
         borderRadius: AppStyles.mainBorderMini,
-        color: CupertinoColors.systemFill,
+        color: CupertinoColors.quaternarySystemFill,
       ),
       child: CupertinoButton(
         onPressed: () {
