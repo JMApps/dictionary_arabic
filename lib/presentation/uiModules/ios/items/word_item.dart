@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 
@@ -34,31 +33,46 @@ class WordItem extends StatelessWidget {
                 textDirection: TextDirection.rtl,
               ),
               const SizedBox(width: 14),
-              Text(
-                model.plural ?? '',
-                style: const TextStyle(
-                  fontSize: 25,
-                  color: CupertinoColors.systemGrey2,
-                  fontFamily: 'Uthmanic',
+              model.forms != null ? Text.rich(
+                TextSpan(
+                  children: [
+                    if (model.forms!.contains('мн.'))
+                      const TextSpan(
+                        text: 'мн.',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: CupertinoColors.systemGrey2,
+                          fontFamily: 'Arial',
+                        ),
+                      ),
+                    TextSpan(
+                      text: model.forms!.replaceAll('мн.', ''),
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: CupertinoColors.systemGrey2,
+                        fontFamily: 'Uthmanic',
+                      ),
+                    ),
+                  ],
                 ),
-                textDirection: TextDirection.rtl,
-              ),
+                textDirection: TextDirection.ltr,
+              ) : const SizedBox(),
             ],
           ),
           trailing: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              model.other != null
+              model.form != null
                   ? Text(
-                      model.other!,
+                      model.form!,
                       style: const TextStyle(
                         fontFamily: 'Uthmanic',
                       ),
                     )
                   : const SizedBox(),
               Text(
-                model.arabicRoot,
+                model.root,
                 style: const TextStyle(
                   color: CupertinoColors.systemBlue,
                   fontFamily: 'Uthmanic',
@@ -71,9 +85,7 @@ class WordItem extends StatelessWidget {
         subtitle: CupertinoListTile(
           padding: AppStyles.mardingSymmetricHorMini,
           title: Text(
-            formatMeaning(
-              model.meaning ?? AppStrings.translationNotAvailable,
-            ),
+            model.translation.replaceAll('\\n', '\n'),
             style: const TextStyle(
               fontSize: 18,
               fontFamily: 'Arial',
@@ -82,16 +94,14 @@ class WordItem extends StatelessWidget {
             maxLines: 4,
             overflow: TextOverflow.ellipsis,
           ),
-          trailing: const Icon(CupertinoIcons.bookmark),
+          trailing: CupertinoButton(
+            onPressed: () {
+              // Открыть окно для добавления слова в избранное
+            },
+            child: const Icon(CupertinoIcons.bookmark),
+          ),
         ),
       ),
-    );
-  }
-
-  String formatMeaning(String meaning) {
-    return meaning.replaceAllMapped(
-        RegExp(r'(\d{1,2})\)\s*([^;]+); '),
-            (match) => '${match[1]}) ${match[2]};\n'
     );
   }
 }

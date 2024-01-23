@@ -1,10 +1,10 @@
-import 'package:arabic/data/state/exact_match_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/routes/cupertino_routes.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../data/state/collections_state.dart';
+import '../../../../data/state/exact_match_state.dart';
 import '../../../../data/state/search_values_state.dart';
 import 'main_cupertino_page.dart';
 
