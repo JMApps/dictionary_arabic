@@ -28,7 +28,7 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
   @override
   Future<List<DictionaryEntity>> searchWords({required String searchQuery, required bool exactMatch,}) async {
     final Database database = await _dictionaryService.db;
-    final List<Map<String, Object?>> resources = await database.rawQuery("SELECT * FROM Table_of_search s JOIN Table_of_dictionary d ON s.article_id = d.nr WHERE s.rowid IN (SELECT rowid FROM Table_of_search WHERE translation MATCH ? OR arabic MATCH ?)",
+    final List<Map<String, Object?>> resources = await database.rawQuery("SELECT s.article_id, s.translation, s.arabic, d.id, d.nr, d.arabic_word, d.form, d.vocalization, d.root, d.forms FROM Table_of_search s JOIN Table_of_dictionary d ON s.article_id = d.nr WHERE s.rowid IN (SELECT rowid FROM Table_of_search WHERE translation MATCH ? OR arabic MATCH ?)",
         exactMatch ? ['"$searchQuery"', '"$searchQuery"'] : ['$searchQuery*', '$searchQuery*']
     );
     final List<DictionaryEntity> searchWords = resources.isNotEmpty ? resources.map((c) => _mapToEntity(DictionaryModel.fromMap(c))).toList() : [];

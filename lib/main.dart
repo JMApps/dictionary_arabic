@@ -24,6 +24,6 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox(AppConstraints.keyMainAppSettingsBox);
   runApp(
-    Platform.isIOS ? const RootCupertinoPage() : const RootMaterialPage(),
+    Platform.isIOS ? const RootCupertinoPage() : const RootCupertinoPage(),
   );
 }
