@@ -13,7 +13,7 @@ class SearchValuesDataRepository implements SearchValuesRepository {
   @override
   Future<List<WordSearchEntity>> getAllSearchValues() async {
     final Database database = await _collectionsService.db;
-    final List<Map<String, Object?>> resources = await database.query(_tableName);
+    final List<Map<String, Object?>> resources = await database.query(_tableName, orderBy: 'id DESC');
     final List<WordSearchEntity> allSearchValues = resources.isNotEmpty ? resources.map((c) => _mapToEntity(WordSearchModel.fromMap(c))).toList() : [];
     return allSearchValues;
   }

@@ -1,7 +1,9 @@
+import 'package:arabic/data/state/exact_match_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/strings/app_strings.dart';
+import '../../../../core/styles/app_styles.dart';
 import '../../../../data/repositories/default_dictionary_data_repository.dart';
 import '../../../../data/state/search_values_state.dart';
 import '../../../../data/state/words_search_state.dart';
@@ -61,30 +63,54 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                 child: const Text(AppStrings.cancel),
               ),
             ),
-            child: FutureBuilder<List<DictionaryEntity>>(
-              future: _dictionaryUseCase.fetchSearchWords(searchQuery: query.getQuery),
-              builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.data!.isNotEmpty && query.getQuery.isNotEmpty) {
-                  return CupertinoScrollbar(
-                    child: ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final DictionaryEntity model = snapshot.data![index];
-                        return WordItem(
-                          model: model,
-                          index: index,
-                        );
-                      },
-                    ),
-                  );
-                } else if (snapshot.data!.isEmpty && query.getQuery.isNotEmpty) {
-                  return const DataText(text: AppStrings.queryIsEmpty);
-                } else if (snapshot.hasError) {
-                  return ErrorDataText(errorText: snapshot.error.toString());
-                } else {
-                  return const SearchValuesList();
-                }
-              },
+            child: SafeArea(
+              right: false,
+              left: false,
+              bottom: false,
+              child: FutureBuilder<List<DictionaryEntity>>(
+                future: _dictionaryUseCase.fetchSearchWords(
+                  searchQuery: query.getQuery,
+                  exactMatch: Provider.of<ExactMatchState>(context).getExactMatch,
+                ),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData && snapshot.data!.isNotEmpty && query.getQuery.isNotEmpty) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
+                          padding: AppStyles.mainMardingMini,
+                          child: Text(
+                            '${AppStrings.matchesFound}${snapshot.data!.length}',
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'SF Pro',
+                              letterSpacing: 0.75,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: CupertinoScrollbar(
+                            child: ListView.builder(
+                              padding: EdgeInsets.zero,
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final DictionaryEntity model = snapshot.data![index];
+                                return WordItem(model: model, index: index);
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  } else if (snapshot.data!.isEmpty && query.getQuery.isNotEmpty) {
+                    return const DataText(text: AppStrings.queryIsEmpty);
+                  } else if (snapshot.hasError) {
+                    return ErrorDataText(errorText: snapshot.error.toString());
+                  } else {
+                    return const SearchValuesList();
+                  }
+                },
+              ),
             ),
           );
         },

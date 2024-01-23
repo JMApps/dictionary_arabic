@@ -1,3 +1,4 @@
+import 'package:arabic/data/state/exact_match_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +25,9 @@ class _RootCupertinoPageState extends State<RootCupertinoPage> {
         ),
         ChangeNotifierProvider(
           create: (_) => SearchValuesState(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ExactMatchState(),
         ),
       ],
       child: const CupertinoApp(
