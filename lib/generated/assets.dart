@@ -5,6 +5,9 @@ class Assets {
   static const String databasesArabicDictionary = 'assets/databases/arabic_dictionary.db';
   static const String databasesCollections = 'assets/databases/collections.db';
   static const String fontsArial = 'assets/fonts/arial.ttf';
+  static const String fontsGothamPro = 'assets/fonts/gotham_pro.ttf';
+  static const String fontsGothamProLight = 'assets/fonts/gotham_pro_light.ttf';
+  static const String fontsGothamProMedium = 'assets/fonts/gotham_pro_medium.ttf';
   static const String fontsSfPro = 'assets/fonts/sf_pro.ttf';
   static const String fontsUthmanic = 'assets/fonts/uthmanic.ttf';
 

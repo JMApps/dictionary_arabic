@@ -54,3 +54,11 @@ flutter:
     - family: 'SF Pro'
       fonts:
         - asset: assets/fonts/sf_pro.ttf
+    - family: 'Gotham'
+      fonts:
+        - asset: assets/fonts/gotham_pro_light.ttf
+          weight: 400
+        - asset: assets/fonts/gotham_pro.ttf
+          weight: 500
+        - asset: assets/fonts/gotham_pro_medium.ttf
+          weight: 600
