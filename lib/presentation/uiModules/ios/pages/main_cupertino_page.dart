@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/routes/route_names.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
+import '../../../../data/state/exact_match_state.dart';
 import '../items/main_card_item.dart';
 import '../lists/main_collections_list.dart';
 import '../widgets/add_collection_button.dart';
@@ -14,11 +16,11 @@ class MainCupertinoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoPageScaffold(
+    return CupertinoPageScaffold(
       backgroundColor: CupertinoColors.systemGroupedBackground,
       child: CustomScrollView(
         slivers: [
-          CupertinoSliverNavigationBar(
+          const CupertinoSliverNavigationBar(
             stretch: true,
             middle: Text(
               AppStrings.appName,
@@ -29,10 +31,30 @@ class MainCupertinoPage extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(
+            child: Consumer<ExactMatchState>(
+              builder: (BuildContext context, ExactMatchState matchState, _) {
+                return CupertinoListTile(
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                  title: const Text(AppStrings.exactMatch),
+                  trailing: Transform.scale(
+                    scale: 0.85,
+                    child: CupertinoSwitch(
+                      value: matchState.getExactMatch,
+                      onChanged: (value) {
+                        matchState.setExactMatch = value;
+                      },
+                      activeColor: CupertinoColors.systemBlue,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          const SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 14),
+                SizedBox(height: 7),
                 Row(
                   children: [
                     SizedBox(width: 14),
@@ -83,7 +105,7 @@ class MainCupertinoPage extends StatelessWidget {
               ],
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: CupertinoListTile(
               padding: AppStyles.mainMarding,
               title: Text(
@@ -100,7 +122,7 @@ class MainCupertinoPage extends StatelessWidget {
               trailing: AddCollectionButton(),
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: MainCollectionsList(shortCollection: true),
           ),
         ],

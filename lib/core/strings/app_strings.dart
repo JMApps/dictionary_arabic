@@ -33,4 +33,6 @@ class AppStrings {
   static const String toBack = 'Назад';
   static const String startSearch = 'Начните поиск...';
   static const String translationNotAvailable = 'Перевод недоступен';
+  static const String matchesFound = 'Найдено совпадений: ';
+  static const String exactMatch = 'Точное совпадение';
 }

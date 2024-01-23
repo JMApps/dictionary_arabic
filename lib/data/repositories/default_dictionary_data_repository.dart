@@ -26,11 +26,11 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
   }
 
   @override
-  Future<List<DictionaryEntity>> searchWords({required String searchQuery}) async {
+  Future<List<DictionaryEntity>> searchWords({required String searchQuery, required bool exactMatch}) async {
     final Database database = await _dictionaryService.db;
     final List<Map<String, Object?>> resources = await database.rawQuery(
-        "SELECT * FROM $_tableName WHERE arabic_word_wh MATCH ? OR short_meaning MATCH ?",
-        ['$searchQuery*', '$searchQuery*']
+        "SELECT * FROM $_tableName WHERE arabic_word_wh MATCH ? OR meaning MATCH ?",
+        exactMatch ? ['"$searchQuery"', '"$searchQuery"'] : ['$searchQuery*', '$searchQuery*']
     );
     final List<DictionaryEntity> searchWords = resources.isNotEmpty ? resources.map((c) => _mapToEntity(DictionaryModel.fromMap(c))).toList() : [];
     return searchWords;
