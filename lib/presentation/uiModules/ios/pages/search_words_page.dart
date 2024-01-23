@@ -102,7 +102,7 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                         ),
                       ],
                     );
-                  } else if (snapshot.data!.isEmpty && query.getQuery.isNotEmpty) {
+                  } else if (snapshot.hasData && query.getQuery.isNotEmpty) {
                     return const DataText(text: AppStrings.queryIsEmpty);
                   } else if (snapshot.hasError) {
                     return ErrorDataText(errorText: snapshot.error.toString());

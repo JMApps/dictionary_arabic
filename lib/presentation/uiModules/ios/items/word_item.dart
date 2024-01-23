@@ -16,62 +16,82 @@ class WordItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: AppStyles.mardingOnlyBottomMini,
+    return Padding(
+      padding: AppStyles.mardingOnlyBottomMini,
       child: CupertinoListTile(
-        onTap: () {},
+        padding: AppStyles.mainMardingMini,
         backgroundColor: CupertinoColors.systemFill,
-        padding: AppStyles.mainMarding,
-        title: Row(
-          children: [
-            Text(
-              model.arabicWord,
-              style: const TextStyle(
-                fontSize: 30,
-                fontFamily: 'Uthmanic',
+        title: CupertinoListTile(
+          padding: AppStyles.mardingSymmetricHor,
+          title: Row(
+            children: [
+              Text(
+                model.arabicWord,
+                style: const TextStyle(
+                  fontSize: 35,
+                  fontFamily: 'Uthmanic',
+                ),
+                textDirection: TextDirection.rtl,
               ),
-            ),
-            const SizedBox(width: 7),
-            model.plural != null
-                ? Text(
-                    model.plural!,
-                    style: const TextStyle(
-                      color: CupertinoColors.systemGrey2,
-                      fontSize: 20,
-                      fontFamily: 'Uthmanic',
-                    ),
-                  )
-                : const SizedBox()
-          ],
-        ),
-        subtitle: Text(
-          model.meaning ?? AppStrings.translationNotAvailable,
-          style: const TextStyle(
-            fontSize: 16,
-            fontFamily: 'Arial',
-            height: 1.5,
+              const SizedBox(width: 14),
+              Text(
+                model.plural ?? '',
+                style: const TextStyle(
+                  fontSize: 25,
+                  color: CupertinoColors.systemGrey2,
+                  fontFamily: 'Uthmanic',
+                ),
+                textDirection: TextDirection.rtl,
+              ),
+            ],
           ),
-          maxLines: 4,
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              model.other != null
+                  ? Text(
+                      model.other!,
+                      style: const TextStyle(
+                        fontFamily: 'Uthmanic',
+                      ),
+                    )
+                  : const SizedBox(),
+              Text(
+                model.arabicRoot,
+                style: const TextStyle(
+                  color: CupertinoColors.systemBlue,
+                  fontFamily: 'Uthmanic',
+                ),
+                textDirection: TextDirection.rtl,
+              ),
+            ],
+          ),
         ),
-        trailing: Column(
-          children: [
-            Text(
-              model.other ?? '',
-              style: const TextStyle(
-                fontSize: 14,
-                fontFamily: 'Arial',
-              ),
+        subtitle: CupertinoListTile(
+          padding: AppStyles.mardingSymmetricHorMini,
+          title: Text(
+            formatMeaning(
+              model.meaning ?? AppStrings.translationNotAvailable,
             ),
-            Text(
-              model.arabicRoot,
-              style: const TextStyle(
-                fontSize: 14,
-                fontFamily: 'Uthmanic',
-              ),
+            style: const TextStyle(
+              fontSize: 18,
+              fontFamily: 'Arial',
+              height: 1.5,
             ),
-          ],
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
+          ),
+          trailing: const Icon(CupertinoIcons.bookmark),
         ),
       ),
+    );
+  }
+
+  String formatMeaning(String meaning) {
+    return meaning.replaceAllMapped(
+        RegExp(r'(\d{1,2})\)\s*([^;]+); '),
+            (match) => '${match[1]}) ${match[2]};\n'
     );
   }
 }
