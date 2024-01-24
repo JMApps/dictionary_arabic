@@ -7,28 +7,49 @@ import '../services/default_dictionary_service.dart';
 
 class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
   final DefaultDictionaryService _dictionaryService = DefaultDictionaryService();
-  final String _tableName = 'Table_of_search';
+  final String _searchTable = 'Table_of_search';
+  final String _dataTable = 'Table_of_dictionary';
 
   @override
   Future<List<DictionaryEntity>> getAllWords() async {
     final Database database = await _dictionaryService.db;
-    final List<Map<String, Object?>> resources = await database.query(_tableName);
-    final List<DictionaryEntity> allWords = resources.isNotEmpty ? resources.map((c) => _mapToEntity(DictionaryModel.fromMap(c))).toList() : [];
+    final List<Map<String, Object?>> resources = await database.rawQuery(
+      "SELECT s.article_id, s.translation, s.arabic, d.id, d.nr, d.arabic_word, d.form, d.vocalization, d.root, d.forms "
+          "FROM $_searchTable s "
+          "INNER JOIN $_dataTable d ON s.article_id = d.nr "
+    );    final List<DictionaryEntity> allWords = resources.isNotEmpty ? resources.map((c) => _mapToEntity(DictionaryModel.fromMap(c))).toList() : [];
     return allWords;
+  }
+
+  @override
+  Future<List<DictionaryEntity>> getWordsByRoot({required String wordRoot}) async {
+    final Database database = await _dictionaryService.db;
+    final List<Map<String, Object?>> resources = await database.rawQuery(
+      "SELECT s.article_id, s.translation, s.arabic, d.id, d.nr, d.arabic_word, d.form, d.vocalization, d.root, d.forms "
+          "FROM $_searchTable s "
+          "INNER JOIN $_dataTable d ON s.article_id = d.nr "
+          "WHERE d.root = ?", [wordRoot],
+    );
+    final List<DictionaryEntity> wordsByRoot = resources.isNotEmpty ? resources.map((c) => _mapToEntity(DictionaryModel.fromMap(c))).toList() : [];
+    return wordsByRoot;
   }
 
   @override
   Future<DictionaryEntity> getWordById({required int wordId}) async {
     final Database database = await _dictionaryService.db;
-    final List<Map<String, Object?>> resources = await database.query(_tableName, where: 'id = ?', whereArgs: [wordId]);
-    final DictionaryEntity? wordById = resources.isNotEmpty ? _mapToEntity(DictionaryModel.fromMap(resources.first)) : null;
+    final List<Map<String, Object?>> resources = await database.rawQuery(
+      "SELECT s.article_id, s.translation, s.arabic, d.id, d.nr, d.arabic_word, d.form, d.vocalization, d.root, d.forms "
+          "FROM $_searchTable s "
+          "INNER JOIN $_dataTable d ON s.article_id = d.nr "
+          "WHERE d.nr = ?", [wordId],
+    );    final DictionaryEntity? wordById = resources.isNotEmpty ? _mapToEntity(DictionaryModel.fromMap(resources.first)) : null;
     return wordById!;
   }
 
   @override
   Future<List<DictionaryEntity>> searchWords({required String searchQuery, required bool exactMatch,}) async {
     final Database database = await _dictionaryService.db;
-    final List<Map<String, Object?>> resources = await database.rawQuery("SELECT s.article_id, s.translation, s.arabic, d.id, d.nr, d.arabic_word, d.form, d.vocalization, d.root, d.forms FROM Table_of_search s JOIN Table_of_dictionary d ON s.article_id = d.nr WHERE s.rowid IN (SELECT rowid FROM Table_of_search WHERE translation MATCH ? OR arabic MATCH ?)",
+    final List<Map<String, Object?>> resources = await database.rawQuery("SELECT s.article_id, s.translation, s.arabic, d.id, d.nr, d.arabic_word, d.form, d.vocalization, d.root, d.forms FROM $_searchTable s JOIN $_dataTable d ON s.article_id = d.nr WHERE s.rowid IN (SELECT rowid FROM Table_of_search WHERE translation MATCH ? OR arabic MATCH ?)",
         exactMatch ? ['"$searchQuery"', '"$searchQuery"'] : ['$searchQuery*', '$searchQuery*']
     );
     final List<DictionaryEntity> searchWords = resources.isNotEmpty ? resources.map((c) => _mapToEntity(DictionaryModel.fromMap(c))).toList() : [];

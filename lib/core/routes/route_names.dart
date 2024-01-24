@@ -4,4 +4,5 @@ class RouteNames {
   static const String wordConstructorPage = '/word_constructor_page';
   static const String cardModePage = '/card_mode_page';
   static const String collectionDetailPage = '/collection_detail_page';
+  static const String wordDetailPage = '/word_detail_page';
 }

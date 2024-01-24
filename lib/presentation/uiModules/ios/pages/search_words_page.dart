@@ -59,7 +59,7 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                padding: EdgeInsets.zero,
+                padding: AppStyles.mardingOnlyLeftMini,
                 child: const Text(AppStrings.cancel),
               ),
             ),

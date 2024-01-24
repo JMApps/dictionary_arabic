@@ -35,4 +35,5 @@ class AppStrings {
   static const String translationNotAvailable = 'Перевод недоступен';
   static const String matchesFound = 'Найдено совпадений: ';
   static const String exactMatch = 'Точное совпадение';
+  static const String cognates = 'Однокоренные слова';
 }

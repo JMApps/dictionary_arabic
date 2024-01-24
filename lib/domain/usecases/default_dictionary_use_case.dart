@@ -16,6 +16,15 @@ class DefaultDictionaryUseCase {
     }
   }
 
+  Future<List<DictionaryEntity>> fetchWordsByRoot({required String wordRoot}) async {
+    try {
+      final List<DictionaryEntity> wordsByRoot = await _dictionaryRepository.getWordsByRoot(wordRoot: wordRoot);
+      return wordsByRoot;
+    } catch (e) {
+      throw Exception('Get words by root data error: $e');
+    }
+  }
+
   Future<List<DictionaryEntity>> fetchSearchWords({required String searchQuery, required bool exactMatch}) async {
     try {
       final List<DictionaryEntity> searchResultWords = await _dictionaryRepository.searchWords(searchQuery: searchQuery, exactMatch: exactMatch);
