@@ -1,6 +1,8 @@
+import 'package:arabic/presentation/uiModules/ios/widgets/data_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/collections_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
@@ -36,10 +38,10 @@ class MainCollectionsList extends StatelessWidget {
               ),
             ],
           );
+        } else if (snapshot.hasData && snapshot.data!.isEmpty) {
+          return const DataText(text: AppStrings.createCollectionsWithWords);
         } else if (snapshot.hasError) {
-          return ErrorDataText(
-            errorText: snapshot.error.toString(),
-          );
+          return ErrorDataText(errorText: snapshot.error.toString());
         } else {
           return const SizedBox();
         }
