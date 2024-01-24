@@ -19,7 +19,7 @@ class MainCollectionsList extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
           return CupertinoListSection.insetGrouped(
-            margin: AppStyles.mardingSymmetricHorMini,
+            margin: AppStyles.mardingSymmetricHor,
             children: [
               ListView.builder(
                 padding: EdgeInsets.zero,

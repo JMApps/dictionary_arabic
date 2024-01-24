@@ -21,7 +21,7 @@ class CollectionsOrderButton extends StatelessWidget {
               children: [
                 CupertinoListSection.insetGrouped(
                   header: const Text(AppStrings.orderCollection),
-                  margin: AppStyles.mardingSymmetricHor,
+                  margin: AppStyles.mardingWithoutBottom,
                   decoration: const BoxDecoration(
                     borderRadius: AppStyles.mainBorderMini,
                     color: CupertinoColors.quaternarySystemFill,
@@ -62,7 +62,7 @@ class CollectionsOrderButton extends StatelessWidget {
                 CupertinoListSection.insetGrouped(
                   header: const Text(AppStrings.order),
                   footer: const SizedBox(height: 14),
-                  margin: AppStyles.mardingSymmetricHor,
+                  margin: AppStyles.mardingWithoutBottom,
                   decoration: const BoxDecoration(
                     borderRadius: AppStyles.mainBorderMini,
                     color: CupertinoColors.quaternarySystemFill,
