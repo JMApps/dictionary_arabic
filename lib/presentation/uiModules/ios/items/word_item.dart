@@ -33,48 +33,68 @@ class WordItem extends StatelessWidget {
                 textDirection: TextDirection.rtl,
               ),
               const SizedBox(width: 14),
-              model.forms != null ? Text.rich(
-                TextSpan(
-                  children: [
-                    if (model.forms!.contains('мн.'))
-                      const TextSpan(
-                        text: 'мн.',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: CupertinoColors.systemGrey2,
-                          fontFamily: 'Arial',
-                        ),
+              model.forms != null
+                  ? Text.rich(
+                      TextSpan(
+                        children: [
+                          if (model.forms!.contains('мн.'))
+                            const TextSpan(
+                              text: 'мн.',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: CupertinoColors.systemGrey2,
+                                fontFamily: 'Arial',
+                              ),
+                            ),
+                          TextSpan(
+                            text: model.forms!.replaceAll('мн.', ''),
+                            style: const TextStyle(
+                              fontSize: 22,
+                              color: CupertinoColors.systemGrey,
+                              fontFamily: 'Uthmanic',
+                            ),
+                          ),
+                        ],
                       ),
-                    TextSpan(
-                      text: model.forms!.replaceAll('мн.', ''),
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: CupertinoColors.systemGrey2,
-                        fontFamily: 'Uthmanic',
-                      ),
-                    ),
-                  ],
-                ),
-                textDirection: TextDirection.ltr,
-              ) : const SizedBox(),
+                      textDirection: TextDirection.ltr,
+                    )
+                  : const SizedBox(),
             ],
           ),
           trailing: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              model.form != null
-                  ? Text(
-                      model.form!,
-                      style: const TextStyle(
-                        fontFamily: 'Uthmanic',
-                      ),
-                    )
-                  : const SizedBox(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  model.vocalization != null
+                      ? Text(
+                    model.vocalization!,
+                    style: const TextStyle(
+                      fontSize: 17,
+                      color: CupertinoColors.systemGrey,
+                      fontFamily: 'Arial',
+                    ),
+                  )
+                      : const SizedBox(),
+                  const SizedBox(width: 7),
+                  model.form != null
+                      ? Text(
+                    model.form!,
+                    style: const TextStyle(
+                      fontFamily: 'SF Pro',
+                      letterSpacing: 0.5,
+                    ),
+                  )
+                      : const SizedBox(),
+                ],
+              ),
               Text(
                 model.root,
                 style: const TextStyle(
-                  color: CupertinoColors.systemBlue,
+                  fontSize: 20,
+                  color: CupertinoColors.systemRed,
                   fontFamily: 'Uthmanic',
                 ),
                 textDirection: TextDirection.rtl,
