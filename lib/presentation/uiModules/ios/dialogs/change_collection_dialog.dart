@@ -39,6 +39,7 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
           const SizedBox(height: 14),
           CupertinoTextField(
             controller: _collectionController,
+            textCapitalization: TextCapitalization.words,
             autofocus: true,
             autocorrect: true,
             maxLength: 100,

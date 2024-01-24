@@ -26,6 +26,7 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
         children: [
           const SizedBox(height: 14),
           CupertinoTextField(
+            textCapitalization: TextCapitalization.words,
             controller: _collectionController,
             autofocus: true,
             autocorrect: true,
