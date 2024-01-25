@@ -79,7 +79,7 @@ class WordItem extends StatelessWidget {
           );
         },
         padding: AppStyles.mainMardingMini,
-        backgroundColor: CupertinoColors.systemFill,
+        backgroundColor: CupertinoColors.quaternarySystemFill,
         title: CupertinoListTile(
           padding: AppStyles.mardingSymmetricHor,
           title: Row(
@@ -165,6 +165,7 @@ class WordItem extends StatelessWidget {
         subtitle: CupertinoListTile(
           padding: AppStyles.mardingSymmetricHorMini,
           title: RichText(
+            maxLines: 5,
             text: TextSpan(
               children: getSpans(model.translation, arabic),
             ),

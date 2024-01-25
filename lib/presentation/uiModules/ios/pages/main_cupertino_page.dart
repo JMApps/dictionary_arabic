@@ -54,7 +54,6 @@ class MainCupertinoPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 7),
                 Row(
                   children: [
                     SizedBox(width: 14),
@@ -107,7 +106,7 @@ class MainCupertinoPage extends StatelessWidget {
           ),
           const SliverToBoxAdapter(
             child: CupertinoListTile(
-              padding: AppStyles.mainMarding,
+              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 7),
               title: Text(
                 AppStrings.lastCollections,
                 style: TextStyle(

@@ -1,10 +1,10 @@
-import 'package:arabic/data/state/exact_match_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../data/repositories/default_dictionary_data_repository.dart';
+import '../../../../data/state/exact_match_state.dart';
 import '../../../../data/state/search_values_state.dart';
 import '../../../../data/state/words_search_state.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
@@ -37,6 +37,7 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
         builder: (BuildContext context, WordsSearchState query, _) {
           _wordsController.text = query.getQuery;
           return CupertinoPageScaffold(
+            backgroundColor: CupertinoColors.systemGroupedBackground,
             navigationBar: CupertinoNavigationBar(
               middle: CupertinoSearchTextField(
                 autofocus: true,

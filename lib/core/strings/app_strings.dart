@@ -37,4 +37,5 @@ class AppStrings {
   static const String exactMatch = 'Точное совпадение';
   static const String cognates = 'Однокоренные слова';
   static const String createCollectionsWithWords = 'Создавайте коллекции из нужных вам слов!';
+  static const String word = 'Слово';
 }
