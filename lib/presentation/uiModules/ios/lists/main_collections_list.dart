@@ -1,4 +1,3 @@
-import 'package:arabic/presentation/uiModules/ios/widgets/data_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -7,6 +6,7 @@ import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/collections_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
 import '../items/collection_item.dart';
+import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
 
 class MainCollectionsList extends StatelessWidget {
