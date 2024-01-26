@@ -22,7 +22,8 @@ class WordDetailPage extends StatefulWidget {
 }
 
 class _WordDetailPageState extends State<WordDetailPage> {
-  final DefaultDictionaryUseCase _dictionaryUseCase = DefaultDictionaryUseCase(DefaultDictionaryDataRepository());
+  final DefaultDictionaryUseCase _dictionaryUseCase =
+      DefaultDictionaryUseCase(DefaultDictionaryDataRepository());
 
   @override
   Widget build(BuildContext context) {
@@ -32,62 +33,64 @@ class _WordDetailPageState extends State<WordDetailPage> {
         if (snapshot.hasData) {
           return CupertinoPageScaffold(
             backgroundColor: CupertinoColors.systemGroupedBackground,
-            child: CustomScrollView(
-              slivers: [
-                CupertinoSliverNavigationBar(
-                  stretch: true,
-                  alwaysShowMiddle: false,
-                  middle: const Text(AppStrings.word),
-                  largeTitle: const Text(AppStrings.word),
-                  trailing: CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    child: const Icon(CupertinoIcons.share),
-                    onPressed: () {},
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      WordDetailItem(model: snapshot.data!),
-                      const Padding(
-                        padding: AppStyles.mainMardingMini,
-                        child: Text(
-                          AppStrings.cognates,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: CupertinoColors.systemBlue,
-                            fontFamily: 'SF Pro',
-                            letterSpacing: 0.5,
+            navigationBar: CupertinoNavigationBar(
+              middle: Text(snapshot.data!.root),
+              previousPageTitle: AppStrings.toBack,
+              trailing: CupertinoButton(
+                padding: EdgeInsets.zero,
+                child: const Icon(CupertinoIcons.share),
+                onPressed: () {},
+              ),
+            ),
+            child: SafeArea(
+              child: CupertinoScrollbar(
+                child: CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          WordDetailItem(model: snapshot.data!),
+                          const Padding(
+                            padding: AppStyles.mainMardingMini,
+                            child: Text(
+                              AppStrings.cognates,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: CupertinoColors.systemBlue,
+                                fontFamily: 'SF Pro',
+                                letterSpacing: 0.5,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      FutureBuilder<List<DictionaryEntity>>(
-                        future: _dictionaryUseCase.fetchWordsByRoot(wordRoot: snapshot.data!.root),
-                        builder: (context, wordRootsSnapshot) {
-                          if (wordRootsSnapshot.hasData && wordRootsSnapshot.data!.isNotEmpty) {
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              padding: EdgeInsets.zero,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: wordRootsSnapshot.data!.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final DictionaryEntity model = wordRootsSnapshot.data![index];
-                                return WordItem(
-                                  model: model,
-                                  index: index,
+                          FutureBuilder<List<DictionaryEntity>>(
+                            future: _dictionaryUseCase.fetchWordsByRoot(wordRoot: snapshot.data!.root),
+                            builder: (context, wordRootsSnapshot) {
+                              if (wordRootsSnapshot.hasData && wordRootsSnapshot.data!.isNotEmpty) {
+                                return ListView.builder(
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.zero,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: wordRootsSnapshot.data!.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    final DictionaryEntity model = wordRootsSnapshot.data![index];
+                                    return WordItem(
+                                      model: model,
+                                      index: index,
+                                    );
+                                  },
                                 );
-                              },
-                            );
-                          } else {
-                            return const CupertinoActivityIndicator();
-                          }
-                        },
+                              } else {
+                                return const CupertinoActivityIndicator();
+                              }
+                            },
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           );
         } else if (snapshot.hasError) {
