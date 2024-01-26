@@ -22,4 +22,8 @@ class DictionaryEntity {
     required this.root,
     required this.forms,
   });
+
+  String wordContent() {
+    return 'Слово: $arabicWord\n\n${form != null ? 'Форма: $form\n\n' : ''}${vocalization != null ? 'Вокализация: $vocalization\n\n' : ''}Корень: $root\n\n${forms != null ? 'Множественное число: $forms\n\n' : ''}Перевод:\n$translation';
+  }
 }
