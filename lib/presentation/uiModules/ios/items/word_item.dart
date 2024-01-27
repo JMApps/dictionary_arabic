@@ -4,6 +4,9 @@ import '../../../../core/routes/route_names.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../domain/entities/args/word_args.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
+import '../widgets/forms_text.dart';
+import '../widgets/share_word_button.dart';
+import '../widgets/translation_double.dart';
 
 class WordItem extends StatelessWidget {
   const WordItem({
@@ -17,57 +20,6 @@ class WordItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    RegExp arabic = RegExp(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+');
-    TextStyle defaultStyle = TextStyle(
-      fontSize: 18,
-      color: CupertinoColors.label.resolveFrom(context),
-      fontFamily: 'Arial',
-      height: 1.5,
-    );
-
-    TextStyle arabicStyle = const TextStyle(
-      fontSize: 18,
-      color: CupertinoColors.systemBlue,
-      fontFamily: 'Uthmanic',
-      height: 1.5,
-    );
-    List<TextSpan> getSpans(String text, RegExp regex) {
-      List<TextSpan> spans = [];
-
-      var matches = regex.allMatches(text);
-      int start = 0;
-
-      for (var match in matches) {
-        if (start < match.start) {
-          spans.add(
-            TextSpan(
-              text: text.substring(start, match.start).replaceAll('\\n', '\n'),
-              style: defaultStyle,
-            ),
-          );
-        }
-
-        spans.add(
-          TextSpan(
-            text: text.substring(match.start, match.end),
-            style: arabicStyle,
-          ),
-        );
-
-        start = match.end;
-      }
-
-      if (start < text.length) {
-        spans.add(
-          TextSpan(
-            text: text.substring(start).replaceAll('\\n', '\n'),
-            style: defaultStyle,
-          ),
-        );
-      }
-
-      return spans;
-    }
     return Padding(
       padding: AppStyles.mardingOnlyBottomMini,
       child: CupertinoListTile(
@@ -94,30 +46,7 @@ class WordItem extends StatelessWidget {
               ),
               const SizedBox(width: 14),
               model.forms != null
-                  ? Text.rich(
-                      TextSpan(
-                        children: [
-                          if (model.forms!.contains('мн.'))
-                            const TextSpan(
-                              text: 'мн.',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: CupertinoColors.systemGrey2,
-                                fontFamily: 'Arial',
-                              ),
-                            ),
-                          TextSpan(
-                            text: model.forms!.replaceAll('мн.', ''),
-                            style: const TextStyle(
-                              fontSize: 22,
-                              color: CupertinoColors.systemGrey,
-                              fontFamily: 'Uthmanic',
-                            ),
-                          ),
-                        ],
-                      ),
-                      textDirection: TextDirection.ltr,
-                    )
+                  ? FormsText(content: model.forms!)
                   : const SizedBox(),
             ],
           ),
@@ -164,17 +93,16 @@ class WordItem extends StatelessWidget {
         ),
         subtitle: CupertinoListTile(
           padding: AppStyles.mardingSymmetricHorMini,
-          title: RichText(
-            maxLines: 5,
-            text: TextSpan(
-              children: getSpans(model.translation, arabic),
-            ),
-          ),
-          trailing: CupertinoButton(
-            onPressed: () {
-              // Открыть окно для добавления слова в избранное
-            },
-            child: const Icon(CupertinoIcons.bookmark),
+          title: TranslationDouble(translation: model.translation),
+          trailing: Column(
+            children: [
+              CupertinoButton(
+                onPressed: () {},
+                child: const Icon(CupertinoIcons.bookmark),
+              ),
+              ShareWordButton(
+                  content: model.wordContent().replaceAll('\\n', '\n\n')),
+            ],
           ),
         ),
       ),

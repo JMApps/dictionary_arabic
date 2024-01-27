@@ -1,3 +1,4 @@
+import 'package:arabic/presentation/uiModules/ios/widgets/share_word_button.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/strings/app_strings.dart';
@@ -22,8 +23,7 @@ class WordDetailPage extends StatefulWidget {
 }
 
 class _WordDetailPageState extends State<WordDetailPage> {
-  final DefaultDictionaryUseCase _dictionaryUseCase =
-      DefaultDictionaryUseCase(DefaultDictionaryDataRepository());
+  final DefaultDictionaryUseCase _dictionaryUseCase = DefaultDictionaryUseCase(DefaultDictionaryDataRepository());
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +34,18 @@ class _WordDetailPageState extends State<WordDetailPage> {
           return CupertinoPageScaffold(
             backgroundColor: CupertinoColors.systemGroupedBackground,
             navigationBar: CupertinoNavigationBar(
-              middle: Text(snapshot.data!.root),
-              previousPageTitle: AppStrings.toBack,
-              trailing: CupertinoButton(
-                padding: EdgeInsets.zero,
-                child: const Icon(CupertinoIcons.share),
-                onPressed: () {},
+              middle: Text(
+                snapshot.data!.root,
+                style: const TextStyle(
+                  fontSize: 25,
+                  fontFamily: 'Uthmanic',
+                ),
               ),
+              previousPageTitle: AppStrings.toBack,
+              trailing: ShareWordButton(content: snapshot.data!.wordContent()),
             ),
             child: SafeArea(
+              bottom: false,
               child: CupertinoScrollbar(
                 child: CustomScrollView(
                   slivers: [
