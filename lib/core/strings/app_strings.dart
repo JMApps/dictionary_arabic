@@ -15,6 +15,8 @@ class AppStrings {
   static const String cardMode = 'Карточки';
   static const String add = 'Добавить';
   static const String change = 'Изменить';
+  static const String addToCollection = 'Добавить в коллекцию';
+  static const String addAllTranslation = 'Добавить весь перевод';
   static const String deletingCollection = 'Удаление коллекции';
   static const String deletingCollections = 'Удаление коллекций';
   static const String delete = 'Удалить';
