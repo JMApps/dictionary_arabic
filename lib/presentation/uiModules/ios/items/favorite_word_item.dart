@@ -16,7 +16,7 @@ class FavoriteWordItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoListTile(
       title: Text(model.arabicWord),
-      subtitle: Text(model.shortMeaning ?? 'Перевод недоступен'),
+      subtitle: Text(model.translation),
     );
   }
 }

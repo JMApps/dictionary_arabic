@@ -24,6 +24,7 @@ class TranslationDouble extends StatelessWidget {
       fontFamily: 'Uthmanic',
       height: 1.5,
     );
+
     List<TextSpan> translationDouble(String text, RegExp regex) {
       List<TextSpan> spans = [];
 
@@ -34,7 +35,10 @@ class TranslationDouble extends StatelessWidget {
         if (start < match.start) {
           spans.add(
             TextSpan(
-              text: text.substring(start, match.start).replaceAll('\\n', '\n'),
+              text: text
+                  .substring(start, match.start)
+                  .replaceAll('\\n', '\n')
+                  .replaceAll(';', ';\n'),
               style: translationStyle,
             ),
           );

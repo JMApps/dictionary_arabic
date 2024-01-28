@@ -1,5 +1,5 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqflite.dart' as sql;
+import 'package:sqflite/sqflite.dart';
 
 import '../../domain/entities/change_favorite_dictionary_entity.dart';
 import '../../domain/entities/favorite_dictionary_entity.dart';
@@ -40,15 +40,16 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   Future<int> addFavoriteWord({required FavoriteDictionaryEntity model}) async {
     final Database database = await _collectionsService.db;
     FavoriteDictionaryModel favoriteWordModel = FavoriteDictionaryModel(
-      id: 0,
+      articleId: model.articleId,
+      translation: model.translation,
+      arabic: model.arabic,
+      id: model.id,
+      nr: model.nr,
       arabicWord: model.arabicWord,
-      arabicWordWH: model.arabicWordWH,
-      arabicRoot: model.arabicRoot,
-      plural: model.plural,
-      meaning: model.meaning,
-      shortMeaning: model.shortMeaning,
-      other: model.other,
-      collectionId: model.collectionId,
+      form: model.form,
+      vocalization: model.vocalization,
+      root: model.root,
+      forms: model.forms,
     );
     final int addFavoriteWord = await database.insert(_tableName, favoriteWordModel.toMap(), conflictAlgorithm: sql.ConflictAlgorithm.replace);
     return addFavoriteWord;
@@ -75,15 +76,16 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   // Mapping to entity
   FavoriteDictionaryEntity _mapToEntity(FavoriteDictionaryModel model) {
     return FavoriteDictionaryEntity(
+      articleId: model.articleId,
+      translation: model.translation,
+      arabic: model.arabic,
       id: model.id,
+      nr: model.nr,
       arabicWord: model.arabicWord,
-      arabicWordWH: model.arabicWordWH,
-      arabicRoot: model.arabicRoot,
-      plural: model.plural,
-      meaning: model.meaning,
-      shortMeaning: model.shortMeaning,
-      other: model.other,
-      collectionId: model.collectionId,
+      form: model.form,
+      vocalization: model.vocalization,
+      root: model.root,
+      forms: model.forms,
     );
   }
 }

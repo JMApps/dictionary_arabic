@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../core/styles/app_styles.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
+import '../widgets/add_favorite_word_button.dart';
 
 class WordDetailItem extends StatefulWidget {
   const WordDetailItem({
@@ -165,6 +166,7 @@ class _WordDetailItemState extends State<WordDetailItem> {
               children: getSpans(widget.model.translation, arabic),
             ),
           ),
+          AddFavoriteWordButton(nr: widget.model.nr),
         ],
       ),
     );

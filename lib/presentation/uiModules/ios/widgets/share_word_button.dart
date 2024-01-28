@@ -18,6 +18,7 @@ class ShareWordButton extends StatelessWidget {
           sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
         );
       },
+      padding: EdgeInsets.zero,
       child: const Icon(CupertinoIcons.share),
     );
   }

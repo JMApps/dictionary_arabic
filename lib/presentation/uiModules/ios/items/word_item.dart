@@ -4,6 +4,7 @@ import '../../../../core/routes/route_names.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../domain/entities/args/word_args.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
+import '../widgets/add_favorite_word_button.dart';
 import '../widgets/forms_text.dart';
 import '../widgets/share_word_button.dart';
 import '../widgets/translation_double.dart';
@@ -96,12 +97,8 @@ class WordItem extends StatelessWidget {
           title: TranslationDouble(translation: model.translation),
           trailing: Column(
             children: [
-              CupertinoButton(
-                onPressed: () {},
-                child: const Icon(CupertinoIcons.bookmark),
-              ),
-              ShareWordButton(
-                  content: model.wordContent().replaceAll('\\n', '\n\n')),
+              AddFavoriteWordButton(nr: model.nr),
+              ShareWordButton(content: model.wordContent().replaceAll('\\n', '\n\n')),
             ],
           ),
         ),
