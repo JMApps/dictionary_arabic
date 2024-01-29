@@ -32,8 +32,8 @@ class CollectionItem extends StatelessWidget {
                 builder: (context) => ChangeCollectionDialog(model: model),
               );
             },
-            backgroundColor: CupertinoColors.systemGreen,
-            icon: CupertinoIcons.pencil,
+            backgroundColor: CupertinoColors.systemBlue,
+            icon: CupertinoIcons.pen,
           ),
           SlidableAction(
             onPressed: (context) {
@@ -42,7 +42,7 @@ class CollectionItem extends StatelessWidget {
                 builder: (context) => DeleteCollectionDialog(collectionId: model.id),
               );
             },
-            backgroundColor: CupertinoColors.systemRed,
+            backgroundColor: CupertinoColors.systemIndigo,
             icon: CupertinoIcons.delete_solid,
           ),
           SlidableAction(
@@ -52,7 +52,7 @@ class CollectionItem extends StatelessWidget {
                 builder: (context) => const DeleteAllCollectionsDialog(),
               );
             },
-            backgroundColor: CupertinoColors.systemBlue,
+            backgroundColor: CupertinoColors.systemRed,
             icon: CupertinoIcons.delete_solid,
           ),
         ],

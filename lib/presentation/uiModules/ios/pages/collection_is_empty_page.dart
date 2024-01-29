@@ -15,12 +15,7 @@ class CollectionIsEmptyPage extends StatelessWidget {
         previousPageTitle: AppStrings.main,
         trailing: CupertinoButton(
           padding: EdgeInsets.zero,
-          child: const Text(
-            AppStrings.add,
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          child: const Text(AppStrings.add),
           onPressed: () {
             showCupertinoDialog(
               context: context,

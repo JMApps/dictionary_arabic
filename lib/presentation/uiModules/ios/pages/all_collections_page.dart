@@ -20,13 +20,20 @@ class AllCollectionsPage extends StatefulWidget {
 
 class _AllCollectionsPageState extends State<AllCollectionsPage> {
   final TextEditingController _collectionsController = TextEditingController();
-  final FocusNode focusNode = FocusNode();
+  final FocusNode _focusNode = FocusNode();
   List<CollectionEntity> _collections = [];
   List<CollectionEntity> _recentCollections = [];
 
   @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final CollectionsState collectionsState = Provider.of<CollectionsState>(context);
+    final CollectionsState collectionsState =
+        Provider.of<CollectionsState>(context);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -35,7 +42,7 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
       ],
       child: GestureDetector(
         onTap: () {
-          if (!focusNode.hasFocus) {
+          if (!_focusNode.hasFocus) {
             FocusScope.of(context).unfocus();
           }
         },
@@ -50,7 +57,9 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                     _collections = snapshot.data!;
                     _recentCollections = query.getQuery.isEmpty
                         ? _collections
-                        : _collections.where((element) => element.title.toLowerCase().contains(query.getQuery.toLowerCase())).toList();
+                        : _collections
+                            .where((element) => element.title.toLowerCase()
+                              .contains(query.getQuery.toLowerCase())).toList();
                     return CustomScrollView(
                       slivers: [
                         CupertinoSliverNavigationBar(
@@ -58,12 +67,7 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                           middle: const Text(AppStrings.allCollections),
                           trailing: CupertinoButton(
                             padding: EdgeInsets.zero,
-                            child: const Text(
-                              AppStrings.add,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
+                            child: const Text(AppStrings.add),
                             onPressed: () {
                               showCupertinoDialog(
                                 context: context,
@@ -75,7 +79,7 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                           ),
                           previousPageTitle: AppStrings.main,
                           largeTitle: Padding(
-                            padding: const EdgeInsets.only(right: 16),
+                            padding: AppStyles.mardingOnlyRight,
                             child: CupertinoSearchTextField(
                               onChanged: (value) {
                                 query.setQuery = value;
@@ -88,6 +92,7 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                         SliverToBoxAdapter(
                           child: CupertinoListSection.insetGrouped(
                             margin: AppStyles.mardingWithoutBottom,
+                            footer: const SizedBox(height: 14),
                             children: [
                               ListView.builder(
                                 padding: EdgeInsets.zero,
@@ -96,10 +101,7 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                                 itemCount: _recentCollections.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   final CollectionEntity model = _recentCollections[index];
-                                  return CollectionItem(
-                                    model: model,
-                                    index: index,
-                                  );
+                                  return CollectionItem(model: model, index: index);
                                 },
                               ),
                             ],
