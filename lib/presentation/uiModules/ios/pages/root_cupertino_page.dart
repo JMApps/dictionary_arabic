@@ -8,14 +8,9 @@ import '../../../../data/state/exact_match_state.dart';
 import '../../../../data/state/search_values_state.dart';
 import 'main_cupertino_page.dart';
 
-class RootCupertinoPage extends StatefulWidget {
+class RootCupertinoPage extends StatelessWidget {
   const RootCupertinoPage({super.key});
 
-  @override
-  State<RootCupertinoPage> createState() => _RootCupertinoPageState();
-}
-
-class _RootCupertinoPageState extends State<RootCupertinoPage> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

@@ -22,9 +22,7 @@ class MainCupertinoPage extends StatelessWidget {
         slivers: [
           const CupertinoSliverNavigationBar(
             stretch: true,
-            middle: Text(
-              AppStrings.appName,
-            ),
+            middle: Text(AppStrings.appName),
             largeTitle: Padding(
               padding: AppStyles.mardingOnlyRight,
               child: MainSearchWordTextField(),
@@ -34,7 +32,7 @@ class MainCupertinoPage extends StatelessWidget {
             child: Consumer<ExactMatchState>(
               builder: (BuildContext context, ExactMatchState matchState, _) {
                 return CupertinoListTile(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                  padding: AppStyles.horizontalVerticalMini,
                   title: const Text(AppStrings.exactMatch),
                   trailing: Transform.scale(
                     scale: 0.85,
@@ -51,70 +49,70 @@ class MainCupertinoPage extends StatelessWidget {
             ),
           ),
           const SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(width: 14),
-                    Expanded(
-                      child: MainCardItem(
-                        routeName: RouteNames.allCollectionsPage,
-                        iconName: CupertinoIcons.time_solid,
-                        title: AppStrings.quiz,
-                        color: CupertinoColors.systemBlue,
+            child: Padding(
+              padding: AppStyles.mardingSymmetricHorMini,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: MainCardItem(
+                          routeName: RouteNames.allCollectionsPage,
+                          iconName: CupertinoIcons.time_solid,
+                          title: AppStrings.quiz,
+                          color: CupertinoColors.systemBlue,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 14),
-                    Expanded(
-                      child: MainCardItem(
-                        routeName: RouteNames.allCollectionsPage,
-                        iconName: CupertinoIcons.table_badge_more_fill,
-                        title: AppStrings.wordsConstructor,
-                        color: CupertinoColors.systemGreen,
+                      SizedBox(width: 14),
+                      Expanded(
+                        child: MainCardItem(
+                          routeName: RouteNames.allCollectionsPage,
+                          iconName: CupertinoIcons.table_badge_more_fill,
+                          title: AppStrings.wordsConstructor,
+                          color: CupertinoColors.systemGreen,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 14),
-                  ],
-                ),
-                SizedBox(height: 14),
-                Row(
-                  children: [
-                    SizedBox(width: 14),
-                    Expanded(
-                      child: MainCardItem(
-                        routeName: RouteNames.allCollectionsPage,
-                        iconName: CupertinoIcons.creditcard_fill,
-                        title: AppStrings.cardMode,
-                        color: CupertinoColors.systemRed,
+                    ],
+                  ),
+                  SizedBox(height: 14),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: MainCardItem(
+                          routeName: RouteNames.allCollectionsPage,
+                          iconName: CupertinoIcons.creditcard_fill,
+                          title: AppStrings.cardMode,
+                          color: CupertinoColors.systemRed,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 14),
-                    Expanded(
-                      child: MainCardItem(
-                        routeName: RouteNames.allCollectionsPage,
-                        iconName: CupertinoIcons.collections_solid,
-                        title: AppStrings.allCollections,
-                        color: CupertinoColors.systemIndigo,
+                      SizedBox(width: 14),
+                      Expanded(
+                        child: MainCardItem(
+                          routeName: RouteNames.allCollectionsPage,
+                          iconName: CupertinoIcons.collections_solid,
+                          title: AppStrings.allCollections,
+                          color: CupertinoColors.systemIndigo,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 14),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           const SliverToBoxAdapter(
             child: CupertinoListTile(
-              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+              padding: AppStyles.horizontalVerticalMini,
               title: Text(
                 AppStrings.lastCollections,
                 style: TextStyle(
-                  fontFamily: 'SF Pro',
                   fontSize: 22,
-                  letterSpacing: 0.5,
-                  fontWeight: FontWeight.w800,
+                  fontFamily: 'SF Pro',
+                  letterSpacing: 0.75,
                 ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.start,
               ),
               leading: CollectionsOrderButton(),

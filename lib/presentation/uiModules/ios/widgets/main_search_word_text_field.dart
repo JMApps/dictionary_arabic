@@ -10,13 +10,11 @@ class MainSearchWordTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoTextField(
+      readOnly: true,
       decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(9),
-        ),
+        borderRadius: BorderRadius.all(Radius.circular(9)),
         color: CupertinoColors.systemGrey5,
       ),
-      readOnly: true,
       prefix: const Padding(
         padding: AppStyles.mardingOnlyLeftMini,
         child: Icon(

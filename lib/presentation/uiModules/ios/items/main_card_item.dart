@@ -49,7 +49,7 @@ class MainCardItem extends StatelessWidget {
                     fontSize: 16,
                     color: CupertinoColors.systemGrey,
                     fontFamily: 'SF Pro',
-                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.75,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

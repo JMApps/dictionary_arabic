@@ -33,20 +33,16 @@ class CollectionItem extends StatelessWidget {
               );
             },
             backgroundColor: CupertinoColors.systemGreen,
-            foregroundColor: CupertinoColors.systemBackground,
             icon: CupertinoIcons.pencil,
           ),
           SlidableAction(
             onPressed: (context) {
               showCupertinoDialog(
                 context: context,
-                builder: (context) => DeleteCollectionDialog(
-                  collectionId: model.id,
-                ),
+                builder: (context) => DeleteCollectionDialog(collectionId: model.id),
               );
             },
             backgroundColor: CupertinoColors.systemRed,
-            foregroundColor: CupertinoColors.systemBackground,
             icon: CupertinoIcons.delete_solid,
           ),
           SlidableAction(
@@ -57,7 +53,6 @@ class CollectionItem extends StatelessWidget {
               );
             },
             backgroundColor: CupertinoColors.systemBlue,
-            foregroundColor: CupertinoColors.systemBackground,
             icon: CupertinoIcons.delete_solid,
           ),
         ],
@@ -73,17 +68,15 @@ class CollectionItem extends StatelessWidget {
         },
         title: Text(
           model.title,
-          style: const TextStyle(
-            fontSize: 20,
-          ),
+          style: const TextStyle(fontSize: 20),
         ),
         leading: Icon(
           CupertinoIcons.tag_solid,
           color: AppStyles.collectionColors[model.color],
         ),
         trailing: const Icon(
-          CupertinoIcons.forward,
-          color: CupertinoColors.systemGrey2,
+          CupertinoIcons.chevron_forward,
+          color: CupertinoColors.systemGrey,
         ),
         additionalInfo: Text(
           model.wordsCount.toString(),
