@@ -25,10 +25,7 @@ class _SearchValuesListState extends State<SearchValuesList> {
               itemCount: snapshot.data!.length,
               itemBuilder: (BuildContext context, int index) {
                 final WordSearchEntity model = snapshot.data![index];
-                return SearchValueItem(
-                  model: model,
-                  index: index,
-                );
+                return SearchValueItem(model: model, index: index);
               },
             ),
           );

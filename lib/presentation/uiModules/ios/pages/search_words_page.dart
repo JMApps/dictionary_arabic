@@ -9,7 +9,7 @@ import '../../../../data/state/search_values_state.dart';
 import '../../../../data/state/words_search_state.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../../../../domain/usecases/default_dictionary_use_case.dart';
-import '../items/word_item.dart';
+import '../items/search_word_item.dart';
 import '../lists/search_values_list.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
@@ -22,6 +22,7 @@ class SearchWordsPage extends StatefulWidget {
 }
 
 class _SearchWordsPageState extends State<SearchWordsPage> {
+  final FocusNode _focusNode = FocusNode();
   final TextEditingController _wordsController = TextEditingController();
   final DefaultDictionaryUseCase _dictionaryUseCase = DefaultDictionaryUseCase(DefaultDictionaryDataRepository());
 
@@ -40,6 +41,7 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
             backgroundColor: CupertinoColors.systemGroupedBackground,
             navigationBar: CupertinoNavigationBar(
               middle: CupertinoSearchTextField(
+                focusNode: _focusNode,
                 autofocus: true,
                 autocorrect: false,
                 onChanged: (value) {
@@ -54,6 +56,12 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                 },
                 controller: _wordsController,
                 placeholder: AppStrings.searchWords,
+                onSuffixTap: () {
+                  query.setQuery = '';
+                  if (!_focusNode.hasFocus) {
+                    _focusNode.requestFocus();
+                  }
+                },
               ),
               leading: const SizedBox(),
               trailing: CupertinoButton(
@@ -70,11 +78,13 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
               bottom: false,
               child: FutureBuilder<List<DictionaryEntity>>(
                 future: _dictionaryUseCase.fetchSearchWords(
-                  searchQuery: query.getQuery,
+                  searchQuery: query.getQuery.toLowerCase(),
                   exactMatch: Provider.of<ExactMatchState>(context).getExactMatch,
                 ),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData && snapshot.data!.isNotEmpty && query.getQuery.isNotEmpty) {
+                  if (snapshot.hasData &&
+                      snapshot.data!.isNotEmpty &&
+                      query.getQuery.isNotEmpty) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -95,8 +105,12 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                               padding: EdgeInsets.zero,
                               itemCount: snapshot.data!.length,
                               itemBuilder: (BuildContext context, int index) {
-                                final DictionaryEntity model = snapshot.data![index];
-                                return WordItem(model: model, index: index);
+                                final DictionaryEntity model =
+                                    snapshot.data![index];
+                                return SearchWordItem(
+                                  model: model,
+                                  index: index,
+                                );
                               },
                             ),
                           ),

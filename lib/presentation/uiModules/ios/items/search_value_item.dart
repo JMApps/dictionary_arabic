@@ -5,7 +5,7 @@ import '../../../../data/state/search_values_state.dart';
 import '../../../../data/state/words_search_state.dart';
 import '../../../../domain/entities/word_search_entity.dart';
 
-class SearchValueItem extends StatelessWidget {
+class SearchValueItem extends StatefulWidget {
   const SearchValueItem({
     super.key,
     required this.model,
@@ -16,20 +16,36 @@ class SearchValueItem extends StatelessWidget {
   final int index;
 
   @override
+  State<SearchValueItem> createState() => _SearchValueItemState();
+}
+
+class _SearchValueItemState extends State<SearchValueItem> {
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CupertinoListTile(
       onTap: () {
-        Provider.of<WordsSearchState>(context, listen: false).setQuery = model.searchValue;
+        Provider.of<WordsSearchState>(context, listen: false).setQuery = widget.model.searchValue;
+        if (!_focusNode.hasFocus) {
+          FocusScope.of(context).unfocus();
+        }
       },
-      title: Text(model.searchValue),
-      leading: const Icon(CupertinoIcons.time_solid),
+      title: Text(widget.model.searchValue),
+      leading: const Icon(CupertinoIcons.time),
       trailing: CupertinoButton(
         onPressed: () async {
           await Provider.of<SearchValuesState>(context, listen: false).fetchDeleteSearchValueById(
-            searchValueId: model.id,
+            searchValueId: widget.model.id,
           );
         },
-        child: const Icon(CupertinoIcons.delete_left_fill, size: 17.5),
+        child: const Icon(CupertinoIcons.delete_left, size: 17.5),
       ),
     );
   }
