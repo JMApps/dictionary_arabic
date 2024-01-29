@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/search_values_state.dart';
 import '../../../../data/state/words_search_state.dart';
 import '../../../../domain/entities/word_search_entity.dart';
@@ -31,6 +32,7 @@ class _SearchValueItemState extends State<SearchValueItem> {
   @override
   Widget build(BuildContext context) {
     return CupertinoListTile(
+      padding: AppStyles.mardingSymmetricHor,
       onTap: () {
         Provider.of<WordsSearchState>(context, listen: false).setQuery = widget.model.searchValue;
         if (!_focusNode.hasFocus) {
@@ -38,14 +40,21 @@ class _SearchValueItemState extends State<SearchValueItem> {
         }
       },
       title: Text(widget.model.searchValue),
-      leading: const Icon(CupertinoIcons.time),
+      leading: const Icon(
+        CupertinoIcons.time,
+        color: CupertinoColors.systemIndigo,
+      ),
       trailing: CupertinoButton(
         onPressed: () async {
           await Provider.of<SearchValuesState>(context, listen: false).fetchDeleteSearchValueById(
             searchValueId: widget.model.id,
           );
         },
-        child: const Icon(CupertinoIcons.delete_left, size: 17.5),
+        child: const Icon(
+          CupertinoIcons.delete_left,
+          color: CupertinoColors.systemIndigo,
+          size: 17.5,
+        ),
       ),
     );
   }

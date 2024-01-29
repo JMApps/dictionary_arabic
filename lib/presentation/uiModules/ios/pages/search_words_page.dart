@@ -82,20 +82,33 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                   exactMatch: Provider.of<ExactMatchState>(context).getExactMatch,
                 ),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData &&
-                      snapshot.data!.isNotEmpty &&
-                      query.getQuery.isNotEmpty) {
+                  if (snapshot.hasData && snapshot.data!.isNotEmpty && query.getQuery.isNotEmpty) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Padding(
                           padding: AppStyles.mainMardingMini,
-                          child: Text(
-                            '${AppStrings.matchesFound}${snapshot.data!.length}',
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'SF Pro',
-                              letterSpacing: 0.75,
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                const TextSpan(
+                                  text: AppStrings.matchesFound,
+                                  style: TextStyle(
+                                    color: CupertinoColors.systemGrey
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: '${snapshot.data!.length}',
+                                  style: const TextStyle(
+                                    color: CupertinoColors.systemIndigo,
+                                  )
+                                ),
+                              ],
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'SF Pro',
+                                letterSpacing: 0.75,
+                              ),
                             ),
                           ),
                         ),
@@ -105,12 +118,8 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                               padding: EdgeInsets.zero,
                               itemCount: snapshot.data!.length,
                               itemBuilder: (BuildContext context, int index) {
-                                final DictionaryEntity model =
-                                    snapshot.data![index];
-                                return SearchWordItem(
-                                  model: model,
-                                  index: index,
-                                );
+                                final DictionaryEntity model = snapshot.data![index];
+                                return SearchWordItem(model: model, index: index);
                               },
                             ),
                           ),

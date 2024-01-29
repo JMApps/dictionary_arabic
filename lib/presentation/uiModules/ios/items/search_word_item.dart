@@ -22,7 +22,7 @@ class SearchWordItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: AppStyles.mardingOnlyBottomMini,
+      padding: AppStyles.mardingOnlyBottom,
       child: CupertinoListTile(
         onTap: () {
           Navigator.pushNamed(
@@ -40,7 +40,7 @@ class SearchWordItem extends StatelessWidget {
               Text(
                 model.arabicWord,
                 style: const TextStyle(
-                  fontSize: 45,
+                  fontSize: 35,
                   fontFamily: 'Uthmanic',
                 ),
                 textDirection: TextDirection.rtl,
@@ -60,7 +60,7 @@ class SearchWordItem extends StatelessWidget {
                       ? Text(
                           model.vocalization!,
                           style: const TextStyle(
-                            fontSize: 17,
+                            fontSize: 18,
                             color: CupertinoColors.systemGrey,
                             fontFamily: 'Arial',
                           ),
@@ -71,7 +71,7 @@ class SearchWordItem extends StatelessWidget {
                       ? Text(
                           model.form!,
                           style: const TextStyle(
-                            fontSize: 20,
+                            fontSize: 18,
                             fontFamily: 'SF Pro',
                             letterSpacing: 0.5,
                           ),
@@ -82,8 +82,8 @@ class SearchWordItem extends StatelessWidget {
               Text(
                 model.root,
                 style: const TextStyle(
-                  fontSize: 22,
-                  color: CupertinoColors.systemBlue,
+                  fontSize: 25,
+                  color: CupertinoColors.systemIndigo,
                   fontFamily: 'Uthmanic',
                 ),
                 textDirection: TextDirection.rtl,

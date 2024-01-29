@@ -19,7 +19,10 @@ class ShareWordButton extends StatelessWidget {
         );
       },
       padding: EdgeInsets.zero,
-      child: const Icon(CupertinoIcons.share),
+      child: const Icon(
+        CupertinoIcons.share,
+        color: CupertinoColors.systemGrey,
+      ),
     );
   }
 }
