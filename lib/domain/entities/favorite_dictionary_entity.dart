@@ -9,6 +9,8 @@ class FavoriteDictionaryEntity {
   final String? vocalization;
   final String root;
   final String? forms;
+  final int collectionId;
+  final int serializableIndex;
 
   const FavoriteDictionaryEntity({
     required this.articleId,
@@ -21,6 +23,8 @@ class FavoriteDictionaryEntity {
     required this.vocalization,
     required this.root,
     required this.forms,
+    required this.collectionId,
+    required this.serializableIndex,
   });
 
   String wordContent() {

@@ -1,5 +1,4 @@
 
-import '../entities/change_favorite_dictionary_entity.dart';
 import '../entities/favorite_dictionary_entity.dart';
 import '../repositories/favorite_dictionary_repository.dart';
 
@@ -44,9 +43,9 @@ class FavoriteDictionaryUseCase {
     }
   }
 
-  Future<int> fetchChangeFavoriteWord({required ChangeFavoriteDictionaryEntity model}) async {
+  Future<int> fetchChangeFavoriteWord({required int wordId, required int serializableIndex}) async {
     try {
-      final int changeFavoriteWord = await _favoriteDictionaryRepository.changeFavoriteWord(model: model);
+      final int changeFavoriteWord = await _favoriteDictionaryRepository.changeFavoriteWord(wordId: wordId, serializableIndex: serializableIndex);
       return changeFavoriteWord;
     } catch (e) {
       throw Exception('Change favorite word data error: $e');

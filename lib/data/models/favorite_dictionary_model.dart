@@ -9,6 +9,8 @@ class FavoriteDictionaryModel {
   final String? vocalization;
   final String root;
   final String? forms;
+  final int collectionId;
+  final int serializableIndex;
 
   const FavoriteDictionaryModel({
     required this.articleId,
@@ -21,6 +23,8 @@ class FavoriteDictionaryModel {
     required this.vocalization,
     required this.root,
     required this.forms,
+    required this.collectionId,
+    required this.serializableIndex,
   });
 
   factory FavoriteDictionaryModel.fromMap(Map<String, dynamic> map) {
@@ -35,6 +39,8 @@ class FavoriteDictionaryModel {
       vocalization: map['vocalization'] as String?,
       root: map['root'] as String,
       forms: map['forms'] as String?,
+      collectionId: map['collection_id'] as int,
+      serializableIndex: map['serializable_index'] as int,
     );
   }
 
@@ -49,6 +55,8 @@ class FavoriteDictionaryModel {
       'vocalization' : vocalization,
       'root' : root,
       'forms' : forms,
+      'collection_id' : collectionId,
+      'serializable_index' : serializableIndex,
     };
   }
 }

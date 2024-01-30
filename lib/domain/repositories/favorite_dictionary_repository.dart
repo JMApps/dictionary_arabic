@@ -1,4 +1,3 @@
-import '../entities/change_favorite_dictionary_entity.dart';
 import '../entities/favorite_dictionary_entity.dart';
 
 abstract class FavoriteDictionaryRepository {
@@ -10,7 +9,7 @@ abstract class FavoriteDictionaryRepository {
 
   Future<int> addFavoriteWord({required FavoriteDictionaryEntity model});
 
-  Future<int> changeFavoriteWord({required ChangeFavoriteDictionaryEntity model});
+  Future<int> changeFavoriteWord({required int wordId, required int serializableIndex});
 
   Future<int> deleteFavoriteWord({required int favoriteWordId});
 }
