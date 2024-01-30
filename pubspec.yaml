@@ -16,7 +16,7 @@ dependencies:
   flutter_slidable: ^3.0.1
 
   # Databases
-  sqflite: ^2.3.0
+  sqflite: ^2.3.2
   hive_flutter: ^1.1.0
 
   # System
