@@ -22,13 +22,14 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
   }
 
   @override
-  Future<List<DictionaryEntity>> getWordsByRoot({required String wordRoot}) async {
+  Future<List<DictionaryEntity>> getWordsByRoot({required String wordRoot, required int excludedId}) async {
     final Database database = await _dictionaryService.db;
     final List<Map<String, Object?>> resources = await database.rawQuery(
       "SELECT s.article_id, s.translation, s.arabic, d.id, d.nr, d.arabic_word, d.form, d.vocalization, d.root, d.forms "
           "FROM $_searchTable s "
           "INNER JOIN $_dataTable d ON s.article_id = d.nr "
-          "WHERE d.root = ?", [wordRoot],
+          "WHERE d.root = ? AND d.nr != ?",
+      [wordRoot, excludedId],
     );
     final List<DictionaryEntity> wordsByRoot = resources.isNotEmpty ? resources.map((c) => _mapToEntity(DictionaryModel.fromMap(c))).toList() : [];
     return wordsByRoot;

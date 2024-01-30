@@ -16,9 +16,9 @@ class DefaultDictionaryUseCase {
     }
   }
 
-  Future<List<DictionaryEntity>> fetchWordsByRoot({required String wordRoot}) async {
+  Future<List<DictionaryEntity>> fetchWordsByRoot({required String wordRoot, required int excludedId}) async {
     try {
-      final List<DictionaryEntity> wordsByRoot = await _dictionaryRepository.getWordsByRoot(wordRoot: wordRoot);
+      final List<DictionaryEntity> wordsByRoot = await _dictionaryRepository.getWordsByRoot(wordRoot: wordRoot, excludedId: excludedId);
       return wordsByRoot;
     } catch (e) {
       throw Exception('Get words by root data error: $e');
