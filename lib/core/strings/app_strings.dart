@@ -1,6 +1,7 @@
 class AppStrings {
   static const String appName = 'Арабский словарь';
   static const String searchWords = 'Поиск слов...';
+  static const String search = 'Поиск';
   static const String searchCollections = 'Поиск коллекций...';
   static const String lastCollections = 'Последние коллекции';
   static const String allCollections = 'Все коллекции';
@@ -28,8 +29,8 @@ class AppStrings {
   static const String byAddDateTime = 'По дате добавления';
   static const String byColor = 'По цвету';
   static const String byWordsCount = 'По количеству слов';
-  static const String orderASC = 'В обычном порядке';
-  static const String orderDESC = 'В обратном порядке';
+  static const String orderASC = 'Сначала новые';
+  static const String orderDESC = 'Сначала старые';
   static const String main = 'Главная';
   static const String queryIsEmpty = 'По вашему запросу ничего не найдено';
   static const String toBack = 'Назад';
@@ -40,4 +41,6 @@ class AppStrings {
   static const String cognates = 'Однокоренные слова';
   static const String createCollectionsWithWords = 'Создавайте коллекции из нужных вам слов!';
   static const String word = 'Слово';
+  static const String close = 'Закрыть';
+  static const String recent = 'Недавние:';
 }

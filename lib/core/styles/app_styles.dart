@@ -29,6 +29,9 @@ class AppStyles {
   static const mardingOnlyRight = EdgeInsets.only(right: 14);
   static const mardingOnlyRightMini = EdgeInsets.only(right: 7);
 
+  static const horizontalVerticalMini = EdgeInsets.symmetric(horizontal: 14, vertical: 7);
+  static const verticalHorizontalMini = EdgeInsets.symmetric(horizontal: 7, vertical: 14);
+
   static const collectionColors = <Color>[
     CupertinoColors.systemBlue,
     CupertinoColors.systemRed,
