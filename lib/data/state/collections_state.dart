@@ -15,15 +15,6 @@ class CollectionsState extends ChangeNotifier {
     _orderIndex = _mainSettingsBox.get(AppConstraints.keyOrderIndex, defaultValue: 1);
   }
 
-  int _colorIndex = 0;
-
-  int get getColorIndex => _colorIndex;
-
-  set setColorIndex(int index) {
-    _colorIndex = index;
-    notifyListeners();
-  }
-
   late int _orderCollectionIndex;
 
   int get getOrderCollectionIndex => _orderCollectionIndex;

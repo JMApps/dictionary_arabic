@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/styles/app_styles.dart';
-import '../../../../data/state/collections_state.dart';
+import '../../../../data/state/add_change_collection_state.dart';
 
 class CollectionColorCircleButton extends StatelessWidget {
   const CollectionColorCircleButton({
@@ -14,17 +14,21 @@ class CollectionColorCircleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Provider.of<CollectionsState>(context, listen: false).setColorIndex = buttonIndex;
+    return Consumer<AddChangeCollectionState>(
+      builder: (BuildContext context, AddChangeCollectionState colorState, _) {
+        return GestureDetector(
+          onTap: () {
+            colorState.setColorIndex = buttonIndex;
+          },
+          child: Icon(
+            colorState.getColorIndex == buttonIndex
+                ? CupertinoIcons.checkmark_circle_fill
+                : CupertinoIcons.circle_fill,
+            color: AppStyles.collectionColors[buttonIndex],
+            size: 50,
+          ),
+        );
       },
-      child: Icon(
-        context.watch<CollectionsState>().getColorIndex == buttonIndex
-            ? CupertinoIcons.checkmark_circle_fill
-            : CupertinoIcons.circle_fill,
-        color: AppStyles.collectionColors[buttonIndex],
-        size: 50,
-      ),
     );
   }
 }
