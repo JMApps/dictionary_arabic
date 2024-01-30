@@ -97,7 +97,7 @@ class SearchWordItem extends StatelessWidget {
           trailing: Column(
             children: [
               AddFavoriteWordButton(nr: model.nr),
-              ShareWordButton(content: model.wordContent().replaceAll('\\n', '\n\n')),
+              ShareWordButton(content: model.wordContent()),
             ],
           ),
         ),

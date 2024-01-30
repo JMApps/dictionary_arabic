@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../widgets/add_favorite_word_button.dart';
+import '../widgets/detail_translation_double.dart';
+import '../widgets/forms_text.dart';
+import '../widgets/share_word_button.dart';
 
 class WordDetailItem extends StatefulWidget {
   const WordDetailItem({
@@ -19,155 +22,88 @@ class WordDetailItem extends StatefulWidget {
 class _WordDetailItemState extends State<WordDetailItem> {
   @override
   Widget build(BuildContext context) {
-    RegExp arabic = RegExp(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+');
-    TextStyle defaultStyle = TextStyle(
-      fontSize: 18,
-      color: CupertinoColors.label.resolveFrom(context),
-      fontFamily: 'Arial',
-      height: 1.5,
-    );
-
-    TextStyle arabicStyle = const TextStyle(
-      fontSize: 18,
-      color: CupertinoColors.systemBlue,
-      fontFamily: 'Uthmanic',
-      height: 1.5,
-    );
-    List<TextSpan> getSpans(String text, RegExp regex) {
-      List<TextSpan> spans = [];
-
-      var matches = regex.allMatches(text);
-      int start = 0;
-
-      for (var match in matches) {
-        if (start < match.start) {
-          spans.add(
-            TextSpan(
-              text: text.substring(start, match.start).replaceAll('\\n', '\n'),
-              style: defaultStyle,
+    return CupertinoListTile(
+      padding: AppStyles.mardingWithoutBottomMini,
+      title: CupertinoListTile(
+        padding: AppStyles.mardingWithoutBottomMini,
+        title: Row(
+          children: [
+            Text(
+              widget.model.arabicWord,
+              style: const TextStyle(
+                fontSize: 50,
+                fontFamily: 'Uthmanic',
+              ),
+              textDirection: TextDirection.rtl,
             ),
-          );
-        }
-
-        spans.add(
-          TextSpan(
-            text: text.substring(match.start, match.end),
-            style: arabicStyle,
-          ),
-        );
-
-        start = match.end;
-      }
-
-      if (start < text.length) {
-        spans.add(
-          TextSpan(
-            text: text.substring(start).replaceAll('\\n', '\n'),
-            style: defaultStyle,
-          ),
-        );
-      }
-
-      return spans;
-    }
-
-    return Padding(
-      padding: AppStyles.mainMarding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          CupertinoListTile(
-            padding: EdgeInsets.zero,
-            title: Row(
+            const SizedBox(width: 14),
+            widget.model.forms != null
+                ? FormsText(content: widget.model.forms!)
+                : const SizedBox(),
+          ],
+        ),
+        trailing: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  widget.model.arabicWord,
-                  style: const TextStyle(
-                    fontSize: 50,
-                    fontFamily: 'Uthmanic',
-                  ),
-                  textDirection: TextDirection.rtl,
-                ),
-                const SizedBox(width: 14),
-                widget.model.forms != null
-                    ? Text.rich(
-                        TextSpan(
-                          children: [
-                            if (widget.model.forms!.contains('мн.'))
-                              const TextSpan(
-                                text: 'мн.',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: CupertinoColors.systemGrey2,
-                                  fontFamily: 'Arial',
-                                ),
-                              ),
-                            TextSpan(
-                              text: widget.model.forms!.replaceAll('мн.', ''),
-                              style: const TextStyle(
-                                fontSize: 25,
-                                color: CupertinoColors.systemGrey,
-                                fontFamily: 'Uthmanic',
-                              ),
-                            ),
-                          ],
+                widget.model.vocalization != null
+                    ? Text(
+                        widget.model.vocalization!,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: CupertinoColors.systemGrey,
+                          fontFamily: 'Arial',
                         ),
-                        textAlign: TextAlign.center,
-                        textDirection: TextDirection.ltr,
+                      )
+                    : const SizedBox(),
+                const SizedBox(width: 7),
+                widget.model.form != null
+                    ? Text(
+                        widget.model.form!,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'SF Pro',
+                          letterSpacing: 0.5,
+                        ),
                       )
                     : const SizedBox(),
               ],
             ),
-            trailing: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    widget.model.vocalization != null
-                        ? Text(
-                            widget.model.vocalization!,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              color: CupertinoColors.systemGrey,
-                              fontFamily: 'Arial',
-                            ),
-                          )
-                        : const SizedBox(),
-                    const SizedBox(width: 7),
-                    widget.model.form != null
-                        ? Text(
-                            widget.model.form!,
-                            style: const TextStyle(
-                              fontFamily: 'SF Pro',
-                              fontSize: 20,
-                              letterSpacing: 0.5,
-                            ),
-                          )
-                        : const SizedBox(),
-                  ],
-                ),
-                Text(
-                  widget.model.root,
-                  style: const TextStyle(
-                    fontSize: 25,
-                    color: CupertinoColors.systemRed,
-                    fontFamily: 'Uthmanic',
-                  ),
-                  textDirection: TextDirection.rtl,
-                ),
-              ],
+            Text(
+              widget.model.root,
+              style: const TextStyle(
+                fontSize: 25,
+                color: CupertinoColors.systemIndigo,
+                fontFamily: 'Uthmanic',
+              ),
+              textDirection: TextDirection.rtl,
             ),
-          ),
-          RichText(
-            text: TextSpan(
-              children: getSpans(widget.model.translation, arabic),
+          ],
+        ),
+      ),
+      subtitle: CupertinoListTile(
+        padding: AppStyles.mardingSymmetricHorMini,
+        title: DetailTranslationDouble(
+          translation: widget.model.translation.replaceAll('\\n', '\n\n'),
+        ),
+        subtitle: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Transform.scale(
+              scale: 1.2,
+              child: AddFavoriteWordButton(nr: widget.model.nr),
             ),
-          ),
-          AddFavoriteWordButton(nr: widget.model.nr),
-        ],
+            Transform.scale(
+              scale: 1.2,
+              child: ShareWordButton(
+                content: widget.model.wordContent(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

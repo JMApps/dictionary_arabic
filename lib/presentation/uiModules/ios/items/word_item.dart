@@ -45,7 +45,7 @@ class WordItem extends StatelessWidget {
                 ),
                 textDirection: TextDirection.rtl,
               ),
-              const SizedBox(width: 14),
+              const SizedBox(width: 18),
               model.forms != null
                   ? FormsText(content: model.forms!)
                   : const SizedBox(),
@@ -84,7 +84,7 @@ class WordItem extends StatelessWidget {
                 model.root,
                 style: const TextStyle(
                   fontSize: 20,
-                  color: CupertinoColors.systemRed,
+                  color: CupertinoColors.systemIndigo,
                   fontFamily: 'Uthmanic',
                 ),
                 textDirection: TextDirection.rtl,
@@ -98,7 +98,7 @@ class WordItem extends StatelessWidget {
           trailing: Column(
             children: [
               AddFavoriteWordButton(nr: model.nr),
-              ShareWordButton(content: model.wordContent().replaceAll('\\n', '\n\n')),
+              ShareWordButton(content: model.wordContent()),
             ],
           ),
         ),

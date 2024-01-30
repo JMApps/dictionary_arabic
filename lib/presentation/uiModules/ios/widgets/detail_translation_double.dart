@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class TranslationDouble extends StatelessWidget {
-  const TranslationDouble({
+class DetailTranslationDouble extends StatelessWidget {
+  const DetailTranslationDouble({
     super.key,
     required this.translation,
   });
@@ -12,17 +12,15 @@ class TranslationDouble extends StatelessWidget {
   Widget build(BuildContext context) {
     RegExp arabic = RegExp(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+');
     TextStyle translationStyle = TextStyle(
-      fontSize: 18,
+      fontSize: 19,
       color: CupertinoColors.label.resolveFrom(context),
       fontFamily: 'Arial',
-      height: 1.5,
     );
 
     const TextStyle arabicStyle = TextStyle(
-      fontSize: 18,
+      fontSize: 19,
       color: CupertinoColors.systemBlue,
       fontFamily: 'Uthmanic',
-      height: 1.5,
     );
 
     List<TextSpan> translationDouble(String text, RegExp regex) {
@@ -64,7 +62,6 @@ class TranslationDouble extends StatelessWidget {
     }
 
     return RichText(
-      maxLines: 5,
       text: TextSpan(
         children: translationDouble(translation, arabic),
       ),

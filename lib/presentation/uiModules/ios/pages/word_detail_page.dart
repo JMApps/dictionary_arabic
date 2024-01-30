@@ -1,4 +1,3 @@
-import 'package:arabic/presentation/uiModules/ios/widgets/share_word_button.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/strings/app_strings.dart';
@@ -33,16 +32,9 @@ class _WordDetailPageState extends State<WordDetailPage> {
         if (snapshot.hasData) {
           return CupertinoPageScaffold(
             backgroundColor: CupertinoColors.systemGroupedBackground,
-            navigationBar: CupertinoNavigationBar(
-              middle: Text(
-                snapshot.data!.root,
-                style: const TextStyle(
-                  fontSize: 25,
-                  fontFamily: 'Uthmanic',
-                ),
-              ),
+            navigationBar: const CupertinoNavigationBar(
+              middle: Text(AppStrings.word),
               previousPageTitle: AppStrings.toBack,
-              trailing: ShareWordButton(content: snapshot.data!.wordContent()),
             ),
             child: SafeArea(
               bottom: false,
@@ -55,19 +47,22 @@ class _WordDetailPageState extends State<WordDetailPage> {
                         children: [
                           WordDetailItem(model: snapshot.data!),
                           const Padding(
-                            padding: AppStyles.mainMardingMini,
+                            padding: AppStyles.mardingWithoutTop,
                             child: Text(
                               AppStrings.cognates,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 color: CupertinoColors.systemBlue,
                                 fontFamily: 'SF Pro',
-                                letterSpacing: 0.5,
+                                letterSpacing: 0.75,
                               ),
                             ),
                           ),
                           FutureBuilder<List<DictionaryEntity>>(
-                            future: _dictionaryUseCase.fetchWordsByRoot(wordRoot: snapshot.data!.root),
+                            future: _dictionaryUseCase.fetchWordsByRoot(
+                              wordRoot: snapshot.data!.root,
+                              excludedId: snapshot.data!.nr,
+                            ),
                             builder: (context, wordRootsSnapshot) {
                               if (wordRootsSnapshot.hasData && wordRootsSnapshot.data!.isNotEmpty) {
                                 return ListView.builder(
@@ -77,10 +72,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
                                   itemCount: wordRootsSnapshot.data!.length,
                                   itemBuilder: (BuildContext context, int index) {
                                     final DictionaryEntity model = wordRootsSnapshot.data![index];
-                                    return WordItem(
-                                      model: model,
-                                      index: index,
-                                    );
+                                    return WordItem(model: model, index: index);
                                   },
                                 );
                               } else {
