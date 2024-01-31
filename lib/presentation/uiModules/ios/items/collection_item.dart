@@ -39,11 +39,12 @@ class CollectionItem extends StatelessWidget {
             onPressed: (context) {
               showCupertinoDialog(
                 context: context,
-                builder: (context) => DeleteCollectionDialog(collectionId: model.id),
+                builder: (context) =>
+                    DeleteCollectionDialog(collectionId: model.id),
               );
             },
             backgroundColor: CupertinoColors.systemIndigo,
-            icon: CupertinoIcons.delete_solid,
+            icon: CupertinoIcons.delete_simple,
           ),
           SlidableAction(
             onPressed: (context) {

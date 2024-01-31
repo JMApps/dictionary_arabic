@@ -1,8 +1,8 @@
+import 'package:arabic/core/routes/route_names.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
-import '../pages/search_words_page.dart';
 
 class MainSearchWordTextField extends StatelessWidget {
   const MainSearchWordTextField({super.key});
@@ -28,10 +28,7 @@ class MainSearchWordTextField extends StatelessWidget {
         color: CupertinoColors.systemGrey,
       ),
       onTap: () {
-        showCupertinoModalPopup(
-          context: context,
-          builder: (_) => const SearchWordsPage(),
-        );
+        Navigator.pushNamed(context, RouteNames.searchWordsPage);
       },
     );
   }

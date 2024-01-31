@@ -40,7 +40,7 @@ class MainCardItem extends StatelessWidget {
                 Icon(
                   iconName,
                   color: color,
-                  size: 30,
+                  size: 32.5,
                 ),
                 const SizedBox(height: 7),
                 Text(

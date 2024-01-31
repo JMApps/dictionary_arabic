@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/search_values_state.dart';
-import '../../../../data/state/words_search_state.dart';
+import '../../../../data/state/search_query_state.dart';
 import '../../../../domain/entities/word_search_entity.dart';
 
 class SearchValueItem extends StatefulWidget {
@@ -34,7 +34,7 @@ class _SearchValueItemState extends State<SearchValueItem> {
     return CupertinoListTile(
       padding: AppStyles.mardingSymmetricHor,
       onTap: () {
-        Provider.of<WordsSearchState>(context, listen: false).setQuery = widget.model.searchValue;
+        Provider.of<SearchQueryState>(context, listen: false).setQuery = widget.model.searchValue;
         if (!_focusNode.hasFocus) {
           FocusScope.of(context).unfocus();
         }
@@ -42,7 +42,7 @@ class _SearchValueItemState extends State<SearchValueItem> {
       title: Text(widget.model.searchValue),
       leading: const Icon(
         CupertinoIcons.time,
-        color: CupertinoColors.systemIndigo,
+        color: CupertinoColors.systemBlue,
       ),
       trailing: CupertinoButton(
         onPressed: () async {
@@ -52,7 +52,7 @@ class _SearchValueItemState extends State<SearchValueItem> {
         },
         child: const Icon(
           CupertinoIcons.delete_left,
-          color: CupertinoColors.systemIndigo,
+          color: CupertinoColors.systemBlue,
           size: 17.5,
         ),
       ),

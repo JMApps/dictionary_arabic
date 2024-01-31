@@ -18,11 +18,11 @@ class SearchTranslationDouble extends StatelessWidget {
       height: 1.5,
     );
 
+
     const TextStyle arabicStyle = TextStyle(
       fontSize: 18,
       color: CupertinoColors.systemBlue,
       fontFamily: 'Uthmanic',
-      height: 1.5,
     );
 
     List<TextSpan> translationDouble(String text, RegExp regex) {
@@ -64,7 +64,7 @@ class SearchTranslationDouble extends StatelessWidget {
     }
 
     return RichText(
-      maxLines: 5,
+      maxLines: 4,
       text: TextSpan(
         children: translationDouble(translation, arabic),
       ),

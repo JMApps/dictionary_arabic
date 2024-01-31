@@ -1,11 +1,11 @@
+import 'package:arabic/data/state/search_values_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/routes/cupertino_routes.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../data/state/collections_state.dart';
-import '../../../../data/state/exact_match_state.dart';
-import '../../../../data/state/search_values_state.dart';
+import '../../../../data/state/word_exact_match_state.dart';
 import 'main_cupertino_page.dart';
 
 class RootCupertinoPage extends StatelessWidget {
@@ -16,13 +16,13 @@ class RootCupertinoPage extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => CollectionsState(),
+          create: (_) => WordExactMatchState(),
         ),
         ChangeNotifierProvider(
           create: (_) => SearchValuesState(),
         ),
         ChangeNotifierProvider(
-          create: (_) => ExactMatchState(),
+          create: (_) => CollectionsState(),
         ),
       ],
       child: const CupertinoApp(
