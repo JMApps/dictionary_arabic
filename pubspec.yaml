@@ -45,6 +45,9 @@ flutter:
     - assets/fonts/
 
   fonts:
+    - family: 'Nexa'
+      fonts:
+        - asset: assets/fonts/nexa_regular.ttf
     - family: 'Arial'
       fonts:
         - asset: assets/fonts/arial.ttf

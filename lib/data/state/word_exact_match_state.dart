@@ -3,10 +3,10 @@ import 'package:hive_flutter/adapters.dart';
 
 import '../../core/strings/app_constraints.dart';
 
-class ExactMatchState extends ChangeNotifier {
+class WordExactMatchState extends ChangeNotifier {
   final Box _mainSettingsBox = Hive.box(AppConstraints.keyMainAppSettingsBox);
 
-  ExactMatchState() {
+  WordExactMatchState() {
     _exactMatch = _mainSettingsBox.get(AppConstraints.keyExactMatchValue, defaultValue: true);
   }
 

@@ -43,4 +43,6 @@ class AppStrings {
   static const String word = 'Слово';
   static const String close = 'Закрыть';
   static const String recent = 'Недавние:';
+  static const String rootIsEmpty = 'Однокоренных слов нет';
+  static const String clearList = 'Очистить список';
 }

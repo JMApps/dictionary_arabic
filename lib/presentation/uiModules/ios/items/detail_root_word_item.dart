@@ -9,8 +9,8 @@ import '../../../../domain/entities/dictionary_entity.dart';
 import '../widgets/forms_text.dart';
 import '../widgets/translation_double.dart';
 
-class WordItem extends StatelessWidget {
-  const WordItem({
+class DetailRootWordItem extends StatelessWidget {
+  const DetailRootWordItem({
     super.key,
     required this.model,
     required this.index,
@@ -52,7 +52,7 @@ class WordItem extends StatelessWidget {
         ),
         child: CupertinoListTile(
           onTap: () {
-            Navigator.pushNamed(
+            Navigator.pushReplacementNamed(
               context,
               RouteNames.wordDetailPage,
               arguments: WordArgs(wordId: model.nr),

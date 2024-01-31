@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/strings/app_strings.dart';
+import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/search_values_state.dart';
 import '../../../../domain/entities/word_search_entity.dart';
 import '../items/search_value_item.dart';
@@ -20,14 +21,40 @@ class _SearchValuesListState extends State<SearchValuesList> {
       future: Provider.of<SearchValuesState>(context).fetchAllSearchValues(),
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-          return CupertinoScrollbar(
-            child: ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (BuildContext context, int index) {
-                final WordSearchEntity model = snapshot.data![index];
-                return SearchValueItem(model: model, index: index);
-              },
-            ),
+          return Column(
+            children: [
+              const SizedBox(height: 7),
+              CupertinoListTile(
+                backgroundColor: CupertinoColors.quaternarySystemFill,
+                padding: AppStyles.mardingSymmetricHor,
+                onTap: () async {
+                  await Provider.of<SearchValuesState>(context, listen: false).fetchDeleteAllSearchValues();
+                },
+                title: const Text(
+                  AppStrings.clearList,
+                  style: TextStyle(
+                    color: CupertinoColors.systemGrey,
+                    fontFamily: 'SF Pro',
+                  ),
+                ),
+                trailing: const Icon(
+                  CupertinoIcons.clear,
+                  color: CupertinoColors.systemGrey,
+                ),
+              ),
+              Expanded(
+                child: CupertinoScrollbar(
+                  child: ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final WordSearchEntity model = snapshot.data![index];
+                      return SearchValueItem(model: model, index: index);
+                    },
+                  ),
+                ),
+              ),
+            ],
           );
         } else {
           return const Center(

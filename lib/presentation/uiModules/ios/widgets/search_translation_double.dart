@@ -22,7 +22,6 @@ class SearchTranslationDouble extends StatelessWidget {
       fontSize: 18,
       color: CupertinoColors.systemBlue,
       fontFamily: 'Uthmanic',
-      height: 1.5,
     );
 
     List<TextSpan> translationDouble(String text, RegExp regex) {
@@ -64,7 +63,7 @@ class SearchTranslationDouble extends StatelessWidget {
     }
 
     return RichText(
-      maxLines: 5,
+      maxLines: 4,
       text: TextSpan(
         children: translationDouble(translation, arabic),
       ),

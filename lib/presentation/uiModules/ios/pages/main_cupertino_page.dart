@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../../core/routes/route_names.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
-import '../../../../data/state/exact_match_state.dart';
+import '../../../../data/state/word_exact_match_state.dart';
 import '../items/main_card_item.dart';
 import '../lists/main_collections_list.dart';
 import '../widgets/add_collection_button.dart';
@@ -20,22 +20,26 @@ class MainCupertinoPage extends StatelessWidget {
       backgroundColor: CupertinoColors.systemGroupedBackground,
       child: CustomScrollView(
         slivers: [
-          const CupertinoSliverNavigationBar(
+          CupertinoSliverNavigationBar(
             stretch: true,
-            middle: Text(AppStrings.appName),
-            largeTitle: Padding(
+            middle: const Text(AppStrings.appName),
+            largeTitle: const Padding(
               padding: AppStyles.mardingOnlyRight,
               child: MainSearchWordTextField(),
             ),
+            trailing: CupertinoButton(
+              child: const Icon(CupertinoIcons.settings),
+              onPressed: () {},
+            ),
           ),
           SliverToBoxAdapter(
-            child: Consumer<ExactMatchState>(
-              builder: (BuildContext context, ExactMatchState matchState, _) {
+            child: Consumer<WordExactMatchState>(
+              builder: (BuildContext context, WordExactMatchState matchState, _) {
                 return CupertinoListTile(
                   padding: AppStyles.horizontalVerticalMini,
                   title: const Text(AppStrings.exactMatch),
                   trailing: Transform.scale(
-                    scale: 0.85,
+                    scale: 0.75,
                     child: CupertinoSwitch(
                       value: matchState.getExactMatch,
                       onChanged: (value) {

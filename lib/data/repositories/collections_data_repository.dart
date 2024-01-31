@@ -29,7 +29,7 @@ class CollectionsDataRepository implements CollectionsRepository {
   Future<int> getWordCount({required int collectionId}) async {
     final Database database = await _collectionsService.db;
     List<Map<String, dynamic>> result = await database.rawQuery('''
-    SELECT COUNT(*) as wordCount
+    SELECT COUNT(*) as word_count
     FROM Table_of_favorite_words
     WHERE collectionId = ?
     ''', [collectionId]);

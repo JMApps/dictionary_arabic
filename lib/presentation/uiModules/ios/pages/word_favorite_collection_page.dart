@@ -4,21 +4,30 @@ import 'package:provider/provider.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/collections_state.dart';
+import '../../../../data/state/favorite_words_state.dart';
 import '../../../../data/state/search_query_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
+import '../../../../domain/entities/dictionary_entity.dart';
+import '../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../dialogs/add_collection_dialog.dart';
-import '../items/collection_item.dart';
 import '../widgets/error_data_text.dart';
 import 'collection_is_empty_page.dart';
 
-class AllCollectionsPage extends StatefulWidget {
-  const AllCollectionsPage({super.key});
+class WordFavoriteCollectionPage extends StatefulWidget {
+  const WordFavoriteCollectionPage({
+    super.key,
+    required this.wordModel,
+    required this.serializableIndex,
+  });
+
+  final DictionaryEntity wordModel;
+  final int serializableIndex;
 
   @override
-  State<AllCollectionsPage> createState() => _AllCollectionsPageState();
+  State<WordFavoriteCollectionPage> createState() => _WordFavoriteCollectionPageState();
 }
 
-class _AllCollectionsPageState extends State<AllCollectionsPage> {
+class _WordFavoriteCollectionPageState extends State<WordFavoriteCollectionPage> {
   final TextEditingController _collectionsController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   List<CollectionEntity> _collections = [];
@@ -37,6 +46,9 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
       providers: [
         ChangeNotifierProvider(
           create: (_) => SearchQueryState(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => FavoriteWordsState(),
         ),
       ],
       child: GestureDetector(
@@ -58,12 +70,12 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                         ? _collections
                         : _collections
                             .where((element) => element.title.toLowerCase()
-                              .contains(query.getQuery.toLowerCase())).toList();
+                                .contains(query.getQuery.toLowerCase())).toList();
                     return CustomScrollView(
                       slivers: [
                         CupertinoSliverNavigationBar(
                           stretch: true,
-                          middle: const Text(AppStrings.allCollections),
+                          middle: const Text(AppStrings.addToCollection),
                           trailing: CupertinoButton(
                             padding: EdgeInsets.zero,
                             child: const Text(AppStrings.add),
@@ -76,7 +88,7 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                               );
                             },
                           ),
-                          previousPageTitle: AppStrings.main,
+                          previousPageTitle: AppStrings.toBack,
                           largeTitle: Padding(
                             padding: AppStyles.mardingOnlyRight,
                             child: CupertinoSearchTextField(
@@ -99,8 +111,34 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemCount: _recentCollections.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  final CollectionEntity model = _recentCollections[index];
-                                  return CollectionItem(model: model, index: index);
+                                  final CollectionEntity collectionModel = _recentCollections[index];
+                                  return Consumer<FavoriteWordsState>(
+                                    builder: (BuildContext context, FavoriteWordsState favoriteWordState, _) {
+                                      return CupertinoListTile(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          Navigator.pop(context);
+                                          final favoriteWordModel = FavoriteDictionaryEntity(
+                                            articleId: widget.wordModel.articleId,
+                                            translation: widget.wordModel.translation,
+                                            arabic: widget.wordModel.arabic,
+                                            id: widget.wordModel.id,
+                                            nr: widget.wordModel.nr,
+                                            arabicWord: widget.wordModel.arabicWord,
+                                            form: widget.wordModel.form,
+                                            vocalization: widget.wordModel.vocalization,
+                                            root: widget.wordModel.root,
+                                            forms: widget.wordModel.forms,
+                                            collectionId: collectionModel.id,
+                                            serializableIndex: widget.serializableIndex,
+                                          );
+                                          favoriteWordState.addFavoriteWord(model: favoriteWordModel);
+                                        },
+                                        title: Text(collectionModel.title),
+                                        trailing: const Icon(CupertinoIcons.forward),
+                                      );
+                                    },
+                                  );
                                 },
                               ),
                             ],

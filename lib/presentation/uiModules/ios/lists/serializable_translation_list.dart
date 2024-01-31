@@ -1,7 +1,10 @@
-import 'package:arabic/core/styles/app_styles.dart';
-import 'package:arabic/domain/entities/dictionary_entity.dart';
-import 'package:arabic/presentation/uiModules/ios/widgets/translation_double.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../../../../core/routes/route_names.dart';
+import '../../../../core/styles/app_styles.dart';
+import '../../../../domain/entities/args/word_favorite_collection_args.dart';
+import '../../../../domain/entities/dictionary_entity.dart';
+import '../widgets/translation_double.dart';
 
 class SerializableTranslationList extends StatelessWidget {
   const SerializableTranslationList({
@@ -21,9 +24,25 @@ class SerializableTranslationList extends StatelessWidget {
         itemCount: translationLines.length,
         itemBuilder: (BuildContext context, int index) {
           return CupertinoListTile(
-            padding: const EdgeInsets.only(bottom: 14),
+            padding: AppStyles.mardingOnlyBottom,
             title: TranslationDouble(translation: translationLines[index]),
-            leading: const Icon(CupertinoIcons.bookmark),
+            trailing: CupertinoButton(
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  RouteNames.wordFavoriteCollectionPage,
+                  arguments: WordFavoriteCollectionArgs(
+                    wordModel: model,
+                    serializableIndex: index,
+                  ),
+                );
+              },
+              padding: EdgeInsets.zero,
+              child: const Icon(
+                CupertinoIcons.bookmark,
+                color: CupertinoColors.systemBlue,
+              ),
+            ),
           );
         },
       ),

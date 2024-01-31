@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../data/repositories/default_dictionary_data_repository.dart';
-import '../../../../data/state/exact_match_state.dart';
+import '../../../../data/state/search_query_state.dart';
 import '../../../../data/state/search_values_state.dart';
-import '../../../../data/state/words_search_state.dart';
+import '../../../../data/state/word_exact_match_state.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../../../../domain/usecases/default_dictionary_use_case.dart';
 import '../items/search_word_item.dart';
@@ -22,7 +22,6 @@ class SearchWordsPage extends StatefulWidget {
 }
 
 class _SearchWordsPageState extends State<SearchWordsPage> {
-  final FocusNode _focusNode = FocusNode();
   final TextEditingController _wordsController = TextEditingController();
   final DefaultDictionaryUseCase _dictionaryUseCase = DefaultDictionaryUseCase(DefaultDictionaryDataRepository());
 
@@ -31,17 +30,18 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => WordsSearchState(),
+          create: (_) => SearchQueryState(),
         ),
       ],
-      child: Consumer<WordsSearchState>(
-        builder: (BuildContext context, WordsSearchState query, _) {
+      child: Consumer<SearchQueryState>(
+        builder: (BuildContext context, SearchQueryState query, _) {
           _wordsController.text = query.getQuery;
           return CupertinoPageScaffold(
             backgroundColor: CupertinoColors.systemGroupedBackground,
             navigationBar: CupertinoNavigationBar(
               middle: CupertinoSearchTextField(
-                focusNode: _focusNode,
+                controller: _wordsController,
+                placeholder: AppStrings.searchWords,
                 autofocus: true,
                 autocorrect: false,
                 onChanged: (value) {
@@ -52,14 +52,6 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                     await Provider.of<SearchValuesState>(context, listen: false).fetchAddSearchValue(
                       searchValue: value.toLowerCase().trim(),
                     );
-                  }
-                },
-                controller: _wordsController,
-                placeholder: AppStrings.searchWords,
-                onSuffixTap: () {
-                  query.setQuery = '';
-                  if (!_focusNode.hasFocus) {
-                    _focusNode.requestFocus();
                   }
                 },
               ),
@@ -73,13 +65,11 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
               ),
             ),
             child: SafeArea(
-              right: false,
-              left: false,
               bottom: false,
               child: FutureBuilder<List<DictionaryEntity>>(
                 future: _dictionaryUseCase.fetchSearchWords(
                   searchQuery: query.getQuery.toLowerCase(),
-                  exactMatch: Provider.of<ExactMatchState>(context).getExactMatch,
+                  exactMatch: Provider.of<WordExactMatchState>(context, listen: false).getExactMatch,
                 ),
                 builder: (context, snapshot) {
                   if (snapshot.hasData && snapshot.data!.isNotEmpty && query.getQuery.isNotEmpty) {
@@ -94,20 +84,19 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                                 const TextSpan(
                                   text: AppStrings.matchesFound,
                                   style: TextStyle(
-                                    color: CupertinoColors.systemGrey
+                                    color: CupertinoColors.systemGrey,
                                   ),
                                 ),
                                 TextSpan(
                                   text: '${snapshot.data!.length}',
                                   style: const TextStyle(
-                                    color: CupertinoColors.systemIndigo,
-                                  )
+                                    color: CupertinoColors.systemBlue,
+                                  ),
                                 ),
                               ],
                               style: const TextStyle(
-                                fontSize: 16,
+                                fontSize: 17,
                                 fontFamily: 'SF Pro',
-                                letterSpacing: 0.75,
                               ),
                             ),
                           ),

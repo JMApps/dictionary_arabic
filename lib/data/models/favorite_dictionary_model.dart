@@ -50,7 +50,7 @@ class FavoriteDictionaryModel {
       'translation': translation,
       'arabic' : arabic,
       'nr' : nr,
-      'arabicWord' : arabicWord,
+      'arabic_word' : arabicWord,
       'form' : form,
       'vocalization' : vocalization,
       'root' : root,

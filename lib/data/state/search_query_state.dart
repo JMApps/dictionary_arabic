@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class WordsSearchState extends ChangeNotifier {
+class SearchQueryState extends ChangeNotifier {
   String _query = '';
 
   String get getQuery => _query;

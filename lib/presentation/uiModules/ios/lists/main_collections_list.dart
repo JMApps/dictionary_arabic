@@ -1,7 +1,7 @@
-import 'package:arabic/core/routes/route_names.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/routes/route_names.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/collections_state.dart';
@@ -25,13 +25,15 @@ class MainCollectionsList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               CupertinoListSection.insetGrouped(
-                margin: AppStyles.mardingSymmetricHor,
+                margin: AppStyles.mardingSymmetricHorMini,
                 children: [
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.zero,
-                    itemCount: shortCollection && snapshot.data!.length > 15 ? 15 : snapshot.data!.length,
+                    itemCount: shortCollection && snapshot.data!.length > 15
+                        ? 15
+                        : snapshot.data!.length,
                     itemBuilder: (BuildContext context, int index) {
                       final CollectionEntity model = snapshot.data![index];
                       return CollectionItem(model: model, index: index);
@@ -39,16 +41,18 @@ class MainCollectionsList extends StatelessWidget {
                   ),
                 ],
               ),
-              snapshot.data!.length > 15 ? Padding(
-                padding: AppStyles.mainMarding,
-                child: CupertinoButton(
-                  color: CupertinoColors.systemBlue,
-                  onPressed: () {
-                    Navigator.pushNamed(context, RouteNames.allCollectionsPage);
-                  },
-                  child: const Text(AppStrings.allCollections),
-                ),
-              ) : const SizedBox(),
+              snapshot.data!.length > 15
+                  ? Padding(
+                      padding: AppStyles.mainMarding,
+                      child: CupertinoButton(
+                        color: CupertinoColors.systemBlue,
+                        onPressed: () {
+                          Navigator.pushNamed(context, RouteNames.allCollectionsPage);
+                        },
+                        child: const Text(AppStrings.allCollections),
+                      ),
+                    )
+                  : const SizedBox(),
             ],
           );
         } else if (snapshot.hasData && snapshot.data!.isEmpty) {

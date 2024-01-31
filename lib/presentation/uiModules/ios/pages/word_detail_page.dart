@@ -5,8 +5,9 @@ import '../../../../core/styles/app_styles.dart';
 import '../../../../data/repositories/default_dictionary_data_repository.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../../../../domain/usecases/default_dictionary_use_case.dart';
-import '../items/word_detail_item.dart';
-import '../items/word_item.dart';
+import '../items/detail_root_word_item.dart';
+import '../items/detail_word_item.dart';
+import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
 
 class WordDetailPage extends StatefulWidget {
@@ -34,7 +35,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
             backgroundColor: CupertinoColors.systemGroupedBackground,
             navigationBar: const CupertinoNavigationBar(
               middle: Text(AppStrings.word),
-              previousPageTitle: AppStrings.toBack,
+              previousPageTitle: AppStrings.close,
             ),
             child: SafeArea(
               bottom: false,
@@ -45,16 +46,15 @@ class _WordDetailPageState extends State<WordDetailPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          WordDetailItem(model: snapshot.data!),
+                          DetailWordItem(model: snapshot.data!),
                           const Padding(
-                            padding: AppStyles.mardingWithoutTop,
+                            padding: AppStyles.horizontalVerticalMini,
                             child: Text(
                               AppStrings.cognates,
                               style: TextStyle(
                                 fontSize: 20,
                                 color: CupertinoColors.systemBlue,
                                 fontFamily: 'SF Pro',
-                                letterSpacing: 0.75,
                               ),
                             ),
                           ),
@@ -72,11 +72,11 @@ class _WordDetailPageState extends State<WordDetailPage> {
                                   itemCount: wordRootsSnapshot.data!.length,
                                   itemBuilder: (BuildContext context, int index) {
                                     final DictionaryEntity model = wordRootsSnapshot.data![index];
-                                    return WordItem(model: model, index: index);
+                                    return DetailRootWordItem(model: model, index: index);
                                   },
                                 );
                               } else {
-                                return const CupertinoActivityIndicator();
+                                return const DataText(text: AppStrings.rootIsEmpty);
                               }
                             },
                           ),

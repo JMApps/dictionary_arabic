@@ -1,12 +1,20 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../domain/entities/change_favorite_dictionary_entity.dart';
 import '../../domain/entities/favorite_dictionary_entity.dart';
 import '../../domain/usecases/favorite_dictionary_use_case.dart';
 import '../repositories/favorite_dictionary_data_repository.dart';
 
 class FavoriteWordsState extends ChangeNotifier {
   final FavoriteDictionaryUseCase _useCase = FavoriteDictionaryUseCase(FavoriteDictionaryDataRepository());
+
+  int _translationIndex = -1;
+
+  int get getTranslationIndex => _translationIndex;
+
+  set setTranslationIndex(int value) {
+    _translationIndex = value;
+    notifyListeners();
+  }
 
   Future<List<FavoriteDictionaryEntity>> fetchAllFavoriteWords() async {
     return await _useCase.fetchAllFavoriteWords();
@@ -26,8 +34,8 @@ class FavoriteWordsState extends ChangeNotifier {
     return addFavoriteWord;
   }
 
-  Future<int> changeFavoriteWord({required ChangeFavoriteDictionaryEntity model}) async {
-    int changeFavoriteWord = await _useCase.fetchChangeFavoriteWord(model: model);
+  Future<int> changeFavoriteWord({required int wordId, required int serializableIndex}) async {
+    int changeFavoriteWord = await _useCase.fetchChangeFavoriteWord(wordId: wordId, serializableIndex: serializableIndex);
     notifyListeners();
     return changeFavoriteWord;
   }
