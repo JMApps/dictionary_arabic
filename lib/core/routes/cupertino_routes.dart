@@ -1,4 +1,5 @@
 import 'package:arabic/domain/entities/args/word_favorite_collection_args.dart';
+import 'package:arabic/presentation/uiModules/ios/pages/favorite_word_detail_page.dart';
 import 'package:arabic/presentation/uiModules/ios/pages/word_favorite_collection_page.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -51,6 +52,11 @@ class CupertinoRoutes {
             var offsetAnimation = animation.drive(tween);
             return SlideTransition(position: offsetAnimation, child: child);
           },
+        );
+      case RouteNames.wordFavoriteDetailPage:
+        final WordArgs wordArgs = routeSettings.arguments as WordArgs;
+        return CupertinoPageRoute(
+          builder: (_) => FavoriteWordDetailPage(favoriteWordId: wordArgs.wordId),
         );
       case RouteNames.allCollectionsPage:
         return CupertinoPageRoute(

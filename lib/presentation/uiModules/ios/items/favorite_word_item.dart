@@ -1,4 +1,3 @@
-import 'package:arabic/data/state/favorite_words_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +5,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/routes/route_names.dart';
 import '../../../../core/styles/app_styles.dart';
+import '../../../../data/state/favorite_words_state.dart';
 import '../../../../domain/entities/args/word_args.dart';
 import '../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../widgets/forms_text.dart';
@@ -60,8 +60,8 @@ class FavoriteWordItem extends StatelessWidget {
           onTap: () {
             Navigator.pushNamed(
               context,
-              RouteNames.wordDetailPage,
-              arguments: WordArgs(wordId: model.nr),
+              RouteNames.wordFavoriteDetailPage,
+              arguments: WordArgs(wordId: model.id)
             );
           },
           padding: AppStyles.mainMardingMini,
