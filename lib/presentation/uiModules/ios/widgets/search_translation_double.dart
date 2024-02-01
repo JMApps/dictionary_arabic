@@ -18,6 +18,7 @@ class SearchTranslationDouble extends StatelessWidget {
       height: 1.5,
     );
 
+
     const TextStyle arabicStyle = TextStyle(
       fontSize: 18,
       color: CupertinoColors.systemBlue,
