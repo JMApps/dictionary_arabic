@@ -117,7 +117,7 @@ class FavoriteWordItem extends StatelessWidget {
                   model.root,
                   style: const TextStyle(
                     fontSize: 20,
-                    color: CupertinoColors.systemIndigo,
+                    color: CupertinoColors.systemPink,
                     fontFamily: 'Uthmanic',
                   ),
                   textDirection: TextDirection.rtl,
