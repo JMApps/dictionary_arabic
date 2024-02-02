@@ -24,6 +24,7 @@ class FavoriteWordItem extends StatelessWidget {
   @override
   @override
   Widget build(BuildContext context) {
+    List<String> translationLines = model.translation.split('\\n');
     return Padding(
       padding: AppStyles.mardingOnlyBottomMini,
       child: Slidable(
@@ -127,7 +128,7 @@ class FavoriteWordItem extends StatelessWidget {
           ),
           subtitle: CupertinoListTile(
             padding: AppStyles.mardingSymmetricHorMini,
-            title: TranslationDouble(translation: model.translation),
+            title: TranslationDouble(translation: translationLines[model.serializableIndex]),
           ),
         ),
       ),

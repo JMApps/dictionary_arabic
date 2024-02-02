@@ -1,9 +1,9 @@
-import 'package:arabic/core/routes/route_names.dart';
-import 'package:arabic/domain/entities/args/word_favorite_collection_args.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../../core/routes/route_names.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../data/repositories/default_dictionary_data_repository.dart';
+import '../../../../domain/entities/args/word_favorite_collection_args.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../../../../domain/usecases/default_dictionary_use_case.dart';
 import '../lists/serializable_translation_list.dart';
