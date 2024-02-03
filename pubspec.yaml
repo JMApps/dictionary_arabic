@@ -24,7 +24,7 @@ dependencies:
   unicode: ^0.3.1
 
   # Copy/Share
-  share_plus: ^7.2.1
+  share_plus: ^7.2.2
   clipboard: ^0.1.3
 
   # State management
@@ -54,11 +54,6 @@ flutter:
     - family: 'SF Pro'
       fonts:
         - asset: assets/fonts/sf_pro.ttf
-    - family: 'Gotham'
+    - family: 'Heuristica'
       fonts:
-        - asset: assets/fonts/gotham_pro_light.ttf
-          weight: 400
-        - asset: assets/fonts/gotham_pro.ttf
-          weight: 500
-        - asset: assets/fonts/gotham_pro_medium.ttf
-          weight: 600
+        - asset: assets/fonts/heuristica.ttf

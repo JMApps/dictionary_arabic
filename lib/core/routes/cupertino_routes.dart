@@ -1,15 +1,15 @@
 import 'package:arabic/domain/entities/args/word_favorite_collection_args.dart';
-import 'package:arabic/presentation/uiModules/ios/pages/favorite_word_detail_page.dart';
-import 'package:arabic/presentation/uiModules/ios/pages/word_favorite_collection_page.dart';
+import 'package:arabic/presentation/uiModules/ios/favorites/favorite_word_detail_page.dart';
+import 'package:arabic/presentation/uiModules/ios/favorites/favorite_word_select_collection.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../domain/entities/args/collection_args.dart';
 import '../../domain/entities/args/word_args.dart';
-import '../../presentation/uiModules/ios/pages/add_favorite_word_page.dart';
-import '../../presentation/uiModules/ios/pages/all_collections_page.dart';
-import '../../presentation/uiModules/ios/pages/collection_detail_page.dart';
-import '../../presentation/uiModules/ios/pages/search_words_page.dart';
-import '../../presentation/uiModules/ios/pages/word_detail_page.dart';
+import '../../presentation/uiModules/ios/favorites/add_favorite_word_page.dart';
+import '../../presentation/uiModules/ios/collections/all_collections_page.dart';
+import '../../presentation/uiModules/ios/collections/collection_detail_page.dart';
+import '../../presentation/uiModules/ios/search/search_words_page.dart';
+import '../../presentation/uiModules/ios/search/word_detail_page.dart';
 import 'route_names.dart';
 
 class CupertinoRoutes {
@@ -43,7 +43,7 @@ class CupertinoRoutes {
       case RouteNames.wordFavoriteCollectionPage:
         final WordFavoriteCollectionArgs favoriteCollectionArgs = routeSettings.arguments as WordFavoriteCollectionArgs;
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => WordFavoriteCollectionPage(wordModel: favoriteCollectionArgs.wordModel, serializableIndex: favoriteCollectionArgs.serializableIndex),
+          pageBuilder: (context, animation, secondaryAnimation) => FavoriteWordSelectCollection(wordModel: favoriteCollectionArgs.wordModel, serializableIndex: favoriteCollectionArgs.serializableIndex),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(0.0, 1.0);
             const end = Offset.zero;
