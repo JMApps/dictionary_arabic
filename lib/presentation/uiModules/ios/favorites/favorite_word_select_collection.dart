@@ -75,7 +75,7 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
                       slivers: [
                         CupertinoSliverNavigationBar(
                           stretch: true,
-                          middle: const Text(AppStrings.addToCollection),
+                          middle: const Text(AppStrings.selectCollection),
                           trailing: CupertinoButton(
                             padding: EdgeInsets.zero,
                             child: const Text(AppStrings.add),

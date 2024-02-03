@@ -45,4 +45,5 @@ class AppStrings {
   static const String recent = 'Недавние:';
   static const String rootIsEmpty = 'Однокоренных слов нет';
   static const String clearList = 'Очистить список';
+  static const String selectCollection = 'Выберите коллекцию';
 }

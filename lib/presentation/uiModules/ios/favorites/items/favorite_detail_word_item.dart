@@ -1,4 +1,3 @@
-import 'package:arabic/presentation/uiModules/ios/widgets/translation_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:share_plus/share_plus.dart';
@@ -6,6 +5,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../../../../core/styles/app_styles.dart';
 import '../../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../../widgets/forms_text.dart';
+import '../lists/serializable_detail_words_list.dart';
 
 class FavoriteDetailWordItem extends StatefulWidget {
   const FavoriteDetailWordItem({
@@ -53,7 +53,7 @@ class _FavoriteDetailWordItemState extends State<FavoriteDetailWordItem> {
         ],
       ),
       child: CupertinoListTile(
-        padding: AppStyles.mainMarding,
+        padding: AppStyles.mardingWithoutBottom,
         title: CupertinoListTile(
           padding: EdgeInsets.zero,
           title: Row(
@@ -113,9 +113,11 @@ class _FavoriteDetailWordItemState extends State<FavoriteDetailWordItem> {
             ],
           ),
         ),
-        subtitle: TranslationText(translation: widget.model.translation),
+        subtitle: SerializableDetailWordsList(
+          translation: widget.model.translation,
+          serializableIndex: widget.model.serializableIndex,
+        ),
       ),
     );
   }
 }
-

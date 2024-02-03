@@ -81,7 +81,7 @@ class CollectionItem extends StatelessWidget {
           color: CupertinoColors.systemGrey,
         ),
         additionalInfo: FutureBuilder<int>(
-          future: Provider.of<CollectionsState>(context).getWordCount(collectionId: model.id),
+          future: Provider.of<CollectionsState>(context, listen: false).getWordCount(collectionId: model.id),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return Text(

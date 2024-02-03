@@ -6,8 +6,8 @@ import '../../../../../domain/entities/args/word_favorite_collection_args.dart';
 import '../../../../../domain/entities/dictionary_entity.dart';
 import '../../widgets/translation_text.dart';
 
-class SerializableTranslationList extends StatelessWidget {
-  const SerializableTranslationList({
+class SerializableWordsList extends StatelessWidget {
+  const SerializableWordsList({
     super.key,
     required this.model,
   });

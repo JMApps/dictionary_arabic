@@ -6,7 +6,7 @@ import '../../../../data/repositories/default_dictionary_data_repository.dart';
 import '../../../../domain/entities/args/word_favorite_collection_args.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../../../../domain/usecases/default_dictionary_use_case.dart';
-import 'lists/serializable_translation_list.dart';
+import 'lists/serializable_words_list.dart';
 import '../widgets/error_data_text.dart';
 
 class AddFavoriteWordPage extends StatefulWidget {
@@ -58,7 +58,7 @@ class _AddFavoriteWordPageState extends State<AddFavoriteWordPage> {
             ),
             child: SafeArea(
               bottom: false,
-              child: SerializableTranslationList(model: snapshot.data!),
+              child: SerializableWordsList(model: snapshot.data!),
             ),
           );
         } else if (snapshot.hasError) {

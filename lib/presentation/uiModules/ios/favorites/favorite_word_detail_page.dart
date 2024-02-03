@@ -52,7 +52,7 @@ class _FavoriteWordDetailPageState extends State<FavoriteWordDetailPage> {
                         children: [
                           FavoriteDetailWordItem(model: snapshot.data!),
                           const Padding(
-                            padding: AppStyles.horizontalVerticalMini,
+                            padding: AppStyles.mainMardingMini,
                             child: Text(
                               AppStrings.cognates,
                               style: TextStyle(
