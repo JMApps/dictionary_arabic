@@ -7,7 +7,7 @@ import '../../../../core/styles/app_styles.dart';
 import '../../../../domain/entities/args/word_args.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../widgets/forms_text.dart';
-import '../widgets/search_translation_double.dart';
+import '../widgets/translation_double.dart';
 
 class SearchWordItem extends StatelessWidget {
   const SearchWordItem({
@@ -122,7 +122,7 @@ class SearchWordItem extends StatelessWidget {
           ),
           subtitle: CupertinoListTile(
             padding: AppStyles.mardingOnlyLeftMini,
-            title: SearchTranslationDouble(translation: model.translation),
+            title: TranslationDouble(translation: model.translation),
           ),
         ),
       ),

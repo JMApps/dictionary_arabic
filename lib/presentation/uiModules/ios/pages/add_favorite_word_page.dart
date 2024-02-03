@@ -22,8 +22,7 @@ class AddFavoriteWordPage extends StatefulWidget {
 }
 
 class _AddFavoriteWordPageState extends State<AddFavoriteWordPage> {
-  final DefaultDictionaryUseCase _dictionaryUseCase =
-      DefaultDictionaryUseCase(DefaultDictionaryDataRepository());
+  final DefaultDictionaryUseCase _dictionaryUseCase = DefaultDictionaryUseCase(DefaultDictionaryDataRepository());
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class SearchTranslationDouble extends StatelessWidget {
-  const SearchTranslationDouble({
+class FavoriteTranslationDouble extends StatelessWidget {
+  const FavoriteTranslationDouble({
     super.key,
     required this.translation,
   });
@@ -64,7 +64,7 @@ class SearchTranslationDouble extends StatelessWidget {
     }
 
     return RichText(
-      maxLines: 4,
+      maxLines: 1,
       text: TextSpan(
         children: translationDouble(translation, arabic),
       ),

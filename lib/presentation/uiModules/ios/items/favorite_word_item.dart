@@ -8,8 +8,8 @@ import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/favorite_words_state.dart';
 import '../../../../domain/entities/args/word_args.dart';
 import '../../../../domain/entities/favorite_dictionary_entity.dart';
+import '../widgets/favorite_translation_double.dart';
 import '../widgets/forms_text.dart';
-import '../widgets/translation_double.dart';
 
 class FavoriteWordItem extends StatelessWidget {
   const FavoriteWordItem({
@@ -58,6 +58,8 @@ class FavoriteWordItem extends StatelessWidget {
           ],
         ),
         child: CupertinoListTile(
+          padding: AppStyles.mainMarding,
+          backgroundColor: CupertinoColors.quaternarySystemFill,
           onTap: () {
             Navigator.pushNamed(
               context,
@@ -65,10 +67,8 @@ class FavoriteWordItem extends StatelessWidget {
               arguments: WordArgs(wordId: model.id)
             );
           },
-          padding: AppStyles.mainMardingMini,
-          backgroundColor: CupertinoColors.quaternarySystemFill,
           title: CupertinoListTile(
-            padding: AppStyles.mardingSymmetricHor,
+            padding: EdgeInsets.zero,
             title: Row(
               children: [
                 Text(
@@ -126,10 +126,7 @@ class FavoriteWordItem extends StatelessWidget {
               ],
             ),
           ),
-          subtitle: CupertinoListTile(
-            padding: AppStyles.mardingSymmetricHorMini,
-            title: TranslationDouble(translation: translationLines[model.serializableIndex]),
-          ),
+          subtitle: FavoriteTranslationDouble(translation: model.serializableIndex == -1 ? model.translation : translationLines[model.serializableIndex]),
         ),
       ),
     );
