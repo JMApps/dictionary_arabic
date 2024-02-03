@@ -90,7 +90,7 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                         ),
                         SliverToBoxAdapter(
                           child: CupertinoListSection.insetGrouped(
-                            margin: AppStyles.mardingWithoutBottom,
+                            margin: AppStyles.mardingWithoutBottomMini,
                             footer: const SizedBox(height: 14),
                             children: [
                               ListView.builder(

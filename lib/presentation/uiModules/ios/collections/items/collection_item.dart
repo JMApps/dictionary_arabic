@@ -1,5 +1,7 @@
+import 'package:arabic/data/state/collections_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/routes/route_names.dart';
 import '../../../../../core/styles/app_styles.dart';
@@ -78,8 +80,17 @@ class CollectionItem extends StatelessWidget {
           CupertinoIcons.chevron_forward,
           color: CupertinoColors.systemGrey,
         ),
-        additionalInfo: Text(
-          model.wordsCount.toString(),
+        additionalInfo: FutureBuilder<int>(
+          future: Provider.of<CollectionsState>(context).getWordCount(collectionId: model.id),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Text(
+                snapshot.data!.toString(),
+              );
+            } else {
+              return const Text('0');
+            }
+          }
         ),
       ),
     );
