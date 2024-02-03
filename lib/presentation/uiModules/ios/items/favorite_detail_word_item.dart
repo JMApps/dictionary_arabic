@@ -111,3 +111,4 @@ class _FavoriteDetailWordItemState extends State<FavoriteDetailWordItem> {
     );
   }
 }
+
