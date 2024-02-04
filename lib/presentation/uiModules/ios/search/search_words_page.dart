@@ -1,3 +1,4 @@
+import 'package:arabic/data/state/favorite_words_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 

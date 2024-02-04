@@ -8,6 +8,7 @@ import 'package:sqflite/sqflite.dart';
 class CollectionsDataRepository implements CollectionsRepository {
   final CollectionsService _collectionsService = CollectionsService();
   final String _tableName = 'Table_of_collections';
+  final String _wordsTableName = 'Table_of_favorite_words';
 
   @override
   Future<List<CollectionEntity>> getAllCollections({required String sortedBy}) async {
@@ -77,6 +78,7 @@ class CollectionsDataRepository implements CollectionsRepository {
   Future<int> deleteCollection({required int collectionId}) async {
     final Database database = await _collectionsService.db;
     final int deleteCollection = await database.delete(_tableName, where: 'id = ?', whereArgs: [collectionId]);
+    await database.delete(_wordsTableName, where: 'collection_id = ?', whereArgs: [collectionId]);
     return deleteCollection;
   }
 
@@ -84,6 +86,7 @@ class CollectionsDataRepository implements CollectionsRepository {
   Future<int> deleteAllCollections() async {
     final Database database = await _collectionsService.db;
     final int deleteAllCollections = await database.delete(_tableName);
+    await database.delete(_wordsTableName);
     return deleteAllCollections;
   }
 

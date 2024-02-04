@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../../core/routes/cupertino_routes.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../data/state/collections_state.dart';
+import '../../../../data/state/favorite_words_state.dart';
 import '../../../../data/state/search_values_state.dart';
 import '../../../../data/state/word_exact_match_state.dart';
 import 'main_cupertino_page.dart';
@@ -23,6 +24,9 @@ class RootCupertinoPage extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => CollectionsState(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => FavoriteWordsState(),
         ),
       ],
       child: const CupertinoApp(

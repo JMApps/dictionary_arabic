@@ -34,9 +34,9 @@ class DefaultDictionaryUseCase {
     }
   }
 
-  Future<DictionaryEntity> fetchWordById({required int wordId}) async {
+  Future<DictionaryEntity> fetchWordById({required int wordNr}) async {
     try {
-      final DictionaryEntity wordById = await _dictionaryRepository.getWordById(wordId: wordId);
+      final DictionaryEntity wordById = await _dictionaryRepository.getWordById(wordId: wordNr);
       return wordById;
     } catch (e) {
       throw Exception('Get word by id data error: $e');

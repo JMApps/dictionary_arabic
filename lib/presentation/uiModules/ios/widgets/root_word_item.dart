@@ -42,7 +42,7 @@ class RootWordItem extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   RouteNames.addFavoriteWordPage,
-                  arguments: WordArgs(wordId: model.nr),
+                  arguments: WordArgs(wordNr: model.nr),
                 );
               },
               backgroundColor: CupertinoColors.systemBlue,
@@ -57,7 +57,7 @@ class RootWordItem extends StatelessWidget {
             Navigator.pushReplacementNamed(
               context,
               RouteNames.wordDetailPage,
-              arguments: WordArgs(wordId: model.nr),
+              arguments: WordArgs(wordNr: model.nr),
             );
           },
           title: CupertinoListTile(

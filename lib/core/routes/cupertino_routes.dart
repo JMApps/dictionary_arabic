@@ -30,7 +30,7 @@ class CupertinoRoutes {
       case RouteNames.addFavoriteWordPage:
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => AddFavoriteWordPage(wordId: wordArgs.wordId),
+          pageBuilder: (context, animation, secondaryAnimation) => AddFavoriteWordPage(wordNr: wordArgs.wordNr),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(0.0, 1.0);
             const end = Offset.zero;
@@ -40,7 +40,7 @@ class CupertinoRoutes {
             return SlideTransition(position: offsetAnimation, child: child);
           },
         );
-      case RouteNames.wordFavoriteCollectionPage:
+      case RouteNames.favoriteWordSelectionCollectionPage:
         final WordFavoriteCollectionArgs favoriteCollectionArgs = routeSettings.arguments as WordFavoriteCollectionArgs;
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) => FavoriteWordSelectCollection(wordModel: favoriteCollectionArgs.wordModel, serializableIndex: favoriteCollectionArgs.serializableIndex),
@@ -56,7 +56,7 @@ class CupertinoRoutes {
       case RouteNames.wordFavoriteDetailPage:
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return CupertinoPageRoute(
-          builder: (_) => FavoriteWordDetailPage(favoriteWordId: wordArgs.wordId),
+          builder: (_) => FavoriteWordDetailPage(favoriteWordNr: wordArgs.wordNr),
         );
       case RouteNames.allCollectionsPage:
         return CupertinoPageRoute(
@@ -71,7 +71,7 @@ class CupertinoRoutes {
       case RouteNames.wordDetailPage:
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return CupertinoPageRoute(
-          builder: (_) => WordDetailPage(wordId: wordArgs.wordId),
+          builder: (_) => WordDetailPage(wordId: wordArgs.wordNr),
         );
       default:
         throw Exception('Invalid route ${routeSettings.name}');

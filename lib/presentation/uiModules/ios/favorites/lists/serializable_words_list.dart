@@ -30,7 +30,7 @@ class SerializableWordsList extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(
                   context,
-                  RouteNames.wordFavoriteCollectionPage,
+                  RouteNames.favoriteWordSelectionCollectionPage,
                   arguments: WordFavoriteCollectionArgs(
                     wordModel: model,
                     serializableIndex: index,

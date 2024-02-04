@@ -43,7 +43,7 @@ class _DetailWordItemState extends State<DetailWordItem> {
               Navigator.pushNamed(
                 context,
                 RouteNames.addFavoriteWordPage,
-                arguments: WordArgs(wordId: widget.model.nr),
+                arguments: WordArgs(wordNr: widget.model.nr),
               );
             },
             backgroundColor: CupertinoColors.systemBlue,
