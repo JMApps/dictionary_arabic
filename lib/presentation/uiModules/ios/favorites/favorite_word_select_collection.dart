@@ -47,9 +47,6 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
         ChangeNotifierProvider(
           create: (_) => SearchQueryState(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => FavoriteWordsState(),
-        ),
       ],
       child: GestureDetector(
         onTap: () {
@@ -115,7 +112,7 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
                                   return Consumer<FavoriteWordsState>(
                                     builder: (BuildContext context, FavoriteWordsState favoriteWordState, _) {
                                       return CupertinoListTile(
-                                        onTap: () {
+                                        onTap: () async {
                                           Navigator.pop(context);
                                           Navigator.pop(context);
                                           final favoriteWordModel = FavoriteDictionaryEntity(
@@ -132,7 +129,7 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
                                             collectionId: collectionModel.id,
                                             serializableIndex: widget.serializableIndex,
                                           );
-                                          favoriteWordState.addFavoriteWord(model: favoriteWordModel);
+                                          await favoriteWordState.addFavoriteWord(model: favoriteWordModel);
                                         },
                                         title: Text(collectionModel.title),
                                         trailing: const Icon(CupertinoIcons.forward),

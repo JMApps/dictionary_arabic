@@ -12,10 +12,10 @@ import '../widgets/error_data_text.dart';
 class AddFavoriteWordPage extends StatefulWidget {
   const AddFavoriteWordPage({
     super.key,
-    required this.wordId,
+    required this.wordNr,
   });
 
-  final int wordId;
+  final int wordNr;
 
   @override
   State<AddFavoriteWordPage> createState() => _AddFavoriteWordPageState();
@@ -27,7 +27,7 @@ class _AddFavoriteWordPageState extends State<AddFavoriteWordPage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DictionaryEntity>(
-      future: _dictionaryUseCase.fetchWordById(wordId: widget.wordId),
+      future: _dictionaryUseCase.fetchWordById(wordNr: widget.wordNr),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return CupertinoPageScaffold(
@@ -45,7 +45,7 @@ class _AddFavoriteWordPageState extends State<AddFavoriteWordPage> {
                 onPressed: () {
                   Navigator.pushNamed(
                     context,
-                    RouteNames.wordFavoriteCollectionPage,
+                    RouteNames.favoriteWordSelectionCollectionPage,
                     arguments: WordFavoriteCollectionArgs(
                       wordModel: snapshot.data!,
                       serializableIndex: -1,

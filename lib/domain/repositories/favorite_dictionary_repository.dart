@@ -3,6 +3,8 @@ import '../entities/favorite_dictionary_entity.dart';
 abstract class FavoriteDictionaryRepository {
   Future<List<FavoriteDictionaryEntity>> getAllFavoriteWords();
 
+  Future<bool> isWordFavorite({required int wordId});
+
   Future<List<FavoriteDictionaryEntity>> getFavoriteWordsByCollectionId({required int collectionId});
 
   Future<FavoriteDictionaryEntity> getFavoriteWordById({required int favoriteWordId});

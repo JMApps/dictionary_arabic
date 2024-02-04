@@ -1,6 +1,6 @@
+import 'package:arabic/presentation/uiModules/ios/favorites/lists/%D1%81hange_serializable_words_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../../../core/styles/app_styles.dart';
 import '../../../../../domain/entities/favorite_dictionary_entity.dart';
@@ -28,20 +28,22 @@ class _FavoriteDetailWordItemState extends State<FavoriteDetailWordItem> {
         children: [
           SlidableAction(
             onPressed: (context) {
-              Share.share(
-                widget.model.wordContent(),
-                sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
+              showCupertinoModalPopup(
+                context: context,
+                builder: (context) => ChangeSerializableWordsList(
+                  favoriteWordModel: widget.model,
+                ),
               );
             },
-            backgroundColor: CupertinoColors.systemIndigo,
-            icon: CupertinoIcons.share,
+            backgroundColor: CupertinoColors.systemBlue,
+            icon: CupertinoIcons.eye,
           ),
           SlidableAction(
             onPressed: (context) {
               // Поменять выбранный вариант перевода
             },
-            backgroundColor: CupertinoColors.systemBlue,
-            icon: CupertinoIcons.eye,
+            backgroundColor: CupertinoColors.systemIndigo,
+            icon: CupertinoIcons.arrow_turn_up_right,
           ),
           SlidableAction(
             onPressed: (context) {

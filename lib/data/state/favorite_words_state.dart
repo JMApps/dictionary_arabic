@@ -7,17 +7,12 @@ import '../repositories/favorite_dictionary_data_repository.dart';
 class FavoriteWordsState extends ChangeNotifier {
   final FavoriteDictionaryUseCase _useCase = FavoriteDictionaryUseCase(FavoriteDictionaryDataRepository());
 
-  int _translationIndex = -1;
-
-  int get getTranslationIndex => _translationIndex;
-
-  set setTranslationIndex(int value) {
-    _translationIndex = value;
-    notifyListeners();
-  }
-
   Future<List<FavoriteDictionaryEntity>> fetchAllFavoriteWords() async {
     return await _useCase.fetchAllFavoriteWords();
+  }
+
+  Future<bool> fetchIsWordFavorite({required int wordId}) async {
+    return await _useCase.fetchIsWordFavorite(wordId: wordId);
   }
 
   Future<List<FavoriteDictionaryEntity>> fetchFavoriteWordsByCollectionId({required int collectionId}) async {

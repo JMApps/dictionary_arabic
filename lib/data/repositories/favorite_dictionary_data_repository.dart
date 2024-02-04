@@ -19,6 +19,21 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   }
 
   @override
+  Future<bool> isWordFavorite({required int wordId}) async {
+    try {
+      final Database database = await _collectionsService.db;
+      final List<Map<String, Object?>> isFavorite = await database.query(
+        _tableName,
+        where: 'nr = ?',
+        whereArgs: [wordId],
+      );
+      return isFavorite.isNotEmpty;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
   Future<List<FavoriteDictionaryEntity>> getFavoriteWordsByCollectionId({required int collectionId}) async {
     final Database database = await _collectionsService.db;
     final List<Map<String, Object?>> resources = await database.query(_tableName, where: 'collection_id = ?', whereArgs: [collectionId]);
@@ -29,7 +44,7 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   @override
   Future<FavoriteDictionaryEntity> getFavoriteWordById({required int favoriteWordId}) async {
     final Database database = await _collectionsService.db;
-    final List<Map<String, Object?>> resources = await database.query(_tableName, where: 'id = ?', whereArgs: [favoriteWordId]);
+    final List<Map<String, Object?>> resources = await database.query(_tableName, where: 'nr = ?', whereArgs: [favoriteWordId]);
     final FavoriteDictionaryEntity? favoriteWordById = resources.isNotEmpty ? _mapToEntity(FavoriteDictionaryModel.fromMap(resources.first)) : null;
     return favoriteWordById!;
   }

@@ -16,6 +16,15 @@ class FavoriteDictionaryUseCase {
     }
   }
 
+  Future<bool> fetchIsWordFavorite({required int wordId}) async {
+    try {
+      final bool isFavorite = await _favoriteDictionaryRepository.isWordFavorite(wordId: wordId);
+      return isFavorite;
+    } catch (e) {
+      throw Exception('Get check favorite word data error: $e');
+    }
+  }
+
   Future<List<FavoriteDictionaryEntity>> fetchFavoriteWordsByCollectionId({required int collectionId}) async {
     try {
       final List<FavoriteDictionaryEntity> collectionFavoriteWords = await _favoriteDictionaryRepository.getFavoriteWordsByCollectionId(collectionId: collectionId);

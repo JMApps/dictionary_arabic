@@ -17,7 +17,7 @@ class FavoriteTranslationText extends StatelessWidget {
     RegExp arabic = RegExp(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+');
     TextStyle translationStyle = TextStyle(
       fontSize: 18,
-      color: index == serializableIndex ? CupertinoColors.label.resolveFrom(context) : CupertinoColors.systemGrey,
+      color: serializableIndex == -1 ? CupertinoColors.label.resolveFrom(context) : index == serializableIndex ? CupertinoColors.label.resolveFrom(context) : CupertinoColors.systemGrey,
       fontFamily: 'Heuristica',
       height: 1.5,
     );

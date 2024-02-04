@@ -64,7 +64,7 @@ class FavoriteWordItem extends StatelessWidget {
             Navigator.pushNamed(
               context,
               RouteNames.wordFavoriteDetailPage,
-              arguments: WordArgs(wordId: model.id)
+              arguments: WordArgs(wordNr: model.nr)
             );
           },
           title: CupertinoListTile(
