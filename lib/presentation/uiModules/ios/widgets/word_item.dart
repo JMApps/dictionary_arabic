@@ -1,5 +1,7 @@
+import 'package:arabic/data/state/favorite_words_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/routes/route_names.dart';
@@ -37,16 +39,38 @@ class WordItem extends StatelessWidget {
               backgroundColor: CupertinoColors.systemIndigo,
               icon: CupertinoIcons.share,
             ),
-            SlidableAction(
-              onPressed: (context) {
-                Navigator.pushNamed(
-                  context,
-                  RouteNames.addFavoriteWordPage,
-                  arguments: WordArgs(wordId: model.nr),
-                );
-              },
-              backgroundColor: CupertinoColors.systemBlue,
-              icon: CupertinoIcons.bookmark,
+            FutureBuilder<bool>(
+              future: Provider.of<FavoriteWordsState>(context, listen: false).fetchIsWordFavorite(wordId: model.nr),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CupertinoActivityIndicator();
+                } else if (snapshot.hasData) {
+                  final bool isFavorite = snapshot.data!;
+                  return SlidableAction(
+                    onPressed: (context) {
+                      if (isFavorite) {
+                        Navigator.pushNamed(
+                            context,
+                            RouteNames.wordFavoriteDetailPage,
+                            arguments: WordArgs(wordNr: model.nr)
+                        );
+                      } else {
+                        Navigator.pushNamed(
+                          context,
+                          RouteNames.addFavoriteWordPage,
+                          arguments: WordArgs(wordNr: model.nr),
+                        );
+                      }
+                    },
+                    backgroundColor: CupertinoColors.systemBlue,
+                    icon: isFavorite
+                        ? CupertinoIcons.bookmark_fill
+                        : CupertinoIcons.bookmark,
+                  );
+                } else {
+                  return const CupertinoActivityIndicator();
+                }
+              }
             ),
           ],
         ),
@@ -57,7 +81,7 @@ class WordItem extends StatelessWidget {
             Navigator.pushNamed(
               context,
               RouteNames.wordDetailPage,
-              arguments: WordArgs(wordId: model.nr),
+              arguments: WordArgs(wordNr: model.nr),
             );
           },
           title: CupertinoListTile(

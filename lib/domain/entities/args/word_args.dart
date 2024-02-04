@@ -1,5 +1,5 @@
 class WordArgs {
-  final int wordId;
+  final int wordNr;
 
-  WordArgs({required this.wordId});
+  WordArgs({required this.wordNr});
 }

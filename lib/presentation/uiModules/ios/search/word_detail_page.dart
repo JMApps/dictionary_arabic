@@ -28,7 +28,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DictionaryEntity>(
-      future: _dictionaryUseCase.fetchWordById(wordId: widget.wordId),
+      future: _dictionaryUseCase.fetchWordById(wordNr: widget.wordId),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return CupertinoPageScaffold(

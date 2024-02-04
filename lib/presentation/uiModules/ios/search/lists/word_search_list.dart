@@ -32,7 +32,11 @@ class _WordSearchListState extends State<WordSearchList> {
         exactMatch: Provider.of<WordExactMatchState>(context, listen: false).getExactMatch,
       ),
       builder: (context, snapshot) {
-        if (snapshot.hasData && snapshot.data!.isNotEmpty && query.isNotEmpty) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CupertinoActivityIndicator(),
+          );
+        } else if (snapshot.hasData && snapshot.data!.isNotEmpty && query.isNotEmpty) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
