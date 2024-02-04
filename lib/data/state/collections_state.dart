@@ -50,6 +50,10 @@ class CollectionsState extends ChangeNotifier {
     return await _useCase.fetchAllCollections(sortedBy: '${_collectionOrder[_orderCollectionIndex]} ${_order[_orderIndex]}');
   }
 
+  Future<List<CollectionEntity>> fetchAllButOneCollections({required int collectionId}) async {
+    return await _useCase.fetchAllButOneCollections(collectionId: collectionId, sortedBy: '${_collectionOrder[_orderCollectionIndex]} ${_order[_orderIndex]}');
+  }
+
   Future<CollectionEntity> getCollectionById({required int collectionId}) async {
     return await _useCase.fetchCollectionById(collectionId: collectionId);
   }

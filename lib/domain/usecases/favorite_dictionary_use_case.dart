@@ -61,6 +61,14 @@ class FavoriteDictionaryUseCase {
     }
   }
 
+  Future<void> fetchMoveFavoriteWord({required int wordNr, required int collectionId}) async {
+    try {
+      await _favoriteDictionaryRepository.moveFavoriteWord(wordNr: wordNr, collectionId: collectionId);
+    } catch (e) {
+      throw Exception('Move favorite word data error: $e');
+    }
+  }
+
   Future<int> fetchDeleteFavoriteWord({required int favoriteWordId}) async {
     try {
       final int deleteFavoriteWord = await _favoriteDictionaryRepository.deleteFavoriteWord(favoriteWordId: favoriteWordId);

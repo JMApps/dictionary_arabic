@@ -81,6 +81,15 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   }
 
   @override
+  Future<void> moveFavoriteWord({required int wordNr, required int collectionId}) async {
+    final Database database = await _collectionsService.db;
+    final Map<String, int> toCollectionMap = {
+      'collection_id': collectionId,
+    };
+    await database.update(_tableName, toCollectionMap, where: 'nr = ?', whereArgs: [wordNr], conflictAlgorithm: sql.ConflictAlgorithm.replace);
+  }
+
+  @override
   Future<int> deleteFavoriteWord({required int favoriteWordId}) async {
     final Database database = await _collectionsService.db;
     final int deleteFavoriteWord = await database.delete(_tableName, where: 'id = ?', whereArgs: [favoriteWordId]);

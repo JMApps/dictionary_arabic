@@ -6,6 +6,7 @@ import '../../../../../core/styles/app_styles.dart';
 import '../../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../../widgets/forms_text.dart';
 import '../lists/serializable_detail_words_list.dart';
+import '../move_word_select.dart';
 
 class FavoriteDetailWordItem extends StatefulWidget {
   const FavoriteDetailWordItem({
@@ -40,7 +41,7 @@ class _FavoriteDetailWordItemState extends State<FavoriteDetailWordItem> {
           ),
           SlidableAction(
             onPressed: (context) {
-              // Поменять выбранный вариант перевода
+              showCupertinoModalPopup(context: context, builder: (_) => MoveWordSelect(wordNr: widget.model.nr, oldCollectionId: widget.model.collectionId));
             },
             backgroundColor: CupertinoColors.systemIndigo,
             icon: CupertinoIcons.arrow_turn_up_right,

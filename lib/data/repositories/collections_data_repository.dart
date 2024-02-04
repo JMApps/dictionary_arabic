@@ -19,6 +19,14 @@ class CollectionsDataRepository implements CollectionsRepository {
   }
 
   @override
+  Future<List<CollectionEntity>> getAllButOneCollection({required int collectionId, required String sortedBy}) async {
+    final Database database = await _collectionsService.db;
+    final List<Map<String, Object?>> resources = await database.query(_tableName, where: 'id <> ?', whereArgs: [collectionId], orderBy: sortedBy);
+    final List<CollectionEntity> allCollections = resources.isNotEmpty ? resources.map((c) => _mapToEntity(CollectionModel.fromMap(c))).toList() : [];
+    return allCollections;
+  }
+
+  @override
   Future<CollectionEntity> getCollectionById({required int collectionId}) async {
     final Database database = await _collectionsService.db;
     final List<Map<String, Object?>> resources = await database.query(_tableName, where: 'id = ?', whereArgs: [collectionId]);

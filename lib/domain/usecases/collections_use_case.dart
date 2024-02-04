@@ -15,6 +15,15 @@ class CollectionsUseCase {
     }
   }
 
+  Future<List<CollectionEntity>> fetchAllButOneCollections({required int collectionId, required String sortedBy}) async {
+    try {
+      final List<CollectionEntity> allButOneCollections = await _collectionsRepository.getAllButOneCollection(collectionId: collectionId, sortedBy: sortedBy);
+      return allButOneCollections;
+    } catch (e) {
+      throw Exception('Get all but one collections data error: $e');
+    }
+  }
+
   Future<CollectionEntity> fetchCollectionById({required int collectionId}) async {
     try {
       final CollectionEntity collectionById = await _collectionsRepository.getCollectionById(collectionId: collectionId);

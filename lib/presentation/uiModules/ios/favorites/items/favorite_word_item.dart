@@ -1,3 +1,4 @@
+import 'package:arabic/presentation/uiModules/ios/favorites/move_word_select.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +44,7 @@ class FavoriteWordItem extends StatelessWidget {
             ),
             SlidableAction(
               onPressed: (context) {
-                // Переместить в другую коллекцию
+                showCupertinoModalPopup(context: context, builder: (_) => MoveWordSelect(wordNr: model.nr, oldCollectionId: model.collectionId));
               },
               backgroundColor: CupertinoColors.systemBlue,
               icon: CupertinoIcons.arrow_turn_up_right,
