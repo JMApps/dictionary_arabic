@@ -1,34 +1,27 @@
+import 'package:arabic/data/state/default_dictionary_state.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
-import '../../../../data/repositories/default_dictionary_data_repository.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
-import '../../../../domain/usecases/default_dictionary_use_case.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
 import '../widgets/root_word_item.dart';
 import 'items/detail_word_item.dart';
 
-class WordDetailPage extends StatefulWidget {
+class WordDetailPage extends StatelessWidget {
   const WordDetailPage({
     super.key,
-    required this.wordId,
+    required this.wordNr,
   });
 
-  final int wordId;
-
-  @override
-  State<WordDetailPage> createState() => _WordDetailPageState();
-}
-
-class _WordDetailPageState extends State<WordDetailPage> {
-  final DefaultDictionaryUseCase _dictionaryUseCase = DefaultDictionaryUseCase(DefaultDictionaryDataRepository());
+  final int wordNr;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DictionaryEntity>(
-      future: _dictionaryUseCase.fetchWordById(wordNr: widget.wordId),
+      future: Provider.of<DefaultDictionaryState>(context, listen: false).getWordById(wordNr: wordNr),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return CupertinoPageScaffold(
@@ -60,15 +53,15 @@ class _WordDetailPageState extends State<WordDetailPage> {
                             ),
                           ),
                           FutureBuilder<List<DictionaryEntity>>(
-                            future: _dictionaryUseCase.fetchWordsByRoot(
+                            future: Provider.of<DefaultDictionaryState>(context, listen: false).getWordsByRoot(
                               wordRoot: snapshot.data!.root,
                               excludedId: snapshot.data!.nr,
                             ),
                             builder: (context, wordRootsSnapshot) {
                               if (wordRootsSnapshot.hasData && wordRootsSnapshot.data!.isNotEmpty) {
                                 return ListView.builder(
-                                  shrinkWrap: true,
                                   padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemCount: wordRootsSnapshot.data!.length,
                                   itemBuilder: (BuildContext context, int index) {

@@ -10,11 +10,9 @@ class SearchValueItem extends StatelessWidget {
   const SearchValueItem({
     super.key,
     required this.model,
-    required this.index,
   });
 
   final WordSearchEntity model;
-  final int index;
 
   @override
   Widget build(BuildContext context) {

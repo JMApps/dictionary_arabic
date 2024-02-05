@@ -94,7 +94,8 @@ class _DetailWordItemState extends State<DetailWordItem> {
                           widget.model.form!,
                           style: const TextStyle(
                             fontSize: 25,
-                            fontFamily: 'SF Pro',
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Heuristica',
                           ),
                         )
                       : const SizedBox(),

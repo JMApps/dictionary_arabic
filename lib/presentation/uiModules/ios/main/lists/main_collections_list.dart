@@ -9,6 +9,7 @@ import '../../../../../domain/entities/collection_entity.dart';
 import '../../collections/items/collection_item.dart';
 import '../../widgets/data_text.dart';
 import '../../widgets/error_data_text.dart';
+import '../widgets/add_collection_button.dart';
 
 class MainCollectionsList extends StatelessWidget {
   const MainCollectionsList({super.key});
@@ -19,44 +20,66 @@ class MainCollectionsList extends StatelessWidget {
       future: Provider.of<CollectionsState>(context).fetchAllCollections(),
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              CupertinoListSection.insetGrouped(
-                margin: AppStyles.mardingSymmetricHorMini,
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.zero,
-                    itemCount: snapshot.data!.length > 15 ? 15 : snapshot.data!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final CollectionEntity model = snapshot.data![index];
-                      return CollectionItem(model: model, index: index);
-                    },
-                  ),
-                ],
-              ),
-              snapshot.data!.length > 15
-                  ? Padding(
-                      padding: AppStyles.mainMarding,
-                      child: CupertinoButton(
-                        color: CupertinoColors.systemBlue,
-                        onPressed: () {
-                          Navigator.pushNamed(context, RouteNames.allCollectionsPage);
-                        },
-                        child: const Text(AppStrings.allCollections),
-                      ),
-                    )
-                  : const SizedBox(),
-            ],
+          return SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CupertinoListSection.insetGrouped(
+                  margin: AppStyles.mardingSymmetricHor,
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.zero,
+                      itemCount: snapshot.data!.length > 15 ? 15 : snapshot.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final CollectionEntity model = snapshot.data![index];
+                        return CollectionItem(model: model);
+                      },
+                    ),
+                  ],
+                ),
+                snapshot.data!.length > 15
+                    ? Padding(
+                        padding: AppStyles.mainMarding,
+                        child: CupertinoButton(
+                          color: CupertinoColors.systemBlue,
+                          onPressed: () {
+                            Navigator.pushNamed(context, RouteNames.allCollectionsPage);
+                          },
+                          child: const Text(AppStrings.allCollections),
+                        ),
+                      )
+                    : const SizedBox(),
+              ],
+            ),
           );
         } else if (snapshot.hasData && snapshot.data!.isEmpty) {
-          return const DataText(text: AppStrings.createCollectionsWithWords);
+          return SliverFillRemaining(
+            hasScrollBody: false,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const DataText(text: AppStrings.createCollectionsWithWords),
+                Transform.scale(
+                  scale: 2,
+                  child: const AddCollectionButton(),
+                ),
+              ],
+            ),
+          );
         } else if (snapshot.hasError) {
-          return ErrorDataText(errorText: snapshot.error.toString());
+          return SliverFillRemaining(
+            hasScrollBody: false,
+            child: ErrorDataText(
+              errorText: snapshot.error.toString(),
+            ),
+          );
         } else {
-          return const SizedBox();
+          return const SliverFillRemaining(
+            hasScrollBody: false,
+            child: CupertinoActivityIndicator(),
+          );
         }
       },
     );

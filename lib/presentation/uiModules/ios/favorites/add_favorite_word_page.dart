@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/routes/route_names.dart';
 import '../../../../core/strings/app_strings.dart';
-import '../../../../data/repositories/default_dictionary_data_repository.dart';
+import '../../../../data/state/default_dictionary_state.dart';
 import '../../../../domain/entities/args/word_favorite_collection_args.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
-import '../../../../domain/usecases/default_dictionary_use_case.dart';
-import 'lists/serializable_words_list.dart';
 import '../widgets/error_data_text.dart';
+import 'lists/serializable_words_list.dart';
 
-class AddFavoriteWordPage extends StatefulWidget {
+class AddFavoriteWordPage extends StatelessWidget {
   const AddFavoriteWordPage({
     super.key,
     required this.wordNr,
@@ -18,30 +18,33 @@ class AddFavoriteWordPage extends StatefulWidget {
   final int wordNr;
 
   @override
-  State<AddFavoriteWordPage> createState() => _AddFavoriteWordPageState();
-}
-
-class _AddFavoriteWordPageState extends State<AddFavoriteWordPage> {
-  final DefaultDictionaryUseCase _dictionaryUseCase = DefaultDictionaryUseCase(DefaultDictionaryDataRepository());
-
-  @override
   Widget build(BuildContext context) {
     return FutureBuilder<DictionaryEntity>(
-      future: _dictionaryUseCase.fetchWordById(wordNr: widget.wordNr),
+      future: Provider.of<DefaultDictionaryState>(context, listen: false)
+          .getWordById(wordNr: wordNr),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return CupertinoPageScaffold(
             backgroundColor: CupertinoColors.systemGroupedBackground,
             navigationBar: CupertinoNavigationBar(
-              middle: const Text(AppStrings.addToCollection),
+              middle: Text(
+                snapshot.data!.arabicWord,
+                style: const TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.normal,
+                  fontFamily: 'Uthmanic',
+                ),
+              ),
               leading: CupertinoButton(
+                padding: EdgeInsets.zero,
+                child: const Text(AppStrings.cancel),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                padding: EdgeInsets.zero,
-                child: const Text(AppStrings.cancel),
               ),
               trailing: CupertinoButton(
+                padding: EdgeInsets.zero,
+                child: const Text(AppStrings.addAll),
                 onPressed: () {
                   Navigator.pushNamed(
                     context,
@@ -52,8 +55,6 @@ class _AddFavoriteWordPageState extends State<AddFavoriteWordPage> {
                     ),
                   );
                 },
-                padding: EdgeInsets.zero,
-                child: const Text(AppStrings.add),
               ),
             ),
             child: SafeArea(

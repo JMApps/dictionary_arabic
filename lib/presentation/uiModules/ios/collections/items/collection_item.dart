@@ -1,4 +1,5 @@
 import 'package:arabic/data/state/collections_state.dart';
+import 'package:arabic/data/state/favorite_words_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -15,11 +16,9 @@ class CollectionItem extends StatelessWidget {
   const CollectionItem({
     super.key,
     required this.model,
-    required this.index,
   });
 
   final CollectionEntity model;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,8 @@ class CollectionItem extends StatelessWidget {
             onPressed: (context) {
               showCupertinoDialog(
                 context: context,
-                builder: (context) => DeleteCollectionDialog(collectionId: model.id),
+                builder: (context) =>
+                    DeleteCollectionDialog(collectionId: model.id),
               );
             },
             backgroundColor: CupertinoColors.systemIndigo,
@@ -70,7 +70,9 @@ class CollectionItem extends StatelessWidget {
         },
         title: Text(
           model.title,
-          style: const TextStyle(fontSize: 20),
+          style: const TextStyle(
+            fontSize: 20,
+          ),
         ),
         leading: Icon(
           CupertinoIcons.tag_solid,
@@ -80,17 +82,24 @@ class CollectionItem extends StatelessWidget {
           CupertinoIcons.chevron_forward,
           color: CupertinoColors.systemGrey,
         ),
-        additionalInfo: FutureBuilder<int>(
-          future: Provider.of<CollectionsState>(context, listen: false).getWordCount(collectionId: model.id),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Text(
-                snapshot.data!.toString(),
-              );
-            } else {
-              return const Text('0');
-            }
-          }
+        additionalInfo: Consumer<FavoriteWordsState>(
+          builder: (BuildContext context, FavoriteWordsState value, _) {
+            return FutureBuilder<int>(
+              future: Provider.of<CollectionsState>(context, listen: false).getWordCount(collectionId: model.id),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text(
+                    snapshot.data.toString(),
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
+                  );
+                } else {
+                  return const CupertinoActivityIndicator();
+                }
+              },
+            );
+          },
         ),
       ),
     );

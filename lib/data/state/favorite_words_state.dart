@@ -23,16 +23,14 @@ class FavoriteWordsState extends ChangeNotifier {
     return await _useCase.fetchFavoriteWordById(favoriteWordId: favoriteWordId);
   }
 
-  Future<int> addFavoriteWord({required FavoriteDictionaryEntity model}) async {
-    int addFavoriteWord = await _useCase.fetchAddFavoriteWord(model: model);
+  Future<void> addFavoriteWord({required FavoriteDictionaryEntity model}) async {
+    await _useCase.fetchAddFavoriteWord(model: model);
     notifyListeners();
-    return addFavoriteWord;
   }
 
-  Future<int> changeFavoriteWord({required int wordId, required int serializableIndex}) async {
-    int changeFavoriteWord = await _useCase.fetchChangeFavoriteWord(wordId: wordId, serializableIndex: serializableIndex);
+  Future<void> changeFavoriteWord({required int wordId, required int serializableIndex}) async {
+    await _useCase.fetchChangeFavoriteWord(wordId: wordId, serializableIndex: serializableIndex);
     notifyListeners();
-    return changeFavoriteWord;
   }
 
   Future<void> moveFavoriteWord({required int wordNr, required int collectionId}) async {
@@ -40,9 +38,8 @@ class FavoriteWordsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<int> deleteFavoriteWord({required int favoriteWordId}) async {
-    int deleteFavoriteWord = await _useCase.fetchDeleteFavoriteWord(favoriteWordId: favoriteWordId);
+  Future<void> deleteFavoriteWord({required int favoriteWordId, required int collectionId}) async {
+    await _useCase.fetchDeleteFavoriteWord(favoriteWordId: favoriteWordId, collectionId: collectionId);
     notifyListeners();
-    return deleteFavoriteWord;
   }
 }

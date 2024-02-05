@@ -101,8 +101,8 @@ class RootWordItem extends StatelessWidget {
                       model.form!,
                       style: const TextStyle(
                         fontSize: 18,
-                        fontFamily: 'SF Pro',
-                        letterSpacing: 0.5,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Heuristica',
                       ),
                     )
                         : const SizedBox(),

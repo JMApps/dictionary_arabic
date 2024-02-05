@@ -19,7 +19,7 @@ class MainCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoListSection.insetGrouped(
-      margin: EdgeInsets.zero,
+      margin: AppStyles.mardingSymmetricHorMini,
       children: [
         Container(
           padding: AppStyles.mainMarding,

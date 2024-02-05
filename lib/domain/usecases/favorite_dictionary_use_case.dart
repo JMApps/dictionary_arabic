@@ -43,19 +43,17 @@ class FavoriteDictionaryUseCase {
     }
   }
 
-  Future<int> fetchAddFavoriteWord({required FavoriteDictionaryEntity model}) async {
+  Future<void> fetchAddFavoriteWord({required FavoriteDictionaryEntity model}) async {
     try {
-      final int addFavoriteWord = await _favoriteDictionaryRepository.addFavoriteWord(model: model);
-      return addFavoriteWord;
+      await _favoriteDictionaryRepository.addFavoriteWord(model: model);
     } catch (e) {
       throw Exception('Add favorite word data error: $e');
     }
   }
 
-  Future<int> fetchChangeFavoriteWord({required int wordId, required int serializableIndex}) async {
+  Future<void> fetchChangeFavoriteWord({required int wordId, required int serializableIndex}) async {
     try {
-      final int changeFavoriteWord = await _favoriteDictionaryRepository.changeFavoriteWord(wordId: wordId, serializableIndex: serializableIndex);
-      return changeFavoriteWord;
+      await _favoriteDictionaryRepository.changeFavoriteWord(wordId: wordId, serializableIndex: serializableIndex);
     } catch (e) {
       throw Exception('Change favorite word data error: $e');
     }
@@ -69,10 +67,9 @@ class FavoriteDictionaryUseCase {
     }
   }
 
-  Future<int> fetchDeleteFavoriteWord({required int favoriteWordId}) async {
+  Future<void> fetchDeleteFavoriteWord({required int favoriteWordId, required int collectionId}) async {
     try {
-      final int deleteFavoriteWord = await _favoriteDictionaryRepository.deleteFavoriteWord(favoriteWordId: favoriteWordId);
-      return deleteFavoriteWord;
+      await _favoriteDictionaryRepository.deleteFavoriteWord(favoriteWordId: favoriteWordId, collectionId: collectionId);
     } catch (e) {
       throw Exception('Delete favorite word data error: $e');
     }

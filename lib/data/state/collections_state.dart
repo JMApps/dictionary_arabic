@@ -58,12 +58,6 @@ class CollectionsState extends ChangeNotifier {
     return await _useCase.fetchCollectionById(collectionId: collectionId);
   }
 
-  Future<int> getWordCount({required int collectionId}) async {
-    int getWordCount = await _useCase.fetchWordCount(collectionId: collectionId);
-    notifyListeners();
-    return getWordCount;
-  }
-
   Future<int> addCollection({required CollectionEntity model}) async {
     int addCollection = await _useCase.fetchAddCollection(model: model);
     notifyListeners();
@@ -86,5 +80,9 @@ class CollectionsState extends ChangeNotifier {
     int deleteAllCollections = await _useCase.fetchDeleteCollections();
     notifyListeners();
     return deleteAllCollections;
+  }
+
+  Future<int> getWordCount({required int collectionId}) async {
+    return _useCase.fetchWordCount(collectionId: collectionId);
   }
 }

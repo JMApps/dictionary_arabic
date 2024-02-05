@@ -1,4 +1,3 @@
-import 'package:arabic/data/state/favorite_words_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -6,7 +5,7 @@ import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/search_query_state.dart';
 import '../../../../data/state/search_values_state.dart';
-import 'lists/word_search_list.dart';
+import 'lists/search_words_list.dart';
 
 class SearchWordsPage extends StatefulWidget {
   const SearchWordsPage({super.key});
@@ -16,7 +15,19 @@ class SearchWordsPage extends StatefulWidget {
 }
 
 class _SearchWordsPageState extends State<SearchWordsPage> {
-  final TextEditingController _wordsController = TextEditingController();
+  late final TextEditingController _wordsController;
+
+  @override
+  void initState() {
+    _wordsController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _wordsController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +35,9 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
       providers: [
         ChangeNotifierProvider(
           create: (_) => SearchQueryState(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SearchValuesState(),
         ),
       ],
       child: Consumer<SearchQueryState>(
@@ -59,7 +73,7 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
             ),
             child: const SafeArea(
               bottom: false,
-              child: WordSearchList(),
+              child: SearchWordsList(),
             ),
           );
         },

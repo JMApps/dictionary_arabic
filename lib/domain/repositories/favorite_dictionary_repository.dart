@@ -9,11 +9,11 @@ abstract class FavoriteDictionaryRepository {
 
   Future<FavoriteDictionaryEntity> getFavoriteWordById({required int favoriteWordId});
 
-  Future<int> addFavoriteWord({required FavoriteDictionaryEntity model});
+  Future<void> addFavoriteWord({required FavoriteDictionaryEntity model});
 
-  Future<int> changeFavoriteWord({required int wordId, required int serializableIndex});
+  Future<void> changeFavoriteWord({required int wordId, required int serializableIndex});
 
   Future<void> moveFavoriteWord({required int wordNr, required int collectionId});
 
-  Future<int> deleteFavoriteWord({required int favoriteWordId});
+  Future<void> deleteFavoriteWord({required int favoriteWordId, required int collectionId});
 }

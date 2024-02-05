@@ -68,7 +68,6 @@ class MainCupertinoPage extends StatelessWidget {
                           color: CupertinoColors.systemBlue,
                         ),
                       ),
-                      SizedBox(width: 14),
                       Expanded(
                         child: MainCardItem(
                           routeName: RouteNames.allCollectionsPage,
@@ -90,7 +89,6 @@ class MainCupertinoPage extends StatelessWidget {
                           color: CupertinoColors.systemRed,
                         ),
                       ),
-                      SizedBox(width: 14),
                       Expanded(
                         child: MainCardItem(
                           routeName: RouteNames.allCollectionsPage,
@@ -123,9 +121,7 @@ class MainCupertinoPage extends StatelessWidget {
               trailing: AddCollectionButton(),
             ),
           ),
-          const SliverToBoxAdapter(
-            child: MainCollectionsList(),
-          ),
+          const MainCollectionsList(),
         ],
       ),
     );

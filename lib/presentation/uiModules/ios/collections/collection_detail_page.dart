@@ -32,38 +32,34 @@ class CollectionDetailPage extends StatelessWidget {
           },
         ),*/
       ),
-      child: Consumer<FavoriteWordsState>(
-        builder: (context, favoriteWordsState, _) {
-          return FutureBuilder<List<FavoriteDictionaryEntity>>(
-            future: favoriteWordsState.fetchFavoriteWordsByCollectionId(
-              collectionId: collectionModel.id,
-            ),
-            builder: (context, snapshot) {
-              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                return CupertinoScrollbar(
-                  child: ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final FavoriteDictionaryEntity model = snapshot.data![index];
-                      return FavoriteWordItem(model: model, index: index);
-                    },
-                  ),
-                );
-              } else if (snapshot.hasError) {
-                return ErrorDataText(errorText: snapshot.error.toString());
-              } else {
-                return const Center(
-                  child: Padding(
-                    padding: AppStyles.mainMarding,
-                    child: Text(
-                      AppStrings.favoriteWordsIfEmpty,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                );
-              }
-            },
-          );
+      child: FutureBuilder<List<FavoriteDictionaryEntity>>(
+        future: Provider.of<FavoriteWordsState>(context).fetchFavoriteWordsByCollectionId(
+          collectionId: collectionModel.id,
+        ),
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+            return CupertinoScrollbar(
+              child: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final FavoriteDictionaryEntity model = snapshot.data![index];
+                  return FavoriteWordItem(model: model, index: index);
+                },
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return ErrorDataText(errorText: snapshot.error.toString());
+          } else {
+            return const Center(
+              child: Padding(
+                padding: AppStyles.mainMarding,
+                child: Text(
+                  AppStrings.favoriteWordsIfEmpty,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          }
         },
       ),
     );

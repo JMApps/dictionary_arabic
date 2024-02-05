@@ -10,8 +10,9 @@ import '../../../../domain/entities/collection_entity.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../collections/dialogs/add_collection_dialog.dart';
+import '../main/widgets/add_collection_button.dart';
+import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
-import '../collections/collection_is_empty_page.dart';
 
 class FavoriteWordSelectCollection extends StatefulWidget {
   const FavoriteWordSelectCollection({
@@ -28,20 +29,20 @@ class FavoriteWordSelectCollection extends StatefulWidget {
 }
 
 class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollection> {
-  final TextEditingController _collectionsController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
+  final TextEditingController _collectionsController = TextEditingController();
   List<CollectionEntity> _collections = [];
   List<CollectionEntity> _recentCollections = [];
 
   @override
   void dispose() {
     _focusNode.dispose();
+    _collectionsController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final CollectionsState collectionsState = Provider.of<CollectionsState>(context);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -58,48 +59,48 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
           backgroundColor: CupertinoColors.systemGroupedBackground,
           child: Consumer<SearchQueryState>(
             builder: (BuildContext context, SearchQueryState query, _) {
-              return FutureBuilder<List<CollectionEntity>>(
-                future: collectionsState.fetchAllCollections(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                    _collections = snapshot.data!;
-                    _recentCollections = query.getQuery.isEmpty
-                        ? _collections
-                        : _collections
+              return CustomScrollView(
+                slivers: [
+                  CupertinoSliverNavigationBar(
+                    stretch: true,
+                    middle: const Text(AppStrings.selectCollection),
+                    trailing: CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      child: const Text(AppStrings.add),
+                      onPressed: () {
+                        showCupertinoDialog(
+                          context: context,
+                          builder: (context) {
+                            return const AddCollectionDialog();
+                          },
+                        );
+                      },
+                    ),
+                    previousPageTitle: AppStrings.main,
+                    largeTitle: Padding(
+                      padding: AppStyles.mardingOnlyRight,
+                      child: CupertinoSearchTextField(
+                        controller: _collectionsController,
+                        placeholder: AppStrings.searchCollections,
+                        onChanged: (value) {
+                          query.setQuery = value;
+                        },
+                      ),
+                    ),
+                  ),
+                  FutureBuilder<List<CollectionEntity>>(
+                    future: Provider.of<CollectionsState>(context).fetchAllCollections(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                        _collections = snapshot.data!;
+                        _recentCollections = query.getQuery.isEmpty
+                            ? _collections
+                            : _collections
                             .where((element) => element.title.toLowerCase()
-                                .contains(query.getQuery.toLowerCase())).toList();
-                    return CustomScrollView(
-                      slivers: [
-                        CupertinoSliverNavigationBar(
-                          stretch: true,
-                          middle: const Text(AppStrings.selectCollection),
-                          trailing: CupertinoButton(
-                            padding: EdgeInsets.zero,
-                            child: const Text(AppStrings.add),
-                            onPressed: () {
-                              showCupertinoDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const AddCollectionDialog();
-                                },
-                              );
-                            },
-                          ),
-                          previousPageTitle: AppStrings.toBack,
-                          largeTitle: Padding(
-                            padding: AppStyles.mardingOnlyRight,
-                            child: CupertinoSearchTextField(
-                              onChanged: (value) {
-                                query.setQuery = value;
-                              },
-                              controller: _collectionsController,
-                              placeholder: AppStrings.searchCollections,
-                            ),
-                          ),
-                        ),
-                        SliverToBoxAdapter(
+                            .contains(query.getQuery.toLowerCase())).toList();
+                        return SliverToBoxAdapter(
                           child: CupertinoListSection.insetGrouped(
-                            margin: AppStyles.mardingWithoutBottom,
+                            margin: AppStyles.mardingWithoutBottomMini,
                             footer: const SizedBox(height: 14),
                             children: [
                               ListView.builder(
@@ -140,15 +141,29 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
                               ),
                             ],
                           ),
-                        ),
-                      ],
-                    );
-                  } else if (snapshot.hasError) {
-                    return ErrorDataText(errorText: snapshot.error.toString());
-                  } else {
-                    return const CollectionIsEmptyPage();
-                  }
-                },
+                        );
+                      } else if (snapshot.hasError) {
+                        return SliverToBoxAdapter(
+                          child: ErrorDataText(errorText: snapshot.error.toString()),
+                        );
+                      } else {
+                        return SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const DataText(text: AppStrings.collectionsIfEmpty),
+                              Transform.scale(
+                                scale: 2,
+                                child: const AddCollectionButton(),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                ],
               );
             },
           ),

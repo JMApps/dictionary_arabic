@@ -7,5 +7,5 @@ abstract class DefaultDictionaryRepository {
 
   Future<List<DictionaryEntity>> searchWords({required String searchQuery, required bool exactMatch});
 
-  Future<DictionaryEntity> getWordById({required int wordId});
+  Future<DictionaryEntity> getWordById({required int wordNr});
 }

@@ -71,7 +71,7 @@ class CupertinoRoutes {
       case RouteNames.wordDetailPage:
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return CupertinoPageRoute(
-          builder: (_) => WordDetailPage(wordId: wordArgs.wordNr),
+          builder: (_) => WordDetailPage(wordNr: wordArgs.wordNr),
         );
       default:
         throw Exception('Invalid route ${routeSettings.name}');

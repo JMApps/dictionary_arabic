@@ -4,17 +4,16 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
-import '../../../../data/repositories/default_dictionary_data_repository.dart';
+import '../../../../data/state/default_dictionary_state.dart';
 import '../../../../data/state/favorite_words_state.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../../../../domain/entities/favorite_dictionary_entity.dart';
-import '../../../../domain/usecases/default_dictionary_use_case.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
 import '../widgets/word_item.dart';
 import 'items/favorite_detail_word_item.dart';
 
-class FavoriteWordDetailPage extends StatefulWidget {
+class FavoriteWordDetailPage extends StatelessWidget {
   const FavoriteWordDetailPage({
     super.key,
     required this.favoriteWordNr,
@@ -23,16 +22,9 @@ class FavoriteWordDetailPage extends StatefulWidget {
   final int favoriteWordNr;
 
   @override
-  State<FavoriteWordDetailPage> createState() => _FavoriteWordDetailPageState();
-}
-
-class _FavoriteWordDetailPageState extends State<FavoriteWordDetailPage> {
-  final DefaultDictionaryUseCase _dictionaryUseCase = DefaultDictionaryUseCase(DefaultDictionaryDataRepository());
-
-  @override
   Widget build(BuildContext context) {
     return FutureBuilder<FavoriteDictionaryEntity>(
-      future: Provider.of<FavoriteWordsState>(context).fetchFavoriteWordById(favoriteWordId: widget.favoriteWordNr),
+      future: Provider.of<FavoriteWordsState>(context).fetchFavoriteWordById(favoriteWordId: favoriteWordNr),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return CupertinoPageScaffold(
@@ -73,7 +65,7 @@ class _FavoriteWordDetailPageState extends State<FavoriteWordDetailPage> {
                             ),
                           ),
                           FutureBuilder<List<DictionaryEntity>>(
-                            future: _dictionaryUseCase.fetchWordsByRoot(
+                            future: Provider.of<DefaultDictionaryState>(context).getWordsByRoot(
                               wordRoot: snapshot.data!.root,
                               excludedId: snapshot.data!.nr,
                             ),

@@ -1,9 +1,10 @@
-import 'package:arabic/data/models/collection_model.dart';
-import 'package:arabic/data/services/collections_service.dart';
-import 'package:arabic/domain/entities/collection_entity.dart';
-import 'package:arabic/domain/repositories/collections_repository.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:sqflite/sqflite.dart';
+
+import '../../domain/entities/collection_entity.dart';
+import '../../domain/repositories/collections_repository.dart';
+import '../models/collection_model.dart';
+import '../services/collections_service.dart';
 
 class CollectionsDataRepository implements CollectionsRepository {
   final CollectionsService _collectionsService = CollectionsService();
@@ -32,28 +33,6 @@ class CollectionsDataRepository implements CollectionsRepository {
     final List<Map<String, Object?>> resources = await database.query(_tableName, where: 'id = ?', whereArgs: [collectionId]);
     final CollectionEntity? collectionById = resources.isNotEmpty ? _mapToEntity(CollectionModel.fromMap(resources.first)) : null;
     return collectionById!;
-  }
-
-  @override
-  Future<int> getWordCount({required int collectionId}) async {
-
-    final Database database = await _collectionsService.db;
-
-    List<Map<String, dynamic>> result = await database.rawQuery('''
-    SELECT COUNT(*) as word_count 
-    FROM Table_of_favorite_words 
-    WHERE collection_id = ?
-  ''', [collectionId]);
-
-    if (result.isNotEmpty) {
-      Map<String, dynamic> wordCountData = result.first;
-      int? wordCount = wordCountData['word_count'];
-
-      if (wordCount != null) {
-        return wordCount;
-      }
-    }
-    return 0;
   }
 
   @override
@@ -96,6 +75,13 @@ class CollectionsDataRepository implements CollectionsRepository {
     final int deleteAllCollections = await database.delete(_tableName);
     await database.delete(_wordsTableName);
     return deleteAllCollections;
+  }
+
+  @override
+  Future<int> getWordCount({required int collectionId}) async {
+    final Database database = await _collectionsService.db;
+    final wordsCountMaps = await database.query(_tableName, where: 'id = ?', whereArgs: [collectionId], columns: ['words_count']);
+    return wordsCountMaps.first['words_count'] as int;
   }
 
   // Mapping to entity

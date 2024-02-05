@@ -50,8 +50,9 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   }
 
   @override
-  Future<int> addFavoriteWord({required FavoriteDictionaryEntity model}) async {
+  Future<void> addFavoriteWord({required FavoriteDictionaryEntity model}) async {
     final Database database = await _collectionsService.db;
+
     FavoriteDictionaryModel favoriteWordModel = FavoriteDictionaryModel(
       articleId: model.articleId,
       translation: model.translation,
@@ -66,18 +67,21 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
       collectionId: model.collectionId,
       serializableIndex: model.serializableIndex,
     );
-    final int addFavoriteWord = await database.insert(_tableName, favoriteWordModel.toMap(), conflictAlgorithm: sql.ConflictAlgorithm.replace);
-    return addFavoriteWord;
+
+    var collection = await database.query('Table_of_collections', where: 'id = ?', whereArgs: [model.collectionId]);
+    int wordsCount = collection.first['words_count'] as int;
+    await database.insert(_tableName, favoriteWordModel.toMap(), conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    wordsCount++;
+    await database.update('Table_of_collections', {'words_count': wordsCount}, where: 'id = ?', whereArgs: [model.collectionId]);
   }
 
   @override
-  Future<int> changeFavoriteWord({required int wordId, required int serializableIndex}) async {
+  Future<void> changeFavoriteWord({required int wordId, required int serializableIndex}) async {
     final Database database = await _collectionsService.db;
     final Map<String, int> serializableMap = {
       'serializable_index': serializableIndex,
     };
-    final int changeFavoriteWord = await database.update(_tableName, serializableMap, where: 'id = ?', whereArgs: [wordId], conflictAlgorithm: sql.ConflictAlgorithm.replace);
-    return changeFavoriteWord;
+    await database.update(_tableName, serializableMap, where: 'id = ?', whereArgs: [wordId], conflictAlgorithm: sql.ConflictAlgorithm.replace);
   }
 
   @override
@@ -90,10 +94,13 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   }
 
   @override
-  Future<int> deleteFavoriteWord({required int favoriteWordId}) async {
+  Future<void> deleteFavoriteWord({required int favoriteWordId, required int collectionId}) async {
     final Database database = await _collectionsService.db;
-    final int deleteFavoriteWord = await database.delete(_tableName, where: 'id = ?', whereArgs: [favoriteWordId]);
-    return deleteFavoriteWord;
+    var collection = await database.query('Table_of_collections', where: 'id = ?', whereArgs: [collectionId]);
+    int wordsCount = collection.first['words_count'] as int;
+    await database.delete(_tableName, where: 'id = ?', whereArgs: [favoriteWordId]);
+    wordsCount--;
+    await database.update('Table_of_collections', {'words_count': wordsCount}, where: 'id = ?', whereArgs: [collectionId]);
   }
 
   // Mapping to entity

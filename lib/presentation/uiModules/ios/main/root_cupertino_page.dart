@@ -1,3 +1,4 @@
+import 'package:arabic/data/state/default_dictionary_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -5,7 +6,6 @@ import '../../../../core/routes/cupertino_routes.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../data/state/collections_state.dart';
 import '../../../../data/state/favorite_words_state.dart';
-import '../../../../data/state/search_values_state.dart';
 import '../../../../data/state/word_exact_match_state.dart';
 import 'main_cupertino_page.dart';
 
@@ -17,10 +17,10 @@ class RootCupertinoPage extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => WordExactMatchState(),
+          create: (_) => DefaultDictionaryState(),
         ),
         ChangeNotifierProvider(
-          create: (_) => SearchValuesState(),
+          create: (_) => WordExactMatchState(),
         ),
         ChangeNotifierProvider(
           create: (_) => CollectionsState(),

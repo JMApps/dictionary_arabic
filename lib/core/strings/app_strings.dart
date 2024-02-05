@@ -6,6 +6,7 @@ class AppStrings {
   static const String lastCollections = 'Последние коллекции';
   static const String allCollections = 'Все коллекции';
   static const String collectionsIfEmpty = 'Вы пока что не добавили ни одной коллекции';
+  static const String collectionButOneIsEmpty = 'Чтобы переместить слово в другую коллекцию, сначала добавьте её';
   static const String favoriteWordsIfEmpty = 'Вы пока что не добавили ни одного слова в данную коллекцию';
   static const String newCollection = 'Новая коллекция';
   static const String changeCollection = 'Изменить коллекцию';
@@ -46,4 +47,6 @@ class AppStrings {
   static const String rootIsEmpty = 'Однокоренных слов нет';
   static const String clearList = 'Очистить список';
   static const String selectCollection = 'Выберите коллекцию';
+  static const String selectTranslation = 'Выберите перевод';
+  static const String addAll = 'Добавить всё';
 }

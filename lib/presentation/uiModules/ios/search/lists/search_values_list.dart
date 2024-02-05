@@ -7,14 +7,9 @@ import '../../../../../data/state/search_values_state.dart';
 import '../../../../../domain/entities/word_search_entity.dart';
 import '../items/search_value_item.dart';
 
-class SearchValuesList extends StatefulWidget {
+class SearchValuesList extends StatelessWidget {
   const SearchValuesList({super.key});
 
-  @override
-  State<SearchValuesList> createState() => _SearchValuesListState();
-}
-
-class _SearchValuesListState extends State<SearchValuesList> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<WordSearchEntity>>(
@@ -49,7 +44,7 @@ class _SearchValuesListState extends State<SearchValuesList> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, int index) {
                       final WordSearchEntity model = snapshot.data![index];
-                      return SearchValueItem(model: model, index: index);
+                      return SearchValueItem(model: model);
                     },
                   ),
                 ),

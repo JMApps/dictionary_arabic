@@ -36,13 +36,13 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
   }
 
   @override
-  Future<DictionaryEntity> getWordById({required int wordId}) async {
+  Future<DictionaryEntity> getWordById({required int wordNr}) async {
     final Database database = await _dictionaryService.db;
     final List<Map<String, Object?>> resources = await database.rawQuery(
       "SELECT s.article_id, s.translation, s.arabic, d.id, d.nr, d.arabic_word, d.form, d.vocalization, d.root, d.forms "
           "FROM $_searchTable s "
           "INNER JOIN $_dataTable d ON s.article_id = d.nr "
-          "WHERE d.nr = ?", [wordId],
+          "WHERE d.nr = ?", [wordNr],
     );    final DictionaryEntity? wordById = resources.isNotEmpty ? _mapToEntity(DictionaryModel.fromMap(resources.first)) : null;
     return wordById!;
   }

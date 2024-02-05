@@ -8,7 +8,7 @@ import '../../widgets/forms_text.dart';
 import '../lists/serializable_detail_words_list.dart';
 import '../move_word_select.dart';
 
-class FavoriteDetailWordItem extends StatefulWidget {
+class FavoriteDetailWordItem extends StatelessWidget {
   const FavoriteDetailWordItem({
     super.key,
     required this.model,
@@ -16,11 +16,6 @@ class FavoriteDetailWordItem extends StatefulWidget {
 
   final FavoriteDictionaryEntity model;
 
-  @override
-  State<FavoriteDetailWordItem> createState() => _FavoriteDetailWordItemState();
-}
-
-class _FavoriteDetailWordItemState extends State<FavoriteDetailWordItem> {
   @override
   Widget build(BuildContext context) {
     return Slidable(
@@ -32,7 +27,7 @@ class _FavoriteDetailWordItemState extends State<FavoriteDetailWordItem> {
               showCupertinoModalPopup(
                 context: context,
                 builder: (context) => ChangeSerializableWordsList(
-                  favoriteWordModel: widget.model,
+                  favoriteWordModel: model,
                 ),
               );
             },
@@ -41,17 +36,10 @@ class _FavoriteDetailWordItemState extends State<FavoriteDetailWordItem> {
           ),
           SlidableAction(
             onPressed: (context) {
-              showCupertinoModalPopup(context: context, builder: (_) => MoveWordSelect(wordNr: widget.model.nr, oldCollectionId: widget.model.collectionId));
+              showCupertinoModalPopup(context: context, builder: (_) => MoveWordSelect(wordNr: model.nr, oldCollectionId: model.collectionId));
             },
             backgroundColor: CupertinoColors.systemIndigo,
             icon: CupertinoIcons.arrow_turn_up_right,
-          ),
-          SlidableAction(
-            onPressed: (context) {
-              // Удалить слово из избранного
-            },
-            backgroundColor: CupertinoColors.systemRed,
-            icon: CupertinoIcons.delete,
           ),
         ],
       ),
@@ -62,7 +50,7 @@ class _FavoriteDetailWordItemState extends State<FavoriteDetailWordItem> {
           title: Row(
             children: [
               Text(
-                widget.model.arabicWord,
+                model.arabicWord,
                 style: const TextStyle(
                   fontSize: 50,
                   fontFamily: 'Uthmanic',
@@ -70,8 +58,8 @@ class _FavoriteDetailWordItemState extends State<FavoriteDetailWordItem> {
                 textDirection: TextDirection.rtl,
               ),
               const SizedBox(width: 14),
-              widget.model.forms != null
-                  ? FormsText(content: widget.model.forms!)
+              model.forms != null
+                  ? FormsText(content: model.forms!)
                   : const SizedBox(),
             ],
           ),
@@ -82,9 +70,9 @@ class _FavoriteDetailWordItemState extends State<FavoriteDetailWordItem> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  widget.model.vocalization != null
+                  model.vocalization != null
                       ? Text(
-                          widget.model.vocalization!,
+                          model.vocalization!,
                           style: const TextStyle(
                             fontSize: 20,
                             color: CupertinoColors.systemGrey,
@@ -93,19 +81,19 @@ class _FavoriteDetailWordItemState extends State<FavoriteDetailWordItem> {
                         )
                       : const SizedBox(),
                   const SizedBox(width: 7),
-                  widget.model.form != null
+                  model.form != null
                       ? Text(
-                          widget.model.form!,
+                          model.form!,
                           style: const TextStyle(
                             fontSize: 25,
-                            fontFamily: 'SF Pro',
+                            fontFamily: 'Heuristica',
                           ),
                         )
                       : const SizedBox(),
                 ],
               ),
               Text(
-                widget.model.root,
+                model.root,
                 style: const TextStyle(
                   fontSize: 25,
                   color: CupertinoColors.systemPink,
@@ -117,8 +105,8 @@ class _FavoriteDetailWordItemState extends State<FavoriteDetailWordItem> {
           ),
         ),
         subtitle: SerializableDetailWordsList(
-          translation: widget.model.translation,
-          serializableIndex: widget.model.serializableIndex,
+          translation: model.translation,
+          serializableIndex: model.serializableIndex,
         ),
       ),
     );
