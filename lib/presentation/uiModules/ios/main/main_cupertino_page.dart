@@ -83,9 +83,9 @@ class MainCupertinoPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: MainCardItem(
-                          routeName: RouteNames.allCollectionsPage,
+                          routeName: RouteNames.cardModePage,
                           iconName: CupertinoIcons.creditcard_fill,
-                          title: AppStrings.cardMode,
+                          title: AppStrings.cards,
                           color: CupertinoColors.systemRed,
                         ),
                       ),
