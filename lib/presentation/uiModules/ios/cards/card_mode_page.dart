@@ -1,11 +1,11 @@
-import 'package:arabic/core/routes/route_names.dart';
-import 'package:arabic/domain/entities/args/collection_args.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/routes/route_names.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/collections_state.dart';
+import '../../../../domain/entities/args/collection_args.dart';
 import '../../../../domain/entities/collection_entity.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
@@ -25,34 +25,6 @@ class CardModePage extends StatelessWidget {
             middle: const Text(AppStrings.cardMode),
             previousPageTitle: AppStrings.main,
             largeTitle: const Text(AppStrings.selectCollection),
-            trailing: CupertinoButton(
-              padding: EdgeInsets.zero,
-              onPressed: () {
-                showCupertinoDialog(
-                  context: context,
-                  builder: (_) => CupertinoAlertDialog(
-                    title: const Text(
-                      AppStrings.warning,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: CupertinoColors.systemRed,
-                      ),
-                    ),
-                    content:
-                        const DataText(text: AppStrings.cardCollectionsInfo),
-                    actions: [
-                      CupertinoButton(
-                        child: const Text(AppStrings.itsClear),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              },
-              child: const Icon(CupertinoIcons.info),
-            ),
           ),
           FutureBuilder<List<CollectionEntity>>(
             future:
@@ -75,7 +47,7 @@ class CardModePage extends StatelessWidget {
                             title: Text(model.title),
                             trailing: const Icon(CupertinoIcons.forward),
                             additionalInfo: Text(model.wordsCount.toString()),
-                            onTap: model.wordsCount >= 5
+                            onTap: model.wordsCount >= 1
                                 ? () {
                                     Navigator.pushNamed(
                                       context,
@@ -94,9 +66,7 @@ class CardModePage extends StatelessWidget {
                 );
               } else if (snapshot.hasError) {
                 return SliverToBoxAdapter(
-                  child: ErrorDataText(
-                    errorText: snapshot.error.toString(),
-                  ),
+                  child: ErrorDataText(errorText: snapshot.error.toString()),
                 );
               } else {
                 return const SliverFillRemaining(

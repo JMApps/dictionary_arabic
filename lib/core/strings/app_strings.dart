@@ -6,8 +6,7 @@ class AppStrings {
   static const String lastCollections = 'Последние коллекции';
   static const String allCollections = 'Все коллекции';
   static const String collectionsIfEmpty = 'Вы пока что не добавили ни одной коллекции';
-  static const String cardCollectionsInfo = 'Чтобы воспользоваться режимом карточек должна быть хотя бы одна коллекция с минимальным количеством 5 слов';
-  static const String cardCollectionsIfEmpty = 'Чтобы воспользоваться режимом карточек добавьте хотя бы одну коллекцию с минимальным количеством в 5 слов';
+  static const String cardCollectionsIfEmpty = 'Чтобы воспользоваться режимом карточек добавьте хотя бы одну коллекцию и одно слово в эту коллекцию';
   static const String collectionButOneIsEmpty = 'Чтобы переместить слово в другую коллекцию, сначала добавьте её';
   static const String favoriteWordsIfEmpty = 'Вы пока что не добавили ни одного слова в данную коллекцию';
   static const String newCollection = 'Новая коллекция';
