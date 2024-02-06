@@ -4,9 +4,11 @@ import '../../domain/entities/args/collection_args.dart';
 import '../../domain/entities/args/word_args.dart';
 import '../../domain/entities/args/word_favorite_collection_args.dart';
 import '../../presentation/uiModules/ios/cards/card_mode_page.dart';
-import '../../presentation/uiModules/ios/cards/cards_collection_detail_page.dart';
+import '../../presentation/uiModules/ios/cards/cards_mode_detail_page.dart';
 import '../../presentation/uiModules/ios/collections/all_collections_page.dart';
 import '../../presentation/uiModules/ios/collections/collection_detail_page.dart';
+import '../../presentation/uiModules/ios/constructors/word_constructor_page.dart';
+import '../../presentation/uiModules/ios/constructors/words_constructor_detail_page.dart';
 import '../../presentation/uiModules/ios/favorites/add_favorite_word_page.dart';
 import '../../presentation/uiModules/ios/favorites/favorite_word_detail_page.dart';
 import '../../presentation/uiModules/ios/favorites/favorite_word_select_collection.dart';
@@ -19,14 +21,12 @@ class CupertinoRoutes {
     switch (routeSettings.name) {
       case RouteNames.searchWordsPage:
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const SearchWordsPage(),
+          pageBuilder: (context, animation, secondaryAnimation) => const SearchWordsPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(0.0, 1.0);
             const end = Offset.zero;
             const curve = Curves.easeInOut;
-            var tween =
-                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
             var offsetAnimation = animation.drive(tween);
             return SlideTransition(position: offsetAnimation, child: child);
           },
@@ -34,24 +34,20 @@ class CupertinoRoutes {
       case RouteNames.addFavoriteWordPage:
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              AddFavoriteWordPage(wordNr: wordArgs.wordNr),
+          pageBuilder: (context, animation, secondaryAnimation) => AddFavoriteWordPage(wordNr: wordArgs.wordNr),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(0.0, 1.0);
             const end = Offset.zero;
             const curve = Curves.easeInOut;
-            var tween =
-                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
             var offsetAnimation = animation.drive(tween);
             return SlideTransition(position: offsetAnimation, child: child);
           },
         );
       case RouteNames.favoriteWordSelectionCollectionPage:
-        final WordFavoriteCollectionArgs favoriteCollectionArgs =
-            routeSettings.arguments as WordFavoriteCollectionArgs;
+        final WordFavoriteCollectionArgs favoriteCollectionArgs = routeSettings.arguments as WordFavoriteCollectionArgs;
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              FavoriteWordSelectCollection(
+          pageBuilder: (context, animation, secondaryAnimation) => FavoriteWordSelectCollection(
             wordModel: favoriteCollectionArgs.wordModel,
             serializableIndex: favoriteCollectionArgs.serializableIndex,
           ),
@@ -59,8 +55,7 @@ class CupertinoRoutes {
             const begin = Offset(0.0, 1.0);
             const end = Offset.zero;
             const curve = Curves.easeInOut;
-            var tween =
-                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
             var offsetAnimation = animation.drive(tween);
             return SlideTransition(position: offsetAnimation, child: child);
           },
@@ -68,16 +63,14 @@ class CupertinoRoutes {
       case RouteNames.wordFavoriteDetailPage:
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return CupertinoPageRoute(
-          builder: (_) =>
-              FavoriteWordDetailPage(favoriteWordNr: wordArgs.wordNr),
+          builder: (_) => FavoriteWordDetailPage(favoriteWordNr: wordArgs.wordNr),
         );
       case RouteNames.allCollectionsPage:
         return CupertinoPageRoute(
           builder: (_) => const AllCollectionsPage(),
         );
       case RouteNames.collectionDetailPage:
-        final CollectionArgs collectionArgs =
-            routeSettings.arguments as CollectionArgs;
+        final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
         return CupertinoPageRoute(
           builder: (_) => CollectionDetailPage(
             collectionModel: collectionArgs.collectionEntity,
@@ -92,11 +85,21 @@ class CupertinoRoutes {
         return CupertinoPageRoute(
           builder: (_) => const CardModePage(),
         );
-      case RouteNames.cardsCollectionPage:
-        final CollectionArgs collectionArgs =
-            routeSettings.arguments as CollectionArgs;
+      case RouteNames.cardsModeDetailPage:
+        final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
         return CupertinoPageRoute(
-          builder: (_) => CardsCollectionDetailPage(
+          builder: (_) => CardsModeDetailPage(
+            collectionModel: collectionArgs.collectionEntity,
+          ),
+        );
+      case RouteNames.wordConstructorPage:
+        return CupertinoPageRoute(
+          builder: (_) => const WordConstructorPage(),
+        );
+      case RouteNames.wordConstructorDetailPage:
+        final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
+        return CupertinoPageRoute(
+          builder: (_) => WordsConstructorDetailPage(
             collectionModel: collectionArgs.collectionEntity,
           ),
         );

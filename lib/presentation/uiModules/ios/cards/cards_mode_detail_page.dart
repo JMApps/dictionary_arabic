@@ -11,8 +11,8 @@ import '../../../../domain/entities/collection_entity.dart';
 import '../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../widgets/flip_translation_text.dart';
 
-class CardsCollectionDetailPage extends StatefulWidget {
-  const CardsCollectionDetailPage({
+class CardsModeDetailPage extends StatefulWidget {
+  const CardsModeDetailPage({
     super.key,
     required this.collectionModel,
   });
@@ -20,11 +20,10 @@ class CardsCollectionDetailPage extends StatefulWidget {
   final CollectionEntity collectionModel;
 
   @override
-  State<CardsCollectionDetailPage> createState() =>
-      _CardsCollectionDetailPageState();
+  State<CardsModeDetailPage> createState() => _CardsModeDetailPageState();
 }
 
-class _CardsCollectionDetailPageState extends State<CardsCollectionDetailPage> {
+class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
   final PageController _cardPageController = PageController();
 
   @override

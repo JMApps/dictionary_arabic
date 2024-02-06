@@ -19,16 +19,15 @@ class CardModePage extends StatelessWidget {
       backgroundColor: CupertinoColors.systemGroupedBackground,
       child: CustomScrollView(
         slivers: [
-          CupertinoSliverNavigationBar(
+          const CupertinoSliverNavigationBar(
             stretch: true,
             alwaysShowMiddle: false,
-            middle: const Text(AppStrings.cardMode),
+            middle: Text(AppStrings.cardMode),
             previousPageTitle: AppStrings.main,
-            largeTitle: const Text(AppStrings.selectCollection),
+            largeTitle: Text(AppStrings.selectCollection),
           ),
           FutureBuilder<List<CollectionEntity>>(
-            future:
-                Provider.of<CollectionsState>(context).fetchAllCollections(),
+            future: Provider.of<CollectionsState>(context).fetchAllCollections(),
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return SliverToBoxAdapter(
@@ -51,13 +50,12 @@ class CardModePage extends StatelessWidget {
                                 ? () {
                                     Navigator.pushNamed(
                                       context,
-                                      RouteNames.cardsCollectionPage,
+                                      RouteNames.cardsModeDetailPage,
                                       arguments: CollectionArgs(
                                         collectionEntity: model,
                                       ),
                                     );
-                                  }
-                                : null,
+                                  } : null,
                           );
                         },
                       ),

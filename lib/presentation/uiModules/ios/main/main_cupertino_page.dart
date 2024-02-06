@@ -70,7 +70,7 @@ class MainCupertinoPage extends StatelessWidget {
                       ),
                       Expanded(
                         child: MainCardItem(
-                          routeName: RouteNames.allCollectionsPage,
+                          routeName: RouteNames.wordConstructorPage,
                           iconName: CupertinoIcons.table_badge_more_fill,
                           title: AppStrings.wordsConstructor,
                           color: CupertinoColors.systemGreen,
