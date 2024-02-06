@@ -33,8 +33,8 @@ class FavoriteWordsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> moveFavoriteWord({required int wordNr, required int collectionId}) async {
-    await _useCase.fetchMoveFavoriteWord(wordNr: wordNr, collectionId: collectionId);
+  Future<void> moveFavoriteWord({required int wordNr, required int oldCollectionId, required int collectionId}) async {
+    await _useCase.fetchMoveFavoriteWord(wordNr: wordNr, oldCollectionId: oldCollectionId, collectionId: collectionId);
     notifyListeners();
   }
 

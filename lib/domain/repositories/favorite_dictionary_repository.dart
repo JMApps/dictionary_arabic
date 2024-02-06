@@ -13,7 +13,7 @@ abstract class FavoriteDictionaryRepository {
 
   Future<void> changeFavoriteWord({required int wordId, required int serializableIndex});
 
-  Future<void> moveFavoriteWord({required int wordNr, required int collectionId});
+  Future<void> moveFavoriteWord({required int wordNr, required int oldCollectionId, required int collectionId});
 
   Future<void> deleteFavoriteWord({required int favoriteWordId, required int collectionId});
 }

@@ -112,7 +112,7 @@ class _MoveWordSelectState extends State<MoveWordSelect> {
                                     onTap: () async {
                                       Navigator.pop(context);
                                       Navigator.pop(context);
-                                      await Provider.of<FavoriteWordsState>(context).moveFavoriteWord(wordNr: widget.wordNr, collectionId: collectionModel.id);
+                                      await Provider.of<FavoriteWordsState>(context, listen: false).moveFavoriteWord(wordNr: widget.wordNr, oldCollectionId: widget.oldCollectionId, collectionId: collectionModel.id);
                                     },
                                     title: Text(collectionModel.title),
                                     trailing: const Icon(CupertinoIcons.forward),

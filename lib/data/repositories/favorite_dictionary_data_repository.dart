@@ -68,11 +68,8 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
       serializableIndex: model.serializableIndex,
     );
 
-    var collection = await database.query('Table_of_collections', where: 'id = ?', whereArgs: [model.collectionId]);
-    int wordsCount = collection.first['words_count'] as int;
     await database.insert(_tableName, favoriteWordModel.toMap(), conflictAlgorithm: sql.ConflictAlgorithm.replace);
-    wordsCount++;
-    await database.update('Table_of_collections', {'words_count': wordsCount}, where: 'id = ?', whereArgs: [model.collectionId]);
+    await _getWordsCount(model.collectionId);
   }
 
   @override
@@ -85,21 +82,27 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   }
 
   @override
-  Future<void> moveFavoriteWord({required int wordNr, required int collectionId}) async {
+  Future<void> moveFavoriteWord({required int wordNr, required int oldCollectionId, required int collectionId}) async {
     final Database database = await _collectionsService.db;
     final Map<String, int> toCollectionMap = {
       'collection_id': collectionId,
     };
     await database.update(_tableName, toCollectionMap, where: 'nr = ?', whereArgs: [wordNr], conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    await _getWordsCount(oldCollectionId);
+    await _getWordsCount(collectionId);
   }
 
   @override
   Future<void> deleteFavoriteWord({required int favoriteWordId, required int collectionId}) async {
     final Database database = await _collectionsService.db;
-    var collection = await database.query('Table_of_collections', where: 'id = ?', whereArgs: [collectionId]);
-    int wordsCount = collection.first['words_count'] as int;
     await database.delete(_tableName, where: 'id = ?', whereArgs: [favoriteWordId]);
-    wordsCount--;
+    await _getWordsCount(collectionId);
+  }
+
+  Future<void> _getWordsCount(int collectionId) async {
+    final Database database = await _collectionsService.db;
+    var result = await database.rawQuery('''SELECT COUNT(*) AS cnt FROM Table_of_favorite_words WHERE collection_id = $collectionId''');
+    int wordsCount = result.first['cnt'] as int;
     await database.update('Table_of_collections', {'words_count': wordsCount}, where: 'id = ?', whereArgs: [collectionId]);
   }
 
