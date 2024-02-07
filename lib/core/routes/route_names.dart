@@ -6,8 +6,9 @@ class RouteNames {
   static const String wordFavoriteDetailPage = '/word_favorite_detail_page';
   static const String quizPage = '/quiz_page';
   static const String wordConstructorPage = '/word_constructor_page';
+  static const String wordConstructorDetailPage = '/word_constructor_detail_page';
   static const String cardModePage = '/card_mode_page';
-  static const String cardsCollectionPage = '/cards_collection_page';
+  static const String cardsModeDetailPage = '/cards_mode_detail_page';
   static const String allCollectionsPage = '/all_collections_page';
   static const String collectionDetailPage = '/collection_detail_page';
 }
