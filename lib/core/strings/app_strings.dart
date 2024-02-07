@@ -54,4 +54,5 @@ class AppStrings {
   static const String addAll = 'Добавить всё';
   static const String warning = 'Внимание';
   static const String itsClear = 'Понятно';
+  static const String reset = 'Сброс';
 }
