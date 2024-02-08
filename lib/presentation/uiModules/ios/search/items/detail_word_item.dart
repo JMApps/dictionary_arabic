@@ -84,7 +84,7 @@ class _DetailWordItemState extends State<DetailWordItem> {
                           style: const TextStyle(
                             fontSize: 20,
                             color: CupertinoColors.systemGrey,
-                            fontFamily: 'Arial',
+                            fontFamily: 'SF Pro Regular',
                           ),
                         )
                       : const SizedBox(),

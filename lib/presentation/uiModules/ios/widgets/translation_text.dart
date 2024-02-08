@@ -14,7 +14,7 @@ class TranslationText extends StatelessWidget {
     TextStyle translationStyle = TextStyle(
       fontSize: 18,
       color: CupertinoColors.label.resolveFrom(context),
-      fontFamily: 'Heuristica',
+      fontFamily: 'SF Pro Regular',
       height: 1.5,
     );
 

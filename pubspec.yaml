@@ -47,15 +47,15 @@ flutter:
     - assets/fonts/
 
   fonts:
-    - family: 'Arial'
-      fonts:
-        - asset: assets/fonts/arial.ttf
     - family: 'Uthmanic'
       fonts:
         - asset: assets/fonts/uthmanic.ttf
     - family: 'SF Pro'
       fonts:
         - asset: assets/fonts/sf_pro.ttf
+    - family: 'SF Pro Regular'
+      fonts:
+        - asset: assets/fonts/sf_pro_regular.ttf
     - family: 'Heuristica'
       fonts:
         - asset: assets/fonts/heuristica.ttf

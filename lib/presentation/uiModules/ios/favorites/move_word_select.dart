@@ -61,7 +61,7 @@ class _MoveWordSelectState extends State<MoveWordSelect> {
                 slivers: [
                   CupertinoSliverNavigationBar(
                     stretch: true,
-                    middle: const Text(AppStrings.selectCollection),
+                    middle: const Text(AppStrings.moveTo),
                     trailing: CupertinoButton(
                       padding: EdgeInsets.zero,
                       child: const Text(AppStrings.add),

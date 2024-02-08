@@ -115,7 +115,7 @@ class WordItem extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 18,
                         color: CupertinoColors.systemGrey,
-                        fontFamily: 'Arial',
+                        fontFamily: 'SF Pro Regular',
                       ),
                     )
                         : const SizedBox(),

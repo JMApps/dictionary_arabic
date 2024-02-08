@@ -1,4 +1,3 @@
-import 'package:arabic/presentation/uiModules/ios/favorites/lists/%D1%81hange_serializable_words_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -6,6 +5,7 @@ import '../../../../../core/styles/app_styles.dart';
 import '../../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../../widgets/forms_text.dart';
 import '../lists/serializable_detail_words_list.dart';
+import '../lists/change_serializable_words_list.dart';
 import '../move_word_select.dart';
 
 class FavoriteDetailWordItem extends StatelessWidget {
@@ -76,7 +76,7 @@ class FavoriteDetailWordItem extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 20,
                             color: CupertinoColors.systemGrey,
-                            fontFamily: 'Arial',
+                            fontFamily: 'SF Pro Regular',
                           ),
                         )
                       : const SizedBox(),

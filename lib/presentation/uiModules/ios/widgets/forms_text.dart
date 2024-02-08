@@ -20,7 +20,7 @@ class FormsText extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 12,
                   color: CupertinoColors.systemGrey,
-                  fontFamily: 'Arial',
+                  fontFamily: 'SF Pro Regular',
                 ),
               ),
           TextSpan(

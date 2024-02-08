@@ -18,7 +18,7 @@ class FavoriteTranslationText extends StatelessWidget {
     TextStyle translationStyle = TextStyle(
       fontSize: 18,
       color: serializableIndex == -1 ? CupertinoColors.label.resolveFrom(context) : index == serializableIndex ? CupertinoColors.label.resolveFrom(context) : CupertinoColors.systemGrey,
-      fontFamily: 'Heuristica',
+      fontFamily: 'SF Pro Regular',
       height: 1.5,
     );
 

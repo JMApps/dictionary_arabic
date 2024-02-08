@@ -55,4 +55,5 @@ class AppStrings {
   static const String warning = 'Внимание';
   static const String itsClear = 'Понятно';
   static const String reset = 'Сброс';
+  static const String moveTo = 'Переместить в';
 }

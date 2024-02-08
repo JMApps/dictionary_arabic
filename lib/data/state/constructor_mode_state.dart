@@ -15,4 +15,11 @@ class ConstructorModeState extends ChangeNotifier {
     notifyListeners();
     return _endWord;
   }
+
+  void removeLastLetter() {
+    if (_endWord.isNotEmpty) {
+      _endWord = _endWord.substring(0, _endWord.length - 1);
+      notifyListeners();
+    }
+  }
 }

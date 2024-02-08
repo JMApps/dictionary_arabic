@@ -12,9 +12,9 @@ class FlipTranslationText extends StatelessWidget {
   Widget build(BuildContext context) {
     RegExp arabic = RegExp(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+');
     TextStyle translationStyle = TextStyle(
-      fontSize: 22,
+      fontSize: 18,
       color: CupertinoColors.label.resolveFrom(context),
-      fontFamily: 'Heuristica',
+      fontFamily: 'SF Pro Regular',
       height: 1.5,
     );
 

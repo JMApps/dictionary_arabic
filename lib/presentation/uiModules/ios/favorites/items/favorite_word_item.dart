@@ -1,4 +1,3 @@
-import 'package:arabic/presentation/uiModules/ios/favorites/move_word_select.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +10,7 @@ import '../../../../../domain/entities/args/word_args.dart';
 import '../../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../../widgets/forms_text.dart';
 import '../../widgets/short_translation_text.dart';
+import '../move_word_select.dart';
 
 class FavoriteWordItem extends StatelessWidget {
   const FavoriteWordItem({
@@ -99,7 +99,7 @@ class FavoriteWordItem extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 17,
                               color: CupertinoColors.systemGrey,
-                              fontFamily: 'Arial',
+                              fontFamily: 'SF Pro Regular',
                             ),
                           )
                         : const SizedBox(),
@@ -108,7 +108,7 @@ class FavoriteWordItem extends StatelessWidget {
                         ? Text(
                             model.form!,
                             style: const TextStyle(
-                              fontFamily: 'SF Pro',
+                              fontFamily: 'Heuristica',
                               letterSpacing: 0.5,
                             ),
                           )
