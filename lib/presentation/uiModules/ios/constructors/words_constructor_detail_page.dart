@@ -1,4 +1,3 @@
-import 'package:arabic/presentation/uiModules/ios/widgets/short_translation_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -9,7 +8,7 @@ import '../../../../data/state/constructor_mode_state.dart';
 import '../../../../data/state/favorite_words_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
 import '../../../../domain/entities/favorite_dictionary_entity.dart';
-import '../widgets/flip_translation_text.dart';
+import '../widgets/short_translation_text.dart';
 
 class WordsConstructorDetailPage extends StatefulWidget {
   const WordsConstructorDetailPage({
