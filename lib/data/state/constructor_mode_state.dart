@@ -1,24 +1,37 @@
 import 'package:flutter/cupertino.dart';
 
 class ConstructorModeState extends ChangeNotifier {
-  String _endWord = '';
 
-  String get getEndWord => _endWord;
+  int _pageIndex = 0;
 
-  set setEndWord(String value) {
-    _endWord += value;
+  int get getPageIndex => _pageIndex;
+
+  set setPageIndex(int index) {
+    _pageIndex = index;
     notifyListeners();
   }
 
-  String get getResetWord {
-    _endWord = '';
+  bool _isClick = true;
+
+  bool get getIsClick => _isClick;
+
+  set setIsClick(bool value) {
+    _isClick = value;
     notifyListeners();
-    return _endWord;
+  }
+
+  String _inputWord = '';
+
+  String get getInputWord => _inputWord;
+
+  set setInputLetters(String value) {
+    _inputWord += value;
+    notifyListeners();
   }
 
   void removeLastLetter() {
-    if (_endWord.isNotEmpty) {
-      _endWord = _endWord.substring(0, _endWord.length - 1);
+    if (_inputWord.isNotEmpty) {
+      _inputWord = _inputWord.substring(0, _inputWord.length - 1);
       notifyListeners();
     }
   }

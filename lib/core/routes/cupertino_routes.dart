@@ -8,7 +8,7 @@ import '../../presentation/uiModules/ios/cards/cards_mode_detail_page.dart';
 import '../../presentation/uiModules/ios/collections/all_collections_page.dart';
 import '../../presentation/uiModules/ios/collections/collection_detail_page.dart';
 import '../../presentation/uiModules/ios/constructors/word_constructor_page.dart';
-import '../../presentation/uiModules/ios/constructors/words_constructor_detail_page.dart';
+import '../../presentation/uiModules/ios/constructors/word_constructor_detail_page.dart';
 import '../../presentation/uiModules/ios/favorites/add_favorite_word_page.dart';
 import '../../presentation/uiModules/ios/favorites/favorite_word_detail_page.dart';
 import '../../presentation/uiModules/ios/favorites/favorite_word_select_collection.dart';
@@ -99,7 +99,7 @@ class CupertinoRoutes {
       case RouteNames.wordConstructorDetailPage:
         final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
         return CupertinoPageRoute(
-          builder: (_) => WordsConstructorDetailPage(
+          builder: (_) => WordConstructorDetailPage(
             collectionModel: collectionArgs.collectionEntity,
           ),
         );
