@@ -12,7 +12,7 @@ class TranslationText extends StatelessWidget {
   Widget build(BuildContext context) {
     RegExp arabic = RegExp(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+');
     TextStyle translationStyle = TextStyle(
-      fontSize: 18,
+      fontSize: 20,
       color: CupertinoColors.label.resolveFrom(context),
       fontFamily: 'SF Pro Regular',
       height: 1.5,

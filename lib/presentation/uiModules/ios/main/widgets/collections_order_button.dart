@@ -12,6 +12,7 @@ class CollectionsOrderButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final CollectionsState collectionsState = Provider.of<CollectionsState>(context);
     return CupertinoButton(
+      padding: AppStyles.mardingOnlyLeftMini,
       onPressed: () {
         showCupertinoModalPopup(
           context: context,
@@ -90,7 +91,6 @@ class CollectionsOrderButton extends StatelessWidget {
           },
         );
       },
-      padding: EdgeInsets.zero,
       child: const Icon(
         CupertinoIcons.arrow_up_arrow_down_circle_fill,
         size: 32.5,

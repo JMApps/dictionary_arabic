@@ -24,13 +24,6 @@ class CollectionDetailPage extends StatelessWidget {
       navigationBar: CupertinoNavigationBar(
         middle: Text(collectionModel.title),
         previousPageTitle: AppStrings.toBack,
-        /*trailing: CupertinoButton(
-          padding: EdgeInsets.zero,
-          child: const Text(AppStrings.add),
-          onPressed: () {
-            Navigator.pushNamed(context, RouteNames.searchWordsPage);
-          },
-        ),*/
       ),
       child: FutureBuilder<List<FavoriteDictionaryEntity>>(
         future: Provider.of<FavoriteWordsState>(context).fetchFavoriteWordsByCollectionId(
