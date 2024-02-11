@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
 class ConstructorModeState extends ChangeNotifier {
-
   int _pageIndex = 0;
 
   int get getPageIndex => _pageIndex;
@@ -20,12 +19,28 @@ class ConstructorModeState extends ChangeNotifier {
     notifyListeners();
   }
 
+  String _defaultWord = '';
+
+  set setDefaultWord(String word) {
+    _defaultWord = word;
+    notifyListeners();
+  }
+
   String _inputWord = '';
 
   String get getInputWord => _inputWord;
 
   set setInputLetters(String value) {
     _inputWord += value;
+    if (_inputWord.length == _defaultWord.length) {
+      _isClick = false;
+      debugPrint(_isClick.toString());
+      Future.delayed(const Duration(seconds: 3)).then((value) {
+        _isClick = true;
+        notifyListeners();
+        debugPrint(_isClick.toString());
+      });
+    }
     notifyListeners();
   }
 
