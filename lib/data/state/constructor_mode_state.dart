@@ -1,6 +1,54 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../domain/entities/favorite_dictionary_entity.dart';
+
 class ConstructorModeState extends ChangeNotifier {
+  final PageController _constructorController;
+
+  ConstructorModeState(this._constructorController);
+
+  List<FavoriteDictionaryEntity> _words = [];
+
+  set setWords(List<FavoriteDictionaryEntity> words) {
+    _words = words;
+  }
+
+  bool _isReset = false;
+
+  bool get getIsReset => _isReset;
+
+  bool get resetQuiz {
+    _inputWord = '';
+    _constructorController.animateToPage(0, duration: const Duration(milliseconds: 250), curve: Curves.linearToEaseOut);
+    _correctAnswer = 0;
+    _incorrectAnswer = 0;
+    _pageIndex = 0;
+    _isClick = true;
+    _isReset = false;
+    notifyListeners();
+    return _isReset;
+  }
+
+  int _correctAnswer = 0;
+
+  int get correctAnswer => _correctAnswer;
+
+  int get incrementCorrectAnswer {
+    _correctAnswer++;
+    notifyListeners();
+    return _correctAnswer;
+  }
+
+  int _incorrectAnswer = 0;
+
+  int get inCorrectAnswer => _incorrectAnswer;
+
+  int get incrementIncorrectAnswer {
+    _incorrectAnswer++;
+    notifyListeners();
+    return _incorrectAnswer;
+  }
+
   int _pageIndex = 0;
 
   int get getPageIndex => _pageIndex;
@@ -19,27 +67,40 @@ class ConstructorModeState extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _defaultWord = '';
-
-  set setDefaultWord(String word) {
-    _defaultWord = word;
-    notifyListeners();
-  }
-
   String _inputWord = '';
 
   String get getInputWord => _inputWord;
 
   set setInputLetters(String value) {
     _inputWord += value;
-    if (_inputWord.length == _defaultWord.length) {
-      _isClick = false;
-      debugPrint(_isClick.toString());
-      Future.delayed(const Duration(seconds: 3)).then((value) {
-        _isClick = true;
-        notifyListeners();
-        debugPrint(_isClick.toString());
-      });
+    if (_inputWord.length == _words[_pageIndex].arabicWord.length) {
+      if (_inputWord.contains(_words[_pageIndex].arabicWord)) {
+        _isClick = false;
+        incrementCorrectAnswer;
+        Future.delayed(const Duration(seconds: 1)).then((value) {
+          if (_pageIndex < _words.length - 1) {
+            _constructorController.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.easeInToLinear);
+            _isClick = true;
+            _inputWord = '';
+          } else {
+            _isReset = true;
+          }
+          notifyListeners();
+        });
+      } else {
+        _isClick = false;
+        incrementIncorrectAnswer;
+        Future.delayed(const Duration(seconds: 3)).then((value) {
+          if (_pageIndex < _words.length - 1) {
+            _constructorController.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.easeInToLinear);
+            _isClick = true;
+            _inputWord = '';
+          } else {
+            _isReset = true;
+          }
+          notifyListeners();
+        });
+      }
     }
     notifyListeners();
   }
