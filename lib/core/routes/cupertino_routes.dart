@@ -12,6 +12,8 @@ import '../../presentation/uiModules/ios/constructors/word_constructor_detail_pa
 import '../../presentation/uiModules/ios/favorites/add_favorite_word_page.dart';
 import '../../presentation/uiModules/ios/favorites/favorite_word_detail_page.dart';
 import '../../presentation/uiModules/ios/favorites/favorite_word_select_collection.dart';
+import '../../presentation/uiModules/ios/quiz/quiz_detail_page.dart';
+import '../../presentation/uiModules/ios/quiz/quiz_page.dart';
 import '../../presentation/uiModules/ios/search/search_words_page.dart';
 import '../../presentation/uiModules/ios/search/word_detail_page.dart';
 import 'route_names.dart';
@@ -64,6 +66,17 @@ class CupertinoRoutes {
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return CupertinoPageRoute(
           builder: (_) => FavoriteWordDetailPage(favoriteWordNr: wordArgs.wordNr),
+        );
+      case RouteNames.quizPage:
+        return CupertinoPageRoute(
+          builder: (_) => const QuizPage(),
+        );
+      case RouteNames.quizDetailPage:
+        final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
+        return CupertinoPageRoute(
+          builder: (_) => QuizDetailPage(
+            collectionModel: collectionArgs.collectionEntity,
+          ),
         );
       case RouteNames.allCollectionsPage:
         return CupertinoPageRoute(

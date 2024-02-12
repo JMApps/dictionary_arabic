@@ -62,7 +62,7 @@ class MainCupertinoPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: MainCardItem(
-                          routeName: RouteNames.allCollectionsPage,
+                          routeName: RouteNames.quizPage,
                           iconName: CupertinoIcons.time_solid,
                           title: AppStrings.quiz,
                           color: CupertinoColors.systemBlue,

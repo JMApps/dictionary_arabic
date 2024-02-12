@@ -72,8 +72,8 @@ class FavoriteWordDetailPage extends StatelessWidget {
                             builder: (context, wordRootsSnapshot) {
                               if (wordRootsSnapshot.hasData && wordRootsSnapshot.data!.isNotEmpty) {
                                 return ListView.builder(
-                                  shrinkWrap: true,
                                   padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemCount: wordRootsSnapshot.data!.length,
                                   itemBuilder: (BuildContext context, int index) {
@@ -82,8 +82,7 @@ class FavoriteWordDetailPage extends StatelessWidget {
                                   },
                                 );
                               } else {
-                                return const DataText(
-                                    text: AppStrings.rootIsEmpty);
+                                return const DataText(text: AppStrings.rootIsEmpty);
                               }
                             },
                           ),
