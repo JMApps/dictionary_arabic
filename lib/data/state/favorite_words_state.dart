@@ -23,6 +23,10 @@ class FavoriteWordsState extends ChangeNotifier {
     return await _useCase.fetchFavoriteWordById(favoriteWordId: favoriteWordId);
   }
 
+  Future<List<FavoriteDictionaryEntity>> fetchFavoriteWordsByQuiz({required int favoriteWordNr, required String wordRoot}) async {
+    return await _useCase.fetchFavoriteWordsByQuiz(favoriteWordNr: favoriteWordNr, wordRoot: wordRoot);
+  }
+
   Future<void> addFavoriteWord({required FavoriteDictionaryEntity model}) async {
     await _useCase.fetchAddFavoriteWord(model: model);
     notifyListeners();

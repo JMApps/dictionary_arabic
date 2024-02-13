@@ -43,6 +43,15 @@ class FavoriteDictionaryUseCase {
     }
   }
 
+  Future<List<FavoriteDictionaryEntity>> fetchFavoriteWordsByQuiz({required int favoriteWordNr, required String wordRoot}) async {
+    try {
+      final List<FavoriteDictionaryEntity> favoriteWordByQuiz = await _favoriteDictionaryRepository.getFavoriteWordsByQuiz(favoriteWordNr: favoriteWordNr, wordRoot: wordRoot);
+      return favoriteWordByQuiz;
+    } catch (e) {
+      throw Exception('Get favorite word by quiz data error: $e');
+    }
+  }
+
   Future<void> fetchAddFavoriteWord({required FavoriteDictionaryEntity model}) async {
     try {
       await _favoriteDictionaryRepository.addFavoriteWord(model: model);

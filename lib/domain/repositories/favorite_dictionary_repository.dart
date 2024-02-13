@@ -9,6 +9,8 @@ abstract class FavoriteDictionaryRepository {
 
   Future<FavoriteDictionaryEntity> getFavoriteWordById({required int favoriteWordId});
 
+  Future<List<FavoriteDictionaryEntity>> getFavoriteWordsByQuiz({required int favoriteWordNr, required String wordRoot});
+
   Future<void> addFavoriteWord({required FavoriteDictionaryEntity model});
 
   Future<void> changeFavoriteWord({required int wordId, required int serializableIndex});
