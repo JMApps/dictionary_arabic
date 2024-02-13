@@ -9,6 +9,8 @@ class ConstructorModeState extends ChangeNotifier {
 
   List<FavoriteDictionaryEntity> _words = [];
 
+  List<FavoriteDictionaryEntity> get getWords => _words;
+
   set setWords(List<FavoriteDictionaryEntity> words) {
     _words = words;
   }

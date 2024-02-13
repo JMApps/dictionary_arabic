@@ -22,4 +22,9 @@ class DefaultDictionaryState extends ChangeNotifier {
   Future<DictionaryEntity> getWordById({required int wordNr}) async {
     return await _dictionaryUseCase.fetchWordById(wordNr: wordNr);
   }
+
+  Future<List<DictionaryEntity>> fetchWordsByQuiz({required int wordNr}) async {
+    return await _dictionaryUseCase.fetchWordsByQuiz(wordNr: wordNr);
+  }
+
 }

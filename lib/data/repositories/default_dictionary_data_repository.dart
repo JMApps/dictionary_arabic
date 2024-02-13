@@ -57,6 +57,32 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
     return searchWords;
   }
 
+  @override
+  Future<List<DictionaryEntity>> getWordsByQuiz({required int wordNr}) async {
+    final Database database = await _dictionaryService.db;
+    final List<Map<String, Object?>> wordResult = await database.rawQuery('''
+    SELECT s.article_id, s.translation, s.arabic, d.id, d.nr, d.arabic_word, d.form, d.vocalization, d.root, d.forms FROM $_searchTable s INNER JOIN $_dataTable d ON s.article_id = d.nr WHERE d.nr = ?''', [wordNr]);
+
+    final List<DictionaryEntity> resultList = [];
+
+    if (wordResult.isNotEmpty) {
+      final DictionaryModel word = DictionaryModel.fromMap(wordResult.first);
+      resultList.add(_mapToEntity(word));
+
+      final int nextNr = wordNr + 1;
+      final List<Map<String, Object?>> optionsResult = await database.rawQuery('''
+      SELECT s.article_id, s.translation, s.arabic, d.id, d.nr, d.arabic_word, d.form, d.vocalization, d.root, d.forms FROM $_searchTable s INNER JOIN $_dataTable d ON s.article_id = d.nr WHERE d.nr >= ? AND d.nr < ? AND d.nr <> ? ORDER BY d.nr ASC LIMIT 3''', [nextNr, nextNr + 3, wordNr]);
+
+      for (final option in optionsResult) {
+        final DictionaryModel optionWord = DictionaryModel.fromMap(option);
+        resultList.add(
+            _mapToEntity(optionWord)
+        );
+      }
+    }
+    return resultList;
+  }
+
   // Mapping to entity
   DictionaryEntity _mapToEntity(DictionaryModel model) {
     return DictionaryEntity(

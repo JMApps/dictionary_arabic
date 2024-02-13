@@ -64,9 +64,9 @@ class _WordConstructorDetailPageState extends State<WordConstructorDetailPage> {
                           child: PageView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             controller: _constructorController,
-                            itemCount: snapshot.data!.length,
+                            itemCount: constructorModeState.getWords.length,
                             itemBuilder: (context, index) {
-                              final FavoriteDictionaryEntity wordModel = snapshot.data![index];
+                              final FavoriteDictionaryEntity wordModel = constructorModeState.getWords[index];
                               return ConstructorItem(wordModel: wordModel);
                             },
                             onPageChanged: (int pageIndex) {
@@ -107,7 +107,7 @@ class _WordConstructorDetailPageState extends State<WordConstructorDetailPage> {
                         ),
                         SmoothPageIndicator(
                           controller: _constructorController,
-                          count: snapshot.data!.length,
+                          count: constructorModeState.getWords.length,
                           effect: ScrollingDotsEffect(
                             maxVisibleDots: 5,
                             dotColor: CupertinoColors.systemBlue.withOpacity(0.35),

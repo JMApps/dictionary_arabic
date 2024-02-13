@@ -1,6 +1,5 @@
-import 'package:arabic/domain/repositories/default_dictionary_repository.dart';
-
 import '../entities/dictionary_entity.dart';
+import '../repositories/default_dictionary_repository.dart';
 
 class DefaultDictionaryUseCase {
   final DefaultDictionaryRepository _dictionaryRepository;
@@ -42,4 +41,15 @@ class DefaultDictionaryUseCase {
       throw Exception('Get word by id data error: $e');
     }
   }
+
+
+  Future<List<DictionaryEntity>> fetchWordsByQuiz({required int wordNr}) async {
+    try {
+      final List<DictionaryEntity> wordsByQuiz = await _dictionaryRepository.getWordsByQuiz(wordNr: wordNr);
+      return wordsByQuiz;
+    } catch (e) {
+      throw Exception('Get words by quiz data error: $e');
+    }
+  }
+
 }
