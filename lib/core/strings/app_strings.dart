@@ -28,6 +28,7 @@ class AppStrings {
   static const String delete = 'Удалить';
   static const String deleteCollectionQuestion = 'Вы уверены, что хотите удалить данную коллекцию вместе с её содержимым?';
   static const String deleteAllCollectionsQuestion = 'Вы уверены, что хотите удалить все коллекции вместе с их содержимым?';
+  static const String apply = 'Применить';
   static const String cancel = 'Отмена';
   static const String orderCollection = 'Сортировка коллекций';
   static const String order = 'Порядок';

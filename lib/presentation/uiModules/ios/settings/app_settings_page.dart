@@ -12,15 +12,19 @@ class AppSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-        middle: Text(AppStrings.settings),
-      ),
       child: SafeArea(
         bottom: false,
         child: Consumer<AppSettingsState>(
           builder: (BuildContext context, AppSettingsState settings, _) {
             return CustomScrollView(
               slivers: [
+                const CupertinoSliverNavigationBar(
+                  stretch: true,
+                  alwaysShowMiddle: false,
+                  middle: Text(AppStrings.settings),
+                  previousPageTitle: AppStrings.main,
+                  largeTitle: Text(AppStrings.settings),
+                ),
                 const SliverToBoxAdapter(
                   child: Padding(
                     padding: AppStyles.mardingWithoutBottom,
@@ -60,12 +64,48 @@ class AppSettingsPage extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: CupertinoListTile(
                     title: const Text(AppStrings.dailyNotifications),
-                    additionalInfo: const Text('15:00'),
+                    additionalInfo: Text(settings.getNotificationTime.toString().substring(0, 5)),
                     leading: CupertinoButton(
                       padding: EdgeInsets.zero,
-                      child: const Icon(CupertinoIcons.time),
+                      child: const Icon(CupertinoIcons.time, color: CupertinoColors.systemRed),
                       onPressed: () {
-                        // Time picker
+                        showCupertinoDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CupertinoAlertDialog(
+                              title: const Text(AppStrings.notificationTime),
+                              content: SizedBox(
+                                height: 200,
+                                child: CupertinoTimerPicker(
+                                  initialTimerDuration: settings.getNotificationTime,
+                                  mode: CupertinoTimerPickerMode.hm,
+                                  onTimerDurationChanged: (Duration time) {
+                                    settings.changeNotificationTime = time;
+                                  },
+                                ),
+                              ),
+                              actions: [
+                                CupertinoDialogAction(
+                                  child: const Text(
+                                    AppStrings.apply,
+                                    style: TextStyle(
+                                      color: CupertinoColors.systemRed,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                CupertinoDialogAction(
+                                  child: const Text(AppStrings.cancel),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                     ),
                     trailing: CupertinoSwitch(
@@ -115,7 +155,9 @@ class AppSettingsPage extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: CupertinoListTile(
                     onTap: () {
-                      _launchUrl(link: 'https://apps.apple.com/ru/developer/imanil-binyaminov/id1564920953');
+                      _launchUrl(
+                          link:
+                              'https://apps.apple.com/ru/developer/imanil-binyaminov/id1564920953');
                     },
                     title: const Text(AppStrings.applications),
                     leading: Image.asset('assets/icons/appstore.png'),
@@ -161,6 +203,7 @@ class AppSettingsPage extends StatelessWidget {
       ),
     );
   }
+
   Future<void> _launchUrl({required String link}) async {
     final Uri urlLink = Uri.parse(link);
     await launchUrl(urlLink);
