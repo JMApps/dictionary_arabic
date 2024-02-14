@@ -1,3 +1,4 @@
+import 'package:arabic/data/state/app_settings_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -11,8 +12,27 @@ import 'widgets/add_collection_button.dart';
 import 'widgets/collections_order_button.dart';
 import 'widgets/main_search_word_text_field.dart';
 
-class MainCupertinoPage extends StatelessWidget {
+class MainCupertinoPage extends StatefulWidget {
   const MainCupertinoPage({super.key});
+
+  @override
+  State<MainCupertinoPage> createState() => _MainCupertinoPageState();
+}
+
+class _MainCupertinoPageState extends State<MainCupertinoPage> {
+
+  @override
+  void initState() {
+    super.initState();
+    _isWordSearch();
+  }
+
+  Future<void> _isWordSearch() async {
+    if (Provider.of<AppSettingsState>(context, listen: false).getIsSearchWord) {
+      await Future.delayed(const Duration(milliseconds: 0)).whenComplete(() =>
+          Navigator.pushNamed(context, RouteNames.searchWordsPage));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +49,9 @@ class MainCupertinoPage extends StatelessWidget {
             ),
             trailing: CupertinoButton(
               child: const Icon(CupertinoIcons.settings),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, RouteNames.appSettingsPage);
+              },
             ),
           ),
           SliverToBoxAdapter(

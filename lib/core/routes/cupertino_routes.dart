@@ -1,3 +1,4 @@
+import 'package:arabic/presentation/uiModules/ios/settings/app_settings_page.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../domain/entities/args/collection_args.dart';
@@ -21,6 +22,10 @@ import 'route_names.dart';
 class CupertinoRoutes {
   static Route onGeneratorRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
+      case RouteNames.appSettingsPage:
+        return CupertinoPageRoute(
+          builder: (_) => const AppSettingsPage(),
+        );
       case RouteNames.searchWordsPage:
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) => const SearchWordsPage(),

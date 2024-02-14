@@ -8,6 +8,7 @@ class AppStrings {
   static const String collectionsIfEmpty = 'Вы пока что не добавили ни одной коллекции';
   static const String cardCollectionsIfEmpty = 'Чтобы воспользоваться режимом карточек добавьте хотя бы одну коллекцию и одно слово в эту коллекцию';
   static const String constructorCollectionsIfEmpty = 'Чтобы воспользоваться конструктором слов добавьте хотя бы одну коллекцию и одно слово в эту коллекцию';
+  static const String quizCollectionsIfEmpty = 'Чтобы воспользоваться викториной добавьте хотя бы одну коллекцию и одно слово в эту коллекцию';
   static const String collectionButOneIsEmpty = 'Чтобы переместить слово в другую коллекцию, сначала добавьте её';
   static const String favoriteWordsIfEmpty = 'Вы пока что не добавили ни одного слова в данную коллекцию';
   static const String newCollection = 'Новая коллекция';
@@ -43,7 +44,7 @@ class AppStrings {
   static const String matchesFound = 'Найдено совпадений: ';
   static const String exactMatch = 'Точное совпадение';
   static const String cognates = 'Однокоренные слова';
-  static const String createCollectionsWithWords = 'Создавайте коллекции из нужных вам слов!';
+  static const String createCollectionsWithWords = 'Создавайте коллекции для нужных вам слов';
   static const String word = 'Слово';
   static const String close = 'Закрыть';
   static const String recent = 'Недавние:';
@@ -56,4 +57,16 @@ class AppStrings {
   static const String itsClear = 'Понятно';
   static const String reset = 'Сброс';
   static const String moveTo = 'Переместить в';
+  static const String settings = 'Настройки';
+  static const String notifications = 'Уведомления';
+  static const String display = 'Дисплей';
+  static const String alwaysOnDisplay = 'Дисплей всегда включён';
+  static const String dailyNotifications = 'Ежедневные уведомления';
+  static const String notificationTime = 'Время уведомления';
+  static const String options = 'Опции';
+  static const String openWithWordSearch = 'Начинать с поиска слов';
+  static const String applications = 'Приложения';
+  static const String contacts = 'Контакты';
+  static const String instagram = 'Instagram';
+  static const String telegram = 'Telegram';
 }

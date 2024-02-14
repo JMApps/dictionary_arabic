@@ -1,4 +1,5 @@
 class RouteNames {
+  static const String appSettingsPage = '/app_settings_page';
   static const String searchWordsPage = '/search_word_page';
   static const String wordDetailPage = '/word_detail_page';
   static const String addFavoriteWordPage = '/add_favorite_word_page';

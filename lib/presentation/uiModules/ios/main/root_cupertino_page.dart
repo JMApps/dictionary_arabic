@@ -1,3 +1,4 @@
+import 'package:arabic/data/state/app_settings_state.dart';
 import 'package:arabic/data/state/default_dictionary_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,9 @@ class RootCupertinoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (_) => AppSettingsState(),
+        ),
         ChangeNotifierProvider(
           create: (_) => DefaultDictionaryState(),
         ),

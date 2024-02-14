@@ -4,11 +4,13 @@ class Assets {
 
   static const String databasesArabicDictionary = 'assets/databases/arabic_dictionary.db';
   static const String databasesCollections = 'assets/databases/collections.db';
-  static const String fontsArial = 'assets/fonts/arial.ttf';
-  static const String fontsGothamPro = 'assets/fonts/gotham_pro.ttf';
-  static const String fontsGothamProLight = 'assets/fonts/gotham_pro_light.ttf';
-  static const String fontsGothamProMedium = 'assets/fonts/gotham_pro_medium.ttf';
+  static const String fontsHeuristica = 'assets/fonts/heuristica.ttf';
   static const String fontsSfPro = 'assets/fonts/sf_pro.ttf';
+  static const String fontsSfProRegular = 'assets/fonts/sf_pro_regular.ttf';
   static const String fontsUthmanic = 'assets/fonts/uthmanic.ttf';
+  static const String iconsAppstore = 'assets/icons/appstore.png';
+  static const String iconsGooglePlay = 'assets/icons/google-play.png';
+  static const String iconsInstagram = 'assets/icons/instagram.png';
+  static const String iconsTelegram = 'assets/icons/telegram.png';
 
 }
