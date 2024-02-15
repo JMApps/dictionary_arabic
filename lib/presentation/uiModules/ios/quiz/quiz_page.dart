@@ -47,8 +47,7 @@ class QuizPage extends StatelessWidget {
                             title: Text(model.title),
                             trailing: const Icon(CupertinoIcons.forward),
                             additionalInfo: Text(model.wordsCount.toString()),
-                            onTap: model.wordsCount >= 1
-                                ? () {
+                            onTap: model.wordsCount >= 1 ? () {
                               Navigator.pushNamed(
                                 context,
                                 RouteNames.quizDetailPage,
@@ -70,7 +69,7 @@ class QuizPage extends StatelessWidget {
               } else {
                 return const SliverFillRemaining(
                   hasScrollBody: false,
-                  child: DataText(text: AppStrings.constructorCollectionsIfEmpty),
+                  child: DataText(text: AppStrings.quizCollectionsIfEmpty),
                 );
               }
             },
