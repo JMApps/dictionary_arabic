@@ -91,6 +91,7 @@ class _WordConstructorDetailPageState extends State<WordConstructorDetailPage> {
                                 ' : ',
                                 style: TextStyle(
                                   fontSize: 35,
+                                  color: CupertinoColors.systemGrey,
                                   fontFamily: 'SF Pro',
                                 ),
                               ),

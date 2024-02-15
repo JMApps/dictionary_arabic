@@ -68,7 +68,7 @@ class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
                             return SafeArea(
                                 bottom: false,
                                 child: FlipCard(
-                                  side: cardModeState.getCardMode ? CardSide.FRONT : CardSide.BACK,
+                                  side: CardSide.FRONT,
                                   direction: FlipDirection.HORIZONTAL,
                                   front: cardModeState.getCardMode ? Container(
                                     padding: AppStyles.mainMarding,
