@@ -26,7 +26,7 @@ class DefaultDictionaryUseCase {
 
   Future<List<DictionaryEntity>> fetchSearchWords({required String searchQuery, required bool exactMatch}) async {
     try {
-      final List<DictionaryEntity> searchResultWords = await _dictionaryRepository.searchWords(searchQuery: searchQuery, exactMatch: exactMatch);
+      final List<DictionaryEntity> searchResultWords = await _dictionaryRepository.searchWords(searchQuery: searchQuery.replaceAll('ي', 'ى').toLowerCase().trim(), exactMatch: exactMatch);
       return searchResultWords;
     } catch (e) {
       throw Exception('Get search words data error: $e');

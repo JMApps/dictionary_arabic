@@ -3,10 +3,12 @@ class DictionaryEntity {
   final String translation;
   final String arabic;
   final int id;
-  final int nr;
+  final int wordNumber;
   final String arabicWord;
   final String? form;
+  final String? additional;
   final String? vocalization;
+  final int? homonymNr;
   final String root;
   final String? forms;
 
@@ -15,10 +17,12 @@ class DictionaryEntity {
     required this.translation,
     required this.arabic,
     required this.id,
-    required this.nr,
+    required this.wordNumber,
     required this.arabicWord,
     required this.form,
+    required this.additional,
     required this.vocalization,
+    required this.homonymNr,
     required this.root,
     required this.forms,
   });

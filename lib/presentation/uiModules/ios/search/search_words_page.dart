@@ -57,7 +57,7 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                 onSubmitted: (value) async {
                   if (value.trim().isNotEmpty) {
                     await Provider.of<SearchValuesState>(context, listen: false).fetchAddSearchValue(
-                      searchValue: value.toLowerCase().trim(),
+                      searchValue: value,
                     );
                   }
                 },

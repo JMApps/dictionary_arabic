@@ -24,7 +24,7 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
       final Database database = await _collectionsService.db;
       final List<Map<String, Object?>> isFavorite = await database.query(
         _tableName,
-        where: 'nr = ?',
+        where: 'word_number = ?',
         whereArgs: [wordId],
       );
       return isFavorite.isNotEmpty;
@@ -44,7 +44,7 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   @override
   Future<FavoriteDictionaryEntity> getFavoriteWordById({required int favoriteWordId}) async {
     final Database database = await _collectionsService.db;
-    final List<Map<String, Object?>> resources = await database.query(_tableName, where: 'nr = ?', whereArgs: [favoriteWordId]);
+    final List<Map<String, Object?>> resources = await database.query(_tableName, where: 'word_number = ?', whereArgs: [favoriteWordId]);
     final FavoriteDictionaryEntity? favoriteWordById = resources.isNotEmpty ? _mapToEntity(FavoriteDictionaryModel.fromMap(resources.first)) : null;
     return favoriteWordById!;
   }
@@ -58,14 +58,17 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
       translation: model.translation,
       arabic: model.arabic,
       id: model.id,
-      nr: model.nr,
+      wordNumber: model.wordNumber,
       arabicWord: model.arabicWord,
       form: model.form,
+      additional: model.additional,
       vocalization: model.vocalization,
+      homonymNr: model.homonymNr,
       root: model.root,
       forms: model.forms,
       collectionId: model.collectionId,
       serializableIndex: model.serializableIndex,
+      ankiCount: model.ankiCount,
     );
 
     await database.insert(_tableName, favoriteWordModel.toMap(), conflictAlgorithm: sql.ConflictAlgorithm.replace);
@@ -87,7 +90,7 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
     final Map<String, int> toCollectionMap = {
       'collection_id': collectionId,
     };
-    await database.update(_tableName, toCollectionMap, where: 'nr = ?', whereArgs: [wordNr], conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    await database.update(_tableName, toCollectionMap, where: 'word_number = ?', whereArgs: [wordNr], conflictAlgorithm: sql.ConflictAlgorithm.replace);
     await _getWordsCount(oldCollectionId);
     await _getWordsCount(collectionId);
   }
@@ -113,14 +116,17 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
       translation: model.translation,
       arabic: model.arabic,
       id: model.id,
-      nr: model.nr,
+      wordNumber: model.wordNumber,
       arabicWord: model.arabicWord,
       form: model.form,
+      additional: model.additional,
       vocalization: model.vocalization,
+      homonymNr: model.homonymNr,
       root: model.root,
       forms: model.forms,
       collectionId: model.collectionId,
       serializableIndex: model.serializableIndex,
+      ankiCount: model.ankiCount
     );
   }
 }

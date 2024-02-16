@@ -1,9 +1,9 @@
-import 'package:arabic/data/state/default_dictionary_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
+import '../../../../data/state/default_dictionary_state.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
@@ -55,7 +55,7 @@ class WordDetailPage extends StatelessWidget {
                           FutureBuilder<List<DictionaryEntity>>(
                             future: Provider.of<DefaultDictionaryState>(context, listen: false).getWordsByRoot(
                               wordRoot: snapshot.data!.root,
-                              excludedId: snapshot.data!.nr,
+                              excludedId: snapshot.data!.wordNumber,
                             ),
                             builder: (context, wordRootsSnapshot) {
                               if (wordRootsSnapshot.hasData && wordRootsSnapshot.data!.isNotEmpty) {

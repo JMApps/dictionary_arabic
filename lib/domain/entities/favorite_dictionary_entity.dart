@@ -3,28 +3,34 @@ class FavoriteDictionaryEntity {
   final String translation;
   final String arabic;
   final int id;
-  final int nr;
+  final int wordNumber;
   final String arabicWord;
   final String? form;
+  final String? additional;
   final String? vocalization;
+  final int? homonymNr;
   final String root;
   final String? forms;
   final int collectionId;
   final int serializableIndex;
+  final int ankiCount;
 
   const FavoriteDictionaryEntity({
     required this.articleId,
     required this.translation,
     required this.arabic,
     required this.id,
-    required this.nr,
+    required this.wordNumber,
     required this.arabicWord,
     required this.form,
+    required this.additional,
     required this.vocalization,
+    required this.homonymNr,
     required this.root,
     required this.forms,
     required this.collectionId,
     required this.serializableIndex,
+    required this.ankiCount,
   });
 
   String wordContent() {

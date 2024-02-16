@@ -67,7 +67,7 @@ class FavoriteWordDetailPage extends StatelessWidget {
                           FutureBuilder<List<DictionaryEntity>>(
                             future: Provider.of<DefaultDictionaryState>(context).getWordsByRoot(
                               wordRoot: snapshot.data!.root,
-                              excludedId: snapshot.data!.nr,
+                              excludedId: snapshot.data!.wordNumber,
                             ),
                             builder: (context, wordRootsSnapshot) {
                               if (wordRootsSnapshot.hasData && wordRootsSnapshot.data!.isNotEmpty) {

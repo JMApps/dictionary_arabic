@@ -3,10 +3,12 @@ class DictionaryModel {
   final String translation;
   final String arabic;
   final int id;
-  final int nr;
+  final int wordNumber;
   final String arabicWord;
   final String? form;
+  final String? additional;
   final String? vocalization;
+  final int? homonymNr;
   final String root;
   final String? forms;
 
@@ -15,10 +17,12 @@ class DictionaryModel {
     required this.translation,
     required this.arabic,
     required this.id,
-    required this.nr,
+    required this.wordNumber,
     required this.arabicWord,
     required this.form,
+    required this.additional,
     required this.vocalization,
+    required this.homonymNr,
     required this.root,
     required this.forms,
   });
@@ -29,10 +33,12 @@ class DictionaryModel {
       translation: map['translation'] as String,
       arabic: map['arabic'] as String,
       id: map['id'] as int,
-      nr: map['nr'] as int,
+      wordNumber: map['word_number'] as int,
       arabicWord: map['arabic_word'] as String,
       form: map['form'] as String?,
+      additional: map['additional'] as String?,
       vocalization: map['vocalization'] as String?,
+      homonymNr: map['homonym_nr'] as int?,
       root: map['root'] as String,
       forms: map['forms'] as String?,
     );

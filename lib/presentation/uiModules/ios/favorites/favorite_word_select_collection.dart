@@ -121,14 +121,17 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
                                             translation: widget.wordModel.translation,
                                             arabic: widget.wordModel.arabic,
                                             id: widget.wordModel.id,
-                                            nr: widget.wordModel.nr,
+                                            wordNumber: widget.wordModel.wordNumber,
                                             arabicWord: widget.wordModel.arabicWord,
                                             form: widget.wordModel.form,
+                                            additional: widget.wordModel.additional,
                                             vocalization: widget.wordModel.vocalization,
+                                            homonymNr: widget.wordModel.homonymNr,
                                             root: widget.wordModel.root,
                                             forms: widget.wordModel.forms,
                                             collectionId: collectionModel.id,
                                             serializableIndex: widget.serializableIndex,
+                                            ankiCount: 0,
                                           );
                                           await favoriteWordState.addFavoriteWord(model: favoriteWordModel);
                                         },

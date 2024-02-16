@@ -36,7 +36,7 @@ class FavoriteDetailWordItem extends StatelessWidget {
           ),
           SlidableAction(
             onPressed: (context) {
-              showCupertinoModalPopup(context: context, builder: (_) => MoveWordSelect(wordNr: model.nr, oldCollectionId: model.collectionId));
+              showCupertinoModalPopup(context: context, builder: (_) => MoveWordSelect(wordNr: model.wordNumber, oldCollectionId: model.collectionId));
             },
             backgroundColor: CupertinoColors.systemIndigo,
             icon: CupertinoIcons.arrow_turn_up_right,

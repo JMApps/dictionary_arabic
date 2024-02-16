@@ -40,7 +40,7 @@ class WordItem extends StatelessWidget {
               icon: CupertinoIcons.share,
             ),
             FutureBuilder<bool>(
-              future: Provider.of<FavoriteWordsState>(context, listen: false).fetchIsWordFavorite(wordId: model.nr),
+              future: Provider.of<FavoriteWordsState>(context, listen: false).fetchIsWordFavorite(wordId: model.wordNumber),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const CupertinoActivityIndicator();
@@ -52,13 +52,13 @@ class WordItem extends StatelessWidget {
                         Navigator.pushNamed(
                             context,
                             RouteNames.wordFavoriteDetailPage,
-                            arguments: WordArgs(wordNr: model.nr)
+                            arguments: WordArgs(wordNr: model.wordNumber)
                         );
                       } else {
                         Navigator.pushNamed(
                           context,
                           RouteNames.addFavoriteWordPage,
-                          arguments: WordArgs(wordNr: model.nr),
+                          arguments: WordArgs(wordNr: model.wordNumber),
                         );
                       }
                     },
@@ -81,7 +81,7 @@ class WordItem extends StatelessWidget {
             Navigator.pushNamed(
               context,
               RouteNames.wordDetailPage,
-              arguments: WordArgs(wordNr: model.nr),
+              arguments: WordArgs(wordNr: model.wordNumber),
             );
           },
           title: CupertinoListTile(

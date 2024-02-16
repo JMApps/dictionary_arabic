@@ -44,7 +44,7 @@ class FavoriteWordItem extends StatelessWidget {
             ),
             SlidableAction(
               onPressed: (context) {
-                showCupertinoModalPopup(context: context, builder: (_) => MoveWordSelect(wordNr: model.nr, oldCollectionId: model.collectionId));
+                showCupertinoModalPopup(context: context, builder: (_) => MoveWordSelect(wordNr: model.wordNumber, oldCollectionId: model.collectionId));
               },
               backgroundColor: CupertinoColors.systemBlue,
               icon: CupertinoIcons.arrow_turn_up_right,
@@ -65,7 +65,7 @@ class FavoriteWordItem extends StatelessWidget {
             Navigator.pushNamed(
               context,
               RouteNames.wordFavoriteDetailPage,
-              arguments: WordArgs(wordNr: model.nr)
+              arguments: WordArgs(wordNr: model.wordNumber)
             );
           },
           title: CupertinoListTile(
