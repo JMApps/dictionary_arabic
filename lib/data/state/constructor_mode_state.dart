@@ -19,7 +19,7 @@ class ConstructorModeState extends ChangeNotifier {
 
   bool get getIsReset => _isReset;
 
-  bool get resetQuiz {
+  bool get resetConstructor {
     _inputWord = '';
     _constructorController.animateToPage(0, duration: const Duration(milliseconds: 250), curve: Curves.linearToEaseOut);
     _correctAnswer = 0;

@@ -44,7 +44,7 @@ class _WordConstructorDetailPageState extends State<WordConstructorDetailPage> {
                       padding: EdgeInsets.zero,
                       child: const Icon(CupertinoIcons.refresh_bold),
                       onPressed: () {
-                        constructorModeState.resetQuiz;
+                        constructorModeState.resetConstructor;
                       },
                     )
                   : const SizedBox(),
