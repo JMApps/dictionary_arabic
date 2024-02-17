@@ -12,16 +12,15 @@ import 'lists/serializable_words_list.dart';
 class AddFavoriteWordPage extends StatelessWidget {
   const AddFavoriteWordPage({
     super.key,
-    required this.wordNr,
+    required this.wordNumber,
   });
 
-  final int wordNr;
+  final int wordNumber;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DictionaryEntity>(
-      future: Provider.of<DefaultDictionaryState>(context, listen: false)
-          .getWordById(wordNr: wordNr),
+      future: Provider.of<DefaultDictionaryState>(context, listen: false).getWordById(wordNr: wordNumber),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return CupertinoPageScaffold(

@@ -39,38 +39,42 @@ class WordItem extends StatelessWidget {
               backgroundColor: CupertinoColors.systemIndigo,
               icon: CupertinoIcons.share,
             ),
-            FutureBuilder<bool>(
-              future: Provider.of<FavoriteWordsState>(context, listen: false).fetchIsWordFavorite(wordId: model.wordNumber),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CupertinoActivityIndicator();
-                } else if (snapshot.hasData) {
-                  final bool isFavorite = snapshot.data!;
-                  return SlidableAction(
-                    onPressed: (context) {
-                      if (isFavorite) {
-                        Navigator.pushNamed(
-                            context,
-                            RouteNames.wordFavoriteDetailPage,
-                            arguments: WordArgs(wordNr: model.wordNumber)
+            Consumer<FavoriteWordsState>(
+              builder: (BuildContext context, FavoriteWordsState favoriteWordState, _) {
+                return FutureBuilder<bool>(
+                    future: favoriteWordState.fetchIsWordFavorite(wordId: model.wordNumber),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CupertinoActivityIndicator();
+                      } else if (snapshot.hasData) {
+                        final bool isFavorite = snapshot.data!;
+                        return SlidableAction(
+                          onPressed: (context) {
+                            if (isFavorite) {
+                              Navigator.pushNamed(
+                                  context,
+                                  RouteNames.wordFavoriteDetailPage,
+                                  arguments: WordArgs(wordNr: model.wordNumber)
+                              );
+                            } else {
+                              Navigator.pushNamed(
+                                context,
+                                RouteNames.addFavoriteWordPage,
+                                arguments: WordArgs(wordNr: model.wordNumber),
+                              );
+                            }
+                          },
+                          backgroundColor: CupertinoColors.systemBlue,
+                          icon: isFavorite
+                              ? CupertinoIcons.bookmark_fill
+                              : CupertinoIcons.bookmark,
                         );
                       } else {
-                        Navigator.pushNamed(
-                          context,
-                          RouteNames.addFavoriteWordPage,
-                          arguments: WordArgs(wordNr: model.wordNumber),
-                        );
+                        return const CupertinoActivityIndicator();
                       }
-                    },
-                    backgroundColor: CupertinoColors.systemBlue,
-                    icon: isFavorite
-                        ? CupertinoIcons.bookmark_fill
-                        : CupertinoIcons.bookmark,
-                  );
-                } else {
-                  return const CupertinoActivityIndicator();
-                }
-              }
+                    }
+                );
+              },
             ),
           ],
         ),
