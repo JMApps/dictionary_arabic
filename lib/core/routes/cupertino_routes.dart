@@ -41,7 +41,7 @@ class CupertinoRoutes {
       case RouteNames.addFavoriteWordPage:
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => AddFavoriteWordPage(wordNr: wordArgs.wordNr),
+          pageBuilder: (context, animation, secondaryAnimation) => AddFavoriteWordPage(wordNumber: wordArgs.wordNr),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(0.0, 1.0);
             const end = Offset.zero;

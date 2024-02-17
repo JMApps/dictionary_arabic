@@ -36,6 +36,7 @@ class _WordConstructorDetailPageState extends State<WordConstructorDetailPage> {
       child: Consumer<ConstructorModeState>(
         builder: (BuildContext context, constructorModeState, _) {
           return CupertinoPageScaffold(
+            backgroundColor: CupertinoColors.systemGroupedBackground,
             navigationBar: CupertinoNavigationBar(
               middle: Text(widget.collectionModel.title),
               previousPageTitle: AppStrings.toBack,

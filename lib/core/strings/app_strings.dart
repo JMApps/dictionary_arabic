@@ -63,7 +63,7 @@ class AppStrings {
   static const String display = 'Дисплей';
   static const String alwaysOnDisplay = 'Дисплей всегда включён';
   static const String dailyNotifications = 'Ежедневные уведомления';
-  static const String notificationBody = 'Выучи сегодня одно слово!';
+  static const String notificationBody = 'Пополни словарный запас';
   static const String notificationTime = 'Время уведомления';
   static const String options = 'Опции';
   static const String openWithWordSearch = 'Начинать с поиска слов';
