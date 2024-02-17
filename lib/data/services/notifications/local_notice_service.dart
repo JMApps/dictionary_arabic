@@ -5,14 +5,6 @@ import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class LocalNoticeService {
-  static final LocalNoticeService _localNoticeService = LocalNoticeService._internal();
-
-  factory LocalNoticeService() {
-    return _localNoticeService;
-  }
-
-  LocalNoticeService._internal();
-
   static const dailyNotificationID = 004;
 
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -47,10 +39,10 @@ class LocalNoticeService {
     tz.initializeTimeZones();
   }
 
-  Future<void> dailyZonedScheduleNotification(DateTime date, String title, String body, int id) async {
+  Future<void> dailyZonedScheduleNotification(DateTime date, String title, String body) async {
     var tzDateNotification = tz.TZDateTime.from(date, tz.local);
     await _flutterLocalNotificationsPlugin.zonedSchedule(
-      id,
+      dailyNotificationID,
       title,
       body,
       tzDateNotification,

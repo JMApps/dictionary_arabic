@@ -1,3 +1,4 @@
+import 'package:arabic/data/services/notifications/local_notice_service.dart';
 import 'package:arabic/data/state/app_settings_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,6 @@ class MainCupertinoPage extends StatefulWidget {
 }
 
 class _MainCupertinoPageState extends State<MainCupertinoPage> {
-
   @override
   void initState() {
     super.initState();
@@ -29,13 +29,19 @@ class _MainCupertinoPageState extends State<MainCupertinoPage> {
 
   Future<void> _isWordSearch() async {
     if (Provider.of<AppSettingsState>(context, listen: false).getIsSearchWord) {
-      await Future.delayed(const Duration(milliseconds: 0)).whenComplete(() =>
-          Navigator.pushNamed(context, RouteNames.searchWordsPage));
+      await Future.delayed(const Duration(milliseconds: 0)).whenComplete(
+          () => Navigator.pushNamed(context, RouteNames.searchWordsPage));
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final AppSettingsState settings = Provider.of<AppSettingsState>(context);
+    LocalNoticeService().dailyZonedScheduleNotification(
+      DateTime(2024, 12, 31, settings.getNotificationHours, settings.getNotificationMinutes),
+      AppStrings.appName,
+      AppStrings.notificationBody,
+    );
     return CupertinoPageScaffold(
       backgroundColor: CupertinoColors.systemGroupedBackground,
       child: CustomScrollView(
@@ -56,7 +62,8 @@ class _MainCupertinoPageState extends State<MainCupertinoPage> {
           ),
           SliverToBoxAdapter(
             child: Consumer<WordExactMatchState>(
-              builder: (BuildContext context, WordExactMatchState matchState, _) {
+              builder:
+                  (BuildContext context, WordExactMatchState matchState, _) {
                 return CupertinoListTile(
                   padding: AppStyles.horizontalVerticalMini,
                   title: const Text(AppStrings.exactMatch),

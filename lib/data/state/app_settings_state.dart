@@ -9,11 +9,20 @@ class AppSettingsState extends ChangeNotifier {
 
   AppSettingsState() {
     _isWordSearch = _mainSettingsBox.get(AppConstraints.keyOpenWithWordSearch, defaultValue: false);
-    _notificationTime = _mainSettingsBox.get(AppConstraints.keyNotificationTimeDuration, defaultValue: const Duration(hours: 17, minutes: 0));
     _dailyNotifications = _mainSettingsBox.get(AppConstraints.keyDailyNotification, defaultValue: true);
+    _notificationHours = _mainSettingsBox.get(AppConstraints.keyNotificationHours, defaultValue: 17);
+    _notificationMinutes = _mainSettingsBox.get(AppConstraints.keyNotificationMinutes, defaultValue: 0);
     _isAlwaysOnDisplay = _mainSettingsBox.get(AppConstraints.keyAlwaysOnDisplay, defaultValue: true);
     _isAlwaysOnDisplay ? WakelockPlus.enable() : WakelockPlus.disable();
   }
+
+  late int _notificationHours;
+
+  int get getNotificationHours => _notificationHours;
+
+  late int _notificationMinutes;
+
+  int get getNotificationMinutes => _notificationMinutes;
 
   late bool _isWordSearch;
 
@@ -25,13 +34,16 @@ class AppSettingsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  late Duration _notificationTime;
+  late Duration _notificationTime = Duration(hours: _notificationHours, minutes: _notificationMinutes);
 
   Duration get getNotificationTime => _notificationTime;
 
   set changeNotificationTime(Duration time) {
     _notificationTime = time;
-    _mainSettingsBox.put(AppConstraints.keyNotificationTimeDuration, time);
+    _notificationHours = time.inHours % 24;
+    _notificationMinutes = time.inMinutes % 60;
+    _mainSettingsBox.put(AppConstraints.keyNotificationHours, _notificationHours);
+    _mainSettingsBox.put(AppConstraints.keyNotificationMinutes, _notificationMinutes);
     notifyListeners();
   }
 
