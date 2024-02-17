@@ -1,13 +1,13 @@
-import 'package:arabic/data/state/quiz_mode_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/styles/app_styles.dart';
-import '../../../../data/state/default_dictionary_state.dart';
-import '../../../../domain/entities/dictionary_entity.dart';
-import '../../../../domain/entities/favorite_dictionary_entity.dart';
-import '../widgets/error_data_text.dart';
-import '../widgets/quiz_translation_text.dart';
+import '../../../../../core/styles/app_styles.dart';
+import '../../../../../data/state/default_dictionary_state.dart';
+import '../../../../../data/state/quiz_mode_state.dart';
+import '../../../../../domain/entities/dictionary_entity.dart';
+import '../../../../../domain/entities/favorite_dictionary_entity.dart';
+import '../../widgets/error_data_text.dart';
+import '../../widgets/quiz_translation_text.dart';
 
 class QuizItem extends StatelessWidget {
   const QuizItem({

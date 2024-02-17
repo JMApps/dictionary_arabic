@@ -19,46 +19,6 @@ class QuizModeState extends ChangeNotifier {
 
   Color get getAnswerColor => _answerColor;
 
-  bool _reset = false;
-
-  bool get getReset => _reset;
-
-  bool _answerIsTrue = false;
-
-  bool get getAnswerIsTrue => _answerIsTrue;
-
-  set setAnswerState(bool answer) {
-    _answerIsTrue = answer;
-    if (answer) {
-      _isClick = false;
-      incrementCorrectAnswer;
-      _answerColor = CupertinoColors.systemGreen;
-      Future.delayed(const Duration(seconds: 1)).then((value) {
-        if (_pageIndex < _words.length - 1) {
-          _quizController.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.easeInToLinear);
-          _isClick = true;
-        } else {
-          _reset = true;
-        }
-        notifyListeners();
-      });
-    } else {
-      _isClick = false;
-      incrementIncorrectAnswer;
-      _answerColor = CupertinoColors.systemRed;
-      Future.delayed(const Duration(seconds: 3)).then((value) {
-        if (_pageIndex < _words.length - 1) {
-          _quizController.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.easeInToLinear);
-          _isClick = true;
-        } else {
-          _reset = true;
-        }
-        notifyListeners();
-      });
-    }
-    notifyListeners();
-  }
-
   bool _isReset = false;
 
   bool get getIsReset => _isReset;
@@ -107,8 +67,39 @@ class QuizModeState extends ChangeNotifier {
 
   bool get getIsClick => _isClick;
 
-  set setIsClick(bool value) {
-    _isClick = value;
+  bool _answerIsTrue = false;
+
+  bool get getAnswerIsTrue => _answerIsTrue;
+
+  set setAnswerState(bool answer) {
+    _answerIsTrue = answer;
+    if (answer) {
+      _isClick = false;
+      incrementCorrectAnswer;
+      _answerColor = CupertinoColors.systemGreen;
+      Future.delayed(const Duration(seconds: 1)).then((value) {
+        if (_pageIndex < _words.length - 1) {
+          _quizController.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.easeInToLinear);
+          _isClick = true;
+        } else {
+          _isReset = true;
+        }
+        notifyListeners();
+      });
+    } else {
+      _isClick = false;
+      incrementIncorrectAnswer;
+      _answerColor = CupertinoColors.systemRed;
+      Future.delayed(const Duration(seconds: 3)).then((value) {
+        if (_pageIndex < _words.length - 1) {
+          _quizController.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.easeInToLinear);
+          _isClick = true;
+        } else {
+          _isReset = true;
+        }
+        notifyListeners();
+      });
+    }
     notifyListeners();
   }
 }
