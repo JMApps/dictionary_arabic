@@ -4,6 +4,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
+import '../../../../data/state/default_dictionary_state.dart';
 import '../../../../data/state/favorite_words_state.dart';
 import '../../../../data/state/quiz_mode_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
@@ -35,7 +36,6 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
       ],
       child: Consumer<QuizModeState>(
         builder: (BuildContext context, quizModeState, _) {
-          debugPrint(quizModeState.getIsReset.toString());
           return CupertinoPageScaffold(
             backgroundColor: CupertinoColors.systemGroupedBackground,
             navigationBar: CupertinoNavigationBar(
@@ -66,12 +66,10 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
                             controller: _quizController,
                             itemCount: quizModeState.getWords.length,
                             itemBuilder: (context, pageIndex) {
-                              final FavoriteDictionaryEntity model =
-                                  quizModeState.getWords[pageIndex];
+                              final FavoriteDictionaryEntity model = quizModeState.getWords[pageIndex];
                               return SingleChildScrollView(
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
                                     const SizedBox(height: 21),
                                     Text(
@@ -84,9 +82,21 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
                                       textAlign: TextAlign.center,
                                     ),
                                     const SizedBox(height: 7),
-                                    QuizItem(
-                                      wordNumber: model.wordNumber,
-                                      pageIndex: pageIndex,
+                                    FutureBuilder(
+                                        future: Provider.of<DefaultDictionaryState>(context).fetchWordsByQuiz(wordNr: model.wordNumber),
+                                        builder: (context, quizSnapshot) {
+                                          if (quizSnapshot.hasData) {
+                                            return QuizItem(
+                                              wordNumber: model.wordNumber,
+                                              pageIndex: pageIndex,
+                                              quizSnapshot: quizSnapshot,
+                                            );
+                                          } else {
+                                            return const Center(
+                                              child: CupertinoActivityIndicator(),
+                                            );
+                                          }
+                                      }
                                     ),
                                   ],
                                 ),
@@ -136,8 +146,7 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
                           count: quizModeState.getWords.length,
                           effect: ScrollingDotsEffect(
                             maxVisibleDots: 5,
-                            dotColor:
-                                CupertinoColors.systemBlue.withOpacity(0.35),
+                            dotColor: CupertinoColors.systemBlue.withOpacity(0.35),
                             activeDotColor: CupertinoColors.systemBlue,
                             dotWidth: 10,
                             dotHeight: 10,

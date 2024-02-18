@@ -11,13 +11,18 @@ class QuizModeState extends ChangeNotifier {
 
   List<FavoriteDictionaryEntity> get getWords => _words;
 
+  int _answerIndex = -1;
+
+  int get getAnswerIndex => _answerIndex;
+
+  int defaultAnswerIndex() {
+    _answerIsTrue = false;
+    return _answerIndex = -1;
+  }
+
   set setWords(List<FavoriteDictionaryEntity> words) {
     _words = words;
   }
-
-  late Color _answerColor;
-
-  Color get getAnswerColor => _answerColor;
 
   bool _isReset = false;
 
@@ -30,6 +35,7 @@ class QuizModeState extends ChangeNotifier {
     _pageIndex = 0;
     _isClick = true;
     _isReset = false;
+    defaultAnswerIndex();
     notifyListeners();
     return _isReset;
   }
@@ -71,31 +77,34 @@ class QuizModeState extends ChangeNotifier {
 
   bool get getAnswerIsTrue => _answerIsTrue;
 
-  set setAnswerState(bool answer) {
+  void setAnswerState({ required bool answer, required int clickIndex}) {
     _answerIsTrue = answer;
+    _answerIndex = clickIndex;
     if (answer) {
       _isClick = false;
       incrementCorrectAnswer;
-      _answerColor = CupertinoColors.systemGreen;
-      Future.delayed(const Duration(seconds: 1)).then((value) {
+      Future.delayed(const Duration(milliseconds: 1500)).then((value) {
         if (_pageIndex < _words.length - 1) {
           _quizController.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.easeInToLinear);
           _isClick = true;
+          defaultAnswerIndex();
         } else {
           _isReset = true;
+          defaultAnswerIndex();
         }
         notifyListeners();
       });
     } else {
       _isClick = false;
       incrementIncorrectAnswer;
-      _answerColor = CupertinoColors.systemRed;
-      Future.delayed(const Duration(seconds: 3)).then((value) {
+      Future.delayed(const Duration(milliseconds: 3500)).then((value) {
         if (_pageIndex < _words.length - 1) {
           _quizController.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.easeInToLinear);
           _isClick = true;
+          defaultAnswerIndex();
         } else {
           _isReset = true;
+          defaultAnswerIndex();
         }
         notifyListeners();
       });

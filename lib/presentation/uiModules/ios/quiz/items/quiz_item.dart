@@ -2,67 +2,80 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/styles/app_styles.dart';
-import '../../../../../data/state/default_dictionary_state.dart';
 import '../../../../../data/state/quiz_mode_state.dart';
 import '../../../../../domain/entities/dictionary_entity.dart';
 import '../../../../../domain/entities/favorite_dictionary_entity.dart';
-import '../../widgets/error_data_text.dart';
 import '../../widgets/quiz_translation_text.dart';
 
-class QuizItem extends StatelessWidget {
+class QuizItem extends StatefulWidget {
   const QuizItem({
     super.key,
     required this.wordNumber,
     required this.pageIndex,
+    required this.quizSnapshot,
   });
 
   final int wordNumber;
   final int pageIndex;
+  final AsyncSnapshot quizSnapshot;
+
+  @override
+  State<QuizItem> createState() => _QuizItemState();
+}
+
+class _QuizItemState extends State<QuizItem> {
+  late final List<DictionaryEntity> _words;
+  @override
+  void initState() {
+    super.initState();
+    _words = widget.quizSnapshot.data!;
+    _words.shuffle();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<QuizModeState>(
       builder: (BuildContext context, QuizModeState quizModeState, _) {
-        return FutureBuilder<List<DictionaryEntity>>(
-          future: Provider.of<DefaultDictionaryState>(context).fetchWordsByQuiz(wordNr: wordNumber),
-          builder: (context, quizSnapshot) {
-            if (quizSnapshot.hasData) {
-              return ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: quizSnapshot.data!.length,
-                itemBuilder: (context, index) {
-                  final FavoriteDictionaryEntity wordModel = quizModeState.getWords[pageIndex];
-                  final DictionaryEntity quizModel = quizSnapshot.data![index];
-                  return CupertinoListSection(
-                    topMargin: 0,
-                    margin: EdgeInsets.zero,
-                    header: CupertinoButton(
-                      onPressed: quizModeState.getIsClick
-                          ? () {
-                        quizModeState.setAnswerState = wordModel.articleId.contains(quizModel.articleId);
-                      }
-                          : null,
-                      padding: EdgeInsets.zero,
-                      child: QuizTranslationText(
-                        translation: quizModel.translation,
-                      ),
-                    ),
-                    footer: Container(
-                      margin: AppStyles.mardingSymmetricVerMini,
-                      height: 1,
-                      color: CupertinoColors.systemGrey,
-                    ),
-                  );
-                },
-              );
-            } else if (quizSnapshot.hasError) {
-              return ErrorDataText(errorText: quizSnapshot.error.toString());
+        return ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: _words.length,
+          itemBuilder: (context, index) {
+            final FavoriteDictionaryEntity wordModel = quizModeState.getWords[widget.pageIndex];
+            final DictionaryEntity quizModel = _words[index];
+            CupertinoDynamicColor lineColor;
+            if (quizModeState.getIsClick) {
+              lineColor = CupertinoColors.systemGrey;
             } else {
-              return const Center(
-                child: CupertinoActivityIndicator(),
-              );
+              if (wordModel.articleId.contains(quizModel.articleId) && quizModeState.getAnswerIndex != -1) {
+                lineColor = CupertinoColors.systemGreen;
+              } else {
+                lineColor = index == quizModeState.getAnswerIndex
+                    ? CupertinoColors.systemRed
+                    : CupertinoColors.systemGrey;
+              }
             }
+            return CupertinoListSection(
+              topMargin: 0,
+              margin: EdgeInsets.zero,
+              header: CupertinoButton(
+                onPressed: quizModeState.getIsClick ? () {
+                  quizModeState.setAnswerState(
+                    answer: wordModel.articleId.contains(quizModel.articleId),
+                    clickIndex: index,
+                  );
+                } : null,
+                padding: EdgeInsets.zero,
+                child: QuizTranslationText(
+                  translation: quizModel.translation,
+                ),
+              ),
+              footer: Container(
+                margin: AppStyles.mardingSymmetricVerMini,
+                height: 2,
+                color: lineColor,
+              ),
+            );
           },
         );
       },
