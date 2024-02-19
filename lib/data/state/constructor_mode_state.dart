@@ -15,22 +15,6 @@ class ConstructorModeState extends ChangeNotifier {
     _words = words;
   }
 
-  bool _isReset = false;
-
-  bool get getIsReset => _isReset;
-
-  bool get resetConstructor {
-    _inputWord = '';
-    _constructorController.animateToPage(0, duration: const Duration(milliseconds: 250), curve: Curves.linearToEaseOut);
-    _correctAnswer = 0;
-    _incorrectAnswer = 0;
-    _pageIndex = 0;
-    _isClick = true;
-    _isReset = false;
-    notifyListeners();
-    return _isReset;
-  }
-
   int _correctAnswer = 0;
 
   int get correctAnswer => _correctAnswer;
@@ -105,6 +89,22 @@ class ConstructorModeState extends ChangeNotifier {
       }
     }
     notifyListeners();
+  }
+
+  bool _isReset = false;
+
+  bool get getIsReset => _isReset;
+
+  bool get resetConstructor {
+    _inputWord = '';
+    _constructorController.animateToPage(0, duration: const Duration(milliseconds: 250), curve: Curves.linearToEaseOut);
+    _correctAnswer = 0;
+    _incorrectAnswer = 0;
+    _pageIndex = 0;
+    _isClick = true;
+    _isReset = false;
+    notifyListeners();
+    return _isReset;
   }
 
   void removeLastLetter() {

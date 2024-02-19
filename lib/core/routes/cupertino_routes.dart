@@ -1,4 +1,3 @@
-import 'package:arabic/presentation/uiModules/ios/settings/app_settings_page.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../domain/entities/args/collection_args.dart';
@@ -17,6 +16,7 @@ import '../../presentation/uiModules/ios/quiz/quiz_detail_page.dart';
 import '../../presentation/uiModules/ios/quiz/quiz_page.dart';
 import '../../presentation/uiModules/ios/search/search_words_page.dart';
 import '../../presentation/uiModules/ios/search/word_detail_page.dart';
+import '../../presentation/uiModules/ios/settings/app_settings_page.dart';
 import 'route_names.dart';
 
 class CupertinoRoutes {
