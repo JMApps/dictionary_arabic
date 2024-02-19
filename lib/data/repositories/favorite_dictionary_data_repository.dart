@@ -8,12 +8,12 @@ import '../services/collections_service.dart';
 
 class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   final CollectionsService _collectionsService = CollectionsService();
-  final String _tableName = 'Table_of_favorite_words';
+  final String _favoriteWordsTableName = 'Table_of_favorite_words';
 
   @override
   Future<List<FavoriteDictionaryEntity>> getAllFavoriteWords() async {
     final Database database = await _collectionsService.db;
-    final List<Map<String, Object?>> resources = await database.query(_tableName);
+    final List<Map<String, Object?>> resources = await database.query(_favoriteWordsTableName);
     final List<FavoriteDictionaryEntity> allFavoriteWords = resources.isNotEmpty ? resources.map((c) => _mapToEntity(FavoriteDictionaryModel.fromMap(c))).toList() : [];
     return allFavoriteWords;
   }
@@ -23,7 +23,7 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
     try {
       final Database database = await _collectionsService.db;
       final List<Map<String, Object?>> isFavorite = await database.query(
-        _tableName,
+        _favoriteWordsTableName,
         where: 'word_number = ?',
         whereArgs: [wordId],
       );
@@ -36,7 +36,7 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   @override
   Future<List<FavoriteDictionaryEntity>> getFavoriteWordsByCollectionId({required int collectionId}) async {
     final Database database = await _collectionsService.db;
-    final List<Map<String, Object?>> resources = await database.query(_tableName, where: 'collection_id = ?', whereArgs: [collectionId]);
+    final List<Map<String, Object?>> resources = await database.query(_favoriteWordsTableName, where: 'collection_id = ?', whereArgs: [collectionId]);
     final List<FavoriteDictionaryEntity> collectionFavoriteWords = resources.isNotEmpty ? resources.map((c) => _mapToEntity(FavoriteDictionaryModel.fromMap(c))).toList() : [];
     return collectionFavoriteWords;
   }
@@ -44,7 +44,7 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   @override
   Future<FavoriteDictionaryEntity> getFavoriteWordById({required int favoriteWordId}) async {
     final Database database = await _collectionsService.db;
-    final List<Map<String, Object?>> resources = await database.query(_tableName, where: 'word_number = ?', whereArgs: [favoriteWordId]);
+    final List<Map<String, Object?>> resources = await database.query(_favoriteWordsTableName, where: 'word_number = ?', whereArgs: [favoriteWordId]);
     final FavoriteDictionaryEntity? favoriteWordById = resources.isNotEmpty ? _mapToEntity(FavoriteDictionaryModel.fromMap(resources.first)) : null;
     return favoriteWordById!;
   }
@@ -71,7 +71,7 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
       ankiCount: model.ankiCount,
     );
 
-    await database.insert(_tableName, favoriteWordModel.toMap(), conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    await database.insert(_favoriteWordsTableName, favoriteWordModel.toMap(), conflictAlgorithm: sql.ConflictAlgorithm.replace);
     await _getWordsCount(model.collectionId);
   }
 
@@ -81,7 +81,7 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
     final Map<String, int> serializableMap = {
       'serializable_index': serializableIndex,
     };
-    await database.update(_tableName, serializableMap, where: 'id = ?', whereArgs: [wordId], conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    await database.update(_favoriteWordsTableName, serializableMap, where: 'id = ?', whereArgs: [wordId], conflictAlgorithm: sql.ConflictAlgorithm.replace);
   }
 
   @override
@@ -90,7 +90,7 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
     final Map<String, int> toCollectionMap = {
       'collection_id': collectionId,
     };
-    await database.update(_tableName, toCollectionMap, where: 'word_number = ?', whereArgs: [wordNr], conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    await database.update(_favoriteWordsTableName, toCollectionMap, where: 'word_number = ?', whereArgs: [wordNr], conflictAlgorithm: sql.ConflictAlgorithm.replace);
     await _getWordsCount(oldCollectionId);
     await _getWordsCount(collectionId);
   }
@@ -98,7 +98,7 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   @override
   Future<void> deleteFavoriteWord({required int favoriteWordId, required int collectionId}) async {
     final Database database = await _collectionsService.db;
-    await database.delete(_tableName, where: 'id = ?', whereArgs: [favoriteWordId]);
+    await database.delete(_favoriteWordsTableName, where: 'id = ?', whereArgs: [favoriteWordId]);
     await _getWordsCount(collectionId);
   }
 

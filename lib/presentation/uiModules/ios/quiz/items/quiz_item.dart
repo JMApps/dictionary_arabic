@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/styles/app_styles.dart';
@@ -45,52 +46,44 @@ class _QuizItemState extends State<QuizItem> {
             final FavoriteDictionaryEntity wordModel = quizModeState.getWords[widget.pageIndex];
             final DictionaryEntity quizModel = _words[index];
             CupertinoDynamicColor lineColor;
-            String answerText;
             if (quizModeState.getIsClick) {
-              lineColor = CupertinoColors.systemGrey;
-              answerText = '';
+              lineColor = CupertinoColors.secondarySystemFill;
             } else {
-              if (wordModel.articleId.contains(quizModel.articleId) &&
-                  quizModeState.getAnswerIndex != -1) {
+              if (wordModel.articleId.contains(quizModel.articleId) && quizModeState.getAnswerIndex != -1) {
                 lineColor = CupertinoColors.systemGreen;
-                answerText = 'Правильный ответ';
+                HapticFeedback.lightImpact();
               } else {
                 lineColor = index == quizModeState.getAnswerIndex
                     ? CupertinoColors.systemRed
-                    : CupertinoColors.systemGrey;
-                answerText = index == quizModeState.getAnswerIndex
-                    ? answerText = 'Неправильный ответ'
-                    : answerText = '';
+                    : CupertinoColors.secondarySystemFill;
+                HapticFeedback.heavyImpact();
               }
             }
-            return CupertinoListSection(
-              topMargin: 0,
-              margin: EdgeInsets.zero,
-              header: CupertinoButton(
-                onPressed: quizModeState.getIsClick ? () {
-                        quizModeState.setAnswerState(
-                          answer: wordModel.articleId.contains(quizModel.articleId),
-                          clickIndex: index,
-                        );
-                      } : null,
-                padding: EdgeInsets.zero,
-                child: QuizTranslationText(
-                  translation: quizModel.translation,
-                ),
-              ),
-              footer: Column(
-                children: [
-                  Container(
-                    margin: AppStyles.mardingSymmetricVerMini,
-                    height: 1,
+            return CupertinoListSection.insetGrouped(
+              margin: AppStyles.mainMardingMini,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 350),
+                  curve: Curves.easeInToLinear,
+                  decoration: BoxDecoration(
                     color: lineColor,
                   ),
-                  Text(
-                    answerText,
-                    style: TextStyle(color: lineColor),
+                  child: CupertinoListTile(
+                    padding: AppStyles.mainMarding,
+                    onTap: quizModeState.getIsClick
+                        ? () {
+                            quizModeState.setAnswerState(
+                              answer: wordModel.articleId.contains(quizModel.articleId),
+                              clickIndex: index,
+                            );
+                          }
+                        : null,
+                    title: QuizTranslationText(
+                      translation: quizModel.translation,
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             );
           },
         );

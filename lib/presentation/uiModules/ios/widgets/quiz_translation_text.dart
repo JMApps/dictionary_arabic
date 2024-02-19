@@ -58,6 +58,7 @@ class QuizTranslationText extends StatelessWidget {
       text: TextSpan(
         children: translationDouble(translation, arabic),
       ),
+      textAlign: TextAlign.start,
       overflow: TextOverflow.ellipsis,
     );
   }

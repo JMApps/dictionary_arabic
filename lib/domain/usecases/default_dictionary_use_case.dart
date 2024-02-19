@@ -35,7 +35,7 @@ class DefaultDictionaryUseCase {
 
   Future<DictionaryEntity> fetchWordById({required int wordNr}) async {
     try {
-      final DictionaryEntity wordById = await _dictionaryRepository.getWordById(wordNr: wordNr);
+      final DictionaryEntity wordById = await _dictionaryRepository.getWordById(wordNumber: wordNr);
       return wordById;
     } catch (e) {
       throw Exception('Get word by id data error: $e');
@@ -45,7 +45,7 @@ class DefaultDictionaryUseCase {
 
   Future<List<DictionaryEntity>> fetchWordsByQuiz({required int wordNr}) async {
     try {
-      final List<DictionaryEntity> wordsByQuiz = await _dictionaryRepository.getWordsByQuiz(wordNr: wordNr);
+      final List<DictionaryEntity> wordsByQuiz = await _dictionaryRepository.getWordsByQuiz(wordNumber: wordNr);
       return wordsByQuiz;
     } catch (e) {
       throw Exception('Get words by quiz data error: $e');
