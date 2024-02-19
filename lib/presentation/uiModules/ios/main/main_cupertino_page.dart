@@ -1,11 +1,11 @@
-import 'package:arabic/data/services/notifications/local_notice_service.dart';
-import 'package:arabic/data/state/app_settings_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/routes/route_names.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
+import '../../../../data/services/notifications/local_notice_service.dart';
+import '../../../../data/state/app_settings_state.dart';
 import '../../../../data/state/word_exact_match_state.dart';
 import 'items/main_card_item.dart';
 import 'lists/main_collections_list.dart';
@@ -62,19 +62,18 @@ class _MainCupertinoPageState extends State<MainCupertinoPage> {
           ),
           SliverToBoxAdapter(
             child: Consumer<WordExactMatchState>(
-              builder:
-                  (BuildContext context, WordExactMatchState matchState, _) {
+              builder: (BuildContext context, matchState, _) {
                 return CupertinoListTile(
                   padding: AppStyles.horizontalVerticalMini,
                   title: const Text(AppStrings.exactMatch),
                   trailing: Transform.scale(
                     scale: 0.75,
                     child: CupertinoSwitch(
+                      activeColor: CupertinoColors.systemBlue,
                       value: matchState.getExactMatch,
                       onChanged: (value) {
                         matchState.setExactMatch = value;
                       },
-                      activeColor: CupertinoColors.systemBlue,
                     ),
                   ),
                 );

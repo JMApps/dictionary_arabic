@@ -65,7 +65,7 @@ class CollectionItem extends StatelessWidget {
           Navigator.pushNamed(
             context,
             RouteNames.collectionDetailPage,
-            arguments: CollectionArgs(collectionEntity: model),
+            arguments: CollectionArgs(collectionModel: model),
           );
         },
         title: Text(
@@ -75,7 +75,7 @@ class CollectionItem extends StatelessWidget {
           ),
         ),
         leading: Icon(
-          CupertinoIcons.tag_solid,
+          CupertinoIcons.folder_fill,
           color: AppStyles.collectionColors[model.color],
         ),
         trailing: const Icon(

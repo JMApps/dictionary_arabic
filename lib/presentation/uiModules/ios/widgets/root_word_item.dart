@@ -34,7 +34,7 @@ class RootWordItem extends StatelessWidget {
                   sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
                 );
               },
-              backgroundColor: CupertinoColors.systemIndigo,
+              backgroundColor: CupertinoColors.systemBlue,
               icon: CupertinoIcons.share,
             ),
             SlidableAction(
@@ -42,10 +42,10 @@ class RootWordItem extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   RouteNames.addFavoriteWordPage,
-                  arguments: WordArgs(wordNr: model.wordNumber),
+                  arguments: WordArgs(wordNumber: model.wordNumber),
                 );
               },
-              backgroundColor: CupertinoColors.systemBlue,
+              backgroundColor: CupertinoColors.systemIndigo,
               icon: CupertinoIcons.bookmark,
             ),
           ],
@@ -57,7 +57,7 @@ class RootWordItem extends StatelessWidget {
             Navigator.pushReplacementNamed(
               context,
               RouteNames.wordDetailPage,
-              arguments: WordArgs(wordNr: model.wordNumber),
+              arguments: WordArgs(wordNumber: model.wordNumber),
             );
           },
           title: CupertinoListTile(

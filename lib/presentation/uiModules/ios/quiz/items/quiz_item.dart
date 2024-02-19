@@ -25,6 +25,7 @@ class QuizItem extends StatefulWidget {
 
 class _QuizItemState extends State<QuizItem> {
   late final List<DictionaryEntity> _words;
+
   @override
   void initState() {
     super.initState();
@@ -44,15 +45,22 @@ class _QuizItemState extends State<QuizItem> {
             final FavoriteDictionaryEntity wordModel = quizModeState.getWords[widget.pageIndex];
             final DictionaryEntity quizModel = _words[index];
             CupertinoDynamicColor lineColor;
+            String answerText;
             if (quizModeState.getIsClick) {
               lineColor = CupertinoColors.systemGrey;
+              answerText = '';
             } else {
-              if (wordModel.articleId.contains(quizModel.articleId) && quizModeState.getAnswerIndex != -1) {
+              if (wordModel.articleId.contains(quizModel.articleId) &&
+                  quizModeState.getAnswerIndex != -1) {
                 lineColor = CupertinoColors.systemGreen;
+                answerText = 'Правильный ответ';
               } else {
                 lineColor = index == quizModeState.getAnswerIndex
                     ? CupertinoColors.systemRed
                     : CupertinoColors.systemGrey;
+                answerText = index == quizModeState.getAnswerIndex
+                    ? answerText = 'Неправильный ответ'
+                    : answerText = '';
               }
             }
             return CupertinoListSection(
@@ -60,20 +68,28 @@ class _QuizItemState extends State<QuizItem> {
               margin: EdgeInsets.zero,
               header: CupertinoButton(
                 onPressed: quizModeState.getIsClick ? () {
-                  quizModeState.setAnswerState(
-                    answer: wordModel.articleId.contains(quizModel.articleId),
-                    clickIndex: index,
-                  );
-                } : null,
+                        quizModeState.setAnswerState(
+                          answer: wordModel.articleId.contains(quizModel.articleId),
+                          clickIndex: index,
+                        );
+                      } : null,
                 padding: EdgeInsets.zero,
                 child: QuizTranslationText(
                   translation: quizModel.translation,
                 ),
               ),
-              footer: Container(
-                margin: AppStyles.mardingSymmetricVerMini,
-                height: 2,
-                color: lineColor,
+              footer: Column(
+                children: [
+                  Container(
+                    margin: AppStyles.mardingSymmetricVerMini,
+                    height: 1,
+                    color: lineColor,
+                  ),
+                  Text(
+                    answerText,
+                    style: TextStyle(color: lineColor),
+                  ),
+                ],
               ),
             );
           },

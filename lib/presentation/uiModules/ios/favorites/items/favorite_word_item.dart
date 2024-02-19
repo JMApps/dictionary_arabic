@@ -16,11 +16,9 @@ class FavoriteWordItem extends StatelessWidget {
   const FavoriteWordItem({
     super.key,
     required this.model,
-    required this.index,
   });
 
   final FavoriteDictionaryEntity model;
-  final int index;
 
   @override
   @override
@@ -39,15 +37,15 @@ class FavoriteWordItem extends StatelessWidget {
                   sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
                 );
               },
-              backgroundColor: CupertinoColors.systemIndigo,
+              backgroundColor: CupertinoColors.systemBlue,
               icon: CupertinoIcons.share,
             ),
             SlidableAction(
               onPressed: (context) {
-                showCupertinoModalPopup(context: context, builder: (_) => MoveWordSelect(wordNr: model.wordNumber, oldCollectionId: model.collectionId));
+                showCupertinoModalPopup(context: context, builder: (_) => MoveWordSelect(wordNumber: model.wordNumber, oldCollectionId: model.collectionId));
               },
-              backgroundColor: CupertinoColors.systemBlue,
-              icon: CupertinoIcons.arrow_turn_up_right,
+              backgroundColor: CupertinoColors.systemIndigo,
+              icon: CupertinoIcons.folder_fill,
             ),
             SlidableAction(
               onPressed: (context) async {
@@ -65,7 +63,7 @@ class FavoriteWordItem extends StatelessWidget {
             Navigator.pushNamed(
               context,
               RouteNames.wordFavoriteDetailPage,
-              arguments: WordArgs(wordNr: model.wordNumber)
+              arguments: WordArgs(wordNumber: model.wordNumber)
             );
           },
           title: CupertinoListTile(
@@ -81,6 +79,16 @@ class FavoriteWordItem extends StatelessWidget {
                   textDirection: TextDirection.rtl,
                 ),
                 const SizedBox(width: 18),
+                model.additional != null
+                    ? Text(
+                  '${model.additional!} ',
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: CupertinoColors.systemGrey,
+                    fontFamily: 'SF Pro Regular',
+                  ),
+                )
+                    : const SizedBox(),
                 model.forms != null
                     ? FormsText(content: model.forms!)
                     : const SizedBox(),
@@ -93,8 +101,16 @@ class FavoriteWordItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    model.vocalization != null
-                        ? Text(
+                    model.homonymNr != null ? Text(
+                      model.homonymNr!.toString(),
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: CupertinoColors.systemGrey,
+                        fontFamily: 'SF Pro Regular',
+                      ),
+                    ) : const SizedBox(),
+                    const SizedBox(width: 7),
+                    model.vocalization != null ? Text(
                             model.vocalization!,
                             style: const TextStyle(
                               fontSize: 17,
@@ -104,15 +120,13 @@ class FavoriteWordItem extends StatelessWidget {
                           )
                         : const SizedBox(),
                     const SizedBox(width: 7),
-                    model.form != null
-                        ? Text(
+                    model.form != null ? Text(
                             model.form!,
                             style: const TextStyle(
                               fontFamily: 'Heuristica',
                               letterSpacing: 0.5,
                             ),
-                          )
-                        : const SizedBox(),
+                          ) : const SizedBox(),
                   ],
                 ),
                 Text(

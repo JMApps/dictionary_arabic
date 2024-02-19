@@ -17,18 +17,15 @@ class QuizTranslationText extends StatelessWidget {
       fontFamily: 'SF Pro Regular',
       height: 1.5,
     );
-
     const TextStyle arabicStyle = TextStyle(
       fontSize: 18,
       color: CupertinoColors.systemBlue,
       fontFamily: 'Uthmanic',
     );
-
     List<TextSpan> translationDouble(String text, RegExp regex) {
       List<TextSpan> spans = [];
       var matches = regex.allMatches(text);
       int start = 0;
-
       for (var match in matches) {
         if (start < match.start) {
           spans.add(
@@ -46,7 +43,6 @@ class QuizTranslationText extends StatelessWidget {
         );
         start = match.end;
       }
-
       if (start < text.length) {
         spans.add(
           TextSpan(
@@ -57,7 +53,6 @@ class QuizTranslationText extends StatelessWidget {
       }
       return spans;
     }
-
     return RichText(
       maxLines: 4,
       text: TextSpan(

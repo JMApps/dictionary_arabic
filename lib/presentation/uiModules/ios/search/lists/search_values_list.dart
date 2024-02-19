@@ -26,7 +26,7 @@ class SearchValuesList extends StatelessWidget {
                   await Provider.of<SearchValuesState>(context, listen: false).fetchDeleteAllSearchValues();
                 },
                 title: const Text(
-                  AppStrings.clearList,
+                  AppStrings.recent,
                   style: TextStyle(
                     color: CupertinoColors.systemGrey,
                     fontFamily: 'SF Pro',

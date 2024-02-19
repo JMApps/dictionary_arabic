@@ -58,7 +58,7 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
         child: CupertinoPageScaffold(
           backgroundColor: CupertinoColors.systemGroupedBackground,
           child: Consumer<SearchQueryState>(
-            builder: (BuildContext context, SearchQueryState query, _) {
+            builder: (BuildContext context, query, _) {
               return CustomScrollView(
                 slivers: [
                   CupertinoSliverNavigationBar(
@@ -113,6 +113,7 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
                                   return Consumer<FavoriteWordsState>(
                                     builder: (BuildContext context, FavoriteWordsState favoriteWordState, _) {
                                       return CupertinoListTile(
+                                        padding: AppStyles.mardingSymmetricHor,
                                         onTap: () async {
                                           Navigator.pop(context);
                                           Navigator.pop(context);
@@ -136,6 +137,10 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
                                           await favoriteWordState.addFavoriteWord(model: favoriteWordModel);
                                         },
                                         title: Text(collectionModel.title),
+                                        leading: Icon(
+                                          CupertinoIcons.folder_fill,
+                                          color: AppStyles.collectionColors[collectionModel.color],
+                                        ),
                                         trailing: const Icon(CupertinoIcons.forward),
                                       );
                                     },

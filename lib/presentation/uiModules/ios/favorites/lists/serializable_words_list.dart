@@ -17,7 +17,6 @@ class SerializableWordsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> translationLines = model.translation.split('\\n');
-
     return CupertinoScrollbar(
       child: ListView.builder(
         padding: AppStyles.mardingWithoutBottom,

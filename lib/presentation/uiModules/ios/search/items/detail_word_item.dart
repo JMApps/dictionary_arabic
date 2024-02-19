@@ -35,7 +35,7 @@ class _DetailWordItemState extends State<DetailWordItem> {
                 sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
               );
             },
-            backgroundColor: CupertinoColors.systemIndigo,
+            backgroundColor: CupertinoColors.systemBlue,
             icon: CupertinoIcons.share,
           ),
           SlidableAction(
@@ -43,10 +43,10 @@ class _DetailWordItemState extends State<DetailWordItem> {
               Navigator.pushNamed(
                 context,
                 RouteNames.addFavoriteWordPage,
-                arguments: WordArgs(wordNr: widget.model.wordNumber),
+                arguments: WordArgs(wordNumber: widget.model.wordNumber),
               );
             },
-            backgroundColor: CupertinoColors.systemBlue,
+            backgroundColor: CupertinoColors.systemIndigo,
             icon: CupertinoIcons.bookmark,
           ),
         ],

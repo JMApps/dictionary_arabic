@@ -27,8 +27,7 @@ class WordConstructorPage extends StatelessWidget {
             largeTitle: Text(AppStrings.selectCollection),
           ),
           FutureBuilder<List<CollectionEntity>>(
-            future:
-            Provider.of<CollectionsState>(context).fetchAllCollections(),
+            future: Provider.of<CollectionsState>(context, listen: false).fetchAllCollections(),
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return SliverToBoxAdapter(
@@ -42,18 +41,22 @@ class WordConstructorPage extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (BuildContext context, int index) {
-                          final CollectionEntity model = snapshot.data![index];
+                          final CollectionEntity collectionModel = snapshot.data![index];
                           return CupertinoListTile(
-                            title: Text(model.title),
+                            padding: AppStyles.mardingSymmetricHor,
+                            title: Text(collectionModel.title),
+                            leading: Icon(
+                              CupertinoIcons.folder_fill,
+                              color: AppStyles.collectionColors[collectionModel.color],
+                            ),
                             trailing: const Icon(CupertinoIcons.forward),
-                            additionalInfo: Text(model.wordsCount.toString()),
-                            onTap: model.wordsCount >= 1
-                                ? () {
+                            additionalInfo: Text(collectionModel.wordsCount.toString()),
+                            onTap: collectionModel.wordsCount >= 1 ? () {
                               Navigator.pushNamed(
                                 context,
                                 RouteNames.wordConstructorDetailPage,
                                 arguments: CollectionArgs(
-                                  collectionEntity: model,
+                                  collectionModel: collectionModel,
                                 ),
                               );
                             } : null,

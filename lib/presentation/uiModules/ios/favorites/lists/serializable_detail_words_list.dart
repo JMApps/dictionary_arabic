@@ -1,6 +1,6 @@
-import 'package:arabic/core/styles/app_styles.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../../../core/styles/app_styles.dart';
 import '../../widgets/favorite_translation_text.dart';
 
 class SerializableDetailWordsList extends StatelessWidget {
@@ -18,9 +18,9 @@ class SerializableDetailWordsList extends StatelessWidget {
     List<String> translationLines = translation.split('\\n');
 
     return ListView.builder(
+      padding: EdgeInsets.zero,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.zero,
       itemCount: translationLines.length,
       itemBuilder: (BuildContext context, int index) {
         return Padding(

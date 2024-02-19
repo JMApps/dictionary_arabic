@@ -27,6 +27,12 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
   final PageController _quizController = PageController();
 
   @override
+  void dispose() {
+    _quizController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
@@ -41,20 +47,18 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
             navigationBar: CupertinoNavigationBar(
               middle: Text(widget.collectionModel.title),
               previousPageTitle: AppStrings.toBack,
-              trailing: quizModeState.getIsReset
-                  ? CupertinoButton(
+              trailing: quizModeState.getIsReset ? CupertinoButton(
                       padding: EdgeInsets.zero,
                       child: const Icon(CupertinoIcons.refresh_bold),
                       onPressed: () {
                         quizModeState.resetQuiz;
                       },
-                    )
-                  : const SizedBox(),
+                    ) : const SizedBox(),
             ),
             child: SafeArea(
               bottom: false,
               child: FutureBuilder<List<FavoriteDictionaryEntity>>(
-                future: Provider.of<FavoriteWordsState>(context).fetchFavoriteWordsByCollectionId(collectionId: widget.collectionModel.id),
+                future: Provider.of<FavoriteWordsState>(context, listen: false).fetchFavoriteWordsByCollectionId(collectionId: widget.collectionModel.id),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     quizModeState.setWords = snapshot.data!;
@@ -62,18 +66,18 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
                       children: [
                         Expanded(
                           child: PageView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
                             controller: _quizController,
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: quizModeState.getWords.length,
                             itemBuilder: (context, pageIndex) {
-                              final FavoriteDictionaryEntity model = quizModeState.getWords[pageIndex];
+                              final FavoriteDictionaryEntity wordModel = quizModeState.getWords[pageIndex];
                               return SingleChildScrollView(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
                                     const SizedBox(height: 21),
                                     Text(
-                                      model.arabicWord,
+                                      wordModel.arabicWord,
                                       style: const TextStyle(
                                         fontSize: 60,
                                         fontFamily: 'Uthmanic',
@@ -83,11 +87,11 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
                                     ),
                                     const SizedBox(height: 7),
                                     FutureBuilder(
-                                        future: Provider.of<DefaultDictionaryState>(context).fetchWordsByQuiz(wordNr: model.wordNumber),
+                                        future: Provider.of<DefaultDictionaryState>(context, listen: false).fetchWordsByQuiz(wordNr: wordModel.wordNumber),
                                         builder: (context, quizSnapshot) {
                                           if (quizSnapshot.hasData) {
                                             return QuizItem(
-                                              wordNumber: model.wordNumber,
+                                              wordNumber: wordModel.wordNumber,
                                               pageIndex: pageIndex,
                                               quizSnapshot: quizSnapshot,
                                             );
@@ -125,7 +129,7 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
                                 ' : ',
                                 style: TextStyle(
                                   fontSize: 35,
-                                  color: CupertinoColors.systemGrey,
+                                  color: CupertinoColors.systemBlue,
                                   fontFamily: 'SF Pro',
                                 ),
                               ),

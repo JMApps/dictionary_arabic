@@ -18,9 +18,8 @@ class ChangeSerializableWordsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> translationLines = favoriteWordModel.translation.split('\\n');
-
     return CupertinoPageScaffold(
-      backgroundColor: CupertinoColors.tertiarySystemGroupedBackground,
+      backgroundColor: CupertinoColors.systemGroupedBackground,
       navigationBar: const CupertinoNavigationBar(
         middle: Text(AppStrings.change),
         previousPageTitle: AppStrings.close,
@@ -35,6 +34,7 @@ class ChangeSerializableWordsList extends StatelessWidget {
                 padding: AppStyles.mardingOnlyBottom,
                 title: TranslationText(translation: translationLines[index]),
                 trailing: CupertinoButton(
+                  padding: EdgeInsets.zero,
                   onPressed: () async {
                     if (favoriteWordModel.serializableIndex != index) {
                       Navigator.of(context).pop();
@@ -46,7 +46,6 @@ class ChangeSerializableWordsList extends StatelessWidget {
                       Navigator.of(context).pop();
                     }
                   },
-                  padding: EdgeInsets.zero,
                   child: Icon(
                     favoriteWordModel.serializableIndex == index
                         ? CupertinoIcons.bookmark_fill

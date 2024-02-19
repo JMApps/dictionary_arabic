@@ -16,15 +16,15 @@ import 'items/favorite_detail_word_item.dart';
 class FavoriteWordDetailPage extends StatelessWidget {
   const FavoriteWordDetailPage({
     super.key,
-    required this.favoriteWordNr,
+    required this.favoriteWordNumber,
   });
 
-  final int favoriteWordNr;
+  final int favoriteWordNumber;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<FavoriteDictionaryEntity>(
-      future: Provider.of<FavoriteWordsState>(context).fetchFavoriteWordById(favoriteWordId: favoriteWordNr),
+      future: Provider.of<FavoriteWordsState>(context).fetchFavoriteWordById(favoriteWordId: favoriteWordNumber),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return CupertinoPageScaffold(
@@ -53,9 +53,9 @@ class FavoriteWordDetailPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           FavoriteDetailWordItem(model: snapshot.data!),
-                          const Padding(
+                          Container(
                             padding: AppStyles.mainMardingMini,
-                            child: Text(
+                            child: const Text(
                               AppStrings.cognates,
                               style: TextStyle(
                                 fontSize: 20,
@@ -78,7 +78,7 @@ class FavoriteWordDetailPage extends StatelessWidget {
                                   itemCount: wordRootsSnapshot.data!.length,
                                   itemBuilder: (BuildContext context, int index) {
                                     final DictionaryEntity model = wordRootsSnapshot.data![index];
-                                    return WordItem(model: model, index: index);
+                                    return WordItem(model: model);
                                   },
                                 );
                               } else {

@@ -4,8 +4,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../../../../core/styles/app_styles.dart';
 import '../../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../../widgets/forms_text.dart';
-import '../lists/serializable_detail_words_list.dart';
 import '../lists/change_serializable_words_list.dart';
+import '../lists/serializable_detail_words_list.dart';
 import '../move_word_select.dart';
 
 class FavoriteDetailWordItem extends StatelessWidget {
@@ -36,15 +36,22 @@ class FavoriteDetailWordItem extends StatelessWidget {
           ),
           SlidableAction(
             onPressed: (context) {
-              showCupertinoModalPopup(context: context, builder: (_) => MoveWordSelect(wordNr: model.wordNumber, oldCollectionId: model.collectionId));
+              showCupertinoModalPopup(
+                context: context,
+                builder: (_) => MoveWordSelect(
+                  wordNumber: model.wordNumber,
+                  oldCollectionId: model.collectionId,
+                ),
+              );
             },
             backgroundColor: CupertinoColors.systemIndigo,
-            icon: CupertinoIcons.arrow_turn_up_right,
+            icon: CupertinoIcons.folder_fill,
           ),
         ],
       ),
       child: CupertinoListTile(
         padding: AppStyles.mardingWithoutBottom,
+        backgroundColor: CupertinoColors.quaternarySystemFill,
         title: CupertinoListTile(
           padding: EdgeInsets.zero,
           title: Row(
@@ -58,6 +65,16 @@ class FavoriteDetailWordItem extends StatelessWidget {
                 textDirection: TextDirection.rtl,
               ),
               const SizedBox(width: 14),
+              model.additional != null
+                  ? Text(
+                      '${model.additional!} ',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: CupertinoColors.systemGrey,
+                        fontFamily: 'SF Pro Regular',
+                      ),
+                    )
+                  : const SizedBox(),
               model.forms != null
                   ? FormsText(content: model.forms!)
                   : const SizedBox(),
@@ -70,6 +87,17 @@ class FavoriteDetailWordItem extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  model.homonymNr != null
+                      ? Text(
+                          model.homonymNr!.toString(),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: CupertinoColors.systemGrey,
+                            fontFamily: 'SF Pro Regular',
+                          ),
+                        )
+                      : const SizedBox(),
+                  const SizedBox(width: 7),
                   model.vocalization != null
                       ? Text(
                           model.vocalization!,

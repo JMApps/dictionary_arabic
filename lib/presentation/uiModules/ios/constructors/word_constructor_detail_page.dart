@@ -26,6 +26,12 @@ class _WordConstructorDetailPageState extends State<WordConstructorDetailPage> {
   final PageController _constructorController = PageController();
 
   @override
+  void dispose() {
+    _constructorController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
@@ -67,8 +73,8 @@ class _WordConstructorDetailPageState extends State<WordConstructorDetailPage> {
                             controller: _constructorController,
                             itemCount: constructorModeState.getWords.length,
                             itemBuilder: (context, index) {
-                              final FavoriteDictionaryEntity wordModel = constructorModeState.getWords[index];
-                              return ConstructorItem(wordModel: wordModel);
+                              final FavoriteDictionaryEntity favoriteWordModel = constructorModeState.getWords[index];
+                              return ConstructorItem(wordModel: favoriteWordModel);
                             },
                             onPageChanged: (int pageIndex) {
                               constructorModeState.setPageIndex = pageIndex;
@@ -92,7 +98,7 @@ class _WordConstructorDetailPageState extends State<WordConstructorDetailPage> {
                                 ' : ',
                                 style: TextStyle(
                                   fontSize: 35,
-                                  color: CupertinoColors.systemGrey,
+                                  color: CupertinoColors.systemBlue,
                                   fontFamily: 'SF Pro',
                                 ),
                               ),

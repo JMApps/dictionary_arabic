@@ -64,7 +64,7 @@ class SearchWordsList extends StatelessWidget {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, int index) {
                       final DictionaryEntity model = snapshot.data![index];
-                      return WordItem(model: model, index: index);
+                      return WordItem(model: model);
                     },
                   ),
                 ),

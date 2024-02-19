@@ -15,11 +15,9 @@ class WordItem extends StatelessWidget {
   const WordItem({
     super.key,
     required this.model,
-    required this.index,
   });
 
   final DictionaryEntity model;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +34,7 @@ class WordItem extends StatelessWidget {
                   sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
                 );
               },
-              backgroundColor: CupertinoColors.systemIndigo,
+              backgroundColor: CupertinoColors.systemBlue,
               icon: CupertinoIcons.share,
             ),
             Consumer<FavoriteWordsState>(
@@ -54,17 +52,17 @@ class WordItem extends StatelessWidget {
                               Navigator.pushNamed(
                                   context,
                                   RouteNames.wordFavoriteDetailPage,
-                                  arguments: WordArgs(wordNr: model.wordNumber)
+                                  arguments: WordArgs(wordNumber: model.wordNumber)
                               );
                             } else {
                               Navigator.pushNamed(
                                 context,
                                 RouteNames.addFavoriteWordPage,
-                                arguments: WordArgs(wordNr: model.wordNumber),
+                                arguments: WordArgs(wordNumber: model.wordNumber),
                               );
                             }
                           },
-                          backgroundColor: CupertinoColors.systemBlue,
+                          backgroundColor: CupertinoColors.systemIndigo,
                           icon: isFavorite
                               ? CupertinoIcons.bookmark_fill
                               : CupertinoIcons.bookmark,
@@ -85,7 +83,7 @@ class WordItem extends StatelessWidget {
             Navigator.pushNamed(
               context,
               RouteNames.wordDetailPage,
-              arguments: WordArgs(wordNr: model.wordNumber),
+              arguments: WordArgs(wordNumber: model.wordNumber),
             );
           },
           title: CupertinoListTile(
@@ -113,19 +111,16 @@ class WordItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    model.vocalization != null
-                        ? Text(
+                    model.vocalization != null ? Text(
                       model.vocalization!,
                       style: const TextStyle(
                         fontSize: 18,
                         color: CupertinoColors.systemGrey,
                         fontFamily: 'SF Pro Regular',
                       ),
-                    )
-                        : const SizedBox(),
+                    ) : const SizedBox(),
                     const SizedBox(width: 7),
-                    model.form != null
-                        ? Text(
+                    model.form != null ? Text(
                       model.form!,
                       style: const TextStyle(
                         fontSize: 18,
@@ -133,8 +128,7 @@ class WordItem extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         letterSpacing: 0.5,
                       ),
-                    )
-                        : const SizedBox(),
+                    ) : const SizedBox(),
                   ],
                 ),
                 Text(

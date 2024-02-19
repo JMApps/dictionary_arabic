@@ -18,8 +18,13 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
   final TextEditingController _collectionController = TextEditingController();
 
   @override
+  void dispose() {
+    _collectionController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final CollectionsState collectionsState = Provider.of<CollectionsState>(context);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -27,27 +32,31 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
         ),
       ],
       child: CupertinoAlertDialog(
-        title: const Text(AppStrings.newCollection),
+        title: const Text(
+          AppStrings.newCollection,
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(height: 14),
             CupertinoTextField(
-              textCapitalization: TextCapitalization.words,
               controller: _collectionController,
+              textCapitalization: TextCapitalization.words,
               autofocus: true,
-              autocorrect: false,
               maxLength: 100,
               textAlign: TextAlign.center,
               placeholder: AppStrings.title,
               placeholderStyle: const TextStyle(
                 color: CupertinoColors.placeholderText,
+                fontSize: 20,
                 fontFamily: 'SF Pro',
-                letterSpacing: 0.75,
               ),
               style: const TextStyle(
+                fontSize: 20,
                 fontFamily: 'SF Pro',
-                letterSpacing: 0.75,
               ),
               clearButtonMode: OverlayVisibilityMode.editing,
             ),
@@ -69,7 +78,7 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
         ),
         actions: [
           Consumer<AddChangeCollectionState>(
-            builder: (BuildContext context, AddChangeCollectionState colorState, _) {
+            builder: (BuildContext context, colorState, _) {
               return CupertinoButton(
                 onPressed: () async {
                   if (_collectionController.text.trim().isNotEmpty) {
@@ -80,7 +89,7 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
                       wordsCount: 0,
                       color: colorState.getColorIndex,
                     );
-                    await collectionsState.addCollection(model: model);
+                    await Provider.of<CollectionsState>(context, listen: false).addCollection(model: model);
                   }
                 },
                 child: const Text(AppStrings.add),

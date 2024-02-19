@@ -20,7 +20,7 @@ class AddFavoriteWordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DictionaryEntity>(
-      future: Provider.of<DefaultDictionaryState>(context, listen: false).getWordById(wordNr: wordNumber),
+      future: Provider.of<DefaultDictionaryState>(context, listen: false).getWordById(wordNumber: wordNumber),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return CupertinoPageScaffold(

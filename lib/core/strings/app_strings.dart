@@ -48,9 +48,8 @@ class AppStrings {
   static const String createCollectionsWithWords = 'Создавайте коллекции для нужных вам слов';
   static const String word = 'Слово';
   static const String close = 'Закрыть';
-  static const String recent = 'Недавние:';
+  static const String recent = 'Недавние';
   static const String rootIsEmpty = 'Однокоренных слов нет';
-  static const String clearList = 'Очистить список';
   static const String selectCollection = 'Выберите коллекцию';
   static const String selectTranslation = 'Выберите перевод';
   static const String addAll = 'Добавить всё';
@@ -69,6 +68,7 @@ class AppStrings {
   static const String openWithWordSearch = 'Начинать с поиска слов';
   static const String applications = 'Приложения';
   static const String contacts = 'Контакты';
+  static const String ummalife = 'Umma Life';
   static const String instagram = 'Instagram';
   static const String telegram = 'Telegram';
 }

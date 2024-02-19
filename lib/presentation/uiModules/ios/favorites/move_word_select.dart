@@ -15,11 +15,11 @@ import '../widgets/error_data_text.dart';
 class MoveWordSelect extends StatefulWidget {
   const MoveWordSelect({
     super.key,
-    required this.wordNr,
+    required this.wordNumber,
     required this.oldCollectionId,
   });
 
-  final int wordNr;
+  final int wordNumber;
   final int oldCollectionId;
 
   @override
@@ -56,7 +56,7 @@ class _MoveWordSelectState extends State<MoveWordSelect> {
         child: CupertinoPageScaffold(
           backgroundColor: CupertinoColors.systemGroupedBackground,
           child: Consumer<SearchQueryState>(
-            builder: (BuildContext context, SearchQueryState query, _) {
+            builder: (BuildContext context, query, _) {
               return CustomScrollView(
                 slivers: [
                   CupertinoSliverNavigationBar(
@@ -93,9 +93,7 @@ class _MoveWordSelectState extends State<MoveWordSelect> {
                         _collections = snapshot.data!;
                         _recentCollections = query.getQuery.isEmpty
                             ? _collections
-                            : _collections
-                            .where((element) => element.title.toLowerCase()
-                            .contains(query.getQuery.toLowerCase())).toList();
+                            : _collections.where((element) => element.title.toLowerCase().contains(query.getQuery.toLowerCase())).toList();
                         return SliverToBoxAdapter(
                           child: CupertinoListSection.insetGrouped(
                             margin: AppStyles.mardingWithoutBottomMini,
@@ -109,12 +107,21 @@ class _MoveWordSelectState extends State<MoveWordSelect> {
                                 itemBuilder: (BuildContext context, int index) {
                                   final CollectionEntity collectionModel = _recentCollections[index];
                                   return CupertinoListTile(
+                                    padding: AppStyles.mardingSymmetricHor,
                                     onTap: () async {
                                       Navigator.pop(context);
                                       Navigator.pop(context);
-                                      await Provider.of<FavoriteWordsState>(context, listen: false).moveFavoriteWord(wordNr: widget.wordNr, oldCollectionId: widget.oldCollectionId, collectionId: collectionModel.id);
+                                      await Provider.of<FavoriteWordsState>(context, listen: false).moveFavoriteWord(
+                                        wordNumber: widget.wordNumber,
+                                        oldCollectionId: widget.oldCollectionId,
+                                        collectionId: collectionModel.id,
+                                      );
                                     },
                                     title: Text(collectionModel.title),
+                                    leading: Icon(
+                                      CupertinoIcons.folder_fill,
+                                      color: AppStyles.collectionColors[collectionModel.color],
+                                    ),
                                     trailing: const Icon(CupertinoIcons.forward),
                                   );
                                 },
@@ -124,9 +131,7 @@ class _MoveWordSelectState extends State<MoveWordSelect> {
                         );
                       } else if (snapshot.hasError) {
                         return SliverToBoxAdapter(
-                          child: ErrorDataText(
-                            errorText: snapshot.error.toString(),
-                          ),
+                          child: ErrorDataText(errorText: snapshot.error.toString()),
                         );
                       } else {
                         return SliverFillRemaining(
@@ -135,6 +140,7 @@ class _MoveWordSelectState extends State<MoveWordSelect> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const DataText(text: AppStrings.collectionButOneIsEmpty),
+                              const SizedBox(height: 7),
                               Transform.scale(
                                 scale: 2,
                                 child: const AddCollectionButton(),

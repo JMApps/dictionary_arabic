@@ -36,7 +36,7 @@ class CollectionDetailPage extends StatelessWidget {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (BuildContext context, int index) {
                   final FavoriteDictionaryEntity model = snapshot.data![index];
-                  return FavoriteWordItem(model: model, index: index);
+                  return FavoriteWordItem(model: model);
                 },
               ),
             );

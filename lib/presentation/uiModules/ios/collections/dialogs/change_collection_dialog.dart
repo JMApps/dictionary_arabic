@@ -29,8 +29,15 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
   }
 
   @override
+  void dispose() {
+    _collectionController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final CollectionsState collectionsState = Provider.of<CollectionsState>(context, listen: false);
+    final CollectionsState collectionsState =
+        Provider.of<CollectionsState>(context, listen: false);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -38,9 +45,15 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
         ),
       ],
       child: Consumer<AddChangeCollectionState>(
-        builder: (BuildContext context, AddChangeCollectionState colorState, _) {
+        builder:
+            (BuildContext context, AddChangeCollectionState colorState, _) {
           return CupertinoAlertDialog(
-            title: const Text(AppStrings.changeCollection),
+            title: const Text(
+              AppStrings.changeCollection,
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -55,12 +68,12 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
                   placeholder: AppStrings.title,
                   placeholderStyle: const TextStyle(
                     color: CupertinoColors.placeholderText,
+                    fontSize: 20,
                     fontFamily: 'SF Pro',
-                    letterSpacing: 0.75,
                   ),
                   style: const TextStyle(
+                    fontSize: 20,
                     fontFamily: 'SF Pro',
-                    letterSpacing: 0.75,
                   ),
                   clearButtonMode: OverlayVisibilityMode.editing,
                 ),

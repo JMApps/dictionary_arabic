@@ -41,7 +41,7 @@ class CupertinoRoutes {
       case RouteNames.addFavoriteWordPage:
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => AddFavoriteWordPage(wordNumber: wordArgs.wordNr),
+          pageBuilder: (context, animation, secondaryAnimation) => AddFavoriteWordPage(wordNumber: wordArgs.wordNumber),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(0.0, 1.0);
             const end = Offset.zero;
@@ -70,7 +70,7 @@ class CupertinoRoutes {
       case RouteNames.wordFavoriteDetailPage:
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return CupertinoPageRoute(
-          builder: (_) => FavoriteWordDetailPage(favoriteWordNr: wordArgs.wordNr),
+          builder: (_) => FavoriteWordDetailPage(favoriteWordNumber: wordArgs.wordNumber),
         );
       case RouteNames.quizPage:
         return CupertinoPageRoute(
@@ -80,7 +80,7 @@ class CupertinoRoutes {
         final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
         return CupertinoPageRoute(
           builder: (_) => QuizDetailPage(
-            collectionModel: collectionArgs.collectionEntity,
+            collectionModel: collectionArgs.collectionModel,
           ),
         );
       case RouteNames.allCollectionsPage:
@@ -91,13 +91,13 @@ class CupertinoRoutes {
         final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
         return CupertinoPageRoute(
           builder: (_) => CollectionDetailPage(
-            collectionModel: collectionArgs.collectionEntity,
+            collectionModel: collectionArgs.collectionModel,
           ),
         );
       case RouteNames.wordDetailPage:
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return CupertinoPageRoute(
-          builder: (_) => WordDetailPage(wordNr: wordArgs.wordNr),
+          builder: (_) => WordDetailPage(wordNr: wordArgs.wordNumber),
         );
       case RouteNames.cardModePage:
         return CupertinoPageRoute(
@@ -107,7 +107,7 @@ class CupertinoRoutes {
         final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
         return CupertinoPageRoute(
           builder: (_) => CardsModeDetailPage(
-            collectionModel: collectionArgs.collectionEntity,
+            collectionModel: collectionArgs.collectionModel,
           ),
         );
       case RouteNames.wordConstructorPage:
@@ -118,7 +118,7 @@ class CupertinoRoutes {
         final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
         return CupertinoPageRoute(
           builder: (_) => WordConstructorDetailPage(
-            collectionModel: collectionArgs.collectionEntity,
+            collectionModel: collectionArgs.collectionModel,
           ),
         );
       default:

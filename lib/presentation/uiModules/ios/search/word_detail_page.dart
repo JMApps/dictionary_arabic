@@ -21,7 +21,7 @@ class WordDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DictionaryEntity>(
-      future: Provider.of<DefaultDictionaryState>(context, listen: false).getWordById(wordNr: wordNr),
+      future: Provider.of<DefaultDictionaryState>(context, listen: false).getWordById(wordNumber: wordNr),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return CupertinoPageScaffold(

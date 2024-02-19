@@ -23,8 +23,7 @@ class SearchValueItem extends StatelessWidget {
       },
       title: Text(model.searchValue),
       leading: const Icon(
-        CupertinoIcons.time,
-        color: CupertinoColors.systemBlue,
+        CupertinoIcons.search,
       ),
       trailing: CupertinoButton(
         padding: EdgeInsets.zero,
@@ -35,7 +34,6 @@ class SearchValueItem extends StatelessWidget {
         },
         child: const Icon(
           CupertinoIcons.delete_left,
-          color: CupertinoColors.systemBlue,
           size: 17.5,
         ),
       ),

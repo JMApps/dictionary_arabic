@@ -49,12 +49,23 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
         child: CupertinoPageScaffold(
           backgroundColor: CupertinoColors.systemGroupedBackground,
           child: Consumer<SearchQueryState>(
-            builder: (BuildContext context, SearchQueryState query, _) {
+            builder: (BuildContext context, query, _) {
               return CustomScrollView(
                 slivers: [
                   CupertinoSliverNavigationBar(
                     stretch: true,
                     middle: const Text(AppStrings.allCollections),
+                    previousPageTitle: AppStrings.main,
+                    largeTitle: Padding(
+                      padding: AppStyles.mardingOnlyRight,
+                      child: CupertinoSearchTextField(
+                        controller: _collectionsController,
+                        placeholder: AppStrings.searchCollections,
+                        onChanged: (value) {
+                          query.setQuery = value;
+                        },
+                      ),
+                    ),
                     trailing: CupertinoButton(
                       padding: EdgeInsets.zero,
                       child: const Text(AppStrings.add),
@@ -66,17 +77,6 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                           },
                         );
                       },
-                    ),
-                    previousPageTitle: AppStrings.main,
-                    largeTitle: Padding(
-                      padding: AppStyles.mardingOnlyRight,
-                      child: CupertinoSearchTextField(
-                        controller: _collectionsController,
-                        placeholder: AppStrings.searchCollections,
-                        onChanged: (value) {
-                          query.setQuery = value;
-                        },
-                      ),
                     ),
                   ),
                   FutureBuilder<List<CollectionEntity>>(
@@ -109,9 +109,7 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                         );
                       } else if (snapshot.hasError) {
                         return SliverToBoxAdapter(
-                          child: ErrorDataText(
-                            errorText: snapshot.error.toString(),
-                          ),
+                          child: ErrorDataText(errorText: snapshot.error.toString()),
                         );
                       } else {
                         return SliverFillRemaining(
@@ -120,6 +118,7 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const DataText(text: AppStrings.collectionsIfEmpty),
+                              const SizedBox(height: 7),
                               Transform.scale(
                                 scale: 2,
                                 child: const AddCollectionButton(),

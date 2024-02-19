@@ -28,9 +28,9 @@ class MainCollectionsList extends StatelessWidget {
                   margin: AppStyles.mardingSymmetricHor,
                   children: [
                     ListView.builder(
+                      padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.zero,
                       itemCount: snapshot.data!.length > 15 ? 15 : snapshot.data!.length,
                       itemBuilder: (BuildContext context, int index) {
                         final CollectionEntity model = snapshot.data![index];
@@ -39,7 +39,7 @@ class MainCollectionsList extends StatelessWidget {
                     ),
                   ],
                 ),
-                snapshot.data!.length > 15
+                snapshot.data!.length == 15
                     ? Padding(
                         padding: AppStyles.mainMarding,
                         child: CupertinoButton(
@@ -61,6 +61,7 @@ class MainCollectionsList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const DataText(text: AppStrings.createCollectionsWithWords),
+                const SizedBox(height: 7),
                 Transform.scale(
                   scale: 2,
                   child: const AddCollectionButton(),
@@ -71,9 +72,7 @@ class MainCollectionsList extends StatelessWidget {
         } else if (snapshot.hasError) {
           return SliverFillRemaining(
             hasScrollBody: false,
-            child: ErrorDataText(
-              errorText: snapshot.error.toString(),
-            ),
+            child: ErrorDataText(errorText: snapshot.error.toString()),
           );
         } else {
           return const SliverFillRemaining(

@@ -17,20 +17,15 @@ class ShortTranslationText extends StatelessWidget {
       fontFamily: 'SF Pro Regular',
       height: 1.5,
     );
-
-
     const TextStyle arabicStyle = TextStyle(
       fontSize: 18,
       color: CupertinoColors.systemBlue,
       fontFamily: 'Uthmanic',
     );
-
     List<TextSpan> translationDouble(String text, RegExp regex) {
       List<TextSpan> spans = [];
-
       var matches = regex.allMatches(text);
       int start = 0;
-
       for (var match in matches) {
         if (start < match.start) {
           spans.add(
@@ -40,7 +35,6 @@ class ShortTranslationText extends StatelessWidget {
             ),
           );
         }
-
         spans.add(
           TextSpan(
             text: text.substring(match.start, match.end),
@@ -50,7 +44,6 @@ class ShortTranslationText extends StatelessWidget {
 
         start = match.end;
       }
-
       if (start < text.length) {
         spans.add(
           TextSpan(
@@ -59,10 +52,8 @@ class ShortTranslationText extends StatelessWidget {
           ),
         );
       }
-
       return spans;
     }
-
     return RichText(
       maxLines: 5,
       text: TextSpan(

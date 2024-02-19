@@ -41,7 +41,7 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
         ),
       ],
       child: Consumer<SearchQueryState>(
-        builder: (BuildContext context, SearchQueryState query, _) {
+        builder: (BuildContext context, query, _) {
           _wordsController.text = query.getQuery;
           return CupertinoPageScaffold(
             backgroundColor: CupertinoColors.systemGroupedBackground,
@@ -64,10 +64,10 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
               ),
               leading: const SizedBox(),
               trailing: CupertinoButton(
+                padding: AppStyles.mardingOnlyLeftMini,
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                padding: AppStyles.mardingOnlyLeftMini,
                 child: const Text(AppStrings.cancel),
               ),
             ),

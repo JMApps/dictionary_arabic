@@ -12,8 +12,9 @@ class AppSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
+      backgroundColor: CupertinoColors.systemGroupedBackground,
       child: Consumer<AppSettingsState>(
-        builder: (BuildContext context, AppSettingsState settings, _) {
+        builder: (BuildContext context, settings, _) {
           return CustomScrollView(
             slivers: [
               const CupertinoSliverNavigationBar(
@@ -65,15 +66,23 @@ class AppSettingsPage extends StatelessWidget {
                   additionalInfo: Text(settings.getNotificationTime.toString().substring(0, 5)),
                   leading: CupertinoButton(
                     padding: EdgeInsets.zero,
-                    child: const Icon(CupertinoIcons.time, color: CupertinoColors.systemRed),
+                    child: const Icon(
+                      CupertinoIcons.time,
+                      color: CupertinoColors.systemRed,
+                    ),
                     onPressed: () {
                       showCupertinoDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return CupertinoAlertDialog(
-                            title: const Text(AppStrings.notificationTime),
+                            title: const Text(
+                              AppStrings.notificationTime,
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
                             content: SizedBox(
-                              height: 200,
+                              height: 175,
                               child: CupertinoTimerPicker(
                                 initialTimerDuration: settings.getNotificationTime,
                                 mode: CupertinoTimerPickerMode.hm,
@@ -87,15 +96,9 @@ class AppSettingsPage extends StatelessWidget {
                                 child: const Text(
                                   AppStrings.apply,
                                   style: TextStyle(
-                                    color: CupertinoColors.systemRed,
+                                    color: CupertinoColors.systemBlue,
                                   ),
                                 ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              CupertinoDialogAction(
-                                child: const Text(AppStrings.cancel),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
@@ -154,8 +157,7 @@ class AppSettingsPage extends StatelessWidget {
                 child: CupertinoListTile(
                   onTap: () {
                     _launchUrl(
-                        link:
-                            'https://apps.apple.com/ru/developer/imanil-binyaminov/id1564920953');
+                        link: 'https://apps.apple.com/ru/developer/imanil-binyaminov/id1564920953');
                   },
                   title: const Text(AppStrings.applications),
                   leading: Image.asset('assets/icons/appstore.png'),
@@ -172,6 +174,16 @@ class AppSettingsPage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: CupertinoListTile(
+                  onTap: () {
+                    _launchUrl(link: 'https://ummalife.com/jmapps');
+                  },
+                  title: const Text(AppStrings.ummalife),
+                  leading: Image.asset('assets/icons/ummalife.png'),
+                  trailing: const Icon(CupertinoIcons.forward),
                 ),
               ),
               SliverToBoxAdapter(

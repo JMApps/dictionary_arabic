@@ -1,15 +1,13 @@
-import 'package:flip_card/flip_card.dart';
+import 'package:arabic/presentation/uiModules/ios/cards/items/card_mode_Item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../core/strings/app_strings.dart';
-import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/card_mode_state.dart';
 import '../../../../data/state/favorite_words_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
 import '../../../../domain/entities/favorite_dictionary_entity.dart';
-import '../widgets/flip_translation_text.dart';
 
 class CardsModeDetailPage extends StatefulWidget {
   const CardsModeDetailPage({
@@ -27,6 +25,12 @@ class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
   final PageController _cardPageController = PageController();
 
   @override
+  void dispose() {
+    _cardPageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
@@ -35,7 +39,7 @@ class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
         ),
       ],
       child: Consumer<CardModeState>(
-        builder: (BuildContext context, CardModeState cardModeState, _) {
+        builder: (BuildContext context, cardModeState, _) {
           return CupertinoPageScaffold(
             backgroundColor: CupertinoColors.systemGroupedBackground,
             navigationBar: CupertinoNavigationBar(
@@ -46,11 +50,11 @@ class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
                 onPressed: () {
                   cardModeState.setCardMode = !cardModeState.getCardMode;
                 },
-                child: const Icon(CupertinoIcons.arrowshape_turn_up_left_circle),
+                child: const Icon(CupertinoIcons.arrow_2_circlepath),
               ),
             ),
-            child: FutureBuilder(
-              future: Provider.of<FavoriteWordsState>(context).fetchFavoriteWordsByCollectionId(
+            child: FutureBuilder<List<FavoriteDictionaryEntity>>(
+              future: Provider.of<FavoriteWordsState>(context, listen: false).fetchFavoriteWordsByCollectionId(
                 collectionId: widget.collectionModel.id,
               ),
               builder: (context, snapshot) {
@@ -63,57 +67,8 @@ class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
                           controller: _cardPageController,
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
-                            final FavoriteDictionaryEntity model = snapshot.data![index];
-                            final List<String> translationLines = model.translation.split('\\n');
-                            return SafeArea(
-                                bottom: false,
-                                child: FlipCard(
-                                  side: CardSide.FRONT,
-                                  direction: FlipDirection.HORIZONTAL,
-                                  front: cardModeState.getCardMode ? Container(
-                                    padding: AppStyles.mainMarding,
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      model.arabicWord,
-                                      style: const TextStyle(
-                                        fontSize: 50,
-                                        fontFamily: 'Uthmanic',
-                                      ),
-                                    ),
-                                  ) : Container(
-                                    alignment: Alignment.center,
-                                    child: CupertinoScrollbar(
-                                      child: SingleChildScrollView(
-                                        padding: AppStyles.mainMarding,
-                                        child: model.serializableIndex != -1
-                                            ? FlipTranslationText(translation: translationLines[model.serializableIndex])
-                                            : FlipTranslationText(translation: model.translation),
-                                      ),
-                                    ),
-                                  ),
-                                  back: cardModeState.getCardMode ? Container(
-                                    alignment: Alignment.center,
-                                    child: CupertinoScrollbar(
-                                      child: SingleChildScrollView(
-                                        padding: AppStyles.mainMarding,
-                                        child: model.serializableIndex != -1
-                                            ? FlipTranslationText(translation: translationLines[model.serializableIndex])
-                                            : FlipTranslationText(translation: model.translation),
-                                      ),
-                                    ),
-                                  ) : Container(
-                                    padding: AppStyles.mainMarding,
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      model.arabicWord,
-                                      style: const TextStyle(
-                                        fontSize: 50,
-                                        fontFamily: 'Uthmanic',
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                            );
+                            final FavoriteDictionaryEntity favoriteWordModel = snapshot.data![index];
+                            return CardModeItem(favoriteWordModel: favoriteWordModel);
                           },
                         ),
                       ),
@@ -121,7 +76,7 @@ class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CupertinoButton(
-                            child: const Icon(CupertinoIcons.arrow_left_circle, size: 35),
+                            child: const Icon(CupertinoIcons.arrow_left_circle, size: 50),
                             onPressed: () {
                               _cardPageController.previousPage(
                                 duration: const Duration(milliseconds: 350),
@@ -141,7 +96,7 @@ class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
                             ),
                           ),
                           CupertinoButton(
-                            child: const Icon(CupertinoIcons.arrow_right_circle, size: 35),
+                            child: const Icon(CupertinoIcons.arrow_right_circle, size: 50),
                             onPressed: () {
                               _cardPageController.nextPage(
                                 duration: const Duration(milliseconds: 350),
