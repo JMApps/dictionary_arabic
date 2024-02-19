@@ -97,7 +97,7 @@ class QuizModeState extends ChangeNotifier {
     } else {
       _isClick = false;
       incrementIncorrectAnswer;
-      Future.delayed(const Duration(milliseconds: 3500)).then((value) {
+      Future.delayed(const Duration(milliseconds: 3000)).then((value) {
         if (_pageIndex < _words.length - 1) {
           _quizController.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.easeInToLinear);
           _isClick = true;

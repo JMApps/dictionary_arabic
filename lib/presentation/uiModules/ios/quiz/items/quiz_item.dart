@@ -43,13 +43,15 @@ class _QuizItemState extends State<QuizItem> {
           shrinkWrap: true,
           itemCount: _words.length,
           itemBuilder: (context, index) {
-            final FavoriteDictionaryEntity wordModel = quizModeState.getWords[widget.pageIndex];
+            final FavoriteDictionaryEntity wordModel =
+                quizModeState.getWords[widget.pageIndex];
             final DictionaryEntity quizModel = _words[index];
             CupertinoDynamicColor lineColor;
             if (quizModeState.getIsClick) {
               lineColor = CupertinoColors.secondarySystemFill;
             } else {
-              if (wordModel.articleId.contains(quizModel.articleId) && quizModeState.getAnswerIndex != -1) {
+              if (wordModel.articleId.contains(quizModel.articleId) &&
+                  quizModeState.getAnswerIndex != -1) {
                 lineColor = CupertinoColors.systemGreen;
                 HapticFeedback.lightImpact();
               } else {
@@ -62,23 +64,24 @@ class _QuizItemState extends State<QuizItem> {
             return CupertinoListSection.insetGrouped(
               margin: AppStyles.mainMardingMini,
               children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 350),
-                  curve: Curves.easeInToLinear,
-                  decoration: BoxDecoration(
-                    color: lineColor,
-                  ),
-                  child: CupertinoListTile(
-                    padding: AppStyles.mainMarding,
-                    onTap: quizModeState.getIsClick
-                        ? () {
-                            quizModeState.setAnswerState(
-                              answer: wordModel.articleId.contains(quizModel.articleId),
-                              clickIndex: index,
-                            );
-                          }
-                        : null,
-                    title: QuizTranslationText(
+                CupertinoListTile(
+                  padding: EdgeInsets.zero,
+                  onTap: quizModeState.getIsClick ? () {
+                    quizModeState.setAnswerState(answer: wordModel.articleId.contains(quizModel.articleId), clickIndex: index,);
+                  } : null,
+                  title: AnimatedContainer(
+                    width: double.infinity,
+                    padding: AppStyles.horizontalVerticalMini,
+                    duration: const Duration(milliseconds: 1350),
+                    curve: Curves.easeInToLinear,
+                    decoration: BoxDecoration(
+                      borderRadius: AppStyles.mainBorderMini,
+                      border: Border.all(
+                        color: lineColor,
+                        width: 3,
+                      ),
+                    ),
+                    child: QuizTranslationText(
                       translation: quizModel.translation,
                     ),
                   ),

@@ -181,7 +181,7 @@ class AppSettingsPage extends StatelessWidget {
                   onTap: () {
                     _launchUrl(link: 'https://ummalife.com/jmapps');
                   },
-                  title: const Text(AppStrings.ummalife),
+                  title: const Text(AppStrings.ummaLife),
                   leading: Image.asset('assets/icons/ummalife.png'),
                   trailing: const Icon(CupertinoIcons.forward),
                 ),

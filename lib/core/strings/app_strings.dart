@@ -1,19 +1,17 @@
 class AppStrings {
   static const String appName = 'Арабский словарь';
   static const String searchWords = 'Поиск слов...';
-  static const String search = 'Поиск';
   static const String searchCollections = 'Поиск коллекций...';
   static const String lastCollections = 'Последние коллекции';
   static const String allCollections = 'Все коллекции';
-  static const String collectionsIfEmpty = 'Вы пока что не добавили ни одной коллекции';
-  static const String cardCollectionsIfEmpty = 'Чтобы воспользоваться режимом карточек добавьте хотя бы одну коллекцию и одно слово в эту коллекцию';
-  static const String constructorCollectionsIfEmpty = 'Чтобы воспользоваться конструктором слов добавьте хотя бы одну коллекцию и одно слово в эту коллекцию';
-  static const String quizCollectionsIfEmpty = 'Чтобы воспользоваться викториной добавьте хотя бы одну коллекцию и одно слово в эту коллекцию';
+  static const String collectionsIfEmpty = 'Вы ещё не добавили ни одной коллекции';
+  static const String cardCollectionsIfEmpty = 'Чтобы воспользоваться режимом карточек, добавьте хотя бы одну коллекцию и одно слово в эту коллекцию';
+  static const String constructorCollectionsIfEmpty = 'Чтобы воспользоваться конструктором слов, добавьте хотя бы одну коллекцию и одно слово в эту коллекцию';
+  static const String quizCollectionsIfEmpty = 'Чтобы воспользоваться викториной, добавьте хотя бы одну коллекцию и одно слово в эту коллекцию';
   static const String collectionButOneIsEmpty = 'Чтобы переместить слово в другую коллекцию, сначала добавьте её';
-  static const String favoriteWordsIfEmpty = 'Вы пока что не добавили ни одного слова в данную коллекцию';
+  static const String favoriteWordsIfEmpty = 'Вы ещё не добавили ни одного слова в данную коллекцию';
   static const String newCollection = 'Новая коллекция';
   static const String changeCollection = 'Изменить коллекцию';
-  static const String collectionTitle = 'Название коллекции...';
   static const String title = 'Название';
   static const String quiz = 'Викторина';
   static const String wordsConstructor = 'Конструктор';
@@ -21,8 +19,6 @@ class AppStrings {
   static const String cardMode = 'Режим карточек';
   static const String add = 'Добавить';
   static const String change = 'Изменить';
-  static const String addToCollection = 'Добавить в коллекцию';
-  static const String addAllTranslation = 'Добавить весь перевод';
   static const String deletingCollection = 'Удаление коллекции';
   static const String deletingCollections = 'Удаление коллекций';
   static const String delete = 'Удалить';
@@ -41,7 +37,6 @@ class AppStrings {
   static const String queryIsEmpty = 'По вашему запросу ничего не найдено';
   static const String toBack = 'Назад';
   static const String startSearch = 'Начните поиск...';
-  static const String translationNotAvailable = 'Перевод недоступен';
   static const String matchesFound = 'Найдено совпадений: ';
   static const String exactMatch = 'Точное совпадение';
   static const String cognates = 'Однокоренные слова';
@@ -51,11 +46,7 @@ class AppStrings {
   static const String recent = 'Недавние';
   static const String rootIsEmpty = 'Однокоренных слов нет';
   static const String selectCollection = 'Выберите коллекцию';
-  static const String selectTranslation = 'Выберите перевод';
   static const String addAll = 'Добавить всё';
-  static const String warning = 'Внимание';
-  static const String itsClear = 'Понятно';
-  static const String reset = 'Сброс';
   static const String moveTo = 'Переместить в';
   static const String settings = 'Настройки';
   static const String notifications = 'Уведомления';
@@ -68,7 +59,7 @@ class AppStrings {
   static const String openWithWordSearch = 'Начинать с поиска слов';
   static const String applications = 'Приложения';
   static const String contacts = 'Контакты';
-  static const String ummalife = 'Umma Life';
+  static const String ummaLife = 'UmmaLife';
   static const String instagram = 'Instagram';
   static const String telegram = 'Telegram';
 }
