@@ -15,15 +15,30 @@ class DeleteCollectionDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoAlertDialog(
-      title: const Text(AppStrings.deletingCollection),
-      content: const Text(AppStrings.deleteCollectionQuestion),
+      title: const Text(
+        AppStrings.deletingCollection,
+        style: TextStyle(
+          fontSize: 20,
+        ),
+      ),
+      content: const Text(AppStrings.deleteCollectionQuestion,
+        style: TextStyle(
+          fontSize: 16,
+          fontFamily: 'SF Pro Regular',
+        ),
+      ),
       actions: [
         CupertinoButton(
           onPressed: () {
             Navigator.pop(context);
             Provider.of<CollectionsState>(context, listen: false).deleteCollection(collectionId: collectionId);
           },
-          child: const Text(AppStrings.delete),
+          child: const Text(
+            AppStrings.delete,
+            style: TextStyle(
+              color: CupertinoColors.systemRed,
+            ),
+          ),
         ),
         CupertinoButton(
           onPressed: () {
@@ -31,9 +46,6 @@ class DeleteCollectionDialog extends StatelessWidget {
           },
           child: const Text(
             AppStrings.cancel,
-            style: TextStyle(
-              color: CupertinoColors.systemRed,
-            ),
           ),
         ),
       ],

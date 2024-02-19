@@ -31,7 +31,7 @@ class MainCollectionsList extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: snapshot.data!.length > 15 ? 15 : snapshot.data!.length,
+                      itemCount: snapshot.data!.length >= 10 ? 10 : snapshot.data!.length,
                       itemBuilder: (BuildContext context, int index) {
                         final CollectionEntity model = snapshot.data![index];
                         return CollectionItem(model: model);
@@ -39,7 +39,7 @@ class MainCollectionsList extends StatelessWidget {
                     ),
                   ],
                 ),
-                snapshot.data!.length == 15
+                snapshot.data!.length >= 10
                     ? Padding(
                         padding: AppStyles.mainMarding,
                         child: CupertinoButton(
