@@ -43,8 +43,7 @@ class _QuizItemState extends State<QuizItem> {
           shrinkWrap: true,
           itemCount: _words.length,
           itemBuilder: (context, index) {
-            final FavoriteDictionaryEntity wordModel =
-                quizModeState.getWords[widget.pageIndex];
+            final FavoriteDictionaryEntity wordModel = quizModeState.getWords[widget.pageIndex];
             final DictionaryEntity quizModel = _words[index];
             CupertinoDynamicColor lineColor;
             if (quizModeState.getIsClick) {
@@ -71,7 +70,7 @@ class _QuizItemState extends State<QuizItem> {
                   } : null,
                   title: AnimatedContainer(
                     width: double.infinity,
-                    padding: AppStyles.horizontalVerticalMini,
+                    padding: AppStyles.quizMarding,
                     duration: const Duration(milliseconds: 1350),
                     curve: Curves.easeInToLinear,
                     decoration: BoxDecoration(

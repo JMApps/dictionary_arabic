@@ -20,7 +20,7 @@ class QuizTranslationText extends StatelessWidget {
     const TextStyle arabicStyle = TextStyle(
       fontSize: 18,
       color: CupertinoColors.systemBlue,
-      fontFamily: 'Uthmanic',
+      fontFamily: 'SF Pro Regular',
     );
     List<TextSpan> translationDouble(String text, RegExp regex) {
       List<TextSpan> spans = [];
