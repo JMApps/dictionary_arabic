@@ -64,6 +64,7 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
                   CupertinoSliverNavigationBar(
                     stretch: true,
                     middle: const Text(AppStrings.selectCollection),
+                    previousPageTitle: AppStrings.toBack,
                     trailing: CupertinoButton(
                       padding: EdgeInsets.zero,
                       child: const Text(AppStrings.add),
@@ -76,7 +77,6 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
                         );
                       },
                     ),
-                    previousPageTitle: AppStrings.main,
                     largeTitle: Padding(
                       padding: AppStyles.mardingOnlyRight,
                       child: CupertinoSearchTextField(
