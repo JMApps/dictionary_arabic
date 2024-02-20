@@ -1,11 +1,11 @@
-import 'package:arabic/data/state/app_settings_state.dart';
-import 'package:arabic/data/state/default_dictionary_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/routes/cupertino_routes.dart';
 import '../../../../core/strings/app_strings.dart';
+import '../../../../data/state/app_settings_state.dart';
 import '../../../../data/state/collections_state.dart';
+import '../../../../data/state/default_dictionary_state.dart';
 import '../../../../data/state/favorite_words_state.dart';
 import '../../../../data/state/word_exact_match_state.dart';
 import 'main_cupertino_page.dart';
