@@ -6,6 +6,7 @@ class AppStyles {
 
   static const mainMarding = EdgeInsets.all(14);
   static const mainMardingMini = EdgeInsets.all(7);
+  static const quizMarding = EdgeInsets.fromLTRB(9, 9, 9, 13.5);
   static const mainMardingMicro = EdgeInsets.all(3.5);
 
   static const mardingWithoutBottom = EdgeInsets.fromLTRB(14, 14, 14, 0);
@@ -30,6 +31,7 @@ class AppStyles {
   static const mardingOnlyRightMini = EdgeInsets.only(right: 7);
 
   static const horizontalVerticalMini = EdgeInsets.symmetric(horizontal: 14, vertical: 7);
+  static const horizontalVerticalMicro = EdgeInsets.symmetric(horizontal: 7, vertical: 3.5);
   static const verticalHorizontalMini = EdgeInsets.symmetric(horizontal: 7, vertical: 14);
 
   static const collectionColors = <Color>[
