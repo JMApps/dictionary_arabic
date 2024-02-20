@@ -28,6 +28,6 @@ class DictionaryEntity {
   });
 
   String wordContent() {
-    return '$arabicWord\n\n$form\n\n$vocalization\n\n$root\n\n$forms\n\n$translation'.replaceAll('\\n', '\n\n');
+    return '$arabicWord\n\n${form != null ? '$form\n\n' : ''}${vocalization != null ? '$vocalization\n\n' : ''}$root\n\n${forms != null ? '$forms\n\n' : ''}$translation'.replaceAll('\\n', '\n\n');
   }
 }
