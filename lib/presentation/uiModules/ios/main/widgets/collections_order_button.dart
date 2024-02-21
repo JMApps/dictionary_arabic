@@ -29,27 +29,21 @@ class CollectionsOrderButton extends StatelessWidget {
                   ),
                   children: [
                     CupertinoListTile(
-                      onTap: () {
-                        collectionsState.setOrderCollectionIndex = 0;
-                      },
+                      onTap: () => collectionsState.setOrderCollectionIndex = 0,
                       title: const Text(AppStrings.byAddDateTime),
                       trailing: collectionsState.getOrderCollectionIndex == 0
                           ? const Icon(CupertinoIcons.checkmark_alt)
                           : const SizedBox(),
                     ),
                     CupertinoListTile(
-                      onTap: () {
-                        collectionsState.setOrderCollectionIndex = 1;
-                      },
+                      onTap: () => collectionsState.setOrderCollectionIndex = 1,
                       title: const Text(AppStrings.byColor),
                       trailing: collectionsState.getOrderCollectionIndex == 1
                           ? const Icon(CupertinoIcons.checkmark_alt)
                           : const SizedBox(),
                     ),
                     CupertinoListTile(
-                      onTap: () {
-                        collectionsState.setOrderCollectionIndex = 2;
-                      },
+                      onTap: () => collectionsState.setOrderCollectionIndex = 2,
                       title: const Text(AppStrings.byWordsCount),
                       trailing: collectionsState.getOrderCollectionIndex == 2
                           ? const Icon(CupertinoIcons.checkmark_alt)
@@ -67,22 +61,18 @@ class CollectionsOrderButton extends StatelessWidget {
                   ),
                   children: [
                     CupertinoListTile(
-                      onTap: () {
-                        collectionsState.setOrderIndex = 0;
-                      },
+                      onTap: () => collectionsState.setOrderIndex = 1,
                       title: const Text(AppStrings.orderASC),
-                      trailing: collectionsState.getOrderIndex == 0
+                      trailing: context.watch<CollectionsState>().getOrderIndex == 1
                           ? const Icon(CupertinoIcons.checkmark_alt)
                           : const SizedBox(),
                     ),
                     CupertinoListTile(
-                      onTap: () {
-                        collectionsState.setOrderIndex = 1;
-                      },
+                      onTap: () => collectionsState.setOrderIndex = 0,
                       title: const Text(AppStrings.orderDESC),
-                      trailing: context.watch<CollectionsState>().getOrderIndex == 1
-                              ? const Icon(CupertinoIcons.checkmark_alt)
-                              : const SizedBox(),
+                      trailing: collectionsState.getOrderIndex == 0
+                          ? const Icon(CupertinoIcons.checkmark_alt)
+                          : const SizedBox(),
                     ),
                   ],
                 ),
