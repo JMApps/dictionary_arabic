@@ -7,8 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'core/strings/app_constraints.dart';
 import 'data/services/default_dictionary_service.dart';
 import 'data/services/notifications/local_notice_service.dart';
-import 'presentation/uiModules/android/pages/root_material_page.dart';
-import 'presentation/uiModules/ios/main/root_cupertino_page.dart';
+import 'presentation/uiModules/android/main/root_material_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +25,6 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox(AppConstraints.keyMainAppSettingsBox);
   runApp(
-    Platform.isIOS ? const RootCupertinoPage() : const RootMaterialPage(),
+    Platform.isAndroid ? const RootMaterialPage() : const RootMaterialPage(),
   );
 }

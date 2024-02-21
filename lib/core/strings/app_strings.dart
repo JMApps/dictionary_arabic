@@ -1,7 +1,7 @@
 class AppStrings {
   static const String appName = 'Арабский словарь';
-  static const String searchWords = 'Поиск слов...';
-  static const String searchCollections = 'Поиск коллекций...';
+  static const String searchWords = 'Поиск слов';
+  static const String searchCollections = 'Поиск коллекций';
   static const String lastCollections = 'Последние коллекции';
   static const String allCollections = 'Все коллекции';
   static const String collectionsIfEmpty = 'Вы ещё не добавили ни одной коллекции';
@@ -19,8 +19,10 @@ class AppStrings {
   static const String cardMode = 'Режим карточек';
   static const String add = 'Добавить';
   static const String change = 'Изменить';
+  static const String deleteCollection = 'Удалить коллекцию';
   static const String deletingCollection = 'Удаление коллекции';
-  static const String deletingCollections = 'Удаление коллекций';
+  static const String deleteCollections = 'Удалить все коллекции';
+  static const String deletingCollections = 'Удаление всех коллекций';
   static const String delete = 'Удалить';
   static const String deleteCollectionQuestion = 'Вы уверены, что хотите удалить данную коллекцию вместе с её содержимым?';
   static const String deleteAllCollectionsQuestion = 'Вы уверены, что хотите удалить все коллекции вместе с их содержимым?';
@@ -36,7 +38,7 @@ class AppStrings {
   static const String main = 'Главная';
   static const String queryIsEmpty = 'По вашему запросу ничего не найдено';
   static const String toBack = 'Назад';
-  static const String startSearch = 'Начните поиск...';
+  static const String startSearch = 'Начните поиск';
   static const String matchesFound = 'Найдено совпадений: ';
   static const String exactMatch = 'Точное совпадение';
   static const String cognates = 'Однокоренные слова';

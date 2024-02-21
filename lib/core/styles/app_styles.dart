@@ -1,6 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
 class AppStyles {
+  static const mainShape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(18)),
+  );
+  static const mainShapeMini = RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(9)),
+  );
+
   static const mainBorder = BorderRadius.all(Radius.circular(18));
   static const mainBorderMini = BorderRadius.all(Radius.circular(9));
 
@@ -31,7 +38,7 @@ class AppStyles {
   static const mardingOnlyRightMini = EdgeInsets.only(right: 7);
 
   static const horizontalVerticalMini = EdgeInsets.symmetric(horizontal: 14, vertical: 7);
-  static const horizontalVerticalMicro = EdgeInsets.symmetric(horizontal: 7, vertical: 3.5);
+  static const horizontalMicroVerticalMicro = EdgeInsets.symmetric(horizontal: 3.5, vertical: 3.5);
   static const verticalHorizontalMini = EdgeInsets.symmetric(horizontal: 7, vertical: 14);
 
   static const collectionColors = <Color>[
