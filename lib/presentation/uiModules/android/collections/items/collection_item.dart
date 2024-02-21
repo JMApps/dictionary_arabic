@@ -25,7 +25,7 @@ class CollectionItem extends StatelessWidget {
     final Color itemOddColor = appColors.inversePrimary.withOpacity(0.05);
     final Color itemEvenColor = appColors.inversePrimary.withOpacity(0.15);
     return Container(
-      padding: AppStyles.mardingWithoutTopMini,
+      margin: AppStyles.mainMardingMini,
       child: ListTile(
         contentPadding: AppStyles.mardingSymmetricHor,
         shape: AppStyles.mainShapeMini,

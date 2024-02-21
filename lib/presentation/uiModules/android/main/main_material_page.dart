@@ -187,7 +187,7 @@ class _MainMaterialPageState extends State<MainMaterialPage> {
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         onPressed: () {
-          showCupertinoDialog(
+          showDialog(
             context: context,
             builder: (context) {
               return const AddCollectionDialog();
