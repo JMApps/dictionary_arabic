@@ -18,7 +18,7 @@ class FavoriteTranslationText extends StatelessWidget {
     RegExp arabic = RegExp(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+');
     TextStyle translationStyle = TextStyle(
       fontSize: 18,
-      color: serializableIndex == -1 ? appColors.surface : index == serializableIndex ? appColors.surface : Colors.grey,
+      color: serializableIndex == -1 ? appColors.onSurface : index == serializableIndex ? appColors.onSurface : Colors.grey,
       fontFamily: 'SF Pro Regular',
       height: 1.5,
     );

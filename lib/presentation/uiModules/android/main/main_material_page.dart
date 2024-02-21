@@ -1,3 +1,4 @@
+import 'package:arabic/presentation/uiModules/android/search/widgets/search_collection_delegate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -61,6 +62,9 @@ class _MainMaterialPageState extends State<MainMaterialPage> {
               title: Padding(
                 padding: AppStyles.mardingSymmetricHorMini,
                 child: CupertinoTextField(
+                  onTap: () {
+                    showSearch(context: context, delegate: SearchWordsDelegate());
+                  },
                   padding: AppStyles.horizontalMicroVerticalMicro,
                   placeholder: AppStrings.searchWords,
                   readOnly: true,

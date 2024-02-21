@@ -14,7 +14,7 @@ class ShortTranslationText extends StatelessWidget {
     RegExp arabic = RegExp(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+');
     TextStyle translationStyle = TextStyle(
       fontSize: 20,
-      color: appColors.surface,
+      color: appColors.onSurface,
       fontFamily: 'SF Pro Regular',
       height: 1.5,
     );
@@ -42,7 +42,6 @@ class ShortTranslationText extends StatelessWidget {
             style: arabicStyle,
           ),
         );
-
         start = match.end;
       }
       if (start < text.length) {
