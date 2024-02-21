@@ -6,9 +6,9 @@ import '../../../../../core/strings/app_strings.dart';
 import '../../../../../core/styles/app_styles.dart';
 import '../../../../../data/state/collections_state.dart';
 import '../../../../../domain/entities/collection_entity.dart';
-import '../../../ios/widgets/data_text.dart';
-import '../../../ios/widgets/error_data_text.dart';
 import '../../collections/items/collection_item.dart';
+import '../../widgets/data_text.dart';
+import '../../widgets/error_data_text.dart';
 
 class MainCollectionsList extends StatelessWidget {
   const MainCollectionsList({super.key});

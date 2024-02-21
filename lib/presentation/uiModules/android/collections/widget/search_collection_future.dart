@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../../../core/strings/app_strings.dart';
 import '../../../../../data/state/collections_state.dart';
 import '../../../../../domain/entities/collection_entity.dart';
-import '../../../ios/widgets/data_text.dart';
+import '../../widgets/data_text.dart';
 import '../items/collection_item.dart';
 
 class SearchCollectionFuture extends StatefulWidget {

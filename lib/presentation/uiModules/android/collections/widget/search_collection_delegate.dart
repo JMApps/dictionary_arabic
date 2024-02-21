@@ -1,7 +1,7 @@
-import 'package:arabic/core/strings/app_strings.dart';
-import 'package:arabic/core/styles/app_styles.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/strings/app_strings.dart';
+import '../../../../../core/styles/app_styles.dart';
 import 'search_collection_future.dart';
 
 class SearchCollectionDelegate extends SearchDelegate {

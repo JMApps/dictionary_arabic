@@ -1,9 +1,9 @@
-import 'package:arabic/core/styles/material_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/routes/material_routes.dart';
 import '../../../../core/strings/app_strings.dart';
+import '../../../../core/styles/material_themes.dart';
 import '../../../../data/state/app_settings_state.dart';
 import '../../../../data/state/collections_state.dart';
 import '../../../../data/state/default_dictionary_state.dart';
