@@ -15,13 +15,7 @@ class SearchWordsPage extends StatefulWidget {
 }
 
 class _SearchWordsPageState extends State<SearchWordsPage> {
-  late final TextEditingController _wordsController;
-
-  @override
-  void initState() {
-    _wordsController = TextEditingController();
-    super.initState();
-  }
+  final TextEditingController _wordsController = TextEditingController();
 
   @override
   void dispose() {
@@ -57,7 +51,7 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                 onSubmitted: (value) async {
                   if (value.trim().isNotEmpty) {
                     await Provider.of<SearchValuesState>(context, listen: false).fetchAddSearchValue(
-                      searchValue: value,
+                      searchValue: value.trim(),
                     );
                   }
                 },
