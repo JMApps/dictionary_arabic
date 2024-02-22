@@ -40,7 +40,7 @@ class WordItem extends StatelessWidget {
             Consumer<FavoriteWordsState>(
               builder: (BuildContext context, FavoriteWordsState favoriteWordState, _) {
                 return FutureBuilder<bool>(
-                    future: favoriteWordState.fetchIsWordFavorite(wordId: model.wordNumber),
+                    future: favoriteWordState.fetchIsWordFavorite(wordNumber: model.wordNumber),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const CupertinoActivityIndicator();
