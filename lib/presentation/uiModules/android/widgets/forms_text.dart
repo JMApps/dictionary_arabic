@@ -13,7 +13,7 @@ class FormsText extends StatelessWidget {
     return Text.rich(
       TextSpan(
         children: [
-          for (var form in ['мн.', 'дв.', 'ж.', 'м.', 'стр.', 'см.'])
+          for (var form in ['мн.', 'дв.', 'ж.', 'м.', 'стр.', 'см.', '='])
             if (content.contains(form))
               TextSpan(
                 text: '$form ',
@@ -24,9 +24,9 @@ class FormsText extends StatelessWidget {
                 ),
               ),
           TextSpan(
-            text: content.replaceAll(RegExp('мн.|дв.|ж.|м.|стр.|см.ّّّّ'), ''),
+            text: content.replaceAll(RegExp('мн.|дв.|ж.|м.|стр.|см.ّ|=|ّّّ'), ''),
             style: const TextStyle(
-              fontSize: 22,
+              fontSize: 18,
               color: Colors.grey,
               fontFamily: 'Uthmanic',
             ),

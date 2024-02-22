@@ -11,8 +11,8 @@ class FavoriteWordsState extends ChangeNotifier {
     return await _useCase.fetchAllFavoriteWords();
   }
 
-  Future<bool> fetchIsWordFavorite({required int wordId}) async {
-    return await _useCase.fetchIsWordFavorite(wordId: wordId);
+  Future<bool> fetchIsWordFavorite({required int wordNumber}) async {
+    return await _useCase.fetchIsWordFavorite(wordId: wordNumber);
   }
 
   Future<List<FavoriteDictionaryEntity>> fetchFavoriteWordsByCollectionId({required int collectionId}) async {

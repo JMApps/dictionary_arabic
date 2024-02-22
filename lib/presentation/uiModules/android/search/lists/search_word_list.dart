@@ -60,9 +60,11 @@ class SearchWordList extends StatelessWidget {
                     padding: EdgeInsets.zero,
                     itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final DictionaryEntity model =
-                      snapshot.data![index];
-                      return WordItem(model: model);
+                      final DictionaryEntity model = snapshot.data![index];
+                      return WordItem(
+                        model: model,
+                        index: index,
+                      );
                     },
                   ),
                 ),
