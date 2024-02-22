@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/args/collection_args.dart';
 import '../../presentation/uiModules/android/collections/all_collections_page.dart';
 import '../../presentation/uiModules/android/collections/collection_detail_page.dart';
+import '../../presentation/uiModules/android/search/search_words_page.dart';
 import 'route_names.dart';
 
 class MaterialRoutes {
   static Route onGeneratorRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
+      case RouteNames.searchWordsPage:
+        return MaterialPageRoute(
+          builder: (_) => const SearchWordsPage(),
+        );
       case RouteNames.allCollectionsPage:
         return MaterialPageRoute(
           builder: (_) => const AllCollectionsPage(),
