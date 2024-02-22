@@ -20,7 +20,7 @@ class SearchWordsList extends StatelessWidget {
     final String query = Provider.of<SearchQueryState>(context).getQuery;
     return FutureBuilder<List<DictionaryEntity>>(
       future: Provider.of<DefaultDictionaryState>(context, listen: false).searchWords(
-        searchQuery: query.toLowerCase(),
+        searchQuery: query.trim().toLowerCase(),
         exactMatch: Provider.of<WordExactMatchState>(context, listen: false).getExactMatch,
       ),
       builder: (context, snapshot) {

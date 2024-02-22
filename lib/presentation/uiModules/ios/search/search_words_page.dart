@@ -45,13 +45,11 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                 placeholder: AppStrings.searchWords,
                 autofocus: true,
                 autocorrect: false,
-                onChanged: (value) {
-                  query.setQuery = value;
-                },
+                onChanged: (value) => query.setQuery = value,
                 onSubmitted: (value) async {
                   if (value.trim().isNotEmpty) {
                     await Provider.of<SearchValuesState>(context, listen: false).fetchAddSearchValue(
-                      searchValue: value.trim(),
+                      searchValue: value.trim().toLowerCase(),
                     );
                   }
                 },
