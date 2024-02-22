@@ -1,3 +1,4 @@
+import 'package:arabic/core/styles/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -45,13 +46,14 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                 controller: _wordsController,
                 autofocus: true,
                 autocorrect: false,
+                textAlignVertical: TextAlignVertical.center,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.zero,
                   border: InputBorder.none,
                   hintText: AppStrings.searchWords,
                   hintStyle: const TextStyle(fontSize: 22),
                   suffix: IconButton(
-                    padding: EdgeInsets.zero,
+                    padding: AppStyles.mardingOnlyBottomMini,
                     onPressed: () {
                       if (_wordsController.text.isNotEmpty) {
                         _wordsController.clear();

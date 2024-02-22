@@ -17,7 +17,7 @@ class SearchValueItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: AppStyles.mardingSymmetricHor,
+      contentPadding: AppStyles.mardingSymmetricHorMini,
       onTap: () {
         Provider.of<SearchQueryState>(context, listen: false).setQuery = model.searchValue;
       },
