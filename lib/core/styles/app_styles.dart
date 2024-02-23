@@ -14,6 +14,7 @@ class AppStyles {
   static const mainMarding = EdgeInsets.all(14);
   static const mainMardingMini = EdgeInsets.all(7);
   static const quizMarding = EdgeInsets.fromLTRB(9, 9, 9, 13.5);
+  static const wordCardMarding = EdgeInsets.fromLTRB(14, 14, 7, 14);
   static const mainMardingMicro = EdgeInsets.all(3.5);
 
   static const mardingWithoutBottom = EdgeInsets.fromLTRB(14, 14, 14, 0);
@@ -27,6 +28,9 @@ class AppStyles {
 
   static const mardingSymmetricVer = EdgeInsets.symmetric(vertical: 14);
   static const mardingSymmetricVerMini = EdgeInsets.symmetric(vertical: 7);
+
+  static const mardingOnlyTop = EdgeInsets.only(top: 14);
+  static const mardingOnlyTopMini = EdgeInsets.only(top: 7);
 
   static const mardingOnlyBottom = EdgeInsets.only(bottom: 14);
   static const mardingOnlyBottomMini = EdgeInsets.only(bottom: 7);

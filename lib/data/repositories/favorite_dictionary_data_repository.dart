@@ -19,13 +19,13 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   }
 
   @override
-  Future<bool> isWordFavorite({required int wordId}) async {
+  Future<bool> isWordFavorite({required int wordNumber}) async {
     try {
       final Database database = await _collectionsService.db;
       final List<Map<String, Object?>> isFavorite = await database.query(
         _favoriteWordsTableName,
         where: 'word_number = ?',
-        whereArgs: [wordId],
+        whereArgs: [wordNumber],
       );
       return isFavorite.isNotEmpty;
     } catch (e) {

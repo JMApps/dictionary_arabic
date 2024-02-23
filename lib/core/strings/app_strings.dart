@@ -20,10 +20,13 @@ class AppStrings {
   static const String add = 'Добавить';
   static const String change = 'Изменить';
   static const String deleteCollection = 'Удалить коллекцию';
+  static const String deleteWord = 'Удалить слово';
   static const String deletingCollection = 'Удаление коллекции';
+  static const String deletingWord = 'Удаление слова';
   static const String deleteCollections = 'Удалить все коллекции';
   static const String deletingCollections = 'Удаление всех коллекций';
   static const String delete = 'Удалить';
+  static const String deleteWordQuestion = 'Вы уверены, что хотите удалить это слово?';
   static const String deleteCollectionQuestion = 'Вы уверены, что хотите удалить данную коллекцию вместе с её содержимым?';
   static const String deleteAllCollectionsQuestion = 'Вы уверены, что хотите удалить все коллекции вместе с их содержимым?';
   static const String apply = 'Применить';

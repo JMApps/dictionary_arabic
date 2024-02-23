@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../domain/entities/args/collection_args.dart';
 import '../../domain/entities/args/word_args.dart';
+import '../../domain/entities/args/word_favorite_collection_args.dart';
 import '../../presentation/uiModules/android/collections/all_collections_page.dart';
-import '../../presentation/uiModules/android/collections/collection_detail_page.dart';
+import '../../presentation/uiModules/android/favorites/collection_detail_page.dart';
+import '../../presentation/uiModules/android/favorites/add_favorite_word_page.dart';
+import '../../presentation/uiModules/android/favorites/favorite_word_select_collection.dart';
 import '../../presentation/uiModules/android/search/search_words_page.dart';
 import '../../presentation/uiModules/android/search/word_detail_page.dart';
 import 'route_names.dart';
@@ -15,6 +18,19 @@ class MaterialRoutes {
         return MaterialPageRoute(
           builder: (_) => const SearchWordsPage(),
         );
+      case RouteNames.addFavoriteWordPage:
+        final WordArgs wordArgs = routeSettings.arguments as WordArgs;
+        return MaterialPageRoute(
+          builder: (_) => AddFavoriteWordPage(wordNumber: wordArgs.wordNumber),
+        );
+      case RouteNames.favoriteWordSelectionCollectionPage:
+        final WordFavoriteCollectionArgs favoriteCollectionArgs = routeSettings.arguments as WordFavoriteCollectionArgs;
+        return MaterialPageRoute(
+          builder: (_) => FavoriteWordSelectCollection(
+            wordModel: favoriteCollectionArgs.wordModel,
+            serializableIndex: favoriteCollectionArgs.serializableIndex,
+          ),
+        );
       case RouteNames.wordDetailPage:
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return MaterialPageRoute(
@@ -25,7 +41,8 @@ class MaterialRoutes {
           builder: (_) => const AllCollectionsPage(),
         );
       case RouteNames.collectionDetailPage:
-        final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
+        final CollectionArgs collectionArgs =
+            routeSettings.arguments as CollectionArgs;
         return MaterialPageRoute(
           builder: (_) => CollectionDetailPage(
             collectionModel: collectionArgs.collectionModel,
