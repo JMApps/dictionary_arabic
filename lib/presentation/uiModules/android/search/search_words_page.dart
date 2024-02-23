@@ -1,8 +1,8 @@
-import 'package:arabic/core/styles/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/strings/app_strings.dart';
+import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/search_query_state.dart';
 import '../../../../data/state/search_values_state.dart';
 import 'lists/search_word_list.dart';
@@ -47,21 +47,11 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                 autofocus: true,
                 autocorrect: false,
                 textAlignVertical: TextAlignVertical.center,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.zero,
+                decoration: const InputDecoration(
+                  contentPadding: AppStyles.mardingOnlyBottomMini,
                   border: InputBorder.none,
                   hintText: AppStrings.searchWords,
-                  hintStyle: const TextStyle(fontSize: 22),
-                  suffix: IconButton(
-                    padding: AppStyles.mardingOnlyBottomMini,
-                    onPressed: () {
-                      if (_wordsController.text.isNotEmpty) {
-                        _wordsController.clear();
-                        query.setQuery = '';
-                      }
-                    },
-                    icon: const Icon(Icons.clear),
-                  ),
+                  hintStyle: TextStyle(fontSize: 22),
                 ),
                 style: const TextStyle(fontSize: 22),
                 onChanged: (value) => query.setQuery = value,
@@ -73,6 +63,18 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                   }
                 },
               ),
+              actions: [
+                query.getQuery.isNotEmpty ? IconButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    if (_wordsController.text.isNotEmpty) {
+                      _wordsController.clear();
+                      query.setQuery = '';
+                    }
+                  },
+                  icon: const Icon(Icons.clear),
+                ) : const SizedBox(),
+              ],
             ),
             body: const SearchWordList(),
           );

@@ -9,7 +9,7 @@ import '../../../../../data/state/word_exact_match_state.dart';
 import '../../../../../domain/entities/dictionary_entity.dart';
 import '../../widgets/data_text.dart';
 import '../../widgets/error_data_text.dart';
-import '../../widgets/word_item.dart';
+import '../items/search_word_item.dart';
 import 'search_values_list.dart';
 
 class SearchWordList extends StatelessWidget {
@@ -32,23 +32,20 @@ class SearchWordList extends StatelessWidget {
               Padding(
                 padding: AppStyles.mainMardingMini,
                 child: RichText(
+                  maxLines: 1,
                   text: TextSpan(
                     children: [
                       const TextSpan(
                         text: AppStrings.matchesFound,
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
+                        style: TextStyle(color: Colors.grey),
                       ),
                       TextSpan(
                         text: '${snapshot.data!.length}',
-                        style: TextStyle(
-                          color: appColors.primary,
-                        ),
+                        style: TextStyle(color: appColors.primary),
                       ),
                     ],
                     style: const TextStyle(
-                      fontSize: 17,
+                      fontSize: 16,
                       fontFamily: 'SF Pro',
                     ),
                   ),
@@ -60,9 +57,9 @@ class SearchWordList extends StatelessWidget {
                     padding: EdgeInsets.zero,
                     itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final DictionaryEntity model = snapshot.data![index];
-                      return WordItem(
-                        model: model,
+                      final DictionaryEntity wordModel = snapshot.data![index];
+                      return SearchWordItem(
+                        wordModel: wordModel,
                         index: index,
                       );
                     },

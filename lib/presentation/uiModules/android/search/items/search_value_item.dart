@@ -17,6 +17,7 @@ class SearchValueItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      visualDensity: VisualDensity.compact,
       contentPadding: AppStyles.mardingSymmetricHorMini,
       onTap: () {
         Provider.of<SearchQueryState>(context, listen: false).setQuery = model.searchValue;
@@ -27,8 +28,11 @@ class SearchValueItem extends StatelessWidget {
           fontSize: 20,
         ),
       ),
-      leading: const Icon(
-        Icons.search,
+      leading: const IconButton(
+        onPressed: null,
+        icon: Icon(
+          Icons.search,
+        ),
       ),
       trailing: IconButton(
         onPressed: () async {

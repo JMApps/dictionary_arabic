@@ -21,23 +21,19 @@ class SearchValuesList extends StatelessWidget {
             children: [
               snapshot.data!.length > 5 ? const SizedBox(height: 7) : const SizedBox(),
               snapshot.data!.length > 5 ?  ListTile(
-                tileColor: appColors.primary.withOpacity(0.1),
+                tileColor: appColors.onSecondaryContainer.withOpacity(0.25),
                 contentPadding: AppStyles.mardingSymmetricHor,
-                visualDensity: VisualDensity.compact,
+                visualDensity: const VisualDensity(vertical: -4),
                 onTap: () async {
                   await Provider.of<SearchValuesState>(context, listen: false).fetchDeleteAllSearchValues();
                 },
                 title: const Text(
                   AppStrings.recent,
                   style: TextStyle(
-                    color: Colors.grey,
                     fontFamily: 'SF Pro',
                   ),
                 ),
-                trailing: const Icon(
-                  Icons.clear,
-                  color: Colors.grey,
-                ),
+                trailing: const Icon(Icons.clear),
               )  : const SizedBox(),
               Expanded(
                 child: Scrollbar(
