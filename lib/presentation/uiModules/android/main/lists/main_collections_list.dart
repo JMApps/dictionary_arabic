@@ -6,9 +6,9 @@ import '../../../../../core/strings/app_strings.dart';
 import '../../../../../core/styles/app_styles.dart';
 import '../../../../../data/state/collections_state.dart';
 import '../../../../../domain/entities/collection_entity.dart';
-import '../../collections/items/collection_item.dart';
 import '../../widgets/data_text.dart';
 import '../../widgets/error_data_text.dart';
+import '../items/main_collection_item.dart';
 
 class MainCollectionsList extends StatelessWidget {
   const MainCollectionsList({super.key});
@@ -30,7 +30,10 @@ class MainCollectionsList extends StatelessWidget {
                   itemCount: snapshot.data!.length >= 11 ? 11 : snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index) {
                     final CollectionEntity model = snapshot.data![index];
-                    return CollectionItem(collectionModel: model, index: index);
+                    return MainCollectionItem(
+                      collectionModel: model,
+                      index: index,
+                    );
                   },
                 ),
                 snapshot.data!.length >= 11
@@ -47,8 +50,7 @@ class MainCollectionsList extends StatelessWidget {
                             ),
                           ),
                         ),
-                      )
-                    : const SizedBox(),
+                      ) : const SizedBox(),
               ],
             ),
           );

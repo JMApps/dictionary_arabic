@@ -48,31 +48,29 @@ class _MainMaterialPageState extends State<MainMaterialPage> {
         slivers: [
           SliverAppBar(
             stretch: true,
-            forceElevated: true,
             centerTitle: true,
             title: const Text(AppStrings.appName),
-            expandedHeight: 100,
+            expandedHeight: 90,
             flexibleSpace: FlexibleSpaceBar(
               expandedTitleScale: 1.25,
               titlePadding: const EdgeInsetsDirectional.only(
                 start: 0,
-                bottom: 8,
+                bottom: 0,
               ),
               title: Padding(
-                padding: AppStyles.mardingSymmetricHorMini,
+                padding: AppStyles.mardingSymmetricHor,
                 child: CupertinoTextField(
+                  readOnly: true,
                   onTap: () {
                     Navigator.pushNamed(context, RouteNames.searchWordsPage);
                   },
                   padding: AppStyles.horizontalMicroVerticalMicro,
                   placeholder: AppStrings.searchWords,
-                  readOnly: true,
                   placeholderStyle: const TextStyle(
                     fontSize: 16,
                     color: Colors.grey,
                     fontFamily: 'SF Pro Regular',
                   ),
-                  textAlignVertical: TextAlignVertical.center,
                   textAlign: TextAlign.center,
                   decoration: BoxDecoration(
                     color: appColors.primary.withOpacity(0.1),
@@ -168,8 +166,8 @@ class _MainMaterialPageState extends State<MainMaterialPage> {
           ),
           const SliverToBoxAdapter(
             child: ListTile(
-              contentPadding: AppStyles.mardingSymmetricHorMini,
-              visualDensity: VisualDensity(horizontal: -4),
+              contentPadding: AppStyles.mainMardingMini,
+              visualDensity: VisualDensity.compact,
               title: Text(
                 AppStrings.lastCollections,
                 style: TextStyle(
