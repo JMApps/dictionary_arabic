@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/strings/app_strings.dart';
-import '../../../../../core/styles/app_styles.dart';
+import '../../../../core/strings/app_strings.dart';
+import '../../../../core/styles/app_styles.dart';
 import 'search_collection_future.dart';
 
 class SearchCollectionDelegate extends SearchDelegate {
-  SearchCollectionDelegate() : super(
-    searchFieldLabel: AppStrings.searchCollections,
-  );
+  SearchCollectionDelegate() : super(searchFieldLabel: AppStrings.searchCollections);
 
   @override
   ThemeData appBarTheme(BuildContext context) {
-    final ColorScheme appColors = Theme.of(context).colorScheme;
     final ThemeData theme = Theme.of(context);
     return theme.copyWith(
       appBarTheme: theme.appBarTheme.copyWith(
-        backgroundColor: appColors.inversePrimary,
+        backgroundColor: theme.colorScheme.inversePrimary,
+        titleSpacing: 0,
       ),
       inputDecorationTheme: const InputDecorationTheme(
         border: InputBorder.none,

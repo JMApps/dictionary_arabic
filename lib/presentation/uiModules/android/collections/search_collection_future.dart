@@ -4,8 +4,9 @@ import 'package:provider/provider.dart';
 import '../../../../../core/strings/app_strings.dart';
 import '../../../../../data/state/collections_state.dart';
 import '../../../../../domain/entities/collection_entity.dart';
-import '../../widgets/data_text.dart';
-import '../items/collection_item.dart';
+import '../../../../core/styles/app_styles.dart';
+import '../widgets/data_text.dart';
+import 'items/collection_item.dart';
 
 class SearchCollectionFuture extends StatefulWidget {
   const SearchCollectionFuture({super.key, required this.query});
@@ -37,7 +38,7 @@ class _SearchCollectionFutureState extends State<SearchCollectionFuture> {
           } else {
             return Scrollbar(
               child: ListView.builder(
-                padding: EdgeInsets.zero,
+                padding: AppStyles.mardingWithoutBottom,
                 itemCount: _recentCollections.length,
                 itemBuilder: (BuildContext context, int index) {
                   final CollectionEntity collectionModel = _recentCollections[index];

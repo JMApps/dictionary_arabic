@@ -1,8 +1,8 @@
-import 'package:arabic/core/styles/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/strings/app_strings.dart';
+import '../../../../../core/styles/app_styles.dart';
 import '../../../../../data/state/add_change_collection_state.dart';
 import '../../../../../data/state/collections_state.dart';
 import '../../../../../domain/entities/collection_entity.dart';
@@ -48,9 +48,8 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
           children: [
             TextField(
               controller: _collectionController,
-              textCapitalization: TextCapitalization.words,
+              textCapitalization: TextCapitalization.sentences,
               autofocus: true,
-              maxLength: 100,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
                 contentPadding: AppStyles.mardingSymmetricHorMini,
@@ -74,7 +73,7 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
                 fontFamily: 'SF Pro',
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 24),
             const Wrap(
               alignment: WrapAlignment.center,
               children: [
@@ -97,13 +96,13 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
                 onPressed: () async {
                   if (_collectionController.text.trim().isNotEmpty) {
                     Navigator.pop(context);
-                    final CollectionEntity model = CollectionEntity(
+                    final CollectionEntity collectionModel = CollectionEntity(
                       id: 0,
                       title: _collectionController.text.trim(),
                       wordsCount: 0,
                       color: colorState.getColorIndex,
                     );
-                    await Provider.of<CollectionsState>(context, listen: false).addCollection(model: model);
+                    await Provider.of<CollectionsState>(context, listen: false).addCollection(collectionModel: collectionModel);
                   }
                 },
                 child: const Text(

@@ -22,14 +22,14 @@ class CollectionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
-    final Color itemOddColor = appColors.inversePrimary.withOpacity(0.05);
-    final Color itemEvenColor = appColors.inversePrimary.withOpacity(0.15);
+    final Color itemOddColor = appColors.primary.withOpacity(0.05);
+    final Color itemEvenColor = appColors.primary.withOpacity(0.10);
     return Container(
-      margin: AppStyles.mainMardingMini,
+      margin: AppStyles.mardingOnlyBottom,
       child: ListTile(
         contentPadding: AppStyles.mardingSymmetricHor,
         shape: AppStyles.mainShapeMini,
-        visualDensity: const VisualDensity(vertical: -4),
+        visualDensity: VisualDensity.compact,
         tileColor: index.isOdd ? itemOddColor : itemEvenColor,
         onTap: () {
           Navigator.pushNamed(
@@ -47,15 +47,17 @@ class CollectionItem extends StatelessWidget {
         title: Text(
           collectionModel.title,
           style: const TextStyle(
-            fontSize: 20,
+            fontSize: 18,
           ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
         leading: Icon(
           Icons.folder,
           color: AppStyles.collectionColors[collectionModel.color],
         ),
         trailing: Consumer<FavoriteWordsState>(
-          builder: (BuildContext context, FavoriteWordsState value, _) {
+          builder: (BuildContext context, _, __) {
             return FutureBuilder<int>(
               future: Provider.of<CollectionsState>(context, listen: false).getWordCount(collectionId: collectionModel.id),
               builder: (context, snapshot) {
@@ -63,8 +65,10 @@ class CollectionItem extends StatelessWidget {
                   return Text(
                     snapshot.data.toString(),
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   );
                 } else {
                   return const CircularProgressIndicator();

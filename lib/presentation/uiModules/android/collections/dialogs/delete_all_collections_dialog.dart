@@ -14,7 +14,7 @@ class DeleteAllCollectionsDialog extends StatelessWidget {
       title: const Text(
         AppStrings.deletingCollections,
         style: TextStyle(
-          fontSize: 20,
+          fontSize: 22,
           fontWeight: FontWeight.bold,
         ),
         textAlign: TextAlign.center,
@@ -24,6 +24,7 @@ class DeleteAllCollectionsDialog extends StatelessWidget {
         style: TextStyle(
           fontSize: 18,
         ),
+        textAlign: TextAlign.center,
       ),
       actions: [
         OutlinedButton(

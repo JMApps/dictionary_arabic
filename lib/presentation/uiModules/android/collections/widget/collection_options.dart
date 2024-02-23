@@ -1,7 +1,7 @@
-import 'package:arabic/core/styles/app_styles.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/strings/app_strings.dart';
+import '../../../../../core/styles/app_styles.dart';
 import '../../../../../domain/entities/collection_entity.dart';
 import '../dialogs/change_collection_dialog.dart';
 import '../dialogs/delete_all_collections_dialog.dart';
@@ -17,13 +17,14 @@ class CollectionOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme appColors = Theme.of(context).colorScheme;
     return Padding(
       padding: AppStyles.mardingWithoutTop,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          OutlinedButton(
+          FilledButton.tonal(
             onPressed: () {
               Navigator.pop(context);
               showDialog(
@@ -40,7 +41,7 @@ class CollectionOptions extends StatelessWidget {
               ),
             ),
           ),
-          OutlinedButton(
+          FilledButton.tonal(
             onPressed: () {
               Navigator.pop(context);
               showDialog(
@@ -50,15 +51,15 @@ class CollectionOptions extends StatelessWidget {
                 },
               );
             },
-            child: const Text(
+            child: Text(
               AppStrings.deleteCollection,
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.red
+                color: appColors.error,
               ),
             ),
           ),
-          OutlinedButton(
+          FilledButton.tonal(
             onPressed: () {
               Navigator.pop(context);
               showDialog(
@@ -68,14 +69,15 @@ class CollectionOptions extends StatelessWidget {
                 },
               );
             },
-            child: const Text(
+            child: Text(
               AppStrings.deleteCollections,
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.red,
+                color: appColors.error,
               ),
             ),
           ),
+          const SizedBox(height: 8),
         ],
       ),
     );

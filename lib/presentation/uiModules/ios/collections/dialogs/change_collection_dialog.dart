@@ -105,7 +105,7 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
                     );
                     if (!widget.model.equals(newModel)) {
                       Navigator.pop(context);
-                      collectionsState.changeCollection(model: newModel);
+                      collectionsState.changeCollection(collectionModel: newModel);
                     } else {
                       Navigator.pop(context);
                     }

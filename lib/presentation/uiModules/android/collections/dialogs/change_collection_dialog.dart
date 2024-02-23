@@ -37,86 +37,84 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final CollectionsState collectionsState = Provider.of<CollectionsState>(context, listen: false);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (context) => AddChangeCollectionState(widget.collectionModel.color),
         ),
       ],
-      child: Consumer<AddChangeCollectionState>(
-        builder: (BuildContext context, colorState, _) {
-          return AlertDialog(
-            actionsAlignment: MainAxisAlignment.center,
-            title: const Text(
-              AppStrings.changeCollection,
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+      child: AlertDialog(
+        actionsAlignment: MainAxisAlignment.center,
+        title: const Text(
+          AppStrings.changeCollection,
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _collectionController,
+              textCapitalization: TextCapitalization.sentences,
+              autofocus: true,
               textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                contentPadding: AppStyles.mardingSymmetricHorMini,
+                border: const OutlineInputBorder(
+                  borderRadius: AppStyles.mainBorder,
+                ),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    _collectionController.clear();
+                  },
+                  icon: const Icon(Icons.clear),
+                ),
+                hintText: AppStrings.title,
+                hintStyle: const TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'SF Pro',
+                ),
+              ),
+              style: const TextStyle(
+                fontSize: 20,
+                fontFamily: 'SF Pro',
+              ),
             ),
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
+            const SizedBox(height: 24),
+            const Wrap(
+              alignment: WrapAlignment.center,
               children: [
-                TextField(
-                  controller: _collectionController,
-                  textCapitalization: TextCapitalization.words,
-                  autofocus: true,
-                  maxLength: 100,
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    contentPadding: AppStyles.mardingSymmetricHorMini,
-                    border: const OutlineInputBorder(
-                      borderRadius: AppStyles.mainBorder,
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        _collectionController.clear();
-                      },
-                      icon: const Icon(Icons.clear),
-                    ),
-                    hintText: AppStrings.title,
-                    hintStyle: const TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'SF Pro',
-                    ),
-                  ),
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'SF Pro',
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Wrap(
-                  alignment: WrapAlignment.center,
-                  children: [
-                    CollectionColorCircleButton(buttonIndex: 0),
-                    CollectionColorCircleButton(buttonIndex: 1),
-                    CollectionColorCircleButton(buttonIndex: 2),
-                    CollectionColorCircleButton(buttonIndex: 3),
-                    CollectionColorCircleButton(buttonIndex: 4),
-                    CollectionColorCircleButton(buttonIndex: 5),
-                    CollectionColorCircleButton(buttonIndex: 6),
-                    CollectionColorCircleButton(buttonIndex: 7),
-                  ],
-                ),
+                CollectionColorCircleButton(buttonIndex: 0),
+                CollectionColorCircleButton(buttonIndex: 1),
+                CollectionColorCircleButton(buttonIndex: 2),
+                CollectionColorCircleButton(buttonIndex: 3),
+                CollectionColorCircleButton(buttonIndex: 4),
+                CollectionColorCircleButton(buttonIndex: 5),
+                CollectionColorCircleButton(buttonIndex: 6),
+                CollectionColorCircleButton(buttonIndex: 7),
               ],
             ),
-            actions: [
-              OutlinedButton(
+          ],
+        ),
+        actions: [
+          Consumer<AddChangeCollectionState>(
+            builder: (BuildContext context, colorState, _) {
+              return OutlinedButton(
                 onPressed: () {
                   if (_collectionController.text.trim().isNotEmpty) {
-                    final CollectionEntity newModel = CollectionEntity(
+                    final CollectionEntity newCollectionModel = CollectionEntity(
                       id: widget.collectionModel.id,
                       title: _collectionController.text.trim(),
                       wordsCount: 0,
                       color: colorState.getColorIndex,
                     );
-                    if (!widget.collectionModel.equals(newModel)) {
+                    if (!widget.collectionModel.equals(newCollectionModel)) {
                       Navigator.pop(context);
-                      collectionsState.changeCollection(model: newModel);
+                      Provider.of<CollectionsState>(context, listen: false).changeCollection(collectionModel: newCollectionModel);
                     } else {
                       Navigator.pop(context);
                     }
@@ -128,22 +126,22 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
                     fontSize: 18,
                   ),
                 ),
+              );
+            },
+          ),
+          OutlinedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text(
+              AppStrings.cancel,
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.red,
               ),
-              OutlinedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text(
-                  AppStrings.cancel,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
+            ),
+          ),
+        ],
       ),
     );
   }

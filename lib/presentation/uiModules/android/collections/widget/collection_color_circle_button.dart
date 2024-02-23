@@ -22,7 +22,7 @@ class CollectionColorCircleButton extends StatelessWidget {
           },
           child: Icon(
             colorState.getColorIndex == buttonIndex
-                ? Icons.check_circle
+                ? Icons.check_circle_rounded
                 : Icons.circle,
             color: AppStyles.collectionColors[buttonIndex],
             size: 75,

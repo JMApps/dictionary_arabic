@@ -89,7 +89,7 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
                       wordsCount: 0,
                       color: colorState.getColorIndex,
                     );
-                    await Provider.of<CollectionsState>(context, listen: false).addCollection(model: model);
+                    await Provider.of<CollectionsState>(context, listen: false).addCollection(collectionModel: model);
                   }
                 },
                 child: const Text(AppStrings.add),
