@@ -49,7 +49,7 @@ class FavoriteWordItem extends StatelessWidget {
             ),
             SlidableAction(
               onPressed: (context) async {
-                await Provider.of<FavoriteWordsState>(context, listen: false).deleteFavoriteWord(favoriteWordId: model.id, collectionId: model.collectionId);
+                await Provider.of<FavoriteWordsState>(context, listen: false).deleteFavoriteWord(favoriteWordId: model.id);
               },
               backgroundColor: CupertinoColors.systemRed,
               icon: CupertinoIcons.delete_solid,

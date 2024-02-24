@@ -32,7 +32,7 @@ class FavoriteWordItem extends StatelessWidget {
         onTap: () {
           Navigator.pushNamed(
             context,
-            RouteNames.wordDetailPage,
+            RouteNames.wordFavoriteDetailPage,
             arguments: WordArgs(wordNumber: favoriteWordModel.wordNumber),
           );
         },
