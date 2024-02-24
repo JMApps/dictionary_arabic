@@ -86,28 +86,23 @@ class SearchWordItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      wordModel.homonymNr != null
-                          ? Text(
+                      wordModel.homonymNr != null ? Text(
                         wordModel.homonymNr.toString(),
                         style: TextStyle(
                           fontSize: 18,
                           color: appColors.onSurface,
                         ),
-                      )
-                          : const SizedBox(),
+                      ) : const SizedBox(),
                       const SizedBox(width: 4),
-                      wordModel.vocalization != null
-                          ? Text(
+                      wordModel.vocalization != null ? Text(
                         wordModel.vocalization!,
                         style: const TextStyle(
                           fontSize: 18,
                           color: Colors.grey,
                         ),
-                      )
-                          : const SizedBox(),
+                      ) : const SizedBox(),
                       const SizedBox(width: 4),
-                      wordModel.form != null
-                          ? Text(
+                      wordModel.form != null ? Text(
                         wordModel.form!,
                         style: const TextStyle(
                           fontSize: 18,
@@ -142,11 +137,16 @@ class SearchWordItem extends StatelessWidget {
                                     visualDensity: VisualDensity.compact,
                                     onPressed: () async {
                                       if (!isFavorite) {
-
+                                        Navigator.pushNamed(
+                                          context,
+                                          RouteNames.addFavoriteWordPage,
+                                          arguments: WordArgs(
+                                            wordNumber: wordModel.wordNumber,
+                                          ),
+                                        );
                                       } else {
                                         await Provider.of<FavoriteWordsState>(context, listen: false).deleteFavoriteWord(
-                                          favoriteWordId: wordModel.id,
-                                          collectionId: 0,
+                                          favoriteWordId: wordModel.wordNumber,
                                         );
                                       }
                                     },

@@ -11,7 +11,8 @@ import '../../widgets/forms_text.dart';
 import '../../widgets/short_translation_text.dart';
 
 class RootWordItem extends StatelessWidget {
-  const RootWordItem({super.key,
+  const RootWordItem({
+    super.key,
     required this.wordModel,
     required this.index,
   });
@@ -88,34 +89,34 @@ class RootWordItem extends StatelessWidget {
                     children: [
                       wordModel.homonymNr != null
                           ? Text(
-                        wordModel.homonymNr.toString(),
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: appColors.onSurface,
-                        ),
-                      )
+                              wordModel.homonymNr.toString(),
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: appColors.onSurface,
+                              ),
+                            )
                           : const SizedBox(),
                       const SizedBox(width: 4),
                       wordModel.vocalization != null
                           ? Text(
-                        wordModel.vocalization!,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey,
-                        ),
-                      )
+                              wordModel.vocalization!,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: Colors.grey,
+                              ),
+                            )
                           : const SizedBox(),
                       const SizedBox(width: 4),
                       wordModel.form != null
                           ? Text(
-                        wordModel.form!,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Heuristica',
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5,
-                        ),
-                      ) : const SizedBox(),
+                              wordModel.form!,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontFamily: 'Heuristica',
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 0.5,
+                              ),
+                            ) : const SizedBox(),
                     ],
                   ),
                   const SizedBox(height: 4),
@@ -132,43 +133,52 @@ class RootWordItem extends StatelessWidget {
                   Consumer<FavoriteWordsState>(
                     builder: (BuildContext context, favoriteWordState, _) {
                       return FutureBuilder<bool>(
-                          future: favoriteWordState.fetchIsWordFavorite(wordNumber: wordModel.wordNumber),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              final bool isFavorite = snapshot.data!;
-                              return Column(
-                                children: [
-                                  IconButton(
-                                    visualDensity: VisualDensity.compact,
-                                    onPressed: () async {
-                                      if (!isFavorite) {
-
-                                      } else {
-                                        await Provider.of<FavoriteWordsState>(context, listen: false).deleteFavoriteWord(
-                                          favoriteWordId: wordModel.id,
-                                          collectionId: 0,
-                                        );
-                                      }
-                                    },
-                                    icon: Icon(
-                                      isFavorite? Icons.bookmark : Icons.bookmark_outline_rounded,
-                                      color: appColors.primary,
-                                    ),
+                        future: favoriteWordState.fetchIsWordFavorite(wordNumber: wordModel.wordNumber),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            final bool isFavorite = snapshot.data!;
+                            return Column(
+                              children: [
+                                IconButton(
+                                  visualDensity: VisualDensity.compact,
+                                  onPressed: () async {
+                                    if (!isFavorite) {
+                                      Navigator.pushNamed(
+                                        context,
+                                        RouteNames.addFavoriteWordPage,
+                                        arguments: WordArgs(
+                                          wordNumber: wordModel.wordNumber,
+                                        ),
+                                      );
+                                    } else {
+                                      await Provider.of<FavoriteWordsState>(context, listen: false).deleteFavoriteWord(
+                                        favoriteWordId: wordModel.wordNumber,
+                                      );
+                                    }
+                                  },
+                                  icon: Icon(
+                                    isFavorite
+                                        ? Icons.bookmark
+                                        : Icons.bookmark_outline_rounded,
+                                    color: appColors.primary,
                                   ),
-                                  isFavorite ? IconButton(
-                                    visualDensity: VisualDensity.compact,
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.drive_file_move_rounded,
-                                      color: appColors.tertiary,
-                                    ),
-                                  ) : const SizedBox(),
-                                ],
-                              );
-                            } else {
-                              return const CircularProgressIndicator();
-                            }
+                                ),
+                                isFavorite
+                                    ? IconButton(
+                                        visualDensity: VisualDensity.compact,
+                                        onPressed: () {},
+                                        icon: Icon(
+                                          Icons.drive_file_move_rounded,
+                                          color: appColors.tertiary,
+                                        ),
+                                      )
+                                    : const SizedBox(),
+                              ],
+                            );
+                          } else {
+                            return const CircularProgressIndicator();
                           }
+                        },
                       );
                     },
                   ),
