@@ -24,13 +24,6 @@ class DetailWordItem extends StatelessWidget {
       margin: AppStyles.mardingWithoutTopMini,
       child: InkWell(
         borderRadius: AppStyles.mainBorderMini,
-        onTap: () {
-          Navigator.pushNamed(
-            context,
-            RouteNames.wordDetailPage,
-            arguments: WordArgs(wordNumber: wordModel.wordNumber),
-          );
-        },
         child: Container(
           padding: AppStyles.wordCardMarding,
           decoration: BoxDecoration(
@@ -82,31 +75,37 @@ class DetailWordItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      wordModel.homonymNr != null ? Text(
-                        wordModel.homonymNr.toString(),
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: appColors.onSurface,
-                        ),
-                      ) : const SizedBox(),
+                      wordModel.homonymNr != null
+                          ? Text(
+                              wordModel.homonymNr.toString(),
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: appColors.onSurface,
+                              ),
+                            )
+                          : const SizedBox(),
                       const SizedBox(width: 4),
-                      wordModel.vocalization != null ? Text(
-                        wordModel.vocalization!,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.grey,
-                        ),
-                      ) : const SizedBox(),
+                      wordModel.vocalization != null
+                          ? Text(
+                              wordModel.vocalization!,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.grey,
+                              ),
+                            )
+                          : const SizedBox(),
                       const SizedBox(width: 4),
-                      wordModel.form != null ? Text(
-                        wordModel.form!,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Heuristica',
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5,
-                        ),
-                      ) : const SizedBox(),
+                      wordModel.form != null
+                          ? Text(
+                              wordModel.form!,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontFamily: 'Heuristica',
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 0.5,
+                              ),
+                            )
+                          : const SizedBox(),
                     ],
                   ),
                   const SizedBox(height: 4),
@@ -127,28 +126,48 @@ class DetailWordItem extends StatelessWidget {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               final bool isFavorite = snapshot.data!;
-                              return IconButton(
-                                visualDensity: VisualDensity.compact,
-                                onPressed: () async {
-                                  if (!isFavorite) {
-                                    // Добавить в избранное
-                                  } else {
-                                    await Provider.of<FavoriteWordsState>(context, listen: false).deleteFavoriteWord(
-                                      favoriteWordId: wordModel.id,
-                                      collectionId: 0,
-                                    );
-                                  }
-                                },
-                                icon: Icon(
-                                  isFavorite? Icons.bookmark : Icons.bookmark_outline_rounded,
-                                  size: 30,
-                                  color: appColors.primary,
-                                ),
+                              return Column(
+                                children: [
+                                  IconButton(
+                                    visualDensity: VisualDensity.compact,
+                                    onPressed: () async {
+                                      if (!isFavorite) {
+                                        Navigator.pushNamed(
+                                          context,
+                                          RouteNames.addFavoriteWordPage,
+                                          arguments: WordArgs(
+                                            wordNumber: wordModel.wordNumber,
+                                          ),
+                                        );
+                                      } else {
+                                        await Provider.of<FavoriteWordsState>(context, listen: false).deleteFavoriteWord(
+                                          favoriteWordId: wordModel.wordNumber,
+                                        );
+                                      }
+                                    },
+                                    icon: Icon(
+                                      isFavorite
+                                          ? Icons.bookmark
+                                          : Icons.bookmark_outline_rounded,
+                                      size: 30,
+                                      color: appColors.primary,
+                                    ),
+                                  ),
+                                  isFavorite
+                                      ? IconButton(
+                                          visualDensity: VisualDensity.compact,
+                                          onPressed: () {},
+                                          icon: Icon(
+                                            Icons.drive_file_move_rounded,
+                                            color: appColors.tertiary,
+                                          ),
+                                        ) : const SizedBox(),
+                                ],
                               );
                             } else {
                               return const CircularProgressIndicator();
                             }
-                          }
+                          },
                       );
                     },
                   ),
