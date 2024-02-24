@@ -5,7 +5,7 @@ import '../../../../core/strings/app_strings.dart';
 import '../../../../data/state/favorite_words_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
 import '../../../../domain/entities/favorite_dictionary_entity.dart';
-import '../favorites/items/favorite_word_item.dart';
+import 'items/favorite_word_item.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
 
@@ -25,13 +25,16 @@ class CollectionDetailPage extends StatelessWidget {
         slivers: [
           SliverAppBar(
             backgroundColor: appColors.inversePrimary,
-            stretch: true,
             forceElevated: true,
             centerTitle: true,
+            floating: true,
+            titleSpacing: 0,
             title: Text(collectionModel.title),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Поиск слов с передачай collection id
+                },
                 icon: const Icon(Icons.search),
               ),
             ],
@@ -45,8 +48,11 @@ class CollectionDetailPage extends StatelessWidget {
                 return SliverList.builder(
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final FavoriteDictionaryEntity model = snapshot.data![index];
-                    return FavoriteWordItem(model: model);
+                    final FavoriteDictionaryEntity favoriteWordModel = snapshot.data![index];
+                    return FavoriteWordItem(
+                      favoriteWordModel: favoriteWordModel,
+                      index: index,
+                    );
                   },
                 );
               } else if (snapshot.hasError) {
