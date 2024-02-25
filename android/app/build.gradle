@@ -28,6 +28,7 @@ android {
     ndkVersion "25.1.8937393"
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -42,8 +43,8 @@ android {
 
     defaultConfig {
         applicationId "jmapps.dictionary.arabic"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdk 34
+        minSdk 23
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -59,4 +60,6 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+}

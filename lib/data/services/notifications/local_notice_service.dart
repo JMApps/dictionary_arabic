@@ -50,7 +50,7 @@ class LocalNoticeService {
         android: _androidDailyNotificationDetails,
         iOS: _iOSDailyNotificationDetails,
       ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      androidScheduleMode: AndroidScheduleMode.alarmClock,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
     );
