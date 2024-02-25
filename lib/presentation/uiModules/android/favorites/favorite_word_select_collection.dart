@@ -1,3 +1,4 @@
+import 'package:arabic/presentation/uiModules/android/favorites/widgets/search_collection_add_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,12 +8,11 @@ import '../../../../data/state/collections_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../collections/dialogs/add_collection_dialog.dart';
-import '../collections/search_collection_delegate.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
 import 'items/select_item_collection.dart';
 
-class FavoriteWordSelectCollection extends StatefulWidget {
+class FavoriteWordSelectCollection extends StatelessWidget {
   const FavoriteWordSelectCollection({
     super.key,
     required this.wordModel,
@@ -21,19 +21,6 @@ class FavoriteWordSelectCollection extends StatefulWidget {
 
   final DictionaryEntity wordModel;
   final int serializableIndex;
-
-  @override
-  State<FavoriteWordSelectCollection> createState() => _FavoriteWordSelectCollectionState();
-}
-
-class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollection> {
-  final TextEditingController _collectionsController = TextEditingController();
-
-  @override
-  void dispose() {
-    _collectionsController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +37,12 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
             actions: [
               IconButton(
                 onPressed: () {
-                  /* TODO Добавить поисковик с item для выбора */
                   showSearch(
                     context: context,
-                    delegate: SearchCollectionDelegate(),
+                    delegate: SearchCollectionAddDelegate(
+                      wordModel: wordModel,
+                      serializableIndex: serializableIndex,
+                    ),
                   );
                 },
                 icon: const Icon(Icons.search),
@@ -73,8 +62,8 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
                     itemBuilder: (BuildContext context, int index) {
                       final CollectionEntity collectionModel = snapshot.data![index];
                       return SelectItemCollection(
-                        wordModel: widget.wordModel,
-                        serializableIndex: widget.serializableIndex,
+                        wordModel: wordModel,
+                        serializableIndex: serializableIndex,
                         collectionModel: collectionModel,
                         index: index,
                       );
