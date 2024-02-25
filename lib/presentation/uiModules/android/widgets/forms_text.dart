@@ -26,7 +26,7 @@ class FormsText extends StatelessWidget {
           TextSpan(
             text: content.replaceAll(RegExp('мн.|дв.|ж.|м.|стр.|см.ّ|=|ّّّ'), ''),
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 20,
               color: Colors.grey,
               fontFamily: 'Uthmanic',
             ),

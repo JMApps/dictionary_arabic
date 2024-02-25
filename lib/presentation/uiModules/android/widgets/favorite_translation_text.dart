@@ -17,7 +17,7 @@ class FavoriteTranslationText extends StatelessWidget {
     final ColorScheme appColors = Theme.of(context).colorScheme;
     RegExp arabic = RegExp(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+');
     TextStyle translationStyle = TextStyle(
-      fontSize: 18,
+      fontSize: 20,
       color: serializableIndex == -1 ? appColors.onSurface : index == serializableIndex ? appColors.onSurface : Colors.grey,
       fontFamily: 'SF Pro Regular',
       height: 1,
