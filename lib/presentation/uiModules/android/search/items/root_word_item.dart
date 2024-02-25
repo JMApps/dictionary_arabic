@@ -32,12 +32,12 @@ class RootWordItem extends StatelessWidget {
         onTap: () {
           Navigator.pushReplacementNamed(
             context,
-            RouteNames.wordFavoriteDetailPage,
+            RouteNames.wordDetailPage,
             arguments: WordArgs(wordNumber: wordModel.wordNumber),
           );
         },
         child: Container(
-          padding: AppStyles.mardingWithoutBottom,
+          padding: AppStyles.mainMarding,
           decoration: BoxDecoration(
             color: index.isOdd ? itemOddColor : itemEvenColor,
             borderRadius: AppStyles.mainBorderMini,
@@ -50,7 +50,7 @@ class RootWordItem extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ListTile(
-                      minVerticalPadding: 7,
+                      minVerticalPadding: 0,
                       contentPadding: EdgeInsets.zero,
                       visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
                       title: Row(
@@ -114,11 +114,9 @@ class RootWordItem extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     letterSpacing: 0.5,
                                   ),
-                                )
-                              : const SizedBox(),
+                                ) : const SizedBox(),
                         ],
                       ),
-                      const SizedBox(height: 4),
                       Text(
                         wordModel.root,
                         style: TextStyle(
@@ -129,63 +127,62 @@ class RootWordItem extends StatelessWidget {
                         ),
                         textDirection: TextDirection.rtl,
                       ),
+                      const SizedBox(height: 8),
+                      Consumer<FavoriteWordsState>(
+                        builder: (BuildContext context, favoriteWordState, _) {
+                          return FutureBuilder<bool>(
+                            future: favoriteWordState.fetchIsWordFavorite(wordNumber: wordModel.wordNumber),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                final bool wordIsFavorite = snapshot.data!;
+                                return IconButton(
+                                  visualDensity: VisualDensity.compact,
+                                  onPressed: () async {
+                                    if (!wordIsFavorite) {
+                                      Navigator.pushNamed(
+                                        context,
+                                        RouteNames.addFavoriteWordPage,
+                                        arguments: WordArgs(
+                                          wordNumber: wordModel.wordNumber,
+                                        ),
+                                      );
+                                    } else {
+                                      await favoriteWordState.deleteFavoriteWord(
+                                        favoriteWordId: wordModel.wordNumber,
+                                      );
+                                    }
+                                  },
+                                  icon: Icon(
+                                    wordIsFavorite
+                                        ? Icons.bookmark
+                                        : Icons.bookmark_outline_rounded,
+                                    color: appColors.tertiary.withOpacity(0.75),
+                                  ),
+                                );
+                              } else {
+                                return const CircularProgressIndicator();
+                              }
+                            },
+                          );
+                        },
+                      ),
+                      IconButton(
+                        visualDensity: VisualDensity.compact,
+                        onPressed: () {
+                          Share.share(
+                            wordModel.wordContent(),
+                            sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
+                          );
+                        },
+                        icon: Icon(
+                          Icons.ios_share_outlined,
+                          color: appColors.tertiary.withOpacity(0.75),
+                        ),
+                      ),
                     ],
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Consumer<FavoriteWordsState>(
-                    builder: (BuildContext context, favoriteWordState, _) {
-                      return FutureBuilder<bool>(
-                          future: favoriteWordState.fetchIsWordFavorite(wordNumber: wordModel.wordNumber),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              final bool wordIsFavorite = snapshot.data!;
-                              return IconButton(
-                                visualDensity: VisualDensity.compact,
-                                onPressed: () async {
-                                  if (!wordIsFavorite) {
-                                    Navigator.pushNamed(
-                                      context,
-                                      RouteNames.addFavoriteWordPage,
-                                      arguments: WordArgs(
-                                        wordNumber: wordModel.wordNumber,
-                                      ),
-                                    );
-                                  } else {
-                                    await favoriteWordState.deleteFavoriteWord(
-                                      favoriteWordId: wordModel.wordNumber,
-                                    );
-                                  }
-                                },
-                                icon: Icon(
-                                  wordIsFavorite
-                                      ? Icons.bookmark
-                                      : Icons.bookmark_outline_rounded,
-                                  color: appColors.primary,
-                                ),
-                              );
-                            } else {
-                              return const CircularProgressIndicator();
-                            }
-                          });
-                    },
-                  ),
-                  IconButton(
-                    visualDensity: VisualDensity.compact,
-                    onPressed: () {
-                      Share.share(
-                        wordModel.wordContent(),
-                        sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
-                      );
-                    },
-                    icon: const Icon(Icons.share),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4),
             ],
           ),
         ),

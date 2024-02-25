@@ -10,6 +10,7 @@ import '../../../../../domain/entities/args/word_move_args.dart';
 import '../../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../../widgets/forms_text.dart';
 import '../../widgets/short_translation_text.dart';
+import '../lists/change_serializable_favorite_word.dart';
 
 class FavoriteWordItem extends StatelessWidget {
   const FavoriteWordItem({
@@ -141,6 +142,21 @@ class FavoriteWordItem extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  IconButton(
+                    visualDensity: VisualDensity.compact,
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) => ChangeSerializableFavoriteWord(
+                          favoriteWordModel: favoriteWordModel,
+                        ),
+                      );
+                    },
+                    icon: Icon(
+                      Icons.remove_red_eye,
+                      color: appColors.tertiary.withOpacity(0.75),
+                    ),
+                  ),
                   IconButton(
                     visualDensity: VisualDensity.compact,
                     onPressed: () {
