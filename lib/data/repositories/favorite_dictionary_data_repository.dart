@@ -71,7 +71,10 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
       ankiCount: model.ankiCount,
     );
 
-    await database.insert(_favoriteWordsTableName, favoriteWordModel.toMap(), conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    await database.transaction((txn) async {
+      await txn.insert(_favoriteWordsTableName, favoriteWordModel.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+      await _updateCollectionWordCount(txn, model.collectionId);
+    });
   }
 
   @override
@@ -86,16 +89,30 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   @override
   Future<void> moveFavoriteWord({required int wordNr, required int oldCollectionId, required int collectionId}) async {
     final Database database = await _collectionsService.db;
-    final Map<String, int> toCollectionMap = {
-      'collection_id': collectionId,
-    };
-    await database.update(_favoriteWordsTableName, toCollectionMap, where: 'word_number = ?', whereArgs: [wordNr], conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    await database.transaction((txn) async {
+      await txn.update(_favoriteWordsTableName, {'collection_id': collectionId}, where: 'word_number = ?', whereArgs: [wordNr], conflictAlgorithm: ConflictAlgorithm.replace);
+      await _updateCollectionWordCount(txn, oldCollectionId);
+      await _updateCollectionWordCount(txn, collectionId);
+    });
   }
 
   @override
   Future<void> deleteFavoriteWord({required int favoriteWordId}) async {
     final Database database = await _collectionsService.db;
-    await database.delete(_favoriteWordsTableName, where: 'word_number = ?', whereArgs: [favoriteWordId]);
+    final word = await getFavoriteWordById(favoriteWordId: favoriteWordId);
+    await database.transaction((txn) async {
+        await txn.delete(_favoriteWordsTableName, where: 'word_number = ?', whereArgs: [favoriteWordId]);
+        await _updateCollectionWordCount(txn, word.collectionId);
+      },
+    );
+  }
+
+  Future<void> _updateCollectionWordCount(sql.Transaction txn, int collectionId) async {
+    final wordsCountResult = await txn.rawQuery('''
+      SELECT COUNT(*) AS cnt FROM $_favoriteWordsTableName WHERE collection_id = ?
+    ''', [collectionId]);
+    final wordsCount = wordsCountResult.first['cnt'] as int;
+    await txn.update('Table_of_collections', {'words_count': wordsCount}, where: 'id = ?', whereArgs: [collectionId]);
   }
 
   // Mapping to entity
