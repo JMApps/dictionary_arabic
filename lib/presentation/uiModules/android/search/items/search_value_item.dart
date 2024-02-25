@@ -19,6 +19,7 @@ class SearchValueItem extends StatelessWidget {
     return ListTile(
       visualDensity: VisualDensity.compact,
       contentPadding: AppStyles.mardingSymmetricHorMini,
+      horizontalTitleGap: 4,
       onTap: () {
         Provider.of<SearchQueryState>(context, listen: false).setQuery = model.searchValue;
       },

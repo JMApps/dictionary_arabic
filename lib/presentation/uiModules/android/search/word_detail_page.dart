@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
@@ -8,8 +7,8 @@ import '../../../../data/state/default_dictionary_state.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
+import '../widgets/main_word_item.dart';
 import 'items/detail_word_item.dart';
-import 'items/root_word_item.dart';
 
 class WordDetailPage extends StatelessWidget {
   const WordDetailPage({
@@ -35,17 +34,6 @@ class WordDetailPage extends StatelessWidget {
                   centerTitle: true,
                   floating: true,
                   title: const Text(AppStrings.word),
-                  actions: [
-                    IconButton(
-                      onPressed: () {
-                        Share.share(
-                          snapshot.data!.wordContent(),
-                          sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
-                        );
-                      },
-                      icon: const Icon(Icons.ios_share_outlined),
-                    ),
-                  ],
                 ),
                 FutureBuilder<DictionaryEntity>(
                   future: Provider.of<DefaultDictionaryState>(context, listen: false).getWordById(wordNumber: wordNumber),
@@ -83,7 +71,7 @@ class WordDetailPage extends StatelessWidget {
                                     itemCount: wordRootsSnapshot.data!.length,
                                     itemBuilder: (BuildContext context, int index) {
                                       final DictionaryEntity wordModel = wordRootsSnapshot.data![index];
-                                      return RootWordItem(
+                                      return MainWordItem(
                                         wordModel: wordModel,
                                         index: index,
                                       );

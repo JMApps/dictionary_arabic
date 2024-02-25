@@ -9,7 +9,7 @@ import '../../../../../data/state/word_exact_match_state.dart';
 import '../../../../../domain/entities/dictionary_entity.dart';
 import '../../widgets/data_text.dart';
 import '../../widgets/error_data_text.dart';
-import '../items/search_word_item.dart';
+import '../../widgets/main_word_item.dart';
 import 'search_values_list.dart';
 
 class SearchWordList extends StatelessWidget {
@@ -30,9 +30,8 @@ class SearchWordList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
-                padding: AppStyles.mainMardingMini,
+                padding: AppStyles.horizontalVerticalMini,
                 child: RichText(
-                  maxLines: 1,
                   text: TextSpan(
                     children: [
                       const TextSpan(
@@ -49,16 +48,17 @@ class SearchWordList extends StatelessWidget {
                       fontFamily: 'SF Pro',
                     ),
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               Expanded(
                 child: Scrollbar(
                   child: ListView.builder(
-                    padding: EdgeInsets.zero,
                     itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, int index) {
                       final DictionaryEntity wordModel = snapshot.data![index];
-                      return SearchWordItem(
+                      return MainWordItem(
                         wordModel: wordModel,
                         index: index,
                       );

@@ -8,19 +8,23 @@ import '../../../../../data/state/favorite_words_state.dart';
 import '../../../../../domain/entities/args/word_args.dart';
 import '../../../../../domain/entities/dictionary_entity.dart';
 import '../../widgets/forms_text.dart';
-import '../../widgets/translation_text.dart';
+import '../../widgets/short_translation_text.dart';
 
-class DetailWordItem extends StatelessWidget {
-  const DetailWordItem({
+class RootWordItem extends StatelessWidget {
+  const RootWordItem({
     super.key,
     required this.wordModel,
+    required this.index,
   });
 
   final DictionaryEntity wordModel;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
+    final Color itemOddColor = appColors.primary.withOpacity(0.05);
+    final Color itemEvenColor = appColors.primary.withOpacity(0.10);
     return Container(
       margin: AppStyles.mardingWithoutTop,
       child: InkWell(
@@ -35,7 +39,7 @@ class DetailWordItem extends StatelessWidget {
         child: Container(
           padding: AppStyles.mainMarding,
           decoration: BoxDecoration(
-            color: appColors.primary.withOpacity(0.05),
+            color: index.isOdd ? itemOddColor : itemEvenColor,
             borderRadius: AppStyles.mainBorderMini,
           ),
           child: Column(
@@ -46,36 +50,33 @@ class DetailWordItem extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ListTile(
-                      minVerticalPadding: 8,
+                      minVerticalPadding: 0,
                       contentPadding: EdgeInsets.zero,
                       visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
-                      title: Padding(
-                        padding: AppStyles.mardingOnlyBottom,
-                        child: Row(
-                          children: [
-                            Text(
-                              wordModel.arabicWord,
-                              style: const TextStyle(
-                                fontSize: 50,
-                                fontFamily: 'Uthmanic',
-                                height: 1,
-                              ),
-                              textDirection: TextDirection.rtl,
+                      title: Row(
+                        children: [
+                          Text(
+                            wordModel.arabicWord,
+                            style: const TextStyle(
+                              fontSize: 35,
+                              fontFamily: 'Uthmanic',
+                              height: 1,
                             ),
-                            const SizedBox(width: 8),
-                            wordModel.forms != null
-                                ? FormsText(content: wordModel.forms!)
-                                : const SizedBox(),
-                            const SizedBox(width: 8),
-                            wordModel.additional != null
-                                ? FormsText(content: wordModel.additional!)
-                                : const SizedBox(),
-                          ],
-                        ),
+                            textDirection: TextDirection.rtl,
+                          ),
+                          const SizedBox(width: 8),
+                          wordModel.forms != null
+                              ? FormsText(content: wordModel.forms!)
+                              : const SizedBox(),
+                          const SizedBox(width: 8),
+                          wordModel.additional != null
+                              ? FormsText(content: wordModel.additional!)
+                              : const SizedBox(),
+                        ],
                       ),
                       subtitle: Padding(
                         padding: AppStyles.mardingOnlyTop,
-                        child: TranslationText(translation: wordModel.translation),
+                        child: ShortTranslationText(translation: wordModel.translation),
                       ),
                     ),
                   ),
@@ -88,7 +89,7 @@ class DetailWordItem extends StatelessWidget {
                               ? Text(
                             wordModel.homonymNr.toString(),
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               color: appColors.onSurface,
                             ),
                           )
@@ -98,7 +99,7 @@ class DetailWordItem extends StatelessWidget {
                               ? Text(
                             wordModel.vocalization!,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               color: Colors.grey,
                             ),
                           )
@@ -108,7 +109,7 @@ class DetailWordItem extends StatelessWidget {
                               ? Text(
                             wordModel.form!,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontFamily: 'Heuristica',
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5,
@@ -116,11 +117,10 @@ class DetailWordItem extends StatelessWidget {
                           ) : const SizedBox(),
                         ],
                       ),
-                      const SizedBox(height: 4),
                       Text(
                         wordModel.root,
                         style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 22,
                           color: appColors.error,
                           fontFamily: 'Uthmanic',
                           height: 1,
@@ -147,7 +147,6 @@ class DetailWordItem extends StatelessWidget {
                                         ),
                                       );
                                     } else {
-                                      Navigator.of(context).pop();
                                       await favoriteWordState.deleteFavoriteWord(
                                         favoriteWordId: wordModel.wordNumber,
                                       );
@@ -158,7 +157,6 @@ class DetailWordItem extends StatelessWidget {
                                         ? Icons.bookmark
                                         : Icons.bookmark_outline_rounded,
                                     color: appColors.tertiary.withOpacity(0.75),
-                                    size: 30,
                                   ),
                                 );
                               } else {
@@ -179,7 +177,6 @@ class DetailWordItem extends StatelessWidget {
                         icon: Icon(
                           Icons.ios_share_outlined,
                           color: appColors.tertiary.withOpacity(0.75),
-                          size: 30,
                         ),
                       ),
                     ],
