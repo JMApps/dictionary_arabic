@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
@@ -12,6 +11,7 @@ import '../search/items/root_word_item.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
 import 'items/favorite_detail_word_item.dart';
+import 'lists/change_serializable_favorite_word.dart';
 
 class FavoriteWordDetailPage extends StatelessWidget {
   const FavoriteWordDetailPage({
@@ -25,7 +25,7 @@ class FavoriteWordDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
     return FutureBuilder<FavoriteDictionaryEntity>(
-      future: Provider.of<FavoriteWordsState>(context, listen: false).fetchFavoriteWordById(favoriteWordId: wordNumber),
+      future: Provider.of<FavoriteWordsState>(context).fetchFavoriteWordById(favoriteWordId: wordNumber),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
@@ -40,12 +40,17 @@ class FavoriteWordDetailPage extends StatelessWidget {
                   actions: [
                     IconButton(
                       onPressed: () {
-                        Share.share(
-                          snapshot.data!.wordContent(),
-                          sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) => ChangeSerializableFavoriteWord(
+                            favoriteWordModel: snapshot.data!,
+                          ),
                         );
                       },
-                      icon: const Icon(Icons.ios_share_outlined),
+                      icon: Icon(
+                        Icons.remove_red_eye,
+                        color: appColors.primary,
+                      ),
                     ),
                   ],
                 ),
@@ -53,17 +58,15 @@ class FavoriteWordDetailPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const SizedBox(height: 8),
                       FavoriteDetailWordItem(favoriteWordModel: snapshot.data!),
                       Padding(
-                        padding: AppStyles.mardingWithoutTopMini,
+                        padding: AppStyles.horizontalVerticalMini,
                         child: Text(
                           AppStrings.cognates,
                           style: TextStyle(
                             fontSize: 20,
                             color: appColors.primary,
                             fontFamily: 'SF Pro',
-                            letterSpacing: 0.25,
                           ),
                         ),
                       ),
