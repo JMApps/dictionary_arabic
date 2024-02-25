@@ -32,9 +32,9 @@ class AddFavoriteWordPage extends StatelessWidget {
                 snapshot.data!.arabicWord,
                 style: const TextStyle(
                   fontSize: 25,
-                  fontWeight: FontWeight.normal,
                   fontFamily: 'Uthmanic',
                 ),
+                textDirection: TextDirection.rtl,
               ),
               actions: [
                 MaterialButton(

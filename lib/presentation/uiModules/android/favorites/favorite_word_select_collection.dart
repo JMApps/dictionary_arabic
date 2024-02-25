@@ -1,4 +1,3 @@
-import 'package:arabic/presentation/uiModules/android/favorites/widgets/search_collection_add_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +10,7 @@ import '../collections/dialogs/add_collection_dialog.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
 import 'items/select_item_collection.dart';
+import 'widgets/search_collection_add_delegate.dart';
 
 class FavoriteWordSelectCollection extends StatelessWidget {
   const FavoriteWordSelectCollection({
