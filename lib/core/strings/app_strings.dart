@@ -59,6 +59,7 @@ class AppStrings {
   static const String display = 'Дисплей';
   static const String alwaysOnDisplay = 'Дисплей всегда включён';
   static const String dailyNotifications = 'Ежедневные уведомления';
+  static const String remindIn = 'Напоминать в';
   static const String notificationBody = 'Пополни словарный запас';
   static const String notificationTime = 'Время уведомления';
   static const String options = 'Опции';

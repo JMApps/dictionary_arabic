@@ -12,7 +12,7 @@ import '../../presentation/uiModules/android/favorites/favorite_word_select_coll
 import '../../presentation/uiModules/android/favorites/move_favorite_word_page.dart';
 import '../../presentation/uiModules/android/search/search_words_page.dart';
 import '../../presentation/uiModules/android/search/word_detail_page.dart';
-import '../../presentation/uiModules/ios/settings/app_settings_page.dart';
+import '../../presentation/uiModules/android/settings/app_settings_page.dart';
 import 'route_names.dart';
 
 class MaterialRoutes {
