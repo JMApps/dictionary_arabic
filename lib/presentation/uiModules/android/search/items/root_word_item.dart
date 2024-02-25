@@ -26,18 +26,18 @@ class RootWordItem extends StatelessWidget {
     final Color itemOddColor = appColors.primary.withOpacity(0.05);
     final Color itemEvenColor = appColors.primary.withOpacity(0.10);
     return Container(
-      margin: AppStyles.mardingWithoutTopMini,
+      margin: AppStyles.mardingWithoutTop,
       child: InkWell(
         borderRadius: AppStyles.mainBorderMini,
         onTap: () {
           Navigator.pushReplacementNamed(
             context,
-            RouteNames.wordDetailPage,
+            RouteNames.wordFavoriteDetailPage,
             arguments: WordArgs(wordNumber: wordModel.wordNumber),
           );
         },
         child: Container(
-          padding: AppStyles.wordCardMarding,
+          padding: AppStyles.mardingWithoutBottom,
           decoration: BoxDecoration(
             color: index.isOdd ? itemOddColor : itemEvenColor,
             borderRadius: AppStyles.mainBorderMini,
@@ -47,48 +47,43 @@ class RootWordItem extends StatelessWidget {
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              wordModel.arabicWord,
-                              style: const TextStyle(
-                                fontSize: 35,
-                                fontFamily: 'Uthmanic',
-                              ),
-                              textDirection: TextDirection.rtl,
+                    child: ListTile(
+                      minVerticalPadding: 7,
+                      contentPadding: EdgeInsets.zero,
+                      visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
+                      title: Row(
+                        children: [
+                          Text(
+                            wordModel.arabicWord,
+                            style: const TextStyle(
+                              fontSize: 35,
+                              fontFamily: 'Uthmanic',
+                              height: 1,
                             ),
-                            const SizedBox(width: 8),
-                            wordModel.forms != null
-                                ? FormsText(content: wordModel.forms!)
-                                : const SizedBox(),
-                            const SizedBox(width: 8),
-                            wordModel.additional != null
-                                ? FormsText(content: wordModel.additional!)
-                                : const SizedBox(),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        ShortTranslationText(
-                          translation: wordModel.translation,
-                        ),
-                      ],
+                            textDirection: TextDirection.rtl,
+                          ),
+                          const SizedBox(width: 8),
+                          wordModel.forms != null
+                              ? FormsText(content: wordModel.forms!)
+                              : const SizedBox(),
+                          const SizedBox(width: 8),
+                          wordModel.additional != null
+                              ? FormsText(content: wordModel.additional!)
+                              : const SizedBox(),
+                        ],
+                      ),
+                      subtitle: Padding(
+                        padding: AppStyles.mardingOnlyTop,
+                        child: ShortTranslationText(translation: wordModel.translation),
+                      ),
                     ),
                   ),
-                  const SizedBox(width: 7),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
                         children: [
                           wordModel.homonymNr != null
                               ? Text(
@@ -119,7 +114,8 @@ class RootWordItem extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     letterSpacing: 0.5,
                                   ),
-                                ) : const SizedBox(),
+                                )
+                              : const SizedBox(),
                         ],
                       ),
                       const SizedBox(height: 4),
@@ -129,6 +125,7 @@ class RootWordItem extends StatelessWidget {
                           fontSize: 22,
                           color: appColors.error,
                           fontFamily: 'Uthmanic',
+                          height: 1,
                         ),
                         textDirection: TextDirection.rtl,
                       ),
@@ -136,58 +133,44 @@ class RootWordItem extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Consumer<FavoriteWordsState>(
                     builder: (BuildContext context, favoriteWordState, _) {
                       return FutureBuilder<bool>(
-                        future: favoriteWordState.fetchIsWordFavorite(wordNumber: wordModel.wordNumber),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            final bool isFavorite = snapshot.data!;
-                            return Row(
-                              children: [
-                                isFavorite ? IconButton(
-                                  visualDensity: VisualDensity.compact,
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.drive_file_move_rounded,
-                                    color: appColors.tertiary,
-                                  ),
-                                ) : const SizedBox(),
-                                IconButton(
-                                  visualDensity: VisualDensity.compact,
-                                  onPressed: () async {
-                                    if (!isFavorite) {
-                                      Navigator.pushNamed(
-                                        context,
-                                        RouteNames.addFavoriteWordPage,
-                                        arguments: WordArgs(
-                                          wordNumber: wordModel.wordNumber,
-                                        ),
-                                      );
-                                    } else {
-                                      await Provider.of<FavoriteWordsState>(context, listen: false).deleteFavoriteWord(
-                                        favoriteWordId: wordModel.wordNumber,
-                                      );
-                                    }
-                                  },
-                                  icon: Icon(
-                                    isFavorite
-                                        ? Icons.bookmark
-                                        : Icons.bookmark_outline_rounded,
-                                    color: appColors.primary,
-                                  ),
+                          future: favoriteWordState.fetchIsWordFavorite(wordNumber: wordModel.wordNumber),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              final bool wordIsFavorite = snapshot.data!;
+                              return IconButton(
+                                visualDensity: VisualDensity.compact,
+                                onPressed: () async {
+                                  if (!wordIsFavorite) {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RouteNames.addFavoriteWordPage,
+                                      arguments: WordArgs(
+                                        wordNumber: wordModel.wordNumber,
+                                      ),
+                                    );
+                                  } else {
+                                    await favoriteWordState.deleteFavoriteWord(
+                                      favoriteWordId: wordModel.wordNumber,
+                                    );
+                                  }
+                                },
+                                icon: Icon(
+                                  wordIsFavorite
+                                      ? Icons.bookmark
+                                      : Icons.bookmark_outline_rounded,
+                                  color: appColors.primary,
                                 ),
-                              ],
-                            );
-                          } else {
-                            return const CircularProgressIndicator();
-                          }
-                        },
-                      );
+                              );
+                            } else {
+                              return const CircularProgressIndicator();
+                            }
+                          });
                     },
                   ),
                   IconButton(
@@ -198,13 +181,11 @@ class RootWordItem extends StatelessWidget {
                         sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
                       );
                     },
-                    icon: Icon(
-                      Icons.ios_share_rounded,
-                      color: appColors.tertiary,
-                    ),
+                    icon: const Icon(Icons.share),
                   ),
                 ],
               ),
+              const SizedBox(height: 4),
             ],
           ),
         ),
