@@ -28,12 +28,11 @@ class CollectionDetailPage extends StatelessWidget {
             forceElevated: true,
             centerTitle: true,
             floating: true,
-            titleSpacing: 0,
             title: Text(collectionModel.title),
             actions: [
               IconButton(
                 onPressed: () {
-                  // Поиск слов с передачай collection id
+                  // Поиск слов по коллекции
                 },
                 icon: const Icon(Icons.search),
               ),
