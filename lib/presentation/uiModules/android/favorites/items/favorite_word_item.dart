@@ -52,7 +52,7 @@ class FavoriteWordItem extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ListTile(
-                      minVerticalPadding: 7,
+                      minVerticalPadding: 4,
                       contentPadding: EdgeInsets.zero,
                       visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
                       title: Row(
@@ -94,11 +94,9 @@ class FavoriteWordItem extends StatelessWidget {
                               fontSize: 18,
                               color: appColors.onSurface,
                             ),
-                          )
-                              : const SizedBox(),
+                          ) : const SizedBox(),
                           const SizedBox(width: 4),
-                          favoriteWordModel.vocalization != null
-                              ? Text(
+                          favoriteWordModel.vocalization != null ? Text(
                             favoriteWordModel.vocalization!,
                             style: const TextStyle(
                               fontSize: 18,
@@ -106,8 +104,7 @@ class FavoriteWordItem extends StatelessWidget {
                             ),
                           ) : const SizedBox(),
                           const SizedBox(width: 4),
-                          favoriteWordModel.form != null
-                              ? Text(
+                          favoriteWordModel.form != null ? Text(
                             favoriteWordModel.form!,
                             style: const TextStyle(
                               fontSize: 18,
