@@ -11,7 +11,6 @@ import '../search/items/root_word_item.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
 import 'items/favorite_detail_word_item.dart';
-import 'lists/change_serializable_favorite_word.dart';
 
 class FavoriteWordDetailPage extends StatelessWidget {
   const FavoriteWordDetailPage({
@@ -37,22 +36,6 @@ class FavoriteWordDetailPage extends StatelessWidget {
                   centerTitle: true,
                   floating: true,
                   title: const Text(AppStrings.word),
-                  actions: [
-                    IconButton(
-                      onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (context) => ChangeSerializableFavoriteWord(
-                            favoriteWordModel: snapshot.data!,
-                          ),
-                        );
-                      },
-                      icon: Icon(
-                        Icons.remove_red_eye,
-                        color: appColors.primary,
-                      ),
-                    ),
-                  ],
                 ),
                 SliverToBoxAdapter(
                   child: Column(

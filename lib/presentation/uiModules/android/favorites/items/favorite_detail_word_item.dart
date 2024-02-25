@@ -1,13 +1,14 @@
-import 'package:arabic/core/routes/route_names.dart';
-import 'package:arabic/domain/entities/args/word_move_args.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../../../core/routes/route_names.dart';
 import '../../../../../core/styles/app_styles.dart';
 import '../../../../../data/state/favorite_words_state.dart';
+import '../../../../../domain/entities/args/word_move_args.dart';
 import '../../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../../widgets/forms_text.dart';
+import '../lists/change_serializable_favorite_word.dart';
 import '../lists/serializable_detail_favorite_word.dart';
 
 class FavoriteDetailWordItem extends StatelessWidget {
@@ -36,7 +37,7 @@ class FavoriteDetailWordItem extends StatelessWidget {
             children: [
               Expanded(
                 child: ListTile(
-                  minVerticalPadding: 7,
+                  minVerticalPadding: 8,
                   contentPadding: EdgeInsets.zero,
                   visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
                   title: Row(
@@ -103,8 +104,7 @@ class FavoriteDetailWordItem extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 0.5,
                               ),
-                            )
-                          : const SizedBox(),
+                            ) : const SizedBox(),
                     ],
                   ),
                   Text(
@@ -121,9 +121,25 @@ class FavoriteDetailWordItem extends StatelessWidget {
               ),
             ],
           ),
+          const Divider(),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              IconButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) => ChangeSerializableFavoriteWord(
+                      favoriteWordModel: favoriteWordModel,
+                    ),
+                  );
+                },
+                icon: Icon(
+                  Icons.remove_red_eye,
+                  color: appColors.tertiary.withOpacity(0.75),
+                  size: 30,
+                ),
+              ),
               IconButton(
                 visualDensity: VisualDensity.compact,
                 onPressed: () {
@@ -138,7 +154,8 @@ class FavoriteDetailWordItem extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.drive_file_move_rounded,
-                  color: appColors.tertiary,
+                  color: appColors.tertiary.withOpacity(0.75),
+                  size: 30,
                 ),
               ),
               IconButton(
@@ -151,7 +168,8 @@ class FavoriteDetailWordItem extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.bookmark,
-                  color: appColors.primary,
+                  color: appColors.tertiary.withOpacity(0.75),
+                  size: 30,
                 ),
               ),
               IconButton(
@@ -162,11 +180,15 @@ class FavoriteDetailWordItem extends StatelessWidget {
                     sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
                   );
                 },
-                icon: const Icon(Icons.share),
+                icon: Icon(
+                  Icons.ios_share_outlined,
+                  color: appColors.tertiary.withOpacity(0.75),
+                  size: 27.5,
+                ),
               ),
             ],
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 8),
         ],
       ),
     );
