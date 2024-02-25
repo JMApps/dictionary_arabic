@@ -7,9 +7,9 @@ import '../../../../data/state/default_dictionary_state.dart';
 import '../../../../data/state/favorite_words_state.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../../../../domain/entities/favorite_dictionary_entity.dart';
-import '../search/items/root_word_item.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
+import '../widgets/main_word_item.dart';
 import 'items/favorite_detail_word_item.dart';
 
 class FavoriteWordDetailPage extends StatelessWidget {
@@ -67,7 +67,7 @@ class FavoriteWordDetailPage extends StatelessWidget {
                               itemCount: wordRootsSnapshot.data!.length,
                               itemBuilder: (BuildContext context, int index) {
                                 final DictionaryEntity wordModel = wordRootsSnapshot.data![index];
-                                return RootWordItem(
+                                return MainWordItem(
                                   wordModel: wordModel,
                                   index: index,
                                 );

@@ -7,11 +7,11 @@ import '../../../../../core/styles/app_styles.dart';
 import '../../../../../data/state/favorite_words_state.dart';
 import '../../../../../domain/entities/args/word_args.dart';
 import '../../../../../domain/entities/dictionary_entity.dart';
-import '../../widgets/forms_text.dart';
-import '../../widgets/short_translation_text.dart';
+import 'forms_text.dart';
+import 'short_translation_text.dart';
 
-class RootWordItem extends StatelessWidget {
-  const RootWordItem({
+class MainWordItem extends StatelessWidget {
+  const MainWordItem({
     super.key,
     required this.wordModel,
     required this.index,
@@ -87,34 +87,34 @@ class RootWordItem extends StatelessWidget {
                         children: [
                           wordModel.homonymNr != null
                               ? Text(
-                                  wordModel.homonymNr.toString(),
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: appColors.onSurface,
-                                  ),
-                                )
+                            wordModel.homonymNr.toString(),
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: appColors.onSurface,
+                            ),
+                          )
                               : const SizedBox(),
                           const SizedBox(width: 4),
                           wordModel.vocalization != null
                               ? Text(
-                                  wordModel.vocalization!,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.grey,
-                                  ),
-                                )
+                            wordModel.vocalization!,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.grey,
+                            ),
+                          )
                               : const SizedBox(),
                           const SizedBox(width: 4),
                           wordModel.form != null
                               ? Text(
-                                  wordModel.form!,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: 'Heuristica',
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 0.5,
-                                  ),
-                                ) : const SizedBox(),
+                            wordModel.form!,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontFamily: 'Heuristica',
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5,
+                            ),
+                          ) : const SizedBox(),
                         ],
                       ),
                       Text(
