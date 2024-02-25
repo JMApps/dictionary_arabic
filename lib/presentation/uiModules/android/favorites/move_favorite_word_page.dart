@@ -71,7 +71,6 @@ class MoveFavoriteWordPage extends StatelessWidget {
                           tileColor: index.isOdd ? itemOddColor : itemEvenColor,
                           onTap: () async {
                             Navigator.pop(context);
-                            Navigator.pop(context);
                             await Provider.of<FavoriteWordsState>(context, listen: false).moveFavoriteWord(
                               wordNumber: wordNumber,
                               oldCollectionId: oldCollectionId,
