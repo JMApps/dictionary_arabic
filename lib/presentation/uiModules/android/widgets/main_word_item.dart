@@ -30,7 +30,7 @@ class MainWordItem extends StatelessWidget {
       child: InkWell(
         borderRadius: AppStyles.mainBorderMini,
         onTap: () {
-          Navigator.pushReplacementNamed(
+          Navigator.pushNamed(
             context,
             RouteNames.wordDetailPage,
             arguments: WordArgs(wordNumber: wordModel.wordNumber),
