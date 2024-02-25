@@ -19,22 +19,28 @@ class SearchValuesList extends StatelessWidget {
         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
           return Column(
             children: [
-              snapshot.data!.length > 5 ? const SizedBox(height: 7) : const SizedBox(),
-              snapshot.data!.length > 5 ?  ListTile(
-                tileColor: appColors.onSecondaryContainer.withOpacity(0.25),
-                contentPadding: AppStyles.mardingSymmetricHor,
-                visualDensity: const VisualDensity(vertical: -4),
-                onTap: () async {
-                  await Provider.of<SearchValuesState>(context, listen: false).fetchDeleteAllSearchValues();
-                },
-                title: const Text(
-                  AppStrings.recent,
-                  style: TextStyle(
-                    fontFamily: 'SF Pro',
-                  ),
-                ),
-                trailing: const Icon(Icons.clear),
-              )  : const SizedBox(),
+              snapshot.data!.length > 5
+                  ? ListTile(
+                      tileColor: appColors.inversePrimary.withOpacity(0.75),
+                      contentPadding: AppStyles.mardingSymmetricHor,
+                      visualDensity: const VisualDensity(vertical: -4),
+                      onTap: () async {
+                        await Provider.of<SearchValuesState>(context, listen: false).fetchDeleteAllSearchValues();
+                      },
+                      title: const Text(
+                        AppStrings.recent,
+                        style: TextStyle(
+                          fontFamily: 'SF Pro',
+                        ),
+                      ),
+                      trailing: const Text(
+                        AppStrings.clear,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
               Expanded(
                 child: Scrollbar(
                   child: ListView.builder(

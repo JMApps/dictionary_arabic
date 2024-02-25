@@ -25,8 +25,9 @@ class FavoriteWordItem extends StatelessWidget {
     final ColorScheme appColors = Theme.of(context).colorScheme;
     final Color itemOddColor = appColors.primary.withOpacity(0.05);
     final Color itemEvenColor = appColors.primary.withOpacity(0.10);
+    List<String> translationLines = favoriteWordModel.translation.split('\\n');
     return Container(
-      margin: AppStyles.mardingWithoutBottomMini,
+      margin: AppStyles.mardingWithoutBottom,
       child: InkWell(
         borderRadius: AppStyles.mainBorderMini,
         onTap: () {
@@ -42,95 +43,112 @@ class FavoriteWordItem extends StatelessWidget {
             color: index.isOdd ? itemOddColor : itemEvenColor,
             borderRadius: AppStyles.mainBorderMini,
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          favoriteWordModel.arabicWord,
-                          style: const TextStyle(
-                            fontSize: 35,
-                            fontFamily: 'Uthmanic',
-                          ),
-                          textDirection: TextDirection.rtl,
-                        ),
-                        const SizedBox(width: 8),
-                        favoriteWordModel.forms != null
-                            ? FormsText(content: favoriteWordModel.forms!)
-                            : const SizedBox(),
-                        const SizedBox(width: 8),
-                        favoriteWordModel.additional != null
-                            ? FormsText(content: favoriteWordModel.additional!)
-                            : const SizedBox(),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    ShortTranslationText(
-                      translation: favoriteWordModel.translation,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 7),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              favoriteWordModel.arabicWord,
+                              style: const TextStyle(
+                                fontSize: 35,
+                                fontFamily: 'Uthmanic',
+                              ),
+                              textDirection: TextDirection.rtl,
+                            ),
+                            const SizedBox(width: 8),
+                            favoriteWordModel.forms != null
+                                ? FormsText(content: favoriteWordModel.forms!)
+                                : const SizedBox(),
+                            const SizedBox(width: 8),
+                            favoriteWordModel.additional != null
+                                ? FormsText(content: favoriteWordModel.additional!)
+                                : const SizedBox(),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        ShortTranslationText(translation: favoriteWordModel.serializableIndex == -1 ? favoriteWordModel.translation : translationLines[favoriteWordModel.serializableIndex]),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 7),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      favoriteWordModel.homonymNr != null
-                          ? Text(
-                              favoriteWordModel.homonymNr.toString(),
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: appColors.onSurface,
-                              ),
-                            )
-                          : const SizedBox(),
-                      const SizedBox(width: 4),
-                      favoriteWordModel.vocalization != null
-                          ? Text(
-                              favoriteWordModel.vocalization!,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.grey,
-                              ),
-                            )
-                          : const SizedBox(),
-                      const SizedBox(width: 4),
-                      favoriteWordModel.form != null
-                          ? Text(
-                              favoriteWordModel.form!,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontFamily: 'Heuristica',
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 0.5,
-                              ),
-                            )
-                          : const SizedBox(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          favoriteWordModel.homonymNr != null
+                              ? Text(
+                                  favoriteWordModel.homonymNr.toString(),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: appColors.onSurface,
+                                  ),
+                                )
+                              : const SizedBox(),
+                          const SizedBox(width: 4),
+                          favoriteWordModel.vocalization != null
+                              ? Text(
+                                  favoriteWordModel.vocalization!,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.grey,
+                                  ),
+                                )
+                              : const SizedBox(),
+                          const SizedBox(width: 4),
+                          favoriteWordModel.form != null
+                              ? Text(
+                                  favoriteWordModel.form!,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'Heuristica',
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 0.5,
+                                  ),
+                                )
+                              : const SizedBox(),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        favoriteWordModel.root,
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: appColors.error,
+                          fontFamily: 'Uthmanic',
+                        ),
+                        textDirection: TextDirection.rtl,
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    favoriteWordModel.root,
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: appColors.error,
-                      fontFamily: 'Uthmanic',
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  IconButton(
+                    visualDensity: VisualDensity.compact,
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.drive_file_move_rounded,
+                      color: appColors.tertiary,
                     ),
-                    textDirection: TextDirection.rtl,
                   ),
-                  const SizedBox(height: 4),
                   IconButton(
                     visualDensity: VisualDensity.compact,
                     onPressed: () async {
@@ -145,14 +163,6 @@ class FavoriteWordItem extends StatelessWidget {
                   ),
                   IconButton(
                     visualDensity: VisualDensity.compact,
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.drive_file_move_rounded,
-                      color: appColors.tertiary,
-                    ),
-                  ),
-                  IconButton(
-                    visualDensity: VisualDensity.compact,
                     onPressed: () {
                       Share.share(
                         favoriteWordModel.wordContent(),
@@ -160,7 +170,7 @@ class FavoriteWordItem extends StatelessWidget {
                       );
                     },
                     icon: Icon(
-                      Icons.ios_share_rounded,
+                      Icons.ios_share_outlined,
                       color: appColors.tertiary,
                     ),
                   ),

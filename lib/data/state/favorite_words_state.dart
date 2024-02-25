@@ -38,8 +38,8 @@ class FavoriteWordsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> deleteFavoriteWord({required int favoriteWordId, required int collectionId}) async {
-    await _useCase.fetchDeleteFavoriteWord(favoriteWordId: favoriteWordId, collectionId: collectionId);
+  Future<void> deleteFavoriteWord({required int favoriteWordId}) async {
+    await _useCase.fetchDeleteFavoriteWord(favoriteWordId: favoriteWordId);
     notifyListeners();
   }
 }

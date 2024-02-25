@@ -139,7 +139,7 @@ class WordItem extends StatelessWidget {
                                   if (isFavorite) {
                                     Navigator.pushNamed(
                                         context,
-                                        RouteNames.wordFavoriteDetailPage,
+                                        RouteNames.wordDetailPage,
                                         arguments: WordArgs(wordNumber: model.wordNumber)
                                     );
                                   } else {

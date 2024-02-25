@@ -81,7 +81,15 @@ class CollectionsDataRepository implements CollectionsRepository {
   Future<int> getWordCount({required int collectionId}) async {
     final Database database = await _collectionsService.db;
     final wordsCountMaps = await database.query(_collectionsTableName, where: 'id = ?', whereArgs: [collectionId], columns: ['words_count']);
+    _getWordsCount(collectionId);
     return wordsCountMaps.first['words_count'] as int;
+  }
+
+  Future<void> _getWordsCount(int collectionId) async {
+    final Database database = await _collectionsService.db;
+    var result = await database.rawQuery('''SELECT COUNT(*) AS cnt FROM $_favoriteWordsTableName WHERE collection_id = $collectionId''');
+    int wordsCount = result.first['cnt'] as int;
+    await database.update('Table_of_collections', {'words_count': wordsCount}, where: 'id = ?', whereArgs: [collectionId]);
   }
 
   // Mapping to entity

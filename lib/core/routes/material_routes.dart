@@ -1,3 +1,4 @@
+import 'package:arabic/presentation/uiModules/android/favorites/favorite_word_detail_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/args/collection_args.dart';
@@ -18,6 +19,11 @@ class MaterialRoutes {
         return MaterialPageRoute(
           builder: (_) => const SearchWordsPage(),
         );
+      case RouteNames.wordDetailPage:
+        final WordArgs wordArgs = routeSettings.arguments as WordArgs;
+        return MaterialPageRoute(
+          builder: (_) => WordDetailPage(wordNumber: wordArgs.wordNumber),
+        );
       case RouteNames.addFavoriteWordPage:
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return MaterialPageRoute(
@@ -31,21 +37,22 @@ class MaterialRoutes {
             serializableIndex: favoriteCollectionArgs.serializableIndex,
           ),
         );
-      case RouteNames.wordDetailPage:
-        final WordArgs wordArgs = routeSettings.arguments as WordArgs;
-        return MaterialPageRoute(
-          builder: (_) => WordDetailPage(wordNumber: wordArgs.wordNumber),
-        );
       case RouteNames.allCollectionsPage:
         return MaterialPageRoute(
           builder: (_) => const AllCollectionsPage(),
         );
       case RouteNames.collectionDetailPage:
-        final CollectionArgs collectionArgs =
-            routeSettings.arguments as CollectionArgs;
+        final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
         return MaterialPageRoute(
           builder: (_) => CollectionDetailPage(
             collectionModel: collectionArgs.collectionModel,
+          ),
+        );
+      case RouteNames.wordFavoriteDetailPage:
+        final WordArgs wordArgs = routeSettings.arguments as WordArgs;
+        return MaterialPageRoute(
+          builder: (_) => FavoriteWordDetailPage(
+            wordNumber: wordArgs.wordNumber,
           ),
         );
       default:

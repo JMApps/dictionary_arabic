@@ -48,6 +48,7 @@ class AppStrings {
   static const String createCollectionsWithWords = 'Создавайте коллекции для нужных вам слов';
   static const String word = 'Слово';
   static const String close = 'Закрыть';
+  static const String clear = 'очистить';
   static const String recent = 'Недавние';
   static const String rootIsEmpty = 'Однокоренных слов нет';
   static const String selectCollection = 'Выберите коллекцию';

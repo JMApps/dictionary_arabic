@@ -72,7 +72,6 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
     );
 
     await database.insert(_favoriteWordsTableName, favoriteWordModel.toMap(), conflictAlgorithm: sql.ConflictAlgorithm.replace);
-    await _getWordsCount(model.collectionId);
   }
 
   @override
@@ -81,7 +80,7 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
     final Map<String, int> serializableMap = {
       'serializable_index': serializableIndex,
     };
-    await database.update(_favoriteWordsTableName, serializableMap, where: 'id = ?', whereArgs: [wordId], conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    await database.update(_favoriteWordsTableName, serializableMap, where: 'word_number = ?', whereArgs: [wordId], conflictAlgorithm: sql.ConflictAlgorithm.replace);
   }
 
   @override
@@ -91,22 +90,12 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
       'collection_id': collectionId,
     };
     await database.update(_favoriteWordsTableName, toCollectionMap, where: 'word_number = ?', whereArgs: [wordNr], conflictAlgorithm: sql.ConflictAlgorithm.replace);
-    await _getWordsCount(oldCollectionId);
-    await _getWordsCount(collectionId);
   }
 
   @override
-  Future<void> deleteFavoriteWord({required int favoriteWordId, required int collectionId}) async {
+  Future<void> deleteFavoriteWord({required int favoriteWordId}) async {
     final Database database = await _collectionsService.db;
-    await database.delete(_favoriteWordsTableName, where: 'id = ?', whereArgs: [favoriteWordId]);
-    await _getWordsCount(collectionId);
-  }
-
-  Future<void> _getWordsCount(int collectionId) async {
-    final Database database = await _collectionsService.db;
-    var result = await database.rawQuery('''SELECT COUNT(*) AS cnt FROM Table_of_favorite_words WHERE collection_id = $collectionId''');
-    int wordsCount = result.first['cnt'] as int;
-    await database.update('Table_of_collections', {'words_count': wordsCount}, where: 'id = ?', whereArgs: [collectionId]);
+    await database.delete(_favoriteWordsTableName, where: 'word_number = ?', whereArgs: [favoriteWordId]);
   }
 
   // Mapping to entity

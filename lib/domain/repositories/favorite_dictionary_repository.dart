@@ -15,5 +15,5 @@ abstract class FavoriteDictionaryRepository {
 
   Future<void> moveFavoriteWord({required int wordNr, required int oldCollectionId, required int collectionId});
 
-  Future<void> deleteFavoriteWord({required int favoriteWordId, required int collectionId});
+  Future<void> deleteFavoriteWord({required int favoriteWordId});
 }
