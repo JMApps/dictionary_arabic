@@ -56,6 +56,17 @@ class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
                     color: appColors.primary,
                   ),
                 ),
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
+                  icon: Icon(
+                    Icons.exit_to_app,
+                    color: appColors.primary,
+                  ),
+                ),
               ],
             ),
             body: FutureBuilder<List<FavoriteDictionaryEntity>>(
