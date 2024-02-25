@@ -1,4 +1,5 @@
-import 'package:arabic/presentation/uiModules/android/favorites/favorite_word_detail_page.dart';
+import 'package:arabic/domain/entities/args/word_move_args.dart';
+import 'package:arabic/presentation/uiModules/android/favorites/move_favorite_word_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/args/collection_args.dart';
@@ -7,6 +8,7 @@ import '../../domain/entities/args/word_favorite_collection_args.dart';
 import '../../presentation/uiModules/android/collections/all_collections_page.dart';
 import '../../presentation/uiModules/android/favorites/collection_detail_page.dart';
 import '../../presentation/uiModules/android/favorites/add_favorite_word_page.dart';
+import '../../presentation/uiModules/android/favorites/favorite_word_detail_page.dart';
 import '../../presentation/uiModules/android/favorites/favorite_word_select_collection.dart';
 import '../../presentation/uiModules/android/search/search_words_page.dart';
 import '../../presentation/uiModules/android/search/word_detail_page.dart';
@@ -53,6 +55,14 @@ class MaterialRoutes {
         return MaterialPageRoute(
           builder: (_) => FavoriteWordDetailPage(
             wordNumber: wordArgs.wordNumber,
+          ),
+        );
+      case RouteNames.moveFavoriteWordPage:
+        final WordMoveArgs wordMoveArgs = routeSettings.arguments as WordMoveArgs;
+        return MaterialPageRoute(
+          builder: (_) => MoveFavoriteWordPage(
+            wordNumber: wordMoveArgs.wordNumber,
+            oldCollectionId: wordMoveArgs.oldCollectionId,
           ),
         );
       default:

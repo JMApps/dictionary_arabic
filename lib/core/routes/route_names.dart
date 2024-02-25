@@ -13,4 +13,5 @@ class RouteNames {
   static const String cardsModeDetailPage = '/cards_mode_detail_page';
   static const String allCollectionsPage = '/all_collections_page';
   static const String collectionDetailPage = '/collection_detail_page';
+  static const String moveFavoriteWordPage = '/move_favorite_word_page';
 }
