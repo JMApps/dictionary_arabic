@@ -28,8 +28,8 @@ class FavoriteWordsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> changeFavoriteWord({required int wordId, required int serializableIndex}) async {
-    await _useCase.fetchChangeFavoriteWord(wordId: wordId, serializableIndex: serializableIndex);
+  Future<void> changeFavoriteWord({required int favoriteWordId, required int serializableIndex}) async {
+    await _useCase.fetchChangeFavoriteWord(wordId: favoriteWordId, serializableIndex: serializableIndex);
     notifyListeners();
   }
 

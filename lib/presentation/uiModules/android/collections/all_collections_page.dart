@@ -1,8 +1,8 @@
-import 'package:arabic/core/styles/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/strings/app_strings.dart';
+import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/collections_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
 import '../widgets/data_text.dart';
@@ -11,21 +11,8 @@ import 'dialogs/add_collection_dialog.dart';
 import 'items/collection_item.dart';
 import 'search_collection_delegate.dart';
 
-class AllCollectionsPage extends StatefulWidget {
+class AllCollectionsPage extends StatelessWidget {
   const AllCollectionsPage({super.key});
-
-  @override
-  State<AllCollectionsPage> createState() => _AllCollectionsPageState();
-}
-
-class _AllCollectionsPageState extends State<AllCollectionsPage> {
-  final TextEditingController _collectionsController = TextEditingController();
-
-  @override
-  void dispose() {
-    _collectionsController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
