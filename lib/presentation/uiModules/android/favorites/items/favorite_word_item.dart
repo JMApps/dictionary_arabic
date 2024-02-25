@@ -78,7 +78,11 @@ class FavoriteWordItem extends StatelessWidget {
                       ),
                       subtitle: Padding(
                         padding: AppStyles.mardingOnlyTop,
-                        child: ShortTranslationText(translation: favoriteWordModel.serializableIndex == -1 ? favoriteWordModel.translation : splitTranslationText[favoriteWordModel.serializableIndex]),
+                        child: ShortTranslationText(
+                          translation: favoriteWordModel.serializableIndex == -1
+                              ? favoriteWordModel.translation
+                              : splitTranslationText[favoriteWordModel.serializableIndex],
+                        ),
                       ),
                     ),
                   ),
@@ -89,30 +93,34 @@ class FavoriteWordItem extends StatelessWidget {
                         children: [
                           favoriteWordModel.homonymNr != null
                               ? Text(
-                            favoriteWordModel.homonymNr.toString(),
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: appColors.onSurface,
-                            ),
-                          ) : const SizedBox(),
+                                  favoriteWordModel.homonymNr.toString(),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: appColors.onSurface,
+                                  ),
+                                )
+                              : const SizedBox(),
                           const SizedBox(width: 4),
-                          favoriteWordModel.vocalization != null ? Text(
-                            favoriteWordModel.vocalization!,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.grey,
-                            ),
-                          ) : const SizedBox(),
+                          favoriteWordModel.vocalization != null
+                              ? Text(
+                                  favoriteWordModel.vocalization!,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.grey,
+                                  ),
+                                )
+                              : const SizedBox(),
                           const SizedBox(width: 4),
-                          favoriteWordModel.form != null ? Text(
-                            favoriteWordModel.form!,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'Heuristica',
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 0.5,
-                            ),
-                          ) : const SizedBox(),
+                          favoriteWordModel.form != null
+                              ? Text(
+                                  favoriteWordModel.form!,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'Heuristica',
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ) : const SizedBox(),
                         ],
                       ),
                       const SizedBox(height: 4),
@@ -153,14 +161,13 @@ class FavoriteWordItem extends StatelessWidget {
                   IconButton(
                     visualDensity: VisualDensity.compact,
                     onPressed: () async {
-                      Navigator.pop(context);
                       await Provider.of<FavoriteWordsState>(context, listen: false).deleteFavoriteWord(
                         favoriteWordId: favoriteWordModel.wordNumber,
                       );
                     },
                     icon: Icon(
                       Icons.bookmark,
-                      color: appColors.primary.withOpacity(0.75),
+                      color: appColors.tertiary.withOpacity(0.75),
                     ),
                   ),
                   IconButton(
@@ -171,7 +178,10 @@ class FavoriteWordItem extends StatelessWidget {
                         sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
                       );
                     },
-                    icon: const Icon(Icons.share),
+                    icon: Icon(
+                      Icons.ios_share_outlined,
+                      color: appColors.tertiary.withOpacity(0.75),
+                    ),
                   ),
                 ],
               ),
