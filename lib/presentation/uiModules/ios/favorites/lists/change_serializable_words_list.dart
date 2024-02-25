@@ -39,7 +39,7 @@ class ChangeSerializableWordsList extends StatelessWidget {
                     if (favoriteWordModel.serializableIndex != index) {
                       Navigator.of(context).pop();
                       await Provider.of<FavoriteWordsState>(context, listen: false).changeFavoriteWord(
-                        wordId: favoriteWordModel.id,
+                        favoriteWordId: favoriteWordModel.id,
                         serializableIndex: index,
                       );
                     } else {
