@@ -33,8 +33,7 @@ class SearchCollectionDelegate extends SearchDelegate {
                 icon: AnimatedIcons.menu_close,
                 progress: transitionAnimation,
               ),
-            )
-          : const SizedBox(),
+            ) : const SizedBox(),
     ];
   }
 

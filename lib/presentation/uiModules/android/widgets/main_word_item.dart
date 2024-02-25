@@ -1,3 +1,4 @@
+import 'package:arabic/data/state/search_query_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -50,7 +51,7 @@ class MainWordItem extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ListTile(
-                      minVerticalPadding: 0,
+                      minVerticalPadding: 4,
                       contentPadding: EdgeInsets.zero,
                       visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
                       title: Row(
@@ -139,6 +140,7 @@ class MainWordItem extends StatelessWidget {
                                   visualDensity: VisualDensity.compact,
                                   onPressed: () async {
                                     if (!wordIsFavorite) {
+                                      Provider.of<SearchQueryState>(context, listen: false).setQuery = '';
                                       Navigator.pushNamed(
                                         context,
                                         RouteNames.addFavoriteWordPage,

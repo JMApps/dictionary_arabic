@@ -22,6 +22,7 @@ class AllCollectionsPage extends StatelessWidget {
         slivers: [
           SliverAppBar(
             backgroundColor: appColors.inversePrimary,
+            forceElevated: true,
             centerTitle: true,
             floating: true,
             title: const Text(AppStrings.allCollections),
