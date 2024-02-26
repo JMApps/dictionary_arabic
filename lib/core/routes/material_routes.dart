@@ -7,6 +7,8 @@ import '../../domain/entities/args/word_move_args.dart';
 import '../../presentation/uiModules/android/cards/card_mode_page.dart';
 import '../../presentation/uiModules/android/cards/cards_mode_detail_page.dart';
 import '../../presentation/uiModules/android/collections/all_collections_page.dart';
+import '../../presentation/uiModules/android/constructor/word_constructor_detail_page.dart';
+import '../../presentation/uiModules/android/constructor/word_constructor_page.dart';
 import '../../presentation/uiModules/android/favorites/collection_detail_page.dart';
 import '../../presentation/uiModules/android/favorites/add_favorite_word_page.dart';
 import '../../presentation/uiModules/android/favorites/favorite_word_detail_page.dart';
@@ -80,6 +82,15 @@ class MaterialRoutes {
         final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
         return MaterialPageRoute(
           builder: (_) => CardsModeDetailPage(collectionModel: collectionArgs.collectionModel),
+        );
+      case RouteNames.wordConstructorPage:
+        return MaterialPageRoute(
+          builder: (_) => const WordConstructorPage(),
+        );
+      case RouteNames.wordConstructorDetailPage:
+        final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
+        return MaterialPageRoute(
+          builder: (_) => WordConstructorDetailPage(collectionModel: collectionArgs.collectionModel),
         );
       default:
         throw Exception('Invalid route ${routeSettings.name}');
