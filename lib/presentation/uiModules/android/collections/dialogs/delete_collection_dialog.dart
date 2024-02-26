@@ -14,6 +14,7 @@ class DeleteCollectionDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme appColors = Theme.of(context).colorScheme;
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.center,
       title: const Text(
@@ -26,9 +27,7 @@ class DeleteCollectionDialog extends StatelessWidget {
       ),
       content: const Text(
         AppStrings.deleteCollectionQuestion,
-        style: TextStyle(
-          fontSize: 18,
-        ),
+        style: TextStyle(fontSize: 18),
         textAlign: TextAlign.center,
       ),
       actions: [
@@ -37,11 +36,11 @@ class DeleteCollectionDialog extends StatelessWidget {
             Navigator.pop(context);
             Provider.of<CollectionsState>(context, listen: false).deleteCollection(collectionId: collectionId);
           },
-          child: const Text(
+          child: Text(
             AppStrings.delete,
             style: TextStyle(
               fontSize: 18,
-              color: Colors.red,
+              color: appColors.error,
             ),
           ),
         ),
@@ -49,10 +48,11 @@ class DeleteCollectionDialog extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text(
+          child: Text(
             AppStrings.cancel,
             style: TextStyle(
               fontSize: 18,
+              color: appColors.primary
             ),
           ),
         ),

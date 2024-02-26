@@ -15,7 +15,7 @@ class CollectionColorCircleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AddChangeCollectionState>(
-      builder: (BuildContext context, AddChangeCollectionState colorState, _) {
+      builder: (BuildContext context, colorState, _) {
         return GestureDetector(
           onTap: () {
             colorState.setColorIndex = buttonIndex;
@@ -25,7 +25,7 @@ class CollectionColorCircleButton extends StatelessWidget {
                 ? Icons.check_circle_rounded
                 : Icons.circle,
             color: AppStyles.collectionColors[buttonIndex],
-            size: 75,
+            size: 55,
           ),
         );
       },

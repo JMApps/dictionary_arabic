@@ -37,6 +37,7 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme appColors = Theme.of(context).colorScheme;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -120,11 +121,9 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
                     }
                   }
                 },
-                child: const Text(
+                child: Text(
                   AppStrings.change,
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
+                  style: TextStyle(fontSize: 18, color: appColors.primary),
                 ),
               );
             },
@@ -133,11 +132,11 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text(
+            child: Text(
               AppStrings.cancel,
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.red,
+                color: appColors.error,
               ),
             ),
           ),

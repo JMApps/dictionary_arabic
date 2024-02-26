@@ -44,7 +44,7 @@ class SearchCollectionDelegate extends SearchDelegate {
         close(context, null);
       },
       icon: const Padding(
-        padding: AppStyles.mardingOnlyLeftMini,
+        padding: AppStyles.mardingOnlyLeft,
         child: Icon(
           Icons.arrow_back_ios,
         ),

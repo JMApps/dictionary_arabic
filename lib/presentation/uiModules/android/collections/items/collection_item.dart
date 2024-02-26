@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../../../../../core/routes/route_names.dart';
 import '../../../../../core/styles/app_styles.dart';
 import '../../../../../data/state/collections_state.dart';
-import '../../../../../data/state/favorite_words_state.dart';
 import '../../../../../domain/entities/args/collection_args.dart';
 import '../../../../../domain/entities/collection_entity.dart';
 import '../widget/collection_options.dart';
@@ -56,25 +55,19 @@ class CollectionItem extends StatelessWidget {
           Icons.folder,
           color: AppStyles.collectionColors[collectionModel.color],
         ),
-        trailing: Consumer<FavoriteWordsState>(
-          builder: (BuildContext context, _, __) {
-            return FutureBuilder<int>(
-              future: Provider.of<CollectionsState>(context, listen: false).getWordCount(collectionId: collectionModel.id),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Text(
-                    snapshot.data.toString(),
-                    style: const TextStyle(
-                      fontSize: 18,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  );
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              },
-            );
+        trailing: FutureBuilder<int>(
+          future: Provider.of<CollectionsState>(context).getWordCount(collectionId: collectionModel.id),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Text(
+                snapshot.data.toString(),
+                style: const TextStyle(fontSize: 18),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              );
+            } else {
+              return const CircularProgressIndicator();
+            }
           },
         ),
       ),

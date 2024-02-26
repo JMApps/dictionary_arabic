@@ -9,6 +9,7 @@ class DeleteAllCollectionsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme appColors = Theme.of(context).colorScheme;
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.center,
       title: const Text(
@@ -21,9 +22,7 @@ class DeleteAllCollectionsDialog extends StatelessWidget {
       ),
       content: const Text(
         AppStrings.deleteAllCollectionsQuestion,
-        style: TextStyle(
-          fontSize: 18,
-        ),
+        style: TextStyle(fontSize: 18),
         textAlign: TextAlign.center,
       ),
       actions: [
@@ -32,11 +31,11 @@ class DeleteAllCollectionsDialog extends StatelessWidget {
             Navigator.pop(context);
             Provider.of<CollectionsState>(context, listen: false).deleteAllCollections();
           },
-          child: const Text(
+          child: Text(
             AppStrings.delete,
             style: TextStyle(
               fontSize: 18,
-              color: Colors.red,
+              color: appColors.error,
             ),
           ),
         ),
@@ -44,10 +43,11 @@ class DeleteAllCollectionsDialog extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text(
+          child: Text(
             AppStrings.cancel,
             style: TextStyle(
               fontSize: 18,
+              color: appColors.primary,
             ),
           ),
         ),

@@ -94,6 +94,7 @@ class _MainMaterialPageState extends State<MainMaterialPage> {
               builder: (BuildContext context, matchState, _) {
                 return ListTile(
                   visualDensity: const VisualDensity(vertical: -4),
+                  enableFeedback: true,
                   contentPadding: AppStyles.matchMarding,
                   title: const Text(
                     AppStrings.exactMatch,
