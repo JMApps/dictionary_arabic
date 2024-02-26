@@ -17,6 +17,7 @@ class CardModeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme appColors = Theme.of(context).colorScheme;
     final List<String> translationLines = favoriteWordModel.translation.split('\\n');
     return SafeArea(
       bottom: false,
@@ -29,8 +30,9 @@ class CardModeItem extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   favoriteWordModel.arabicWord,
-                  style: const TextStyle(
-                    fontSize: 40,
+                  style: TextStyle(
+                    fontSize: 50,
+                    color: appColors.primary,
                     fontFamily: 'Uthmanic',
                   ),
                 ),
@@ -41,8 +43,7 @@ class CardModeItem extends StatelessWidget {
                   child: SingleChildScrollView(
                     padding: AppStyles.mainMarding,
                     child: favoriteWordModel.serializableIndex != -1
-                        ? FlipTranslationText(
-                            translation: translationLines[favoriteWordModel.serializableIndex])
+                        ? FlipTranslationText(translation: translationLines[favoriteWordModel.serializableIndex])
                         : FlipTranslationText(translation: favoriteWordModel.translation),
                   ),
                 ),
@@ -64,8 +65,9 @@ class CardModeItem extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   favoriteWordModel.arabicWord,
-                  style: const TextStyle(
-                    fontSize: 40,
+                  style: TextStyle(
+                    fontSize: 60,
+                    color: appColors.primary,
                     fontFamily: 'Uthmanic',
                   ),
                 ),

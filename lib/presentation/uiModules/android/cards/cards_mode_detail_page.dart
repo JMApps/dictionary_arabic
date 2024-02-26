@@ -1,3 +1,4 @@
+import 'package:arabic/core/styles/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -70,8 +71,7 @@ class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
               ],
             ),
             body: FutureBuilder<List<FavoriteDictionaryEntity>>(
-              future: Provider.of<FavoriteWordsState>(context, listen: false)
-                  .fetchFavoriteWordsByCollectionId(
+              future: Provider.of<FavoriteWordsState>(context, listen: false).fetchFavoriteWordsByCollectionId(
                 collectionId: widget.collectionModel.id,
               ),
               builder: (context, snapshot) {
@@ -84,54 +84,55 @@ class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
                           controller: _cardPageController,
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
-                            final FavoriteDictionaryEntity favoriteWordModel =
-                                snapshot.data![index];
-                            return CardModeItem(
-                                favoriteWordModel: favoriteWordModel);
+                            final FavoriteDictionaryEntity favoriteWordModel = snapshot.data![index];
+                            return CardModeItem(favoriteWordModel: favoriteWordModel);
                           },
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              _cardPageController.previousPage(
-                                duration: const Duration(milliseconds: 350),
-                                curve: Curves.easeInToLinear,
-                              );
-                            },
-                            icon: Icon(
-                              Icons.arrow_circle_left_outlined,
-                              size: 50,
-                              color: appColors.inversePrimary,
+                      Padding(
+                        padding: AppStyles.mardingSymmetricHor,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                _cardPageController.previousPage(
+                                  duration: const Duration(milliseconds: 350),
+                                  curve: Curves.easeInToLinear,
+                                );
+                              },
+                              icon: Icon(
+                                Icons.arrow_circle_left_outlined,
+                                size: 50,
+                                color: appColors.inversePrimary,
+                              ),
                             ),
-                          ),
-                          SmoothPageIndicator(
-                            controller: _cardPageController,
-                            count: snapshot.data!.length,
-                            effect: ScrollingDotsEffect(
-                              maxVisibleDots: 5,
-                              dotColor: appColors.primary.withOpacity(0.25),
-                              activeDotColor: appColors.primary,
-                              dotWidth: 10,
-                              dotHeight: 10,
+                            SmoothPageIndicator(
+                              controller: _cardPageController,
+                              count: snapshot.data!.length,
+                              effect: ScrollingDotsEffect(
+                                maxVisibleDots: 5,
+                                dotColor: appColors.primary.withOpacity(0.25),
+                                activeDotColor: appColors.primary,
+                                dotWidth: 10,
+                                dotHeight: 10,
+                              ),
                             ),
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.arrow_circle_right_outlined,
-                              size: 50,
-                              color: appColors.inversePrimary,
+                            IconButton(
+                              icon: Icon(
+                                Icons.arrow_circle_right_outlined,
+                                size: 50,
+                                color: appColors.inversePrimary,
+                              ),
+                              onPressed: () {
+                                _cardPageController.nextPage(
+                                  duration: const Duration(milliseconds: 350),
+                                  curve: Curves.easeInToLinear,
+                                );
+                              },
                             ),
-                            onPressed: () {
-                              _cardPageController.nextPage(
-                                duration: const Duration(milliseconds: 350),
-                                curve: Curves.easeInToLinear,
-                              );
-                            },
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       const SizedBox(height: 14),
                     ],

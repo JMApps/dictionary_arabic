@@ -22,7 +22,7 @@ class CollectionItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
     final Color itemOddColor = appColors.primary.withOpacity(0.05);
-    final Color itemEvenColor = appColors.primary.withOpacity(0.10);
+    final Color itemEvenColor = appColors.primary.withOpacity(0.15);
     return Container(
       margin: AppStyles.mardingOnlyBottom,
       child: ListTile(
