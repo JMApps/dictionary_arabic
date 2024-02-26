@@ -32,7 +32,7 @@ class _SearchCollectionMoveFutureState extends State<SearchCollectionMoveFuture>
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
     final Color itemOddColor = appColors.primary.withOpacity(0.05);
-    final Color itemEvenColor = appColors.primary.withOpacity(0.10);
+    final Color itemEvenColor = appColors.primary.withOpacity(0.15);
     return FutureBuilder<List<CollectionEntity>>(
       future: Provider.of<CollectionsState>(context).fetchAllButOneCollections(collectionId: widget.oldCollectionId),
       builder: (BuildContext context, AsyncSnapshot snapshot) {

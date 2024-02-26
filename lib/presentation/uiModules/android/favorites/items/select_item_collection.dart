@@ -7,9 +7,8 @@ import '../../../../../data/state/favorite_words_state.dart';
 import '../../../../../domain/entities/collection_entity.dart';
 import '../../../../../domain/entities/dictionary_entity.dart';
 import '../../../../../domain/entities/favorite_dictionary_entity.dart';
-import '../../collections/widget/collection_options.dart';
 
-class SelectItemCollection extends StatelessWidget{
+class SelectItemCollection extends StatelessWidget {
   const SelectItemCollection({
     super.key,
     required this.wordModel,
@@ -57,12 +56,6 @@ class SelectItemCollection extends StatelessWidget{
           );
           await Provider.of<FavoriteWordsState>(context, listen: false).addFavoriteWord(model: favoriteWordModel);
         },
-        onLongPress: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (context) => CollectionOptions(collectionModel: collectionModel),
-          );
-        },
         title: Text(
           collectionModel.title,
           style: const TextStyle(
@@ -81,9 +74,7 @@ class SelectItemCollection extends StatelessWidget{
             if (snapshot.hasData) {
               return Text(
                 snapshot.data.toString(),
-                style: const TextStyle(
-                  fontSize: 18,
-                ),
+                style: const TextStyle(fontSize: 18),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               );

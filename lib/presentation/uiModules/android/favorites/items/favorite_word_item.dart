@@ -26,7 +26,7 @@ class FavoriteWordItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
     final Color itemOddColor = appColors.primary.withOpacity(0.05);
-    final Color itemEvenColor = appColors.primary.withOpacity(0.10);
+    final Color itemEvenColor = appColors.primary.withOpacity(0.15);
     List<String> splitTranslationText = favoriteWordModel.translation.split('\\n');
     return Container(
       margin: AppStyles.mardingWithoutBottom,
@@ -99,15 +99,14 @@ class FavoriteWordItem extends StatelessWidget {
                                     fontSize: 18,
                                     color: appColors.onSurface,
                                   ),
-                                )
-                              : const SizedBox(),
+                                ) : const SizedBox(),
                           const SizedBox(width: 4),
                           favoriteWordModel.vocalization != null
                               ? Text(
                                   favoriteWordModel.vocalization!,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 18,
-                                    color: Colors.grey,
+                                    color: appColors.tertiary.withOpacity(0.75),
                                   ),
                                 )
                               : const SizedBox(),

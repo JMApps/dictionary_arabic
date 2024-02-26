@@ -19,11 +19,11 @@ class SerializableWordsList extends StatelessWidget {
     final ColorScheme appColors = Theme.of(context).colorScheme;
     List<String> translationLines = wordModel.translation.split('\\n');
     return Scrollbar(
-      child: ListView.builder(
+      child: ListView.separated(
         itemCount: translationLines.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
-            contentPadding: AppStyles.mainMarding,
+            contentPadding: AppStyles.horizontalVerticalMini,
             onTap: () {
               Navigator.pushNamed(
                 context,
@@ -36,10 +36,13 @@ class SerializableWordsList extends StatelessWidget {
             },
             title: TranslationText(translation: translationLines[index]),
             trailing: Icon(
-                Icons.bookmark_outline_rounded,
-                color: appColors.primary,
-              ),
+              Icons.bookmark_outline_rounded,
+              color: appColors.primary,
+            ),
           );
+        },
+        separatorBuilder: (context, index) {
+          return const Divider(indent: 16, endIndent: 16);
         },
       ),
     );

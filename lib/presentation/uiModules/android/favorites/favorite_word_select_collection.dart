@@ -33,7 +33,7 @@ class FavoriteWordSelectCollection extends StatelessWidget {
             forceElevated: true,
             centerTitle: true,
             floating: true,
-            title: const Text(AppStrings.selectCollection),
+            title: const Text(AppStrings.addWordTo),
             actions: [
               IconButton(
                 onPressed: () {

@@ -88,9 +88,9 @@ class FavoriteDetailWordItem extends StatelessWidget {
                       favoriteWordModel.vocalization != null
                           ? Text(
                               favoriteWordModel.vocalization!,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 20,
-                                color: Colors.grey,
+                                color: appColors.tertiary.withOpacity(0.75),
                               ),
                             )
                           : const SizedBox(),

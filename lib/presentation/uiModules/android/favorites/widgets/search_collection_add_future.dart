@@ -86,9 +86,7 @@ class _SearchCollectionAddFutureState extends State<SearchCollectionAddFuture> {
                       },
                       title: Text(
                         collectionModel.title,
-                        style: const TextStyle(
-                          fontSize: 18,
-                        ),
+                        style: const TextStyle(fontSize: 18),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

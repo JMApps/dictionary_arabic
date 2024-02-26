@@ -18,6 +18,7 @@ class AppStrings {
   static const String cards = 'Карточки';
   static const String cardMode = 'Режим карточек';
   static const String add = 'Добавить';
+  static const String addWordTo = 'Добавить cлово в';
   static const String change = 'Изменить';
   static const String deleteCollection = 'Удалить коллекцию';
   static const String deleteWord = 'Удалить слово';

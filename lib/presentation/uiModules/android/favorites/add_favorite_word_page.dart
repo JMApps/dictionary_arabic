@@ -27,6 +27,7 @@ class AddFavoriteWordPage extends StatelessWidget {
         if (snapshot.hasData) {
           return Scaffold(
             appBar: AppBar(
+              centerTitle: true,
               backgroundColor: appColors.inversePrimary,
               title: Text(
                 snapshot.data!.arabicWord,
@@ -39,7 +40,7 @@ class AddFavoriteWordPage extends StatelessWidget {
               actions: [
                 MaterialButton(
                   shape: AppStyles.mainShape,
-                  splashColor: appColors.inversePrimary,
+                  splashColor: appColors.tertiaryContainer,
                   child: const Text(
                     AppStrings.addAll,
                     style: TextStyle(fontSize: 18),

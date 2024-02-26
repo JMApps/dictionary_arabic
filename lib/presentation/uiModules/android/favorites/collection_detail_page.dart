@@ -29,14 +29,14 @@ class CollectionDetailPage extends StatelessWidget {
             centerTitle: true,
             floating: true,
             title: Text(collectionModel.title),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  // Поиск слов по коллекции
-                },
-                icon: const Icon(Icons.search),
-              ),
-            ],
+            // actions: [
+            //   IconButton(
+            //     onPressed: () {
+            //       // Поиск слов по коллекции
+            //     },
+            //     icon: const Icon(Icons.search),
+            //   ),
+            // ],
           ),
           FutureBuilder<List<FavoriteDictionaryEntity>>(
             future: Provider.of<FavoriteWordsState>(context).fetchFavoriteWordsByCollectionId(

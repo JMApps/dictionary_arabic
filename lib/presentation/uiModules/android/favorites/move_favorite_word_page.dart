@@ -25,15 +25,15 @@ class MoveFavoriteWordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
     final Color itemOddColor = appColors.primary.withOpacity(0.05);
-    final Color itemEvenColor = appColors.primary.withOpacity(0.10);
+    final Color itemEvenColor = appColors.primary.withOpacity(0.15);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             backgroundColor: appColors.inversePrimary,
+            forceElevated: true,
             centerTitle: true,
             floating: true,
-            forceElevated: true,
             title: const Text(AppStrings.moveTo),
             actions: [
               IconButton(
