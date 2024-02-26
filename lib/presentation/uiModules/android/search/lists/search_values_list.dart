@@ -33,9 +33,12 @@ class SearchValuesList extends StatelessWidget {
                           fontFamily: 'SF Pro',
                         ),
                       ),
-                      trailing: const Text(
+                      trailing: Text(
                         AppStrings.clear,
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: appColors.primary,
+                        ),
                       ),
                     )
                   : const SizedBox(),

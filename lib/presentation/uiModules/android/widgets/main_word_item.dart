@@ -1,4 +1,3 @@
-import 'package:arabic/data/state/search_query_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -25,7 +24,7 @@ class MainWordItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
     final Color itemOddColor = appColors.primary.withOpacity(0.05);
-    final Color itemEvenColor = appColors.primary.withOpacity(0.10);
+    final Color itemEvenColor = appColors.primary.withOpacity(0.15);
     return Container(
       margin: AppStyles.mardingWithoutTop,
       child: InkWell(
@@ -86,25 +85,21 @@ class MainWordItem extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          wordModel.homonymNr != null
-                              ? Text(
+                          wordModel.homonymNr != null ? Text(
                             wordModel.homonymNr.toString(),
                             style: TextStyle(
                               fontSize: 18,
                               color: appColors.onSurface,
                             ),
-                          )
-                              : const SizedBox(),
+                          ) : const SizedBox(),
                           const SizedBox(width: 4),
-                          wordModel.vocalization != null
-                              ? Text(
+                          wordModel.vocalization != null ? Text(
                             wordModel.vocalization!,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 18,
-                              color: Colors.grey,
+                              color: appColors.tertiary.withOpacity(0.75),
                             ),
-                          )
-                              : const SizedBox(),
+                          ) : const SizedBox(),
                           const SizedBox(width: 4),
                           wordModel.form != null
                               ? Text(
@@ -140,7 +135,6 @@ class MainWordItem extends StatelessWidget {
                                   visualDensity: VisualDensity.compact,
                                   onPressed: () async {
                                     if (!wordIsFavorite) {
-                                      Provider.of<SearchQueryState>(context, listen: false).setQuery = '';
                                       Navigator.pushNamed(
                                         context,
                                         RouteNames.addFavoriteWordPage,
@@ -149,8 +143,10 @@ class MainWordItem extends StatelessWidget {
                                         ),
                                       );
                                     } else {
-                                      await favoriteWordState.deleteFavoriteWord(
-                                        favoriteWordId: wordModel.wordNumber,
+                                      Navigator.pushNamed(
+                                        context,
+                                        RouteNames.wordFavoriteDetailPage,
+                                        arguments: WordArgs(wordNumber: wordModel.wordNumber),
                                       );
                                     }
                                   },

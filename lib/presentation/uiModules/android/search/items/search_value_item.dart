@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/styles/app_styles.dart';
 import '../../../../../data/state/search_query_state.dart';
 import '../../../../../data/state/search_values_state.dart';
 import '../../../../../domain/entities/word_search_entity.dart';
@@ -17,9 +16,9 @@ class SearchValueItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      visualDensity: VisualDensity.compact,
-      contentPadding: AppStyles.mardingSymmetricHorMini,
-      horizontalTitleGap: 4,
+      visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+      contentPadding: EdgeInsets.zero,
+      horizontalTitleGap: 6,
       onTap: () {
         Provider.of<SearchQueryState>(context, listen: false).setQuery = model.searchValue;
       },

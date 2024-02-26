@@ -46,7 +46,6 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                 controller: _wordsController,
                 autofocus: true,
                 autocorrect: false,
-                textAlignVertical: TextAlignVertical.center,
                 textInputAction: TextInputAction.search,
                 decoration: const InputDecoration(
                   contentPadding: AppStyles.mardingOnlyBottomMini,

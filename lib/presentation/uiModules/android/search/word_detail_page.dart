@@ -7,8 +7,8 @@ import '../../../../data/state/default_dictionary_state.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
-import '../widgets/main_word_item.dart';
 import 'items/detail_word_item.dart';
+import 'items/root_word_item.dart';
 
 class WordDetailPage extends StatelessWidget {
   const WordDetailPage({
@@ -46,7 +46,7 @@ class WordDetailPage extends StatelessWidget {
                             const SizedBox(height: 8),
                             DetailWordItem(wordModel: snapshot.data!),
                             Padding(
-                              padding: AppStyles.mardingWithoutTopMini,
+                              padding: AppStyles.matchMarding,
                               child: Text(
                                 AppStrings.cognates,
                                 style: TextStyle(
@@ -71,7 +71,7 @@ class WordDetailPage extends StatelessWidget {
                                     itemCount: wordRootsSnapshot.data!.length,
                                     itemBuilder: (BuildContext context, int index) {
                                       final DictionaryEntity wordModel = wordRootsSnapshot.data![index];
-                                      return MainWordItem(
+                                      return RootWordItem(
                                         wordModel: wordModel,
                                         index: index,
                                       );
