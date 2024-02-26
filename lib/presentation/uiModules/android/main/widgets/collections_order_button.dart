@@ -13,6 +13,7 @@ class CollectionsOrderButton extends StatelessWidget {
     final ColorScheme appColors = Theme.of(context).colorScheme;
     final CollectionsState collectionsState = Provider.of<CollectionsState>(context);
     return IconButton(
+      visualDensity: VisualDensity.compact,
       onPressed: () {
         showModalBottomSheet(
           context: context,
@@ -38,7 +39,7 @@ class CollectionsOrderButton extends StatelessWidget {
                         title: const Text(AppStrings.byAddDateTime),
                         leading: const Icon(Icons.sort),
                         trailing: collectionsState.getOrderCollectionIndex == 0
-                            ? const Icon(Icons.check)
+                            ? Icon(Icons.check, color: appColors.primary)
                             : const SizedBox(),
                       ),
                       ListTile(
@@ -47,7 +48,7 @@ class CollectionsOrderButton extends StatelessWidget {
                         title: const Text(AppStrings.byColor),
                         leading: const Icon(Icons.sort),
                         trailing: collectionsState.getOrderCollectionIndex == 1
-                            ? const Icon(Icons.check)
+                            ? Icon(Icons.check, color: appColors.primary)
                             : const SizedBox(),
                       ),
                       ListTile(
@@ -56,7 +57,7 @@ class CollectionsOrderButton extends StatelessWidget {
                         title: const Text(AppStrings.byWordsCount),
                         leading: const Icon(Icons.sort),
                         trailing: collectionsState.getOrderCollectionIndex == 2
-                            ? const Icon(Icons.check)
+                            ? Icon(Icons.check, color: appColors.primary)
                             : const SizedBox(),
                       ),
                     ],
@@ -76,7 +77,7 @@ class CollectionsOrderButton extends StatelessWidget {
                         title: const Text(AppStrings.orderASC),
                         leading: const Icon(Icons.sort),
                         trailing: context.watch<CollectionsState>().getOrderIndex == 1
-                            ? const Icon(Icons.check)
+                            ? Icon(Icons.check, color: appColors.primary)
                             : const SizedBox(),
                       ),
                       ListTile(
@@ -85,7 +86,7 @@ class CollectionsOrderButton extends StatelessWidget {
                         title: const Text(AppStrings.orderDESC),
                         leading: const Icon(Icons.sort),
                         trailing: collectionsState.getOrderIndex == 0
-                            ? const Icon(Icons.check)
+                            ? Icon(Icons.check, color: appColors.primary)
                             : const SizedBox(),
                       ),
                     ],
@@ -97,7 +98,7 @@ class CollectionsOrderButton extends StatelessWidget {
         );
       },
       icon: Icon(
-        Icons.sort,
+        Icons.sort_by_alpha,
         color: appColors.primary,
       ),
     );

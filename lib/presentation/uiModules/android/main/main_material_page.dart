@@ -49,8 +49,9 @@ class _MainMaterialPageState extends State<MainMaterialPage> {
           SliverAppBar(
             stretch: true,
             centerTitle: true,
+            floating: true,
             title: const Text(AppStrings.appName),
-            expandedHeight: 90,
+            expandedHeight: 100,
             flexibleSpace: FlexibleSpaceBar(
               expandedTitleScale: 1.25,
               titlePadding: const EdgeInsetsDirectional.only(
@@ -58,7 +59,7 @@ class _MainMaterialPageState extends State<MainMaterialPage> {
                 bottom: 0,
               ),
               title: Padding(
-                padding: AppStyles.mardingSymmetricHor,
+                padding: AppStyles.horizontalVerticalMini,
                 child: CupertinoTextField(
                   readOnly: true,
                   onTap: () {
@@ -92,7 +93,8 @@ class _MainMaterialPageState extends State<MainMaterialPage> {
             child: Consumer<WordExactMatchState>(
               builder: (BuildContext context, matchState, _) {
                 return ListTile(
-                  contentPadding: AppStyles.mardingSymmetricHor,
+                  visualDensity: const VisualDensity(vertical: -4),
+                  contentPadding: AppStyles.matchMarding,
                   title: const Text(
                     AppStrings.exactMatch,
                     style: TextStyle(
@@ -166,8 +168,8 @@ class _MainMaterialPageState extends State<MainMaterialPage> {
           ),
           const SliverToBoxAdapter(
             child: ListTile(
-              contentPadding: AppStyles.mainMardingMini,
-              visualDensity: VisualDensity.compact,
+              visualDensity: VisualDensity(vertical: -4, horizontal: -4),
+              contentPadding: AppStyles.sortMarding,
               title: Text(
                 AppStrings.lastCollections,
                 style: TextStyle(
