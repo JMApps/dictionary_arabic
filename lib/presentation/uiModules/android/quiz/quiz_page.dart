@@ -10,8 +10,8 @@ import '../../../../domain/entities/collection_entity.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
 
-class CardModePage extends StatelessWidget {
-  const CardModePage({super.key});
+class QuizPage extends StatelessWidget {
+  const QuizPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class CardModePage extends StatelessWidget {
             forceElevated: true,
             centerTitle: true,
             floating: true,
-            title: const Text(AppStrings.cardMode),
+            title: const Text(AppStrings.quiz),
           ),
           FutureBuilder<List<CollectionEntity>>(
             future: Provider.of<CollectionsState>(context, listen: false).fetchAllCollections(),
@@ -64,7 +64,7 @@ class CardModePage extends StatelessWidget {
                           onTap: collectionModel.wordsCount >= 1 ? () {
                             Navigator.pushNamed(
                               context,
-                              RouteNames.cardsModeDetailPage,
+                              RouteNames.quizDetailPage,
                               arguments: CollectionArgs(
                                 collectionModel: collectionModel,
                               ),
@@ -82,7 +82,7 @@ class CardModePage extends StatelessWidget {
               } else {
                 return const SliverFillRemaining(
                   hasScrollBody: false,
-                  child: DataText(text: AppStrings.cardCollectionsIfEmpty),
+                  child: DataText(text: AppStrings.quizCollectionsIfEmpty),
                 );
               }
             },

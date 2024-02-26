@@ -55,6 +55,17 @@ class _WordConstructorDetailPageState extends State<WordConstructorDetailPage> {
                     constructorModeState.resetConstructor;
                   },
                 ) : const SizedBox(),
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
+                  icon: Icon(
+                    Icons.exit_to_app,
+                    color: appColors.primary,
+                  ),
+                ),
               ],
             ),
             body: FutureBuilder(

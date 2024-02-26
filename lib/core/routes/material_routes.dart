@@ -14,6 +14,8 @@ import '../../presentation/uiModules/android/favorites/add_favorite_word_page.da
 import '../../presentation/uiModules/android/favorites/favorite_word_detail_page.dart';
 import '../../presentation/uiModules/android/favorites/favorite_word_select_collection.dart';
 import '../../presentation/uiModules/android/favorites/move_favorite_word_page.dart';
+import '../../presentation/uiModules/android/quiz/quiz_detail_page.dart';
+import '../../presentation/uiModules/android/quiz/quiz_page.dart';
 import '../../presentation/uiModules/android/search/search_words_page.dart';
 import '../../presentation/uiModules/android/search/word_detail_page.dart';
 import '../../presentation/uiModules/android/settings/app_settings_page.dart';
@@ -91,6 +93,15 @@ class MaterialRoutes {
         final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
         return MaterialPageRoute(
           builder: (_) => WordConstructorDetailPage(collectionModel: collectionArgs.collectionModel),
+        );
+      case RouteNames.quizPage:
+        return MaterialPageRoute(
+          builder: (_) => const QuizPage(),
+        );
+      case RouteNames.quizDetailPage:
+        final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
+        return MaterialPageRoute(
+          builder: (_) => QuizDetailPage(collectionModel: collectionArgs.collectionModel),
         );
       default:
         throw Exception('Invalid route ${routeSettings.name}');
