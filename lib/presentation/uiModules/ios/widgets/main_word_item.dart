@@ -11,8 +11,8 @@ import '../../../../domain/entities/dictionary_entity.dart';
 import 'forms_text.dart';
 import 'short_translation_text.dart';
 
-class WordItem extends StatelessWidget {
-  const WordItem({
+class MainWordItem extends StatelessWidget {
+  const MainWordItem({
     super.key,
     required this.model,
   });
