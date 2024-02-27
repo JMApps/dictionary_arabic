@@ -44,9 +44,8 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
             const SizedBox(height: 14),
             CupertinoTextField(
               controller: _collectionController,
-              textCapitalization: TextCapitalization.words,
               autofocus: true,
-              maxLength: 100,
+              textCapitalization: TextCapitalization.sentences,
               textAlign: TextAlign.center,
               placeholder: AppStrings.title,
               placeholderStyle: const TextStyle(
@@ -102,9 +101,7 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
             },
             child: const Text(
               AppStrings.cancel,
-              style: TextStyle(
-                color: CupertinoColors.systemRed,
-              ),
+              style: TextStyle(color: CupertinoColors.systemRed),
             ),
           ),
         ],

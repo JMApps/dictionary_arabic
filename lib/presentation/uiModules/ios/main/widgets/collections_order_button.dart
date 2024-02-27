@@ -10,81 +10,84 @@ class CollectionsOrderButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CollectionsState collectionsState = Provider.of<CollectionsState>(context);
-    return CupertinoButton(
-      padding: AppStyles.mardingOnlyLeftMini,
-      onPressed: () {
-        showCupertinoModalPopup(
-          context: context,
-          builder: (context) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CupertinoListSection.insetGrouped(
-                  header: const Text(AppStrings.orderCollection),
-                  margin: AppStyles.mardingWithoutBottomMini,
-                  decoration: const BoxDecoration(
-                    borderRadius: AppStyles.mainBorderMini,
-                    color: CupertinoColors.quaternarySystemFill,
-                  ),
+    return Consumer<CollectionsState>(
+      builder: (BuildContext context, collectionsState, _) {
+        return CupertinoButton(
+          padding: AppStyles.mardingOnlyLeftMini,
+          onPressed: () {
+            showCupertinoModalPopup(
+              context: context,
+              builder: (context) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    CupertinoListTile(
-                      onTap: () => collectionsState.setOrderCollectionIndex = 0,
-                      title: const Text(AppStrings.byAddDateTime),
-                      trailing: collectionsState.getOrderCollectionIndex == 0
-                          ? const Icon(CupertinoIcons.checkmark_alt)
-                          : const SizedBox(),
+                    CupertinoListSection.insetGrouped(
+                      header: const Text(AppStrings.orderCollection),
+                      margin: AppStyles.mardingWithoutBottomMini,
+                      decoration: const BoxDecoration(
+                        borderRadius: AppStyles.mainBorderMini,
+                        color: CupertinoColors.quaternarySystemFill,
+                      ),
+                      children: [
+                        CupertinoListTile(
+                          onTap: () => collectionsState.setOrderCollectionIndex = 0,
+                          title: const Text(AppStrings.byAddDateTime),
+                          trailing: collectionsState.getOrderCollectionIndex == 0
+                              ? const Icon(CupertinoIcons.checkmark_alt)
+                              : const SizedBox(),
+                        ),
+                        CupertinoListTile(
+                          onTap: () => collectionsState.setOrderCollectionIndex = 1,
+                          title: const Text(AppStrings.byColor),
+                          trailing: collectionsState.getOrderCollectionIndex == 1
+                              ? const Icon(CupertinoIcons.checkmark_alt)
+                              : const SizedBox(),
+                        ),
+                        CupertinoListTile(
+                          onTap: () => collectionsState.setOrderCollectionIndex = 2,
+                          title: const Text(AppStrings.byWordsCount),
+                          trailing: collectionsState.getOrderCollectionIndex == 2
+                              ? const Icon(CupertinoIcons.checkmark_alt)
+                              : const SizedBox(),
+                        ),
+                      ],
                     ),
-                    CupertinoListTile(
-                      onTap: () => collectionsState.setOrderCollectionIndex = 1,
-                      title: const Text(AppStrings.byColor),
-                      trailing: collectionsState.getOrderCollectionIndex == 1
-                          ? const Icon(CupertinoIcons.checkmark_alt)
-                          : const SizedBox(),
-                    ),
-                    CupertinoListTile(
-                      onTap: () => collectionsState.setOrderCollectionIndex = 2,
-                      title: const Text(AppStrings.byWordsCount),
-                      trailing: collectionsState.getOrderCollectionIndex == 2
-                          ? const Icon(CupertinoIcons.checkmark_alt)
-                          : const SizedBox(),
+                    CupertinoListSection.insetGrouped(
+                      header: const Text(AppStrings.order),
+                      footer: const SizedBox(height: 14),
+                      margin: AppStyles.mardingWithoutBottomMini,
+                      decoration: const BoxDecoration(
+                        borderRadius: AppStyles.mainBorderMini,
+                        color: CupertinoColors.quaternarySystemFill,
+                      ),
+                      children: [
+                        CupertinoListTile(
+                          onTap: () => collectionsState.setOrderIndex = 1,
+                          title: const Text(AppStrings.orderASC),
+                          trailing: context.watch<CollectionsState>().getOrderIndex == 1
+                              ? const Icon(CupertinoIcons.checkmark_alt)
+                              : const SizedBox(),
+                        ),
+                        CupertinoListTile(
+                          onTap: () => collectionsState.setOrderIndex = 0,
+                          title: const Text(AppStrings.orderDESC),
+                          trailing: collectionsState.getOrderIndex == 0
+                              ? const Icon(CupertinoIcons.checkmark_alt)
+                              : const SizedBox(),
+                        ),
+                      ],
                     ),
                   ],
-                ),
-                CupertinoListSection.insetGrouped(
-                  header: const Text(AppStrings.order),
-                  footer: const SizedBox(height: 14),
-                  margin: AppStyles.mardingWithoutBottomMini,
-                  decoration: const BoxDecoration(
-                    borderRadius: AppStyles.mainBorderMini,
-                    color: CupertinoColors.quaternarySystemFill,
-                  ),
-                  children: [
-                    CupertinoListTile(
-                      onTap: () => collectionsState.setOrderIndex = 1,
-                      title: const Text(AppStrings.orderASC),
-                      trailing: context.watch<CollectionsState>().getOrderIndex == 1
-                          ? const Icon(CupertinoIcons.checkmark_alt)
-                          : const SizedBox(),
-                    ),
-                    CupertinoListTile(
-                      onTap: () => collectionsState.setOrderIndex = 0,
-                      title: const Text(AppStrings.orderDESC),
-                      trailing: collectionsState.getOrderIndex == 0
-                          ? const Icon(CupertinoIcons.checkmark_alt)
-                          : const SizedBox(),
-                    ),
-                  ],
-                ),
-              ],
+                );
+              },
             );
           },
+          child: const Icon(
+            CupertinoIcons.arrow_up_arrow_down_circle_fill,
+            size: 32.5,
+          ),
         );
       },
-      child: const Icon(
-        CupertinoIcons.arrow_up_arrow_down_circle_fill,
-        size: 32.5,
-      ),
     );
   }
 }

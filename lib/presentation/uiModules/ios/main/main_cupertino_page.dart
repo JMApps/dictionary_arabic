@@ -143,7 +143,6 @@ class _MainCupertinoPageState extends State<MainCupertinoPage> {
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.start,
               ),
               leading: CollectionsOrderButton(),
               trailing: AddCollectionButton(),

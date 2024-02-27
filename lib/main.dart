@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:arabic/presentation/uiModules/ios/main/root_cupertino_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -25,6 +26,6 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox(AppConstraints.keyMainAppSettingsBox);
   runApp(
-    Platform.isAndroid ? const RootMaterialPage() : const RootMaterialPage(),
+    Platform.isAndroid ? const RootMaterialPage() : const RootCupertinoPage(),
   );
 }

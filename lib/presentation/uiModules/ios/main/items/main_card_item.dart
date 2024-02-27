@@ -28,9 +28,7 @@ class MainCardItem extends StatelessWidget {
             borderRadius: AppStyles.mainBorderMini,
           ),
           child: CupertinoButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routeName);
-            },
+            onPressed: () => Navigator.pushNamed(context, routeName),
             padding: EdgeInsets.zero,
             borderRadius: BorderRadius.zero,
             alignment: Alignment.centerLeft,
