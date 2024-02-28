@@ -6,7 +6,7 @@ import '../../domain/entities/args/word_favorite_collection_args.dart';
 import '../../presentation/uiModules/ios/cards/card_mode_page.dart';
 import '../../presentation/uiModules/ios/cards/cards_mode_detail_page.dart';
 import '../../presentation/uiModules/ios/collections/all_collections_page.dart';
-import '../../presentation/uiModules/ios/collections/collection_detail_page.dart';
+import '../../presentation/uiModules/ios/favorites/collection_detail_page.dart';
 import '../../presentation/uiModules/ios/constructors/word_constructor_page.dart';
 import '../../presentation/uiModules/ios/constructors/word_constructor_detail_page.dart';
 import '../../presentation/uiModules/ios/favorites/add_favorite_word_page.dart';
