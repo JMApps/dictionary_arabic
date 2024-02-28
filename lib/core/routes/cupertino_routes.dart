@@ -97,7 +97,7 @@ class CupertinoRoutes {
       case RouteNames.wordDetailPage:
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return CupertinoPageRoute(
-          builder: (_) => WordDetailPage(wordNr: wordArgs.wordNumber),
+          builder: (_) => WordDetailPage(wordNumber: wordArgs.wordNumber),
         );
       case RouteNames.cardModePage:
         return CupertinoPageRoute(

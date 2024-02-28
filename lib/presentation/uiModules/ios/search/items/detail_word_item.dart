@@ -1,119 +1,172 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../../core/routes/route_names.dart';
 import '../../../../../core/styles/app_styles.dart';
+import '../../../../../data/state/favorite_words_state.dart';
 import '../../../../../domain/entities/args/word_args.dart';
 import '../../../../../domain/entities/dictionary_entity.dart';
 import '../../widgets/forms_text.dart';
 import '../../widgets/translation_text.dart';
 
-class DetailWordItem extends StatefulWidget {
+class DetailWordItem extends StatelessWidget {
   const DetailWordItem({
     super.key,
-    required this.model,
+    required this.wordModel,
   });
 
-  final DictionaryEntity model;
+  final DictionaryEntity wordModel;
 
-  @override
-  State<DetailWordItem> createState() => _DetailWordItemState();
-}
-
-class _DetailWordItemState extends State<DetailWordItem> {
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      endActionPane: ActionPane(
-        motion: const StretchMotion(),
-        children: [
-          SlidableAction(
-            onPressed: (context) {
-              Share.share(
-                widget.model.wordContent(),
-                sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
-              );
-            },
-            backgroundColor: CupertinoColors.systemBlue,
-            icon: CupertinoIcons.share,
-          ),
-          SlidableAction(
-            onPressed: (context) {
-              Navigator.pushNamed(
-                context,
-                RouteNames.addFavoriteWordPage,
-                arguments: WordArgs(wordNumber: widget.model.wordNumber),
-              );
-            },
-            backgroundColor: CupertinoColors.systemIndigo,
-            icon: CupertinoIcons.bookmark,
-          ),
-        ],
-      ),
-      child: CupertinoListTile(
-        padding: AppStyles.mainMarding,
-        title: CupertinoListTile(
-          padding: EdgeInsets.zero,
-          title: Row(
-            children: [
-              Text(
-                widget.model.arabicWord,
-                style: const TextStyle(
-                  fontSize: 50,
-                  fontFamily: 'Uthmanic',
-                ),
-                textDirection: TextDirection.rtl,
-              ),
-              const SizedBox(width: 14),
-              widget.model.forms != null
-                  ? FormsText(content: widget.model.forms!)
-                  : const SizedBox(),
-            ],
-          ),
-          trailing: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
+    return Padding(
+      padding: AppStyles.mardingOnlyBottom,
+      child: Slidable(
+        endActionPane: ActionPane(
+          motion: const StretchMotion(),
+          children: [
+            SlidableAction(
+              onPressed: (context) {
+                Share.share(
+                  wordModel.wordContent(),
+                  sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
+                );
+              },
+              backgroundColor: CupertinoColors.systemBlue,
+              icon: CupertinoIcons.share,
+            ),
+            Consumer<FavoriteWordsState>(
+              builder: (BuildContext context, favoriteWordState, _) {
+                return FutureBuilder<bool>(
+                  future: favoriteWordState.fetchIsWordFavorite(wordNumber: wordModel.wordNumber),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final bool isFavorite = snapshot.data!;
+                      return SlidableAction(
+                        onPressed: (context) {
+                          if (isFavorite) {
+                            Navigator.pushNamed(
+                              context,
+                              RouteNames.wordFavoriteDetailPage,
+                              arguments:
+                                  WordArgs(wordNumber: wordModel.wordNumber),
+                            );
+                          } else {
+                            Navigator.pushNamed(
+                              context,
+                              RouteNames.addFavoriteWordPage,
+                              arguments:
+                                  WordArgs(wordNumber: wordModel.wordNumber),
+                            );
+                          }
+                        },
+                        backgroundColor: CupertinoColors.systemIndigo,
+                        icon: isFavorite
+                            ? CupertinoIcons.bookmark_fill
+                            : CupertinoIcons.bookmark,
+                      );
+                    } else {
+                      return const CupertinoActivityIndicator();
+                    }
+                  },
+                );
+              },
+            ),
+          ],
+        ),
+        child: CupertinoListTile(
+          padding: AppStyles.mainMarding,
+          backgroundColor: CupertinoColors.quaternarySystemFill,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  widget.model.vocalization != null
-                      ? Text(
-                          widget.model.vocalization!,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: CupertinoColors.systemGrey,
-                            fontFamily: 'SF Pro Regular',
+                  Expanded(
+                    child: CupertinoListTile(
+                      padding: EdgeInsets.zero,
+                      title: Row(
+                        children: [
+                          Text(
+                            wordModel.arabicWord,
+                            style: const TextStyle(
+                              fontSize: 60,
+                              fontFamily: 'Uthmanic',
+                            ),
+                            textDirection: TextDirection.rtl,
                           ),
-                        )
-                      : const SizedBox(),
-                  const SizedBox(width: 7),
-                  widget.model.form != null
-                      ? Text(
-                          widget.model.form!,
-                          style: const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Heuristica',
-                          ),
-                        )
-                      : const SizedBox(),
+                          const SizedBox(width: 8),
+                          wordModel.forms != null
+                              ? FormsText(content: wordModel.forms!)
+                              : const SizedBox(),
+                          const SizedBox(width: 8),
+                          wordModel.additional != null
+                              ? FormsText(content: wordModel.additional!)
+                              : const SizedBox(),
+                        ],
+                      ),
+                      subtitle: TranslationText(translation: wordModel.translation),
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          wordModel.homonymNr != null
+                              ? Text(
+                                  wordModel.homonymNr.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    color: CupertinoColors.systemGrey,
+                                  ),
+                                )
+                              : const SizedBox(),
+                          const SizedBox(width: 4),
+                          wordModel.vocalization != null
+                              ? Text(
+                                  wordModel.vocalization!,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    color: CupertinoColors.systemGrey,
+                                  ),
+                                )
+                              : const SizedBox(),
+                          const SizedBox(width: 4),
+                          wordModel.form != null
+                              ? Text(
+                                  wordModel.form!,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'Heuristica',
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 0.5,
+                                  ),
+                                )
+                              : const SizedBox(),
+                        ],
+                      ),
+                      const SizedBox(height: 7),
+                      Text(
+                        wordModel.root,
+                        style: const TextStyle(
+                          fontSize: 22,
+                          color: CupertinoColors.systemRed,
+                          fontFamily: 'Uthmanic',
+                        ),
+                        textDirection: TextDirection.rtl,
+                      ),
+                    ],
+                  ),
                 ],
-              ),
-              Text(
-                widget.model.root,
-                style: const TextStyle(
-                  fontSize: 25,
-                  color: CupertinoColors.systemPink,
-                  fontFamily: 'Uthmanic',
-                ),
-                textDirection: TextDirection.rtl,
               ),
             ],
           ),
         ),
-        subtitle: TranslationText(translation: widget.model.translation),
       ),
     );
   }

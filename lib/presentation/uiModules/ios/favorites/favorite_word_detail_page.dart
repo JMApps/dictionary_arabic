@@ -10,7 +10,7 @@ import '../../../../domain/entities/dictionary_entity.dart';
 import '../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
-import '../widgets/word_item.dart';
+import '../widgets/main_word_item.dart';
 import 'items/favorite_detail_word_item.dart';
 
 class FavoriteWordDetailPage extends StatelessWidget {
@@ -78,7 +78,7 @@ class FavoriteWordDetailPage extends StatelessWidget {
                                   itemCount: wordRootsSnapshot.data!.length,
                                   itemBuilder: (BuildContext context, int index) {
                                     final DictionaryEntity model = wordRootsSnapshot.data![index];
-                                    return WordItem(model: model);
+                                    return MainWordItem(wordModel: model);
                                   },
                                 );
                               } else {

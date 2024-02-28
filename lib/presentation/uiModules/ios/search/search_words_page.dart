@@ -42,13 +42,14 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
             navigationBar: CupertinoNavigationBar(
               middle: CupertinoSearchTextField(
                 controller: _wordsController,
-                placeholder: AppStrings.searchWords,
                 autofocus: true,
                 autocorrect: false,
+                placeholder: AppStrings.searchWords,
                 onChanged: (value) => query.setQuery = value,
                 onSubmitted: (value) async {
                   if (value.trim().isNotEmpty) {
-                    await Provider.of<SearchValuesState>(context, listen: false).fetchAddSearchValue(
+                    await Provider.of<SearchValuesState>(context, listen: false)
+                        .fetchAddSearchValue(
                       searchValue: value.trim().toLowerCase(),
                     );
                   }
