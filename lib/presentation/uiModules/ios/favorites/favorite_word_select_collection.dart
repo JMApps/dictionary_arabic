@@ -4,15 +4,14 @@ import 'package:provider/provider.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/collections_state.dart';
-import '../../../../data/state/favorite_words_state.dart';
 import '../../../../data/state/search_query_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
-import '../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../collections/dialogs/add_collection_dialog.dart';
 import '../main/widgets/add_collection_button.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
+import 'items/select_item_collection.dart';
 
 class FavoriteWordSelectCollection extends StatefulWidget {
   const FavoriteWordSelectCollection({
@@ -28,7 +27,8 @@ class FavoriteWordSelectCollection extends StatefulWidget {
   State<FavoriteWordSelectCollection> createState() => _FavoriteWordSelectCollectionState();
 }
 
-class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollection> {
+class _FavoriteWordSelectCollectionState
+    extends State<FavoriteWordSelectCollection> {
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _collectionsController = TextEditingController();
   List<CollectionEntity> _collections = [];
@@ -96,8 +96,8 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
                         _recentCollections = query.getQuery.isEmpty
                             ? _collections
                             : _collections
-                            .where((element) => element.title.toLowerCase()
-                            .contains(query.getQuery.toLowerCase())).toList();
+                                .where((element) => element.title.toLowerCase()
+                                    .contains(query.getQuery.toLowerCase())).toList();
                         return SliverToBoxAdapter(
                           child: CupertinoListSection.insetGrouped(
                             margin: AppStyles.mardingWithoutBottomMini,
@@ -110,40 +110,11 @@ class _FavoriteWordSelectCollectionState extends State<FavoriteWordSelectCollect
                                 itemCount: _recentCollections.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   final CollectionEntity collectionModel = _recentCollections[index];
-                                  return Consumer<FavoriteWordsState>(
-                                    builder: (BuildContext context, FavoriteWordsState favoriteWordState, _) {
-                                      return CupertinoListTile(
-                                        padding: AppStyles.mardingSymmetricHor,
-                                        onTap: () async {
-                                          Navigator.pop(context);
-                                          Navigator.pop(context);
-                                          final favoriteWordModel = FavoriteDictionaryEntity(
-                                            articleId: widget.wordModel.articleId,
-                                            translation: widget.wordModel.translation,
-                                            arabic: widget.wordModel.arabic,
-                                            id: widget.wordModel.id,
-                                            wordNumber: widget.wordModel.wordNumber,
-                                            arabicWord: widget.wordModel.arabicWord,
-                                            form: widget.wordModel.form,
-                                            additional: widget.wordModel.additional,
-                                            vocalization: widget.wordModel.vocalization,
-                                            homonymNr: widget.wordModel.homonymNr,
-                                            root: widget.wordModel.root,
-                                            forms: widget.wordModel.forms,
-                                            collectionId: collectionModel.id,
-                                            serializableIndex: widget.serializableIndex,
-                                            ankiCount: 0,
-                                          );
-                                          await favoriteWordState.addFavoriteWord(model: favoriteWordModel);
-                                        },
-                                        title: Text(collectionModel.title),
-                                        leading: Icon(
-                                          CupertinoIcons.folder_fill,
-                                          color: AppStyles.collectionColors[collectionModel.color],
-                                        ),
-                                        trailing: const Icon(CupertinoIcons.forward),
-                                      );
-                                    },
+                                  return SelectItemCollection(
+                                    wordModel: widget.wordModel,
+                                    serializableIndex: widget.serializableIndex,
+                                    collectionModel: collectionModel,
+                                    index: index,
                                   );
                                 },
                               ),

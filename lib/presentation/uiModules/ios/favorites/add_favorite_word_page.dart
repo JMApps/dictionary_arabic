@@ -58,7 +58,7 @@ class AddFavoriteWordPage extends StatelessWidget {
             ),
             child: SafeArea(
               bottom: false,
-              child: SerializableWordsList(model: snapshot.data!),
+              child: SerializableWordsList(wordModel: snapshot.data!),
             ),
           );
         } else if (snapshot.hasError) {

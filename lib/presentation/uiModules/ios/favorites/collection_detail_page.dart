@@ -35,8 +35,8 @@ class CollectionDetailPage extends StatelessWidget {
               child: ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final FavoriteDictionaryEntity model = snapshot.data![index];
-                  return FavoriteWordItem(model: model);
+                  final FavoriteDictionaryEntity favoriteWordModel = snapshot.data![index];
+                  return FavoriteWordItem(favoriteWordModel: favoriteWordModel);
                 },
               ),
             );

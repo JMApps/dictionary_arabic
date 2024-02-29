@@ -12,8 +12,8 @@ import '../main/widgets/add_collection_button.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
 
-class MoveWordSelect extends StatefulWidget {
-  const MoveWordSelect({
+class MoveFavoriteWordPage extends StatefulWidget {
+  const MoveFavoriteWordPage({
     super.key,
     required this.wordNumber,
     required this.oldCollectionId,
@@ -23,10 +23,10 @@ class MoveWordSelect extends StatefulWidget {
   final int oldCollectionId;
 
   @override
-  State<MoveWordSelect> createState() => _MoveWordSelectState();
+  State<MoveFavoriteWordPage> createState() => _MoveFavoriteWordPageState();
 }
 
-class _MoveWordSelectState extends State<MoveWordSelect> {
+class _MoveFavoriteWordPageState extends State<MoveFavoriteWordPage> {
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _collectionsController = TextEditingController();
   List<CollectionEntity> _collections = [];
@@ -93,7 +93,9 @@ class _MoveWordSelectState extends State<MoveWordSelect> {
                         _collections = snapshot.data!;
                         _recentCollections = query.getQuery.isEmpty
                             ? _collections
-                            : _collections.where((element) => element.title.toLowerCase().contains(query.getQuery.toLowerCase())).toList();
+                            : _collections
+                                .where((element) => element.title.toLowerCase()
+                                    .contains(query.getQuery.toLowerCase())).toList();
                         return SliverToBoxAdapter(
                           child: CupertinoListSection.insetGrouped(
                             margin: AppStyles.mardingWithoutBottomMini,
@@ -109,7 +111,6 @@ class _MoveWordSelectState extends State<MoveWordSelect> {
                                   return CupertinoListTile(
                                     padding: AppStyles.mardingSymmetricHor,
                                     onTap: () async {
-                                      Navigator.pop(context);
                                       Navigator.pop(context);
                                       await Provider.of<FavoriteWordsState>(context, listen: false).moveFavoriteWord(
                                         wordNumber: widget.wordNumber,

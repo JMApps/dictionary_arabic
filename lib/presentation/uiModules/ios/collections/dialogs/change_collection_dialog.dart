@@ -10,10 +10,10 @@ import '../widgets/collection_color_circle_button.dart';
 class ChangeCollectionDialog extends StatefulWidget {
   const ChangeCollectionDialog({
     super.key,
-    required this.model,
+    required this.collectionModel,
   });
 
-  final CollectionEntity model;
+  final CollectionEntity collectionModel;
 
   @override
   State<ChangeCollectionDialog> createState() => _ChangeCollectionDialogState();
@@ -24,7 +24,7 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
 
   @override
   void initState() {
-    _collectionController = TextEditingController(text: widget.model.title);
+    _collectionController = TextEditingController(text: widget.collectionModel.title);
     super.initState();
   }
 
@@ -39,7 +39,7 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => AddChangeCollectionState(widget.model.color),
+          create: (context) => AddChangeCollectionState(widget.collectionModel.color),
         ),
       ],
       child: Consumer<AddChangeCollectionState>(
@@ -91,12 +91,12 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
                 onPressed: () {
                   if (_collectionController.text.trim().isNotEmpty) {
                     final CollectionEntity newModel = CollectionEntity(
-                      id: widget.model.id,
+                      id: widget.collectionModel.id,
                       title: _collectionController.text.trim(),
                       wordsCount: 0,
                       color: colorState.getColorIndex,
                     );
-                    if (!widget.model.equals(newModel)) {
+                    if (!widget.collectionModel.equals(newModel)) {
                       Navigator.pop(context);
                       Provider.of<CollectionsState>(context, listen: false).changeCollection(collectionModel: newModel);
                     } else {
