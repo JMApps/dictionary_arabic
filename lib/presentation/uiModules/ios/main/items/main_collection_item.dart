@@ -15,10 +15,10 @@ import '../../collections/dialogs/delete_collection_dialog.dart';
 class MainCollectionItem extends StatelessWidget {
   const MainCollectionItem({
     super.key,
-    required this.model,
+    required this.wordModel,
   });
 
-  final CollectionEntity model;
+  final CollectionEntity wordModel;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class MainCollectionItem extends StatelessWidget {
             onPressed: (context) {
               showCupertinoDialog(
                 context: context,
-                builder: (context) => ChangeCollectionDialog(model: model),
+                builder: (context) => ChangeCollectionDialog(model: wordModel),
               );
             },
             backgroundColor: CupertinoColors.systemBlue,
@@ -40,7 +40,7 @@ class MainCollectionItem extends StatelessWidget {
             onPressed: (context) {
               showCupertinoDialog(
                 context: context,
-                builder: (context) => DeleteCollectionDialog(collectionId: model.id),
+                builder: (context) => DeleteCollectionDialog(collectionId: wordModel.id),
               );
             },
             backgroundColor: CupertinoColors.systemIndigo,
@@ -64,18 +64,18 @@ class MainCollectionItem extends StatelessWidget {
           Navigator.pushNamed(
             context,
             RouteNames.collectionDetailPage,
-            arguments: CollectionArgs(collectionModel: model),
+            arguments: CollectionArgs(collectionModel: wordModel),
           );
         },
         title: Text(
-          model.title,
+          wordModel.title,
           style: const TextStyle(fontSize: 20),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
         leading: Icon(
           CupertinoIcons.folder_fill,
-          color: AppStyles.collectionColors[model.color],
+          color: AppStyles.collectionColors[wordModel.color],
         ),
         trailing: const Icon(
           CupertinoIcons.chevron_forward,
@@ -84,7 +84,7 @@ class MainCollectionItem extends StatelessWidget {
         additionalInfo: Consumer<FavoriteWordsState>(
           builder: (BuildContext context, _, __) {
             return FutureBuilder<int>(
-              future: Provider.of<CollectionsState>(context, listen: false).getWordCount(collectionId: model.id),
+              future: Provider.of<CollectionsState>(context, listen: false).getWordCount(collectionId: wordModel.id),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Text(

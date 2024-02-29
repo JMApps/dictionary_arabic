@@ -20,7 +20,7 @@ class CollectionColorCircleButton extends StatelessWidget {
           onTap: () => colorState.setColorIndex = buttonIndex,
           child: Icon(
             colorState.getColorIndex == buttonIndex
-                ? CupertinoIcons.checkmark_circle_fill
+                ? CupertinoIcons.checkmark_alt_circle_fill
                 : CupertinoIcons.circle_fill,
             color: AppStyles.collectionColors[buttonIndex],
             size: 50,

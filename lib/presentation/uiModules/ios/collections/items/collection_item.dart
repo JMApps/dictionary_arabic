@@ -1,11 +1,11 @@
-import 'package:arabic/data/state/collections_state.dart';
-import 'package:arabic/data/state/favorite_words_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/routes/route_names.dart';
 import '../../../../../core/styles/app_styles.dart';
+import '../../../../../data/state/collections_state.dart';
+import '../../../../../data/state/favorite_words_state.dart';
 import '../../../../../domain/entities/args/collection_args.dart';
 import '../../../../../domain/entities/collection_entity.dart';
 import '../dialogs/change_collection_dialog.dart';
@@ -15,10 +15,10 @@ import '../dialogs/delete_collection_dialog.dart';
 class CollectionItem extends StatelessWidget {
   const CollectionItem({
     super.key,
-    required this.model,
+    required this.wordModel,
   });
 
-  final CollectionEntity model;
+  final CollectionEntity wordModel;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class CollectionItem extends StatelessWidget {
             onPressed: (context) {
               showCupertinoDialog(
                 context: context,
-                builder: (context) => ChangeCollectionDialog(model: model),
+                builder: (context) => ChangeCollectionDialog(model: wordModel),
               );
             },
             backgroundColor: CupertinoColors.systemBlue,
@@ -40,12 +40,11 @@ class CollectionItem extends StatelessWidget {
             onPressed: (context) {
               showCupertinoDialog(
                 context: context,
-                builder: (context) =>
-                    DeleteCollectionDialog(collectionId: model.id),
+                builder: (context) => DeleteCollectionDialog(collectionId: wordModel.id),
               );
             },
             backgroundColor: CupertinoColors.systemIndigo,
-            icon: CupertinoIcons.delete_simple,
+            icon: CupertinoIcons.delete,
           ),
           SlidableAction(
             onPressed: (context) {
@@ -65,34 +64,32 @@ class CollectionItem extends StatelessWidget {
           Navigator.pushNamed(
             context,
             RouteNames.collectionDetailPage,
-            arguments: CollectionArgs(collectionModel: model),
+            arguments: CollectionArgs(collectionModel: wordModel),
           );
         },
         title: Text(
-          model.title,
-          style: const TextStyle(
-            fontSize: 20,
-          ),
+          wordModel.title,
+          style: const TextStyle(fontSize: 20),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
         leading: Icon(
           CupertinoIcons.folder_fill,
-          color: AppStyles.collectionColors[model.color],
+          color: AppStyles.collectionColors[wordModel.color],
         ),
         trailing: const Icon(
           CupertinoIcons.chevron_forward,
           color: CupertinoColors.systemGrey,
         ),
         additionalInfo: Consumer<FavoriteWordsState>(
-          builder: (BuildContext context, FavoriteWordsState value, _) {
+          builder: (BuildContext context, _, __) {
             return FutureBuilder<int>(
-              future: Provider.of<CollectionsState>(context, listen: false).getWordCount(collectionId: model.id),
+              future: Provider.of<CollectionsState>(context, listen: false).getWordCount(collectionId: wordModel.id),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Text(
                     snapshot.data.toString(),
-                    style: const TextStyle(
-                      fontSize: 20,
-                    ),
+                    style: const TextStyle(fontSize: 20),
                   );
                 } else {
                   return const CupertinoActivityIndicator();

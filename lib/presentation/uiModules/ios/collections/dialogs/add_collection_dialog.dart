@@ -34,9 +34,7 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
       child: CupertinoAlertDialog(
         title: const Text(
           AppStrings.newCollection,
-          style: TextStyle(
-            fontSize: 20,
-          ),
+          style: TextStyle(fontSize: 20),
         ),
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

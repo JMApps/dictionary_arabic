@@ -101,7 +101,7 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                                 itemCount: _recentCollections.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   final CollectionEntity model = _recentCollections[index];
-                                  return CollectionItem(model: model);
+                                  return CollectionItem(wordModel: model);
                                 },
                               ),
                             ],
