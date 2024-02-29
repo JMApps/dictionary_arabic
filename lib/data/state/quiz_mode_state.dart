@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 
 import '../../domain/entities/favorite_dictionary_entity.dart';
 
@@ -37,6 +38,7 @@ class QuizModeState extends ChangeNotifier {
     _isReset = false;
     defaultAnswerIndex();
     notifyListeners();
+    HapticFeedback.lightImpact();
     return _isReset;
   }
 
@@ -83,6 +85,7 @@ class QuizModeState extends ChangeNotifier {
     if (answer) {
       _isClick = false;
       incrementCorrectAnswer;
+      HapticFeedback.lightImpact();
       Future.delayed(const Duration(seconds: 1)).then((value) {
         if (_pageIndex < _words.length - 1) {
           _quizController.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.easeInToLinear);
@@ -97,6 +100,7 @@ class QuizModeState extends ChangeNotifier {
     } else {
       _isClick = false;
       incrementIncorrectAnswer;
+      HapticFeedback.vibrate();
       Future.delayed(const Duration(seconds: 3)).then((value) {
         if (_pageIndex < _words.length - 1) {
           _quizController.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.easeInToLinear);

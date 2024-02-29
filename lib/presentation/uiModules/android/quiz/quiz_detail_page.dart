@@ -109,7 +109,7 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
                                                   context,
                                                   listen: false)
                                               .fetchWordsByQuiz(
-                                                  wordNr: wordModel.wordNumber),
+                                                  wordNumber: wordModel.wordNumber),
                                       builder: (context, quizSnapshot) {
                                         if (quizSnapshot.hasData) {
                                           return QuizItem(
