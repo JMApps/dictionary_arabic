@@ -53,7 +53,7 @@ class FavoriteDictionaryUseCase {
 
   Future<void> fetchChangeFavoriteWord({required int wordId, required int serializableIndex}) async {
     try {
-      await _favoriteDictionaryRepository.changeFavoriteWord(wordId: wordId, serializableIndex: serializableIndex);
+      await _favoriteDictionaryRepository.changeFavoriteWord(wordNumber: wordId, serializableIndex: serializableIndex);
     } catch (e) {
       throw Exception('Change favorite word data error: $e');
     }
@@ -61,7 +61,7 @@ class FavoriteDictionaryUseCase {
 
   Future<void> fetchMoveFavoriteWord({required int wordNr, required int oldCollectionId, required int collectionId}) async {
     try {
-      await _favoriteDictionaryRepository.moveFavoriteWord(wordNr: wordNr, oldCollectionId: oldCollectionId, collectionId: collectionId);
+      await _favoriteDictionaryRepository.moveFavoriteWord(wordNumber: wordNr, oldCollectionId: oldCollectionId, collectionId: collectionId);
     } catch (e) {
       throw Exception('Move favorite word data error: $e');
     }
