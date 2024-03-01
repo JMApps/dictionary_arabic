@@ -50,15 +50,13 @@ class DetailWordItem extends StatelessWidget {
                             Navigator.pushNamed(
                               context,
                               RouteNames.wordFavoriteDetailPage,
-                              arguments:
-                                  WordArgs(wordNumber: wordModel.wordNumber),
+                              arguments: WordArgs(wordNumber: wordModel.wordNumber),
                             );
                           } else {
                             Navigator.pushNamed(
                               context,
                               RouteNames.addFavoriteWordPage,
-                              arguments:
-                                  WordArgs(wordNumber: wordModel.wordNumber),
+                              arguments: WordArgs(wordNumber: wordModel.wordNumber),
                             );
                           }
                         },

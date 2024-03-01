@@ -32,18 +32,6 @@ class FavoriteWordItem extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (context) {
-                showCupertinoModalPopup(
-                  context: context,
-                  builder: (context) => ChangeSerializableFavoriteWord(
-                    favoriteWordModel: favoriteWordModel,
-                  ),
-                );
-              },
-              backgroundColor: CupertinoColors.systemBlue,
-              icon: CupertinoIcons.eye,
-            ),
-            SlidableAction(
-              onPressed: (context) {
                 Navigator.pushNamed(
                   context,
                   RouteNames.moveFavoriteWordPage,
@@ -57,6 +45,16 @@ class FavoriteWordItem extends StatelessWidget {
               icon: CupertinoIcons.folder_fill,
             ),
             SlidableAction(
+              onPressed: (context) {
+                Share.share(
+                  favoriteWordModel.wordContent(),
+                  sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
+                );
+              },
+              backgroundColor: CupertinoColors.systemBlue,
+              icon: CupertinoIcons.share,
+            ),
+            SlidableAction(
               onPressed: (context) async {
                 await Provider.of<FavoriteWordsState>(context, listen: false).deleteFavoriteWord(
                   favoriteWordId: favoriteWordModel.wordNumber,
@@ -64,16 +62,6 @@ class FavoriteWordItem extends StatelessWidget {
               },
               backgroundColor: CupertinoColors.systemRed,
               icon: CupertinoIcons.delete,
-            ),
-            SlidableAction(
-              onPressed: (context) {
-                Share.share(
-                  favoriteWordModel.wordContent(),
-                  sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
-                );
-              },
-              backgroundColor: CupertinoColors.systemGrey,
-              icon: CupertinoIcons.share,
             ),
           ],
         ),
@@ -171,6 +159,20 @@ class FavoriteWordItem extends StatelessWidget {
                           fontFamily: 'Uthmanic',
                         ),
                         textDirection: TextDirection.rtl,
+                      ),
+                      CupertinoButton(
+                        child: const Icon(
+                          CupertinoIcons.eye,
+                          color: CupertinoColors.systemGrey,
+                        ),
+                        onPressed: () {
+                          showCupertinoModalPopup(
+                            context: context,
+                            builder: (context) => ChangeSerializableFavoriteWord(
+                              favoriteWordModel: favoriteWordModel,
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),

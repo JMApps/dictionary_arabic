@@ -48,8 +48,7 @@ class _SearchWordsPageState extends State<SearchWordsPage> {
                 onChanged: (value) => query.setQuery = value,
                 onSubmitted: (value) async {
                   if (value.trim().isNotEmpty) {
-                    await Provider.of<SearchValuesState>(context, listen: false)
-                        .fetchAddSearchValue(
+                    await Provider.of<SearchValuesState>(context, listen: false).fetchAddSearchValue(
                       searchValue: value.trim().toLowerCase(),
                     );
                   }

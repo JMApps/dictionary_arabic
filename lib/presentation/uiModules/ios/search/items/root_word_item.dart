@@ -115,8 +115,7 @@ class RootWordItem extends StatelessWidget {
                               : const SizedBox(),
                         ],
                       ),
-                      subtitle: ShortTranslationText(
-                          translation: wordModel.translation),
+                      subtitle: ShortTranslationText(translation: wordModel.translation),
                     ),
                   ),
                   Column(
@@ -132,8 +131,7 @@ class RootWordItem extends StatelessWidget {
                               fontSize: 18,
                               color: CupertinoColors.systemGrey,
                             ),
-                          )
-                              : const SizedBox(),
+                          ) : const SizedBox(),
                           const SizedBox(width: 4),
                           wordModel.vocalization != null
                               ? Text(
@@ -142,8 +140,7 @@ class RootWordItem extends StatelessWidget {
                               fontSize: 18,
                               color: CupertinoColors.systemGrey,
                             ),
-                          )
-                              : const SizedBox(),
+                          ) : const SizedBox(),
                           const SizedBox(width: 4),
                           wordModel.form != null
                               ? Text(
@@ -154,8 +151,7 @@ class RootWordItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5,
                             ),
-                          )
-                              : const SizedBox(),
+                          ) : const SizedBox(),
                         ],
                       ),
                       const SizedBox(height: 7),

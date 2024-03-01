@@ -34,7 +34,7 @@ class MainCollectionsList extends StatelessWidget {
                       itemCount: snapshot.data!.length >= 11 ? 11 : snapshot.data!.length,
                       itemBuilder: (BuildContext context, int index) {
                         final CollectionEntity model = snapshot.data![index];
-                        return MainCollectionItem(wordModel: model);
+                        return MainCollectionItem(collectionModel: model);
                       },
                     ),
                   ],
