@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/routes/route_names.dart';
@@ -72,6 +73,7 @@ class _MainCupertinoPageState extends State<MainCupertinoPage> {
                       activeColor: CupertinoColors.systemBlue,
                       value: matchState.getExactMatch,
                       onChanged: (value) {
+                        HapticFeedback.lightImpact();
                         matchState.setExactMatch = value;
                       },
                     ),
@@ -143,7 +145,6 @@ class _MainCupertinoPageState extends State<MainCupertinoPage> {
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.start,
               ),
               leading: CollectionsOrderButton(),
               trailing: AddCollectionButton(),

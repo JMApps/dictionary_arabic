@@ -9,39 +9,36 @@ import '../../widgets/translation_text.dart';
 class SerializableWordsList extends StatelessWidget {
   const SerializableWordsList({
     super.key,
-    required this.model,
+    required this.wordModel,
   });
 
-  final DictionaryEntity model;
+  final DictionaryEntity wordModel;
 
   @override
   Widget build(BuildContext context) {
-    List<String> translationLines = model.translation.split('\\n');
+    List<String> translationLines = wordModel.translation.split('\\n');
     return CupertinoScrollbar(
       child: ListView.builder(
-        padding: AppStyles.mardingWithoutBottom,
+        padding: EdgeInsets.zero,
         itemCount: translationLines.length,
         itemBuilder: (BuildContext context, int index) {
           return CupertinoListTile(
-            padding: AppStyles.mardingOnlyBottom,
+            padding: AppStyles.mainMarding,
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                RouteNames.favoriteWordSelectionCollectionPage,
+                arguments: WordFavoriteCollectionArgs(
+                  wordModel: wordModel,
+                  serializableIndex: index,
+                ),
+              );
+            },
             title: TranslationText(translation: translationLines[index]),
-            trailing: CupertinoButton(
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  RouteNames.favoriteWordSelectionCollectionPage,
-                  arguments: WordFavoriteCollectionArgs(
-                    wordModel: model,
-                    serializableIndex: index,
-                  ),
-                );
-              },
-              padding: EdgeInsets.zero,
-              child: const Icon(
+            trailing: const Icon(
                 CupertinoIcons.bookmark,
                 color: CupertinoColors.systemBlue,
               ),
-            ),
           );
         },
       ),

@@ -6,7 +6,7 @@ import '../../../../core/styles/app_styles.dart';
 import '../../../../data/state/favorite_words_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
 import '../../../../domain/entities/favorite_dictionary_entity.dart';
-import '../favorites/items/favorite_word_item.dart';
+import 'items/favorite_word_item.dart';
 import '../widgets/error_data_text.dart';
 
 class CollectionDetailPage extends StatelessWidget {
@@ -35,8 +35,8 @@ class CollectionDetailPage extends StatelessWidget {
               child: ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final FavoriteDictionaryEntity model = snapshot.data![index];
-                  return FavoriteWordItem(model: model);
+                  final FavoriteDictionaryEntity favoriteWordModel = snapshot.data![index];
+                  return FavoriteWordItem(favoriteWordModel: favoriteWordModel);
                 },
               ),
             );

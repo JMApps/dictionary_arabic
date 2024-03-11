@@ -1,15 +1,15 @@
-import 'package:arabic/data/state/default_dictionary_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/strings/app_strings.dart';
 import '../../../../../core/styles/app_styles.dart';
+import '../../../../../data/state/default_dictionary_state.dart';
 import '../../../../../data/state/search_query_state.dart';
 import '../../../../../data/state/word_exact_match_state.dart';
 import '../../../../../domain/entities/dictionary_entity.dart';
 import '../../widgets/data_text.dart';
 import '../../widgets/error_data_text.dart';
-import '../../widgets/word_item.dart';
+import '../../widgets/main_word_item.dart';
 import 'search_values_list.dart';
 
 class SearchWordsList extends StatelessWidget {
@@ -24,11 +24,7 @@ class SearchWordsList extends StatelessWidget {
         exactMatch: Provider.of<WordExactMatchState>(context, listen: false).getExactMatch,
       ),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CupertinoActivityIndicator(),
-          );
-        } else if (snapshot.hasData && snapshot.data!.isNotEmpty && query.isNotEmpty) {
+        if (snapshot.hasData && snapshot.data!.isNotEmpty && query.isNotEmpty) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -39,15 +35,11 @@ class SearchWordsList extends StatelessWidget {
                     children: [
                       const TextSpan(
                         text: AppStrings.matchesFound,
-                        style: TextStyle(
-                          color: CupertinoColors.systemGrey,
-                        ),
+                        style: TextStyle(color: CupertinoColors.systemGrey),
                       ),
                       TextSpan(
                         text: '${snapshot.data!.length}',
-                        style: const TextStyle(
-                          color: CupertinoColors.systemBlue,
-                        ),
+                        style: const TextStyle(color: CupertinoColors.systemBlue),
                       ),
                     ],
                     style: const TextStyle(
@@ -64,7 +56,7 @@ class SearchWordsList extends StatelessWidget {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, int index) {
                       final DictionaryEntity model = snapshot.data![index];
-                      return WordItem(model: model);
+                      return MainWordItem(wordModel: model);
                     },
                   ),
                 ),

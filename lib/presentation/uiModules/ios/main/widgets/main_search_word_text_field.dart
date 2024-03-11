@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../core/routes/route_names.dart';
 import '../../../../../core/strings/app_strings.dart';
-import '../../../../../core/styles/app_styles.dart';
 
 class MainSearchWordTextField extends StatelessWidget {
   const MainSearchWordTextField({super.key});
@@ -15,13 +14,8 @@ class MainSearchWordTextField extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(9)),
         color: CupertinoColors.systemGrey5,
       ),
-      prefix: const Padding(
-        padding: AppStyles.mardingOnlyLeftMini,
-        child: Icon(
-          CupertinoIcons.search,
-          color: CupertinoColors.systemGrey,
-        ),
-      ),
+      textAlign: TextAlign.center,
+      textAlignVertical: TextAlignVertical.center,
       placeholder: AppStrings.searchWords,
       placeholderStyle: const TextStyle(
         fontSize: 16,

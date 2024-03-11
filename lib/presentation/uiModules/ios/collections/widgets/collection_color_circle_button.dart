@@ -15,14 +15,12 @@ class CollectionColorCircleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AddChangeCollectionState>(
-      builder: (BuildContext context, AddChangeCollectionState colorState, _) {
+      builder: (BuildContext context, colorState, _) {
         return GestureDetector(
-          onTap: () {
-            colorState.setColorIndex = buttonIndex;
-          },
+          onTap: () => colorState.setColorIndex = buttonIndex,
           child: Icon(
             colorState.getColorIndex == buttonIndex
-                ? CupertinoIcons.checkmark_circle_fill
+                ? CupertinoIcons.checkmark_alt_circle_fill
                 : CupertinoIcons.circle_fill,
             color: AppStyles.collectionColors[buttonIndex],
             size: 50,

@@ -42,18 +42,18 @@ class CollectionsUseCase {
     }
   }
 
-  Future<int> fetchAddCollection({required CollectionEntity model}) async {
+  Future<int> fetchAddCollection({required CollectionEntity collectionModel}) async {
     try {
-      final int addCollection = await _collectionsRepository.addCollection(model: model);
+      final int addCollection = await _collectionsRepository.addCollection(model: collectionModel);
       return addCollection;
     } catch (e) {
       throw Exception('Get add collection data error: $e');
     }
   }
 
-  Future<int> fetchChangeCollection({required CollectionEntity model}) async {
+  Future<int> fetchChangeCollection({required CollectionEntity collectionModel}) async {
     try {
-      final int changeCollection = await _collectionsRepository.changeCollection(model: model);
+      final int changeCollection = await _collectionsRepository.changeCollection(model: collectionModel);
       return changeCollection;
     } catch (e) {
       throw Exception('Get change collection data error: $e');

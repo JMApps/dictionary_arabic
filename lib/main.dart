@@ -8,12 +8,12 @@ import 'core/strings/app_constraints.dart';
 import 'data/services/default_dictionary_service.dart';
 import 'data/services/notifications/local_notice_service.dart';
 import 'presentation/uiModules/android/main/root_material_page.dart';
+import 'presentation/uiModules/ios/main/root_cupertino_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalNoticeService().setupNotification();
   if (Platform.isAndroid) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -25,6 +25,6 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox(AppConstraints.keyMainAppSettingsBox);
   runApp(
-    Platform.isAndroid ? const RootMaterialPage() : const RootMaterialPage(),
+    Platform.isAndroid ? const RootMaterialPage() : const RootCupertinoPage(),
   );
 }

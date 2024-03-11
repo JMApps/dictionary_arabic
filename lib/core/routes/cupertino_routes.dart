@@ -3,15 +3,17 @@ import 'package:flutter/cupertino.dart';
 import '../../domain/entities/args/collection_args.dart';
 import '../../domain/entities/args/word_args.dart';
 import '../../domain/entities/args/word_favorite_collection_args.dart';
+import '../../domain/entities/args/word_move_args.dart';
 import '../../presentation/uiModules/ios/cards/card_mode_page.dart';
 import '../../presentation/uiModules/ios/cards/cards_mode_detail_page.dart';
 import '../../presentation/uiModules/ios/collections/all_collections_page.dart';
-import '../../presentation/uiModules/ios/collections/collection_detail_page.dart';
+import '../../presentation/uiModules/ios/favorites/collection_detail_page.dart';
 import '../../presentation/uiModules/ios/constructors/word_constructor_page.dart';
 import '../../presentation/uiModules/ios/constructors/word_constructor_detail_page.dart';
 import '../../presentation/uiModules/ios/favorites/add_favorite_word_page.dart';
 import '../../presentation/uiModules/ios/favorites/favorite_word_detail_page.dart';
 import '../../presentation/uiModules/ios/favorites/favorite_word_select_collection.dart';
+import '../../presentation/uiModules/ios/favorites/move_favorite_word_page.dart';
 import '../../presentation/uiModules/ios/quiz/quiz_detail_page.dart';
 import '../../presentation/uiModules/ios/quiz/quiz_page.dart';
 import '../../presentation/uiModules/ios/search/search_words_page.dart';
@@ -72,6 +74,14 @@ class CupertinoRoutes {
         return CupertinoPageRoute(
           builder: (_) => FavoriteWordDetailPage(favoriteWordNumber: wordArgs.wordNumber),
         );
+      case RouteNames.moveFavoriteWordPage:
+        final WordMoveArgs wordMoveArgs = routeSettings.arguments as WordMoveArgs;
+        return CupertinoPageRoute(
+          builder: (_) => MoveFavoriteWordPage(
+            wordNumber: wordMoveArgs.wordNumber,
+            oldCollectionId: wordMoveArgs.oldCollectionId,
+          ),
+        );
       case RouteNames.quizPage:
         return CupertinoPageRoute(
           builder: (_) => const QuizPage(),
@@ -97,7 +107,7 @@ class CupertinoRoutes {
       case RouteNames.wordDetailPage:
         final WordArgs wordArgs = routeSettings.arguments as WordArgs;
         return CupertinoPageRoute(
-          builder: (_) => WordDetailPage(wordNr: wordArgs.wordNumber),
+          builder: (_) => WordDetailPage(wordNumber: wordArgs.wordNumber),
         );
       case RouteNames.cardModePage:
         return CupertinoPageRoute(

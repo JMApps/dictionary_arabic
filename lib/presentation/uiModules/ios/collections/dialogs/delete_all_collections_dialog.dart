@@ -12,9 +12,7 @@ class DeleteAllCollectionsDialog extends StatelessWidget {
     return CupertinoAlertDialog(
       title: const Text(
         AppStrings.deletingCollections,
-        style: TextStyle(
-          fontSize: 20,
-        ),
+        style: TextStyle(fontSize: 20),
       ),
       content: const Text(AppStrings.deleteAllCollectionsQuestion,
         style: TextStyle(
@@ -30,18 +28,14 @@ class DeleteAllCollectionsDialog extends StatelessWidget {
           },
           child: const Text(
             AppStrings.delete,
-            style: TextStyle(
-              color: CupertinoColors.systemRed,
-            ),
+            style: TextStyle(color: CupertinoColors.systemRed),
           ),
         ),
         CupertinoButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text(
-            AppStrings.cancel,
-          ),
+          child: const Text(AppStrings.cancel),
         ),
       ],
     );

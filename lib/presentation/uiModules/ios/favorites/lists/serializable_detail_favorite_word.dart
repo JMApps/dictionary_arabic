@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import '../../../../../core/styles/app_styles.dart';
 import '../../widgets/favorite_translation_text.dart';
 
-class SerializableDetailWordsList extends StatelessWidget {
-  const SerializableDetailWordsList({
+class SerializableDetailFavoriteWord extends StatelessWidget {
+  const SerializableDetailFavoriteWord({
     super.key,
     required this.translation,
     required this.serializableIndex,
@@ -16,7 +16,6 @@ class SerializableDetailWordsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> translationLines = translation.split('\\n');
-
     return ListView.builder(
       padding: EdgeInsets.zero,
       shrinkWrap: true,

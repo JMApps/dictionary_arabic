@@ -107,6 +107,7 @@ class FavoriteDetailWordItem extends StatelessWidget {
                             ) : const SizedBox(),
                     ],
                   ),
+                  const SizedBox(height: 4),
                   Text(
                     favoriteWordModel.root,
                     style: TextStyle(

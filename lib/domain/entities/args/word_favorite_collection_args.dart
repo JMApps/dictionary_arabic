@@ -1,4 +1,5 @@
-import 'package:arabic/domain/entities/dictionary_entity.dart';
+
+import '../dictionary_entity.dart';
 
 class WordFavoriteCollectionArgs {
   final DictionaryEntity wordModel;

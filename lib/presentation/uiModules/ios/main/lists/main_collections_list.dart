@@ -6,9 +6,9 @@ import '../../../../../core/strings/app_strings.dart';
 import '../../../../../core/styles/app_styles.dart';
 import '../../../../../data/state/collections_state.dart';
 import '../../../../../domain/entities/collection_entity.dart';
-import '../../collections/items/collection_item.dart';
 import '../../widgets/data_text.dart';
 import '../../widgets/error_data_text.dart';
+import '../items/main_collection_item.dart';
 import '../widgets/add_collection_button.dart';
 
 class MainCollectionsList extends StatelessWidget {
@@ -31,15 +31,15 @@ class MainCollectionsList extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: snapshot.data!.length >= 10 ? 10 : snapshot.data!.length,
+                      itemCount: snapshot.data!.length >= 11 ? 11 : snapshot.data!.length,
                       itemBuilder: (BuildContext context, int index) {
                         final CollectionEntity model = snapshot.data![index];
-                        return CollectionItem(model: model);
+                        return MainCollectionItem(collectionModel: model);
                       },
                     ),
                   ],
                 ),
-                snapshot.data!.length >= 10
+                snapshot.data!.length >= 11
                     ? Padding(
                         padding: AppStyles.mainMarding,
                         child: CupertinoButton(

@@ -18,7 +18,6 @@ class SearchValuesList extends StatelessWidget {
         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
           return Column(
             children: [
-              snapshot.data!.length > 5 ? const SizedBox(height: 7) : const SizedBox(),
               snapshot.data!.length > 5 ?  CupertinoListTile(
                 backgroundColor: CupertinoColors.quaternarySystemFill,
                 padding: AppStyles.mardingSymmetricHor,

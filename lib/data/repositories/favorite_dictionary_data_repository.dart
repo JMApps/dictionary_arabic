@@ -78,19 +78,19 @@ class FavoriteDictionaryDataRepository implements FavoriteDictionaryRepository {
   }
 
   @override
-  Future<void> changeFavoriteWord({required int wordId, required int serializableIndex}) async {
+  Future<void> changeFavoriteWord({required int wordNumber, required int serializableIndex}) async {
     final Database database = await _collectionsService.db;
     final Map<String, int> serializableMap = {
       'serializable_index': serializableIndex,
     };
-    await database.update(_favoriteWordsTableName, serializableMap, where: 'word_number = ?', whereArgs: [wordId], conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    await database.update(_favoriteWordsTableName, serializableMap, where: 'word_number = ?', whereArgs: [wordNumber], conflictAlgorithm: sql.ConflictAlgorithm.replace);
   }
 
   @override
-  Future<void> moveFavoriteWord({required int wordNr, required int oldCollectionId, required int collectionId}) async {
+  Future<void> moveFavoriteWord({required int wordNumber, required int oldCollectionId, required int collectionId}) async {
     final Database database = await _collectionsService.db;
     await database.transaction((txn) async {
-      await txn.update(_favoriteWordsTableName, {'collection_id': collectionId}, where: 'word_number = ?', whereArgs: [wordNr], conflictAlgorithm: ConflictAlgorithm.replace);
+      await txn.update(_favoriteWordsTableName, {'collection_id': collectionId}, where: 'word_number = ?', whereArgs: [wordNumber], conflictAlgorithm: ConflictAlgorithm.replace);
       await _updateCollectionWordCount(txn, oldCollectionId);
       await _updateCollectionWordCount(txn, collectionId);
     });

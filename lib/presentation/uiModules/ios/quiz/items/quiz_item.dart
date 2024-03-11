@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/styles/app_styles.dart';
@@ -37,7 +36,7 @@ class _QuizItemState extends State<QuizItem> {
   @override
   Widget build(BuildContext context) {
     return Consumer<QuizModeState>(
-      builder: (BuildContext context, QuizModeState quizModeState, _) {
+      builder: (BuildContext context, quizModeState, _) {
         return ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -52,12 +51,10 @@ class _QuizItemState extends State<QuizItem> {
               if (wordModel.articleId.contains(quizModel.articleId) &&
                   quizModeState.getAnswerIndex != -1) {
                 lineColor = CupertinoColors.systemGreen;
-                HapticFeedback.lightImpact();
               } else {
                 lineColor = index == quizModeState.getAnswerIndex
                     ? CupertinoColors.systemRed
                     : CupertinoColors.secondarySystemFill;
-                HapticFeedback.heavyImpact();
               }
             }
             return CupertinoListSection.insetGrouped(
@@ -71,13 +68,13 @@ class _QuizItemState extends State<QuizItem> {
                   title: AnimatedContainer(
                     width: double.infinity,
                     padding: AppStyles.quizMarding,
-                    duration: const Duration(milliseconds: 1350),
+                    duration: const Duration(seconds: 1),
                     curve: Curves.easeInToLinear,
                     decoration: BoxDecoration(
                       borderRadius: AppStyles.mainBorderMini,
                       border: Border.all(
                         color: lineColor,
-                        width: 3,
+                        width: 2,
                       ),
                     ),
                     child: QuizTranslationText(

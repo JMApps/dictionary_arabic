@@ -18,13 +18,9 @@ class SearchValueItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoListTile(
       padding: AppStyles.mardingSymmetricHor,
-      onTap: () {
-        Provider.of<SearchQueryState>(context, listen: false).setQuery = model.searchValue;
-      },
+      onTap: () => Provider.of<SearchQueryState>(context, listen: false).setQuery = model.searchValue,
       title: Text(model.searchValue),
-      leading: const Icon(
-        CupertinoIcons.search,
-      ),
+      leading: const Icon(CupertinoIcons.search),
       trailing: CupertinoButton(
         padding: EdgeInsets.zero,
         onPressed: () async {

@@ -9,10 +9,10 @@ import '../../../../../data/state/favorite_words_state.dart';
 import '../../../../../domain/entities/args/word_args.dart';
 import '../../../../../domain/entities/dictionary_entity.dart';
 import '../../widgets/forms_text.dart';
-import '../../widgets/translation_text.dart';
+import '../../widgets/short_translation_text.dart';
 
-class DetailWordItem extends StatelessWidget {
-  const DetailWordItem({
+class RootWordItem extends StatelessWidget {
+  const RootWordItem({
     super.key,
     required this.wordModel,
   });
@@ -50,13 +50,15 @@ class DetailWordItem extends StatelessWidget {
                             Navigator.pushNamed(
                               context,
                               RouteNames.wordFavoriteDetailPage,
-                              arguments: WordArgs(wordNumber: wordModel.wordNumber),
+                              arguments:
+                              WordArgs(wordNumber: wordModel.wordNumber),
                             );
                           } else {
                             Navigator.pushNamed(
                               context,
                               RouteNames.addFavoriteWordPage,
-                              arguments: WordArgs(wordNumber: wordModel.wordNumber),
+                              arguments:
+                              WordArgs(wordNumber: wordModel.wordNumber),
                             );
                           }
                         },
@@ -77,6 +79,13 @@ class DetailWordItem extends StatelessWidget {
         child: CupertinoListTile(
           padding: AppStyles.mainMarding,
           backgroundColor: CupertinoColors.quaternarySystemFill,
+          onTap: () {
+            Navigator.pushReplacementNamed(
+              context,
+              RouteNames.wordDetailPage,
+              arguments: WordArgs(wordNumber: wordModel.wordNumber),
+            );
+          },
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -91,7 +100,7 @@ class DetailWordItem extends StatelessWidget {
                           Text(
                             wordModel.arabicWord,
                             style: const TextStyle(
-                              fontSize: 60,
+                              fontSize: 35,
                               fontFamily: 'Uthmanic',
                             ),
                             textDirection: TextDirection.rtl,
@@ -106,7 +115,7 @@ class DetailWordItem extends StatelessWidget {
                               : const SizedBox(),
                         ],
                       ),
-                      subtitle: TranslationText(translation: wordModel.translation),
+                      subtitle: ShortTranslationText(translation: wordModel.translation),
                     ),
                   ),
                   Column(
@@ -117,35 +126,32 @@ class DetailWordItem extends StatelessWidget {
                         children: [
                           wordModel.homonymNr != null
                               ? Text(
-                                  wordModel.homonymNr.toString(),
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    color: CupertinoColors.systemGrey,
-                                  ),
-                                )
-                              : const SizedBox(),
+                            wordModel.homonymNr.toString(),
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: CupertinoColors.systemGrey,
+                            ),
+                          ) : const SizedBox(),
                           const SizedBox(width: 4),
                           wordModel.vocalization != null
                               ? Text(
-                                  wordModel.vocalization!,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    color: CupertinoColors.systemGrey,
-                                  ),
-                                )
-                              : const SizedBox(),
+                            wordModel.vocalization!,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: CupertinoColors.systemGrey,
+                            ),
+                          ) : const SizedBox(),
                           const SizedBox(width: 4),
                           wordModel.form != null
                               ? Text(
-                                  wordModel.form!,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontFamily: 'Heuristica',
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 0.5,
-                                  ),
-                                )
-                              : const SizedBox(),
+                            wordModel.form!,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontFamily: 'Heuristica',
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5,
+                            ),
+                          ) : const SizedBox(),
                         ],
                       ),
                       const SizedBox(height: 7),

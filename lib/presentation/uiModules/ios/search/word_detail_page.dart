@@ -7,28 +7,36 @@ import '../../../../data/state/default_dictionary_state.dart';
 import '../../../../domain/entities/dictionary_entity.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
-import '../widgets/root_word_item.dart';
+import 'items/root_word_item.dart';
 import 'items/detail_word_item.dart';
 
 class WordDetailPage extends StatelessWidget {
   const WordDetailPage({
     super.key,
-    required this.wordNr,
+    required this.wordNumber,
   });
 
-  final int wordNr;
+  final int wordNumber;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DictionaryEntity>(
-      future: Provider.of<DefaultDictionaryState>(context, listen: false).getWordById(wordNumber: wordNr),
+      future: Provider.of<DefaultDictionaryState>(context, listen: false).getWordById(wordNumber: wordNumber),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return CupertinoPageScaffold(
             backgroundColor: CupertinoColors.systemGroupedBackground,
-            navigationBar: const CupertinoNavigationBar(
-              middle: Text(AppStrings.word),
-              previousPageTitle: AppStrings.close,
+            navigationBar: CupertinoNavigationBar(
+              middle: const Text(AppStrings.word),
+              previousPageTitle: AppStrings.toBack,
+              trailing: CupertinoButton(
+                padding: EdgeInsets.zero,
+                child: const Text(AppStrings.close),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+              ),
             ),
             child: SafeArea(
               bottom: false,
@@ -39,9 +47,9 @@ class WordDetailPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          DetailWordItem(model: snapshot.data!),
+                          DetailWordItem(wordModel: snapshot.data!),
                           const Padding(
-                            padding: AppStyles.mainMardingMini,
+                            padding: AppStyles.mardingWithoutTopMini,
                             child: Text(
                               AppStrings.cognates,
                               style: TextStyle(
@@ -66,7 +74,7 @@ class WordDetailPage extends StatelessWidget {
                                   itemCount: wordRootsSnapshot.data!.length,
                                   itemBuilder: (BuildContext context, int index) {
                                     final DictionaryEntity model = wordRootsSnapshot.data![index];
-                                    return RootWordItem(model: model, index: index);
+                                    return RootWordItem(wordModel: model);
                                   },
                                 );
                               } else {

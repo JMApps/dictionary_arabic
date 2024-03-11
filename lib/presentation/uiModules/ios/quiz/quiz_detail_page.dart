@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -47,18 +48,22 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
             navigationBar: CupertinoNavigationBar(
               middle: Text(widget.collectionModel.title),
               previousPageTitle: AppStrings.toBack,
-              trailing: quizModeState.getIsReset ? CupertinoButton(
+              trailing: quizModeState.getIsReset
+                  ? CupertinoButton(
                       padding: EdgeInsets.zero,
                       child: const Icon(CupertinoIcons.refresh_bold),
                       onPressed: () {
                         quizModeState.resetQuiz;
                       },
-                    ) : const SizedBox(),
+                    )
+                  : const SizedBox(),
             ),
             child: SafeArea(
               bottom: false,
               child: FutureBuilder<List<FavoriteDictionaryEntity>>(
-                future: Provider.of<FavoriteWordsState>(context, listen: false).fetchFavoriteWordsByCollectionId(collectionId: widget.collectionModel.id),
+                future: Provider.of<FavoriteWordsState>(context, listen: false).fetchFavoriteWordsByCollectionId(
+                  collectionId: widget.collectionModel.id,
+                ),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     quizModeState.setWords = snapshot.data!;
@@ -87,20 +92,20 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
                                     ),
                                     const SizedBox(height: 7),
                                     FutureBuilder(
-                                        future: Provider.of<DefaultDictionaryState>(context, listen: false).fetchWordsByQuiz(wordNr: wordModel.wordNumber),
-                                        builder: (context, quizSnapshot) {
-                                          if (quizSnapshot.hasData) {
-                                            return QuizItem(
-                                              wordNumber: wordModel.wordNumber,
-                                              pageIndex: pageIndex,
-                                              quizSnapshot: quizSnapshot,
-                                            );
-                                          } else {
-                                            return const Center(
-                                              child: CupertinoActivityIndicator(),
-                                            );
-                                          }
-                                      }
+                                      future: Provider.of<DefaultDictionaryState>(context, listen: false).fetchWordsByQuiz(wordNumber: wordModel.wordNumber),
+                                      builder: (context, quizSnapshot) {
+                                        if (quizSnapshot.hasData) {
+                                          return QuizItem(
+                                            wordNumber: wordModel.wordNumber,
+                                            pageIndex: pageIndex,
+                                            quizSnapshot: quizSnapshot,
+                                          );
+                                        } else {
+                                          return const Center(
+                                            child: CupertinoActivityIndicator(),
+                                          );
+                                        }
+                                      },
                                     ),
                                   ],
                                 ),

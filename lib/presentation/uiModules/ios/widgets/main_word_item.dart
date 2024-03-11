@@ -3,27 +3,24 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../../../core/routes/route_names.dart';
-import '../../../../../core/styles/app_styles.dart';
-import '../../../../../data/state/favorite_words_state.dart';
-import '../../../../../domain/entities/args/word_args.dart';
-import '../../../../../domain/entities/args/word_move_args.dart';
-import '../../../../../domain/entities/favorite_dictionary_entity.dart';
-import '../../widgets/forms_text.dart';
-import '../../widgets/short_translation_text.dart';
-import '../lists/change_serializable_favorite_word.dart';
+import '../../../../core/routes/route_names.dart';
+import '../../../../core/styles/app_styles.dart';
+import '../../../../data/state/favorite_words_state.dart';
+import '../../../../domain/entities/args/word_args.dart';
+import '../../../../domain/entities/dictionary_entity.dart';
+import 'forms_text.dart';
+import 'short_translation_text.dart';
 
-class FavoriteWordItem extends StatelessWidget {
-  const FavoriteWordItem({
+class MainWordItem extends StatelessWidget {
+  const MainWordItem({
     super.key,
-    required this.favoriteWordModel,
+    required this.wordModel,
   });
 
-  final FavoriteDictionaryEntity favoriteWordModel;
+  final DictionaryEntity wordModel;
 
   @override
   Widget build(BuildContext context) {
-    List<String> splitTranslationText = favoriteWordModel.translation.split('\\n');
     return Padding(
       padding: AppStyles.mardingOnlyBottom,
       child: Slidable(
@@ -32,36 +29,51 @@ class FavoriteWordItem extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (context) {
-                Navigator.pushNamed(
-                  context,
-                  RouteNames.moveFavoriteWordPage,
-                  arguments: WordMoveArgs(
-                    wordNumber: favoriteWordModel.wordNumber,
-                    oldCollectionId: favoriteWordModel.collectionId,
-                  ),
-                );
-              },
-              backgroundColor: CupertinoColors.systemIndigo,
-              icon: CupertinoIcons.folder_fill,
-            ),
-            SlidableAction(
-              onPressed: (context) {
                 Share.share(
-                  favoriteWordModel.wordContent(),
+                  wordModel.wordContent(),
                   sharePositionOrigin: const Rect.fromLTWH(1, 1, 1, 2 / 2),
                 );
               },
               backgroundColor: CupertinoColors.systemBlue,
               icon: CupertinoIcons.share,
             ),
-            SlidableAction(
-              onPressed: (context) async {
-                await Provider.of<FavoriteWordsState>(context, listen: false).deleteFavoriteWord(
-                  favoriteWordId: favoriteWordModel.wordNumber,
+            Consumer<FavoriteWordsState>(
+              builder: (BuildContext context, favoriteWordState, _) {
+                return FutureBuilder<bool>(
+                  future: favoriteWordState.fetchIsWordFavorite(
+                      wordNumber: wordModel.wordNumber),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final bool isFavorite = snapshot.data!;
+                      return SlidableAction(
+                        onPressed: (context) {
+                          if (isFavorite) {
+                            Navigator.pushNamed(
+                              context,
+                              RouteNames.wordFavoriteDetailPage,
+                              arguments:
+                                  WordArgs(wordNumber: wordModel.wordNumber),
+                            );
+                          } else {
+                            Navigator.pushNamed(
+                              context,
+                              RouteNames.addFavoriteWordPage,
+                              arguments:
+                                  WordArgs(wordNumber: wordModel.wordNumber),
+                            );
+                          }
+                        },
+                        backgroundColor: CupertinoColors.systemIndigo,
+                        icon: isFavorite
+                            ? CupertinoIcons.bookmark_fill
+                            : CupertinoIcons.bookmark,
+                      );
+                    } else {
+                      return const CupertinoActivityIndicator();
+                    }
+                  },
                 );
               },
-              backgroundColor: CupertinoColors.systemRed,
-              icon: CupertinoIcons.delete,
             ),
           ],
         ),
@@ -71,8 +83,8 @@ class FavoriteWordItem extends StatelessWidget {
           onTap: () {
             Navigator.pushNamed(
               context,
-              RouteNames.wordFavoriteDetailPage,
-              arguments: WordArgs(wordNumber: favoriteWordModel.wordNumber),
+              RouteNames.wordDetailPage,
+              arguments: WordArgs(wordNumber: wordModel.wordNumber),
             );
           },
           title: Column(
@@ -87,7 +99,7 @@ class FavoriteWordItem extends StatelessWidget {
                       title: Row(
                         children: [
                           Text(
-                            favoriteWordModel.arabicWord,
+                            wordModel.arabicWord,
                             style: const TextStyle(
                               fontSize: 35,
                               fontFamily: 'Uthmanic',
@@ -95,20 +107,17 @@ class FavoriteWordItem extends StatelessWidget {
                             textDirection: TextDirection.rtl,
                           ),
                           const SizedBox(width: 8),
-                          favoriteWordModel.forms != null
-                              ? FormsText(content: favoriteWordModel.forms!)
+                          wordModel.forms != null
+                              ? FormsText(content: wordModel.forms!)
                               : const SizedBox(),
                           const SizedBox(width: 8),
-                          favoriteWordModel.additional != null
-                              ? FormsText(content: favoriteWordModel.additional!)
+                          wordModel.additional != null
+                              ? FormsText(content: wordModel.additional!)
                               : const SizedBox(),
                         ],
                       ),
                       subtitle: ShortTranslationText(
-                        translation: favoriteWordModel.serializableIndex == -1
-                            ? favoriteWordModel.translation
-                            : splitTranslationText[favoriteWordModel.serializableIndex],
-                      ),
+                          translation: wordModel.translation),
                     ),
                   ),
                   Column(
@@ -117,9 +126,9 @@ class FavoriteWordItem extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          favoriteWordModel.homonymNr != null
+                          wordModel.homonymNr != null
                               ? Text(
-                                  favoriteWordModel.homonymNr.toString(),
+                                  wordModel.homonymNr.toString(),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: CupertinoColors.systemGrey,
@@ -127,9 +136,9 @@ class FavoriteWordItem extends StatelessWidget {
                                 )
                               : const SizedBox(),
                           const SizedBox(width: 4),
-                          favoriteWordModel.vocalization != null
+                          wordModel.vocalization != null
                               ? Text(
-                                  favoriteWordModel.vocalization!,
+                                  wordModel.vocalization!,
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: CupertinoColors.systemGrey,
@@ -137,9 +146,9 @@ class FavoriteWordItem extends StatelessWidget {
                                 )
                               : const SizedBox(),
                           const SizedBox(width: 4),
-                          favoriteWordModel.form != null
+                          wordModel.form != null
                               ? Text(
-                                  favoriteWordModel.form!,
+                                  wordModel.form!,
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontFamily: 'Heuristica',
@@ -152,27 +161,13 @@ class FavoriteWordItem extends StatelessWidget {
                       ),
                       const SizedBox(height: 7),
                       Text(
-                        favoriteWordModel.root,
+                        wordModel.root,
                         style: const TextStyle(
                           fontSize: 22,
                           color: CupertinoColors.systemRed,
                           fontFamily: 'Uthmanic',
                         ),
                         textDirection: TextDirection.rtl,
-                      ),
-                      CupertinoButton(
-                        child: const Icon(
-                          CupertinoIcons.eye,
-                          color: CupertinoColors.systemGrey,
-                        ),
-                        onPressed: () {
-                          showCupertinoModalPopup(
-                            context: context,
-                            builder: (context) => ChangeSerializableFavoriteWord(
-                              favoriteWordModel: favoriteWordModel,
-                            ),
-                          );
-                        },
                       ),
                     ],
                   ),

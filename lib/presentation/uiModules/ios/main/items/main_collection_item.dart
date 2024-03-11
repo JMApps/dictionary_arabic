@@ -8,12 +8,12 @@ import '../../../../../data/state/collections_state.dart';
 import '../../../../../data/state/favorite_words_state.dart';
 import '../../../../../domain/entities/args/collection_args.dart';
 import '../../../../../domain/entities/collection_entity.dart';
-import '../dialogs/change_collection_dialog.dart';
-import '../dialogs/delete_all_collections_dialog.dart';
-import '../dialogs/delete_collection_dialog.dart';
+import '../../collections/dialogs/change_collection_dialog.dart';
+import '../../collections/dialogs/delete_all_collections_dialog.dart';
+import '../../collections/dialogs/delete_collection_dialog.dart';
 
-class CollectionItem extends StatelessWidget {
-  const CollectionItem({
+class MainCollectionItem extends StatelessWidget {
+  const MainCollectionItem({
     super.key,
     required this.collectionModel,
   });
@@ -44,7 +44,7 @@ class CollectionItem extends StatelessWidget {
               );
             },
             backgroundColor: CupertinoColors.systemIndigo,
-            icon: CupertinoIcons.delete,
+            icon: CupertinoIcons.delete_simple,
           ),
           SlidableAction(
             onPressed: (context) {

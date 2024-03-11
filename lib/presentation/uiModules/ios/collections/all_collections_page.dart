@@ -100,8 +100,8 @@ class _AllCollectionsPageState extends State<AllCollectionsPage> {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemCount: _recentCollections.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  final CollectionEntity model = _recentCollections[index];
-                                  return CollectionItem(model: model);
+                                  final CollectionEntity collectionModel = _recentCollections[index];
+                                  return CollectionItem(collectionModel: collectionModel);
                                 },
                               ),
                             ],

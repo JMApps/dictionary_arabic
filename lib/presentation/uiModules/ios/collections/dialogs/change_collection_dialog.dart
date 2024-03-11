@@ -10,10 +10,10 @@ import '../widgets/collection_color_circle_button.dart';
 class ChangeCollectionDialog extends StatefulWidget {
   const ChangeCollectionDialog({
     super.key,
-    required this.model,
+    required this.collectionModel,
   });
 
-  final CollectionEntity model;
+  final CollectionEntity collectionModel;
 
   @override
   State<ChangeCollectionDialog> createState() => _ChangeCollectionDialogState();
@@ -24,7 +24,7 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
 
   @override
   void initState() {
-    _collectionController = TextEditingController(text: widget.model.title);
+    _collectionController = TextEditingController(text: widget.collectionModel.title);
     super.initState();
   }
 
@@ -36,34 +36,27 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final CollectionsState collectionsState =
-        Provider.of<CollectionsState>(context, listen: false);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => AddChangeCollectionState(widget.model.color),
+          create: (context) => AddChangeCollectionState(widget.collectionModel.color),
         ),
       ],
       child: Consumer<AddChangeCollectionState>(
-        builder:
-            (BuildContext context, AddChangeCollectionState colorState, _) {
+        builder: (BuildContext context, colorState, _) {
           return CupertinoAlertDialog(
             title: const Text(
               AppStrings.changeCollection,
-              style: TextStyle(
-                fontSize: 20,
-              ),
+              style: TextStyle(fontSize: 20),
             ),
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 14),
                 CupertinoTextField(
-                  controller: _collectionController,
-                  textCapitalization: TextCapitalization.words,
                   autofocus: true,
-                  autocorrect: false,
-                  maxLength: 100,
+                  controller: _collectionController,
+                  textCapitalization: TextCapitalization.sentences,
                   textAlign: TextAlign.center,
                   placeholder: AppStrings.title,
                   placeholderStyle: const TextStyle(
@@ -98,14 +91,14 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
                 onPressed: () {
                   if (_collectionController.text.trim().isNotEmpty) {
                     final CollectionEntity newModel = CollectionEntity(
-                      id: widget.model.id,
+                      id: widget.collectionModel.id,
                       title: _collectionController.text.trim(),
                       wordsCount: 0,
                       color: colorState.getColorIndex,
                     );
-                    if (!widget.model.equals(newModel)) {
+                    if (!widget.collectionModel.equals(newModel)) {
                       Navigator.pop(context);
-                      collectionsState.changeCollection(collectionModel: newModel);
+                      Provider.of<CollectionsState>(context, listen: false).changeCollection(collectionModel: newModel);
                     } else {
                       Navigator.pop(context);
                     }
@@ -119,9 +112,7 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
                 },
                 child: const Text(
                   AppStrings.cancel,
-                  style: TextStyle(
-                    color: CupertinoColors.systemRed,
-                  ),
+                  style: TextStyle(color: CupertinoColors.systemRed),
                 ),
               ),
             ],

@@ -16,13 +16,13 @@ class FavoriteTranslationText extends StatelessWidget {
   Widget build(BuildContext context) {
     RegExp arabic = RegExp(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+');
     TextStyle translationStyle = TextStyle(
-      fontSize: 18,
+      fontSize: 20,
       color: serializableIndex == -1 ? CupertinoColors.label.resolveFrom(context) : index == serializableIndex ? CupertinoColors.label.resolveFrom(context) : CupertinoColors.systemGrey,
       fontFamily: 'SF Pro Regular',
       height: 1.5,
     );
     const TextStyle arabicStyle = TextStyle(
-      fontSize: 18,
+      fontSize: 20,
       color: CupertinoColors.systemBlue,
       fontFamily: 'Uthmanic',
     );

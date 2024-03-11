@@ -7,8 +7,8 @@ import '../../../../../data/state/favorite_words_state.dart';
 import '../../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../../widgets/translation_text.dart';
 
-class ChangeSerializableWordsList extends StatelessWidget {
-  const ChangeSerializableWordsList({
+class ChangeSerializableFavoriteWord extends StatelessWidget {
+  const ChangeSerializableFavoriteWord({
     super.key,
     required this.favoriteWordModel,
   });
@@ -27,32 +27,29 @@ class ChangeSerializableWordsList extends StatelessWidget {
       child: SafeArea(
         child: CupertinoScrollbar(
           child: ListView.builder(
-            padding: AppStyles.mainMarding,
+            padding: EdgeInsets.zero,
             itemCount: translationLines.length,
             itemBuilder: (BuildContext context, int index) {
               return CupertinoListTile(
-                padding: AppStyles.mardingOnlyBottom,
+                padding: AppStyles.mainMarding,
+                onTap: () async {
+                  if (favoriteWordModel.serializableIndex != index) {
+                    Navigator.of(context).pop();
+                    await Provider.of<FavoriteWordsState>(context, listen: false).changeFavoriteWord(
+                      favoriteWordId: favoriteWordModel.wordNumber,
+                      serializableIndex: index,
+                    );
+                  } else {
+                    Navigator.of(context).pop();
+                  }
+                },
                 title: TranslationText(translation: translationLines[index]),
-                trailing: CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () async {
-                    if (favoriteWordModel.serializableIndex != index) {
-                      Navigator.of(context).pop();
-                      await Provider.of<FavoriteWordsState>(context, listen: false).changeFavoriteWord(
-                        favoriteWordId: favoriteWordModel.id,
-                        serializableIndex: index,
-                      );
-                    } else {
-                      Navigator.of(context).pop();
-                    }
-                  },
-                  child: Icon(
+                trailing: Icon(
                     favoriteWordModel.serializableIndex == index
                         ? CupertinoIcons.bookmark_fill
                         : CupertinoIcons.bookmark,
                     color: CupertinoColors.systemBlue,
                   ),
-                ),
               );
             },
           ),

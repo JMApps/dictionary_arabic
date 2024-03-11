@@ -1,20 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../../core/routes/route_names.dart';
 import '../../../../../core/styles/app_styles.dart';
+import '../../../../../data/state/favorite_words_state.dart';
+import '../../../../../domain/entities/args/word_args.dart';
+import '../../../../../domain/entities/args/word_move_args.dart';
 import '../../../../../domain/entities/favorite_dictionary_entity.dart';
 import '../../widgets/forms_text.dart';
-import '../lists/change_serializable_words_list.dart';
-import '../lists/serializable_detail_words_list.dart';
-import '../move_word_select.dart';
+import '../lists/change_serializable_favorite_word.dart';
+import '../lists/serializable_detail_favorite_word.dart';
 
 class FavoriteDetailWordItem extends StatelessWidget {
   const FavoriteDetailWordItem({
     super.key,
-    required this.model,
+    required this.favoriteWordModel,
   });
 
-  final FavoriteDictionaryEntity model;
+  final FavoriteDictionaryEntity favoriteWordModel;
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +30,8 @@ class FavoriteDetailWordItem extends StatelessWidget {
             onPressed: (context) {
               showCupertinoModalPopup(
                 context: context,
-                builder: (context) => ChangeSerializableWordsList(
-                  favoriteWordModel: model,
+                builder: (context) => ChangeSerializableFavoriteWord(
+                  favoriteWordModel: favoriteWordModel,
                 ),
               );
             },
@@ -36,105 +40,129 @@ class FavoriteDetailWordItem extends StatelessWidget {
           ),
           SlidableAction(
             onPressed: (context) {
-              showCupertinoModalPopup(
-                context: context,
-                builder: (_) => MoveWordSelect(
-                  wordNumber: model.wordNumber,
-                  oldCollectionId: model.collectionId,
+              Navigator.pushNamed(
+                context,
+                RouteNames.moveFavoriteWordPage,
+                arguments: WordMoveArgs(
+                  wordNumber: favoriteWordModel.wordNumber,
+                  oldCollectionId: favoriteWordModel.collectionId,
                 ),
               );
             },
             backgroundColor: CupertinoColors.systemIndigo,
             icon: CupertinoIcons.folder_fill,
           ),
+          SlidableAction(
+            onPressed: (context) async {
+              Navigator.of(context).pop();
+              await Provider.of<FavoriteWordsState>(context, listen: false).deleteFavoriteWord(
+                favoriteWordId: favoriteWordModel.wordNumber,
+              );
+            },
+            backgroundColor: CupertinoColors.systemRed,
+            icon: CupertinoIcons.delete,
+          ),
         ],
       ),
       child: CupertinoListTile(
         padding: AppStyles.mardingWithoutBottom,
         backgroundColor: CupertinoColors.quaternarySystemFill,
-        title: CupertinoListTile(
-          padding: EdgeInsets.zero,
-          title: Row(
-            children: [
-              Text(
-                model.arabicWord,
-                style: const TextStyle(
-                  fontSize: 50,
-                  fontFamily: 'Uthmanic',
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            RouteNames.wordFavoriteDetailPage,
+            arguments: WordArgs(wordNumber: favoriteWordModel.wordNumber),
+          );
+        },
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: CupertinoListTile(
+                    padding: EdgeInsets.zero,
+                    title: Row(
+                      children: [
+                        Text(
+                          favoriteWordModel.arabicWord,
+                          style: const TextStyle(
+                            fontSize: 60,
+                            fontFamily: 'Uthmanic',
+                          ),
+                          textDirection: TextDirection.rtl,
+                        ),
+                        const SizedBox(width: 8),
+                        favoriteWordModel.forms != null
+                            ? FormsText(content: favoriteWordModel.forms!)
+                            : const SizedBox(),
+                        const SizedBox(width: 8),
+                        favoriteWordModel.additional != null
+                            ? FormsText(content: favoriteWordModel.additional!)
+                            : const SizedBox(),
+                      ],
+                    ),
+                    subtitle: SerializableDetailFavoriteWord(
+                      translation: favoriteWordModel.translation,
+                      serializableIndex: favoriteWordModel.serializableIndex,
+                    ),
+                  ),
                 ),
-                textDirection: TextDirection.rtl,
-              ),
-              const SizedBox(width: 14),
-              model.additional != null
-                  ? Text(
-                      '${model.additional!} ',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: CupertinoColors.systemGrey,
-                        fontFamily: 'SF Pro Regular',
-                      ),
-                    )
-                  : const SizedBox(),
-              model.forms != null
-                  ? FormsText(content: model.forms!)
-                  : const SizedBox(),
-            ],
-          ),
-          trailing: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  model.homonymNr != null
-                      ? Text(
-                          model.homonymNr!.toString(),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        favoriteWordModel.homonymNr != null
+                            ? Text(
+                          favoriteWordModel.homonymNr.toString(),
                           style: const TextStyle(
                             fontSize: 20,
                             color: CupertinoColors.systemGrey,
-                            fontFamily: 'SF Pro Regular',
                           ),
                         )
-                      : const SizedBox(),
-                  const SizedBox(width: 7),
-                  model.vocalization != null
-                      ? Text(
-                          model.vocalization!,
+                            : const SizedBox(),
+                        const SizedBox(width: 4),
+                        favoriteWordModel.vocalization != null
+                            ? Text(
+                          favoriteWordModel.vocalization!,
                           style: const TextStyle(
                             fontSize: 20,
                             color: CupertinoColors.systemGrey,
-                            fontFamily: 'SF Pro Regular',
                           ),
                         )
-                      : const SizedBox(),
-                  const SizedBox(width: 7),
-                  model.form != null
-                      ? Text(
-                          model.form!,
+                            : const SizedBox(),
+                        const SizedBox(width: 4),
+                        favoriteWordModel.form != null
+                            ? Text(
+                          favoriteWordModel.form!,
                           style: const TextStyle(
-                            fontSize: 25,
+                            fontSize: 20,
                             fontFamily: 'Heuristica',
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.5,
                           ),
                         )
-                      : const SizedBox(),
-                ],
-              ),
-              Text(
-                model.root,
-                style: const TextStyle(
-                  fontSize: 25,
-                  color: CupertinoColors.systemPink,
-                  fontFamily: 'Uthmanic',
+                            : const SizedBox(),
+                      ],
+                    ),
+                    const SizedBox(height: 7),
+                    Text(
+                      favoriteWordModel.root,
+                      style: const TextStyle(
+                        fontSize: 25,
+                        color: CupertinoColors.systemRed,
+                        fontFamily: 'Uthmanic',
+                      ),
+                      textDirection: TextDirection.rtl,
+                    ),
+                  ],
                 ),
-                textDirection: TextDirection.rtl,
-              ),
-            ],
-          ),
-        ),
-        subtitle: SerializableDetailWordsList(
-          translation: model.translation,
-          serializableIndex: model.serializableIndex,
+              ],
+            ),
+          ],
         ),
       ),
     );
