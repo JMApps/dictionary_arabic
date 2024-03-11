@@ -23,7 +23,6 @@ class CollectionModel {
   Map<String, dynamic> toMap() {
     return {
       'title': title,
-      'words_count': wordsCount,
       'color': color,
     };
   }
