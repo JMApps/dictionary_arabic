@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
+import '../../../../data/services/notifications/local_notice_service.dart';
 import '../../../../data/state/app_settings_state.dart';
 
 class AppSettingsPage extends StatelessWidget {
@@ -113,6 +114,9 @@ class AppSettingsPage extends StatelessWidget {
                     value: settings.getDailyNotification,
                     onChanged: (bool value) {
                       settings.changeNotificationState = value;
+                      if (!value) {
+                        LocalNoticeService().cancelNotificationWithId(LocalNoticeService.dailyNotificationID);
+                      }
                     },
                   ),
                 ),
