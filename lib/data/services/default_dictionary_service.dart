@@ -30,7 +30,7 @@ class DefaultDictionaryService {
     Database database = await openDatabase(path);
 
     if (await database.getVersion() < dbVersion) {
-      database.close();
+      await database.close();
       await deleteDatabase(path);
       try {
         await Directory(dirname(path)).create(recursive: true);
@@ -43,7 +43,7 @@ class DefaultDictionaryService {
       await File(path).writeAsBytes(bytes, flush: true);
 
       database = await openDatabase(path);
-      database.setVersion(dbVersion);
+      await database.setVersion(dbVersion);
     }
 
     return database;
