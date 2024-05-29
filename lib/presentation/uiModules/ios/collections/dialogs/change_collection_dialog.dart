@@ -90,15 +90,14 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
               CupertinoButton(
                 onPressed: () {
                   if (_collectionController.text.trim().isNotEmpty) {
-                    final CollectionEntity newModel = CollectionEntity(
-                      id: widget.collectionModel.id,
-                      title: _collectionController.text.trim(),
-                      wordsCount: 0,
-                      color: colorState.getColorIndex,
-                    );
-                    if (!widget.collectionModel.equals(newModel)) {
+                    final Map<String, dynamic> mapCollection = {
+                      'id': widget.collectionModel.id,
+                      'title': _collectionController.text.trim(),
+                      'color': colorState.getColorIndex,
+                    };
+                    if (!widget.collectionModel.equals(CollectionEntity(id: widget.collectionModel.id, title: _collectionController.text.trim(), wordsCount: 0, color: colorState.getColorIndex))) {
                       Navigator.pop(context);
-                      Provider.of<CollectionsState>(context, listen: false).changeCollection(collectionModel: newModel);
+                      Provider.of<CollectionsState>(context, listen: false).changeCollection(mapCollection: mapCollection);
                     } else {
                       Navigator.pop(context);
                     }

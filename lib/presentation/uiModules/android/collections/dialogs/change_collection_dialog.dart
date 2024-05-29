@@ -107,15 +107,14 @@ class _ChangeCollectionDialogState extends State<ChangeCollectionDialog> {
               return OutlinedButton(
                 onPressed: () {
                   if (_collectionController.text.trim().isNotEmpty) {
-                    final CollectionEntity newCollectionModel = CollectionEntity(
-                      id: widget.collectionModel.id,
-                      title: _collectionController.text.trim(),
-                      wordsCount: 0,
-                      color: colorState.getColorIndex,
-                    );
-                    if (!widget.collectionModel.equals(newCollectionModel)) {
+                    final Map<String, dynamic> mapCollection = {
+                      'id': widget.collectionModel.id,
+                      'title': _collectionController.text.trim(),
+                      'color': colorState.getColorIndex,
+                    };
+                    if (!widget.collectionModel.equals(CollectionEntity(id: widget.collectionModel.id, title: _collectionController.text.trim(), wordsCount: 0, color: colorState.getColorIndex))) {
                       Navigator.pop(context);
-                      Provider.of<CollectionsState>(context, listen: false).changeCollection(collectionModel: newCollectionModel);
+                      Provider.of<CollectionsState>(context, listen: false).changeCollection(mapCollection: mapCollection);
                     } else {
                       Navigator.pop(context);
                     }

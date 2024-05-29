@@ -36,29 +36,15 @@ class CollectionsDataRepository implements CollectionsRepository {
   }
 
   @override
-  Future<int> addCollection({required CollectionEntity model}) async {
+  Future<void> addCollection({required Map<String, dynamic> mapCollection}) async {
     final Database database = await _collectionsService.db;
-    CollectionModel collectionModel = CollectionModel(
-      id: model.id,
-      title: model.title,
-      wordsCount: model.wordsCount,
-      color: model.color,
-    );
-    final int addCollection = await database.insert(_collectionsTableName, collectionModel.toMap(), conflictAlgorithm: sql.ConflictAlgorithm.replace);
-    return addCollection;
+    await database.insert(_collectionsTableName, mapCollection, conflictAlgorithm: sql.ConflictAlgorithm.replace);
   }
 
   @override
-  Future<int> changeCollection({required CollectionEntity model}) async {
+  Future<void> changeCollection({required Map<String, dynamic> mapCollection}) async {
     final Database database = await _collectionsService.db;
-    CollectionModel collectionModel = CollectionModel(
-      id: model.id,
-      title: model.title,
-      wordsCount: model.wordsCount,
-      color: model.color,
-    );
-    final int changeCollection = await database.update(_collectionsTableName, collectionModel.toMap(), where: 'id = ?', whereArgs: [model.id]);
-    return changeCollection;
+    await database.update(_collectionsTableName, mapCollection, where: 'id = ?', whereArgs: [mapCollection['id']]);
   }
 
   @override

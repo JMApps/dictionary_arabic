@@ -7,7 +7,7 @@ import '../../../../data/state/card_mode_state.dart';
 import '../../../../data/state/favorite_words_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
 import '../../../../domain/entities/favorite_dictionary_entity.dart';
-import 'items/card_mode_Item.dart';
+import 'items/card_mode_item.dart';
 
 class CardsModeDetailPage extends StatefulWidget {
   const CardsModeDetailPage({

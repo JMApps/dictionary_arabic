@@ -42,19 +42,17 @@ class CollectionsUseCase {
     }
   }
 
-  Future<int> fetchAddCollection({required CollectionEntity collectionModel}) async {
+  Future<void> fetchAddCollection({required Map<String, dynamic> mapCollection}) async {
     try {
-      final int addCollection = await _collectionsRepository.addCollection(model: collectionModel);
-      return addCollection;
+      return await _collectionsRepository.addCollection(mapCollection: mapCollection);
     } catch (e) {
       throw Exception('Get add collection data error: $e');
     }
   }
 
-  Future<int> fetchChangeCollection({required CollectionEntity collectionModel}) async {
+  Future<void> fetchChangeCollection({required Map<String, dynamic> mapCollection}) async {
     try {
-      final int changeCollection = await _collectionsRepository.changeCollection(model: collectionModel);
-      return changeCollection;
+      return await _collectionsRepository.changeCollection(mapCollection: mapCollection);
     } catch (e) {
       throw Exception('Get change collection data error: $e');
     }

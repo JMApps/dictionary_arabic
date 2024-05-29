@@ -9,9 +9,9 @@ abstract class CollectionsRepository {
 
   Future<int> getWordCount({required int collectionId});
 
-  Future<int> addCollection({required CollectionEntity model});
+  Future<void> addCollection({required Map<String, dynamic> mapCollection});
 
-  Future<int> changeCollection({required CollectionEntity model});
+  Future<void> changeCollection({required Map<String, dynamic> mapCollection});
 
   Future<int> deleteCollection({required int collectionId});
 

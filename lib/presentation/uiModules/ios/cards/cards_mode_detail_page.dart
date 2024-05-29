@@ -1,4 +1,4 @@
-import 'package:arabic/presentation/uiModules/ios/cards/items/card_mode_Item.dart';
+import 'package:arabic/presentation/uiModules/ios/cards/items/card_mode_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

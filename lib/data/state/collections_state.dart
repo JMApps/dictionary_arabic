@@ -58,16 +58,14 @@ class CollectionsState extends ChangeNotifier {
     return await _useCase.fetchCollectionById(collectionId: collectionId);
   }
 
-  Future<int> addCollection({required CollectionEntity collectionModel}) async {
-    int addCollection = await _useCase.fetchAddCollection(collectionModel: collectionModel);
+  Future<void> addCollection({required Map<String, dynamic> mapCollection}) async {
+    await _useCase.fetchAddCollection(mapCollection: mapCollection);
     notifyListeners();
-    return addCollection;
   }
 
-  Future<int> changeCollection({required CollectionEntity collectionModel}) async {
-    int changeCollection = await _useCase.fetchChangeCollection(collectionModel: collectionModel);
+  Future<void> changeCollection({required Map<String, dynamic> mapCollection}) async {
+    await _useCase.fetchChangeCollection(mapCollection: mapCollection);
     notifyListeners();
-    return changeCollection;
   }
 
   Future<int> deleteCollection({required int collectionId}) async {

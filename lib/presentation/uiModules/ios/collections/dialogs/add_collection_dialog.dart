@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../../../../../core/strings/app_strings.dart';
 import '../../../../../data/state/add_change_collection_state.dart';
 import '../../../../../data/state/collections_state.dart';
-import '../../../../../domain/entities/collection_entity.dart';
 import '../widgets/collection_color_circle_button.dart';
 
 class AddCollectionDialog extends StatefulWidget {
@@ -80,13 +79,12 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
                 onPressed: () async {
                   if (_collectionController.text.trim().isNotEmpty) {
                     Navigator.pop(context);
-                    final CollectionEntity model = CollectionEntity(
-                      id: 0,
-                      title: _collectionController.text.trim(),
-                      wordsCount: 0,
-                      color: colorState.getColorIndex,
-                    );
-                    await Provider.of<CollectionsState>(context, listen: false).addCollection(collectionModel: model);
+                    final Map<String, dynamic> mapCollection = {
+                      'title': _collectionController.text.trim(),
+                      'words_count': 0,
+                      'color': colorState.getColorIndex,
+                    };
+                    await Provider.of<CollectionsState>(context, listen: false).addCollection(mapCollection: mapCollection);
                   }
                 },
                 child: const Text(AppStrings.add),
