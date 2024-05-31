@@ -98,6 +98,7 @@ class _AddCollectionDialogState extends State<AddCollectionDialog> {
                     Navigator.pop(context);
                     final Map<String, dynamic> mapCollection = {
                       'title': _collectionController.text.trim(),
+                      'words_count': 0,
                       'color': colorState.getColorIndex,
                     };
                     await Provider.of<CollectionsState>(context, listen: false).addCollection(mapCollection: mapCollection);
