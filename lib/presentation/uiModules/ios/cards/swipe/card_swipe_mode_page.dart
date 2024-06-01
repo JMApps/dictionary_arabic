@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/routes/route_names.dart';
-import '../../../../core/strings/app_strings.dart';
-import '../../../../core/styles/app_styles.dart';
-import '../../../../data/state/collections_state.dart';
-import '../../../../domain/entities/args/collection_args.dart';
-import '../../../../domain/entities/collection_entity.dart';
-import '../widgets/data_text.dart';
-import '../widgets/error_data_text.dart';
+import '../../../../../core/routes/route_names.dart';
+import '../../../../../core/strings/app_strings.dart';
+import '../../../../../core/styles/app_styles.dart';
+import '../../../../../data/state/collections_state.dart';
+import '../../../../../domain/entities/args/collection_args.dart';
+import '../../../../../domain/entities/collection_entity.dart';
+import '../../widgets/data_text.dart';
+import '../../widgets/error_data_text.dart';
 
-class CardModePage extends StatelessWidget {
-  const CardModePage({super.key});
+class CardSwipeModePage extends StatelessWidget {
+  const CardSwipeModePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,18 +19,12 @@ class CardModePage extends StatelessWidget {
       backgroundColor: CupertinoColors.systemGroupedBackground,
       child: CustomScrollView(
         slivers: [
-          CupertinoSliverNavigationBar(
+          const CupertinoSliverNavigationBar(
             stretch: true,
             alwaysShowMiddle: false,
-            middle: const Text(AppStrings.cardMode),
+            middle: Text(AppStrings.cardMode),
             previousPageTitle: AppStrings.main,
-            largeTitle: const Text(AppStrings.selectCollection),
-            trailing: CupertinoButton(
-              child: const Icon(CupertinoIcons.creditcard_fill),
-              onPressed: () {
-                Navigator.pushNamed(context, RouteNames.cardSwipeModePage);
-              },
-            ),
+            largeTitle: Text(AppStrings.selectCollection),
           ),
           FutureBuilder<List<CollectionEntity>>(
             future: Provider.of<CollectionsState>(context, listen: false).fetchAllCollections(),
@@ -57,11 +51,11 @@ class CardModePage extends StatelessWidget {
                             ),
                             trailing: const Icon(CupertinoIcons.forward),
                             additionalInfo: Text(collectionModel.wordsCount.toString()),
-                            onTap: collectionModel.wordsCount >= 1
+                            onTap: collectionModel.wordsCount >= 2
                                 ? () {
                                     Navigator.pushNamed(
                                       context,
-                                      RouteNames.cardsModeDetailPage,
+                                      RouteNames.cardsSwipeModeDetailPage,
                                       arguments: CollectionArgs(
                                         collectionModel: collectionModel,
                                       ),

@@ -51,6 +51,7 @@ class AppStrings {
   static const String close = 'Закрыть';
   static const String clear = 'очистить';
   static const String recent = 'Недавние';
+  static const String reset = 'Сброс';
   static const String rootIsEmpty = 'Однокоренных слов нет';
   static const String selectCollection = 'Выберите коллекцию';
   static const String addAll = 'Добавить всё';

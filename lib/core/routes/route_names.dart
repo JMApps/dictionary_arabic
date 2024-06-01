@@ -10,7 +10,9 @@ class RouteNames {
   static const String wordConstructorPage = '/word_constructor_page';
   static const String wordConstructorDetailPage = '/word_constructor_detail_page';
   static const String cardModePage = '/card_mode_page';
+  static const String cardSwipeModePage = '/card_swipe_mode_page';
   static const String cardsModeDetailPage = '/cards_mode_detail_page';
+  static const String cardsSwipeModeDetailPage = '/cards_swipe_mode_detail_page';
   static const String allCollectionsPage = '/all_collections_page';
   static const String collectionDetailPage = '/collection_detail_page';
   static const String moveFavoriteWordPage = '/move_favorite_word_page';

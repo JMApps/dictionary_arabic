@@ -6,6 +6,8 @@ import '../../domain/entities/args/word_favorite_collection_args.dart';
 import '../../domain/entities/args/word_move_args.dart';
 import '../../presentation/uiModules/ios/cards/card_mode_page.dart';
 import '../../presentation/uiModules/ios/cards/cards_mode_detail_page.dart';
+import '../../presentation/uiModules/ios/cards/swipe/card_swipe_mode_page.dart';
+import '../../presentation/uiModules/ios/cards/swipe/cards_swipe_mode_detail_page.dart';
 import '../../presentation/uiModules/ios/collections/all_collections_page.dart';
 import '../../presentation/uiModules/ios/favorites/collection_detail_page.dart';
 import '../../presentation/uiModules/ios/constructors/word_constructor_page.dart';
@@ -113,10 +115,21 @@ class CupertinoRoutes {
         return CupertinoPageRoute(
           builder: (_) => const CardModePage(),
         );
+      case RouteNames.cardSwipeModePage:
+        return CupertinoPageRoute(
+          builder: (_) => const CardSwipeModePage(),
+        );
       case RouteNames.cardsModeDetailPage:
         final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
         return CupertinoPageRoute(
           builder: (_) => CardsModeDetailPage(
+            collectionModel: collectionArgs.collectionModel,
+          ),
+        );
+      case RouteNames.cardsSwipeModeDetailPage:
+        final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
+        return CupertinoPageRoute(
+          builder: (_) => CardsSwipeModeDetailPage(
             collectionModel: collectionArgs.collectionModel,
           ),
         );

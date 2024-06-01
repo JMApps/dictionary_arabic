@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/routes/route_names.dart';
-import '../../../../core/strings/app_strings.dart';
-import '../../../../core/styles/app_styles.dart';
-import '../../../../data/state/collections_state.dart';
-import '../../../../domain/entities/args/collection_args.dart';
-import '../../../../domain/entities/collection_entity.dart';
-import '../widgets/data_text.dart';
-import '../widgets/error_data_text.dart';
-
-class CardModePage extends StatelessWidget {
-  const CardModePage({super.key});
+import '../../../../../../core/routes/route_names.dart';
+import '../../../../../../core/strings/app_strings.dart';
+import '../../../../../../core/styles/app_styles.dart';
+import '../../../../../../data/state/collections_state.dart';
+import '../../../../../../domain/entities/args/collection_args.dart';
+import '../../../../../../domain/entities/collection_entity.dart';
+import '../../widgets/data_text.dart';
+import '../../widgets/error_data_text.dart';
+class CardSwipeModePage extends StatelessWidget {
+  const CardSwipeModePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +26,6 @@ class CardModePage extends StatelessWidget {
             centerTitle: true,
             floating: true,
             title: const Text(AppStrings.cardMode),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, RouteNames.cardSwipeModePage);
-                },
-                icon: const Icon(Icons.credit_card_outlined),
-              ),
-            ],
           ),
           FutureBuilder<List<CollectionEntity>>(
             future: Provider.of<CollectionsState>(context, listen: false).fetchAllCollections(),
@@ -69,17 +60,15 @@ class CardModePage extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          onTap: collectionModel.wordsCount >= 1
-                              ? () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RouteNames.cardsModeDetailPage,
-                                    arguments: CollectionArgs(
-                                      collectionModel: collectionModel,
-                                    ),
-                                  );
-                                }
-                              : null,
+                          onTap: collectionModel.wordsCount >= 2 ? () {
+                            Navigator.pushNamed(
+                              context,
+                              RouteNames.cardsSwipeModeDetailPage,
+                              arguments: CollectionArgs(
+                                collectionModel: collectionModel,
+                              ),
+                            );
+                          } : null,
                         ),
                       );
                     },

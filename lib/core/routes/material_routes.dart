@@ -6,6 +6,8 @@ import '../../domain/entities/args/word_favorite_collection_args.dart';
 import '../../domain/entities/args/word_move_args.dart';
 import '../../presentation/uiModules/android/cards/card_mode_page.dart';
 import '../../presentation/uiModules/android/cards/cards_mode_detail_page.dart';
+import '../../presentation/uiModules/android/cards/swipe/card_swipe_mode_page.dart';
+import '../../presentation/uiModules/android/cards/swipe/cards_swipe_mode_detail_page.dart';
 import '../../presentation/uiModules/android/collections/all_collections_page.dart';
 import '../../presentation/uiModules/android/constructor/word_constructor_detail_page.dart';
 import '../../presentation/uiModules/android/constructor/word_constructor_page.dart';
@@ -80,10 +82,19 @@ class MaterialRoutes {
         return MaterialPageRoute(
           builder: (_) => const CardModePage(),
         );
+      case RouteNames.cardSwipeModePage:
+        return MaterialPageRoute(
+          builder: (_) => const CardSwipeModePage(),
+        );
       case RouteNames.cardsModeDetailPage:
         final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
         return MaterialPageRoute(
           builder: (_) => CardsModeDetailPage(collectionModel: collectionArgs.collectionModel),
+        );
+      case RouteNames.cardsSwipeModeDetailPage:
+        final CollectionArgs collectionArgs = routeSettings.arguments as CollectionArgs;
+        return MaterialPageRoute(
+          builder: (_) => CardsSwipeModeDetailPage(collectionModel: collectionArgs.collectionModel),
         );
       case RouteNames.wordConstructorPage:
         return MaterialPageRoute(

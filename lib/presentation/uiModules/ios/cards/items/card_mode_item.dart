@@ -41,8 +41,7 @@ class CardModeItem extends StatelessWidget {
                   child: SingleChildScrollView(
                     padding: AppStyles.mainMarding,
                     child: favoriteWordModel.serializableIndex != -1
-                        ? FlipTranslationText(
-                            translation: translationLines[favoriteWordModel.serializableIndex])
+                        ? FlipTranslationText(translation: translationLines[favoriteWordModel.serializableIndex])
                         : FlipTranslationText(translation: favoriteWordModel.translation),
                   ),
                 ),
