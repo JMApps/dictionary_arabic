@@ -34,8 +34,8 @@ class DefaultDictionaryService {
       await deleteDatabase(path);
       try {
         await Directory(dirname(path)).create(recursive: true);
-      } catch (_) {
-        throw Exception('Invalid create $sfqDatabaseName = $_');
+      } catch (e) {
+        throw Exception('Invalid create $sfqDatabaseName = $e');
       }
 
       ByteData data = await rootBundle.load(join('assets/databases', sfqDatabaseName));
