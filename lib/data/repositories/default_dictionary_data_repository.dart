@@ -15,8 +15,7 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
     final Database database = await _dictionaryService.db;
     final List<Map<String, Object?>> resources = await database.rawQuery(
       "SELECT s.article_id, s.translation, s.arabic, d.id, d.word_number, d.arabic_word, d.form, d.additional, d.vocalization, d.homonym_nr, d.root, d.forms "
-          "FROM $_searchTable s "
-          "INNER JOIN $_wordsDataTable d ON s.article_id = d.word_number "
+          "FROM $_searchTable s INNER JOIN $_wordsDataTable d ON s.article_id = d.word_number "
     );
     final List<DictionaryEntity> allWords = resources.isNotEmpty ? resources.map((c) => _mapToEntity(DictionaryModel.fromMap(c))).toList() : [];
     return allWords;
@@ -27,9 +26,7 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
     final Database database = await _dictionaryService.db;
     final List<Map<String, Object?>> resources = await database.rawQuery(
       "SELECT s.article_id, s.translation, s.arabic, d.id, d.word_number, d.arabic_word, d.form, d.additional, d.vocalization, d.homonym_nr, d.root, d.forms "
-          "FROM $_searchTable s "
-          "INNER JOIN $_wordsDataTable d ON s.article_id = d.word_number "
-          "WHERE d.root = ? AND d.word_number != ?",
+          "FROM $_searchTable s INNER JOIN $_wordsDataTable d ON s.article_id = d.word_number WHERE d.root = ? AND d.word_number != ?",
       [wordRoot, excludedId],
     );
     final List<DictionaryEntity> wordsByRoot = resources.isNotEmpty ? resources.map((c) => _mapToEntity(DictionaryModel.fromMap(c))).toList() : [];
@@ -41,19 +38,18 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
     final Database database = await _dictionaryService.db;
     final List<Map<String, Object?>> resources = await database.rawQuery(
       "SELECT s.article_id, s.translation, s.arabic, d.id, d.word_number, d.arabic_word, d.form, d.additional, d.vocalization, d.homonym_nr, d.root, d.forms "
-          "FROM $_searchTable s "
-          "INNER JOIN $_wordsDataTable d ON s.article_id = d.word_number "
-          "WHERE d.word_number = ?", [wordNumber],
+          "FROM $_searchTable s INNER JOIN $_wordsDataTable d ON s.article_id = d.word_number WHERE d.word_number = ?", [wordNumber],
     );
     final DictionaryEntity? wordById = resources.isNotEmpty ? _mapToEntity(DictionaryModel.fromMap(resources.first)) : null;
     return wordById!;
   }
 
   @override
-  Future<List<DictionaryEntity>> searchWords({required String searchQuery, required bool exactMatch,}) async {
+  Future<List<DictionaryEntity>> searchWords({required String searchQuery, required bool exactMatch}) async {
     final Database database = await _dictionaryService.db;
-    final List<Map<String, Object?>> resources = await database.rawQuery("SELECT s.article_id, s.translation, s.arabic, d.id, d.word_number, d.arabic_word, d.form, d.additional, d.vocalization, d.homonym_nr, d.root, d.forms FROM $_searchTable s JOIN $_wordsDataTable d ON s.article_id = d.word_number WHERE s.rowid IN (SELECT rowid FROM $_searchTable WHERE translation MATCH ? OR arabic MATCH ?)",
-        exactMatch ? ['"$searchQuery"', '"$searchQuery"'] : ['$searchQuery*', '$searchQuery*']
+    final String cleanedQuery = removeDiacriticsAndNormalize(searchQuery);
+    final List<Map<String, Object?>> resources = await database.rawQuery("SELECT s.article_id, s.translation, s.arabic, s.full_arabic, d.id, d.word_number, d.arabic_word, d.form, d.additional, d.vocalization, d.homonym_nr, d.root, d.forms FROM $_searchTable s JOIN $_wordsDataTable d ON s.article_id = d.word_number WHERE s.rowid IN (SELECT rowid FROM $_searchTable WHERE translation MATCH ? OR arabic MATCH ? OR full_arabic MATCH ?)",
+        exactMatch ? ['"$searchQuery"', '"$cleanedQuery"', '"$searchQuery"'] : ['$cleanedQuery*', '$cleanedQuery*', '$searchQuery*']
     );
     final List<DictionaryEntity> searchWords = resources.isNotEmpty ? resources.map((c) => _mapToEntity(DictionaryModel.fromMap(c))).toList() : [];
     return searchWords;
@@ -66,9 +62,7 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
     final List<Map<String, Object?>> wordResult = await database.rawQuery('''
     SELECT s.article_id, s.translation, s.arabic, d.id, d.word_number, d.arabic_word, d.form, d.additional, d.vocalization, d.homonym_nr, d.root, d.forms
     FROM $_searchTable s
-    INNER JOIN $_wordsDataTable d ON s.article_id = d.word_number
-    WHERE d.word_number = ?
-  ''', [wordNumber]);
+    INNER JOIN $_wordsDataTable d ON s.article_id = d.word_number WHERE d.word_number = ?''', [wordNumber]);
 
     final List<DictionaryEntity> resultList = [];
 
@@ -130,5 +124,16 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
       root: model.root,
       forms: model.forms,
     );
+  }
+
+  String removeDiacriticsAndNormalize(String input) {
+    final diacriticsPattern = RegExp(r'[ًٌٍَُِّْٰۛۚ]');
+    String withoutDiacritics = input.replaceAll(diacriticsPattern, '');
+    String normalizedAlif = withoutDiacritics.replaceAll(RegExp(r'[أإآٱ]'), 'ا');
+    String normalizedYa = normalizedAlif.replaceAll(RegExp(r'[ئ]'), 'ى');
+    String normalizedWow = normalizedYa.replaceAll(RegExp(r'[ؤ]'), 'و');
+    String withoutExtraSpaces = normalizedWow.replaceAll(RegExp(r'\s+'), ' ').trim();
+
+    return withoutExtraSpaces;
   }
 }

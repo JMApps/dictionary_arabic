@@ -25,6 +25,7 @@ class SearchValueItem extends StatelessWidget {
       title: Text(
         model.searchValue,
         style: const TextStyle(
+          fontFamily: 'Uthmanic',
           fontSize: 20,
         ),
       ),
