@@ -22,8 +22,7 @@ class SearchValueItem extends StatelessWidget {
       title: Text(
         model.searchValue,
         style: const TextStyle(
-          fontFamily: 'Uthmanic',
-          fontSize: 20,
+          fontSize: 18,
         ),
       ),
       leading: const Icon(CupertinoIcons.search),

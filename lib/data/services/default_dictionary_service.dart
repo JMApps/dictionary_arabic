@@ -22,7 +22,7 @@ class DefaultDictionaryService {
   }
 
   Future<Database> initializeDatabase() async {
-    const int dbVersion = 1;
+    const int dbVersion = 2;
     const String sfqDatabaseName = 'arabic_dictionary.db';
     final String databasePath = await getDatabasesPath();
     String path = join(databasePath, sfqDatabaseName);
