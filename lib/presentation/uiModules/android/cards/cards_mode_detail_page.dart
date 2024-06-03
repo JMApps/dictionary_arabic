@@ -76,6 +76,7 @@ class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
               ),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  snapshot.data!.shuffle();
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [

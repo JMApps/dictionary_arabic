@@ -21,9 +21,7 @@ class SearchValueItem extends StatelessWidget {
       onTap: () => Provider.of<SearchQueryState>(context, listen: false).setQuery = model.searchValue,
       title: Text(
         model.searchValue,
-        style: const TextStyle(
-          fontSize: 18,
-        ),
+        style: const TextStyle(fontSize: 18),
       ),
       leading: const Icon(CupertinoIcons.search),
       trailing: CupertinoButton(

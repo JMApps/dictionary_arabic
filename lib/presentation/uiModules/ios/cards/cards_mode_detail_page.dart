@@ -1,4 +1,3 @@
-import 'package:arabic/presentation/uiModules/ios/cards/items/card_mode_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -8,6 +7,7 @@ import '../../../../data/state/card_mode_state.dart';
 import '../../../../data/state/favorite_words_state.dart';
 import '../../../../domain/entities/collection_entity.dart';
 import '../../../../domain/entities/favorite_dictionary_entity.dart';
+import 'items/card_mode_item.dart';
 
 class CardsModeDetailPage extends StatefulWidget {
   const CardsModeDetailPage({
@@ -59,6 +59,7 @@ class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
               ),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  snapshot.data!.shuffle();
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [

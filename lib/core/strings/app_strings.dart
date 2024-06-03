@@ -55,6 +55,7 @@ class AppStrings {
   static const String rootIsEmpty = 'Однокоренных слов нет';
   static const String selectCollection = 'Выберите коллекцию';
   static const String addAll = 'Добавить всё';
+  static const String selectOne = 'Выбрать один вариант';
   static const String moveTo = 'Переместить в';
   static const String settings = 'Настройки';
   static const String notifications = 'Уведомления';

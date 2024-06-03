@@ -16,7 +16,6 @@ class TranslationText extends StatelessWidget {
       fontSize: 20,
       color: appColors.onSurface,
       fontFamily: 'SF Pro Regular',
-      height: 1,
     );
     TextStyle arabicStyle = TextStyle(
       fontSize: 18,

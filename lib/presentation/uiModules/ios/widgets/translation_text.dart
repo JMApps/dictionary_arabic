@@ -15,7 +15,6 @@ class TranslationText extends StatelessWidget {
       fontSize: 20,
       color: CupertinoColors.label.resolveFrom(context),
       fontFamily: 'SF Pro Regular',
-      height: 1.5,
     );
     const TextStyle arabicStyle = TextStyle(
       fontSize: 18,

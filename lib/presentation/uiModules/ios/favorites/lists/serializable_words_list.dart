@@ -1,3 +1,4 @@
+import 'package:arabic/core/strings/app_strings.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../core/routes/route_names.dart';
@@ -17,31 +18,42 @@ class SerializableWordsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> translationLines = wordModel.translation.split('\\n');
-    return CupertinoScrollbar(
-      child: ListView.builder(
-        padding: EdgeInsets.zero,
-        itemCount: translationLines.length,
-        itemBuilder: (BuildContext context, int index) {
-          return CupertinoListTile(
-            padding: AppStyles.mainMarding,
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                RouteNames.favoriteWordSelectionCollectionPage,
-                arguments: WordFavoriteCollectionArgs(
-                  wordModel: wordModel,
-                  serializableIndex: index,
-                ),
-              );
-            },
-            title: TranslationText(translation: translationLines[index]),
-            trailing: const Icon(
-                CupertinoIcons.bookmark,
-                color: CupertinoColors.systemBlue,
-              ),
-          );
-        },
-      ),
+    return Column(
+      children: [
+        const SizedBox(height: 14),
+        const Text(
+          AppStrings.selectOne,
+          style: TextStyle(fontSize: 25, fontFamily: 'SF Pro'),
+        ),
+        Expanded(
+          child: CupertinoScrollbar(
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              itemCount: translationLines.length,
+              itemBuilder: (BuildContext context, int index) {
+                return CupertinoListTile(
+                  padding: AppStyles.horizontalVerticalMini,
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteNames.favoriteWordSelectionCollectionPage,
+                      arguments: WordFavoriteCollectionArgs(
+                        wordModel: wordModel,
+                        serializableIndex: index,
+                      ),
+                    );
+                  },
+                  title: TranslationText(translation: translationLines[index]),
+                  trailing: const Icon(
+                    CupertinoIcons.bookmark,
+                    color: CupertinoColors.systemBlue,
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
