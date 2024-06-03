@@ -47,9 +47,10 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
   @override
   Future<List<DictionaryEntity>> searchWords({required String searchQuery, required bool exactMatch}) async {
     final Database database = await _dictionaryService.db;
+    final bool isArabic = isArabicInput(searchQuery);
     final String cleanedQuery = removeDiacriticsAndNormalize(searchQuery);
-    final List<Map<String, Object?>> resources = await database.rawQuery("SELECT s.article_id, s.translation, s.arabic, s.full_arabic, d.id, d.word_number, d.arabic_word, d.form, d.additional, d.vocalization, d.homonym_nr, d.root, d.forms FROM $_searchTable s JOIN $_wordsDataTable d ON s.article_id = d.word_number WHERE s.rowid IN (SELECT rowid FROM $_searchTable WHERE translation MATCH ? OR arabic MATCH ? OR full_arabic MATCH ?)",
-        exactMatch ? ['"$searchQuery"', '"$cleanedQuery"', '"$searchQuery"'] : ['$cleanedQuery*', '$cleanedQuery*', '$searchQuery*']
+    final List<Map<String, Object?>> resources = await database.rawQuery("SELECT s.article_id, s.translation, s.arabic, s.full_arabic, d.id, d.word_number, d.arabic_word, d.form, d.additional, d.vocalization, d.homonym_nr, d.root, d.forms FROM $_searchTable s JOIN $_wordsDataTable d ON s.article_id = d.word_number WHERE s.rowid IN (SELECT rowid FROM $_searchTable WHERE ${isArabic ? '' : 'translation MATCH ? OR '} arabic MATCH ? OR full_arabic MATCH ? ORDER BY article_id ASC)",
+        exactMatch ? isArabic ? ['"$cleanedQuery"', '"$searchQuery"'] : ['"$searchQuery"', '"$cleanedQuery"', '"$searchQuery"'] : isArabic? ['$cleanedQuery*', '$searchQuery*'] : ['$searchQuery*', '$cleanedQuery*', '$searchQuery*']
     );
     final List<DictionaryEntity> searchWords = resources.isNotEmpty ? resources.map((c) => _mapToEntity(DictionaryModel.fromMap(c))).toList() : [];
     return searchWords;
@@ -130,10 +131,15 @@ class DefaultDictionaryDataRepository implements DefaultDictionaryRepository {
     final diacriticsPattern = RegExp(r'[ًٌٍَُِّْٰۛۚ]');
     String withoutDiacritics = input.replaceAll(diacriticsPattern, '');
     String normalizedAlif = withoutDiacritics.replaceAll(RegExp(r'[أإآٱ]'), 'ا');
-    String normalizedYa = normalizedAlif.replaceAll(RegExp(r'[ئ]'), 'ى');
-    String normalizedWow = normalizedYa.replaceAll(RegExp(r'[ؤ]'), 'و');
-    String withoutExtraSpaces = normalizedWow.replaceAll(RegExp(r'\s+'), ' ').trim();
+    String normalizedAlifYa = normalizedAlif.replaceAll(RegExp(r'[ئ]'), 'ى');
+    String normalizedWow = normalizedAlifYa.replaceAll(RegExp(r'[ؤ]'), 'و');
+    String normalizedYa = normalizedWow.replaceAll(RegExp(r'[ي]'), 'ى');
+    String withoutExtraSpaces = normalizedYa.replaceAll(RegExp(r'\s+'), ' ').trim();
 
     return withoutExtraSpaces;
+  }
+
+  bool isArabicInput(String input) {
+    return RegExp(r'[\u0600-\u06FF]').hasMatch(input);
   }
 }
