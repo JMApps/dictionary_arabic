@@ -10,8 +10,21 @@ import '../../../../domain/entities/collection_entity.dart';
 import '../widgets/data_text.dart';
 import '../widgets/error_data_text.dart';
 
-class CardModePage extends StatelessWidget {
+class CardModePage extends StatefulWidget {
   const CardModePage({super.key});
+
+  @override
+  State<CardModePage> createState() => _CardModePageState();
+}
+
+class _CardModePageState extends State<CardModePage> {
+  late final Future<List<CollectionEntity>> _futureCollections;
+
+  @override
+  void initState() {
+    super.initState();
+    _futureCollections = Provider.of<CollectionsState>(context, listen: false).fetchAllCollections();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +50,7 @@ class CardModePage extends StatelessWidget {
             ],
           ),
           FutureBuilder<List<CollectionEntity>>(
-            future: Provider.of<CollectionsState>(context, listen: false).fetchAllCollections(),
+            future: _futureCollections,
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return SliverToBoxAdapter(
@@ -69,17 +82,15 @@ class CardModePage extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          onTap: collectionModel.wordsCount >= 1
-                              ? () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RouteNames.cardsModeDetailPage,
-                                    arguments: CollectionArgs(
-                                      collectionModel: collectionModel,
-                                    ),
-                                  );
-                                }
-                              : null,
+                          onTap: collectionModel.wordsCount >= 1 ? () {
+                            Navigator.pushNamed(
+                              context,
+                              RouteNames.cardsModeDetailPage,
+                              arguments: CollectionArgs(
+                                collectionModel: collectionModel,
+                              ),
+                            );
+                          } : null,
                         ),
                       );
                     },
@@ -89,12 +100,11 @@ class CardModePage extends StatelessWidget {
                 return SliverToBoxAdapter(
                   child: ErrorDataText(errorText: snapshot.error.toString()),
                 );
-              } else {
-                return const SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: DataText(text: AppStrings.cardCollectionsIfEmpty),
-                );
               }
+              return const SliverFillRemaining(
+                hasScrollBody: false,
+                child: DataText(text: AppStrings.cardCollectionsIfEmpty),
+              );
             },
           ),
         ],

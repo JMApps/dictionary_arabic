@@ -23,6 +23,15 @@ class CardsModeDetailPage extends StatefulWidget {
 
 class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
   final PageController _cardPageController = PageController();
+  late final Future<List<FavoriteDictionaryEntity>> _futureFavoriteDictionaries;
+
+  @override
+  void initState() {
+    super.initState();
+    _futureFavoriteDictionaries = Provider.of<FavoriteWordsState>(context, listen: false).fetchFavoriteWordsByCollectionId(
+      collectionId: widget.collectionModel.id,
+    );
+  }
 
   @override
   void dispose() {
@@ -71,9 +80,7 @@ class _CardsModeDetailPageState extends State<CardsModeDetailPage> {
               ],
             ),
             body: FutureBuilder<List<FavoriteDictionaryEntity>>(
-              future: Provider.of<FavoriteWordsState>(context, listen: false).fetchFavoriteWordsByCollectionId(
-                collectionId: widget.collectionModel.id,
-              ),
+              future: _futureFavoriteDictionaries,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   snapshot.data!.shuffle();

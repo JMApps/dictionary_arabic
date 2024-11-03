@@ -11,10 +11,13 @@ import 'presentation/uiModules/ios/main/root_cupertino_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await LocalNoticeService().setupNotification();
   await DefaultDictionaryService().initializeDatabase();
+
   await Hive.initFlutter();
   await Hive.openBox(AppConstraints.keyMainAppSettingsBox);
+
   runApp(
     Platform.isAndroid ? const RootMaterialPage() : const RootCupertinoPage(),
   );

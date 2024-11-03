@@ -10,7 +10,7 @@ import '../../../../domain/entities/dictionary_entity.dart';
 import '../widgets/error_data_text.dart';
 import 'lists/serializable_words_list.dart';
 
-class AddFavoriteWordPage extends StatelessWidget {
+class AddFavoriteWordPage extends StatefulWidget {
   const AddFavoriteWordPage({
     super.key,
     required this.wordNumber,
@@ -19,10 +19,23 @@ class AddFavoriteWordPage extends StatelessWidget {
   final int wordNumber;
 
   @override
+  State<AddFavoriteWordPage> createState() => _AddFavoriteWordPageState();
+}
+
+class _AddFavoriteWordPageState extends State<AddFavoriteWordPage> {
+  late final Future<DictionaryEntity> _futureDictionary;
+
+  @override
+  void initState() {
+    super.initState();
+    _futureDictionary = Provider.of<DefaultDictionaryState>(context, listen: false).getWordById(wordNumber: widget.wordNumber);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
     return FutureBuilder<DictionaryEntity>(
-      future: Provider.of<DefaultDictionaryState>(context, listen: false).getWordById(wordNumber: wordNumber),
+      future: _futureDictionary,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Scaffold(

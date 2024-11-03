@@ -11,8 +11,21 @@ import 'dialogs/add_collection_dialog.dart';
 import 'items/collection_item.dart';
 import 'search_collection_delegate.dart';
 
-class AllCollectionsPage extends StatelessWidget {
+class AllCollectionsPage extends StatefulWidget {
   const AllCollectionsPage({super.key});
+
+  @override
+  State<AllCollectionsPage> createState() => _AllCollectionsPageState();
+}
+
+class _AllCollectionsPageState extends State<AllCollectionsPage> {
+  late final Future<List<CollectionEntity>> _futureCollections;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _futureCollections = Provider.of<CollectionsState>(context).fetchAllCollections();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +52,7 @@ class AllCollectionsPage extends StatelessWidget {
             ],
           ),
           FutureBuilder<List<CollectionEntity>>(
-            future: Provider.of<CollectionsState>(context).fetchAllCollections(),
+            future: _futureCollections,
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return SliverToBoxAdapter(
@@ -57,16 +70,16 @@ class AllCollectionsPage extends StatelessWidget {
                     },
                   ),
                 );
-              } else if (snapshot.hasError) {
+              }
+              if (snapshot.hasError) {
                 return SliverToBoxAdapter(
                   child: ErrorDataText(errorText: snapshot.error.toString()),
                 );
-              } else {
-                return const SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: DataText(text: AppStrings.collectionsIfEmpty),
-                );
               }
+              return const SliverFillRemaining(
+                hasScrollBody: false,
+                child: DataText(text: AppStrings.collectionsIfEmpty),
+              );
             },
           ),
         ],
