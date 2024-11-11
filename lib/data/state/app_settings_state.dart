@@ -9,7 +9,7 @@ class AppSettingsState extends ChangeNotifier {
 
   AppSettingsState() {
     _isWordSearch = _mainSettingsBox.get(AppConstraints.keyOpenWithWordSearch, defaultValue: false);
-    _dailyNotifications = _mainSettingsBox.get(AppConstraints.keyDailyNotification, defaultValue: true);
+    _dailyNotifications = _mainSettingsBox.get(AppConstraints.keyDailyNotification, defaultValue: false);
     _notificationHours = _mainSettingsBox.get(AppConstraints.keyNotificationHours, defaultValue: 17);
     _notificationMinutes = _mainSettingsBox.get(AppConstraints.keyNotificationMinutes, defaultValue: 0);
     _isAlwaysOnDisplay = _mainSettingsBox.get(AppConstraints.keyAlwaysOnDisplay, defaultValue: true);

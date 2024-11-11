@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../../../core/routes/route_names.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
-import '../../../../data/services/notifications/local_notice_service.dart';
 import '../../../../data/state/app_settings_state.dart';
 import '../../../../data/state/word_exact_match_state.dart';
 import 'items/main_card_item.dart';
@@ -37,12 +36,6 @@ class _MainCupertinoPageState extends State<MainCupertinoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final AppSettingsState settings = Provider.of<AppSettingsState>(context);
-    LocalNoticeService().dailyZonedScheduleNotification(
-      DateTime(2024, 12, 31, settings.getNotificationHours, settings.getNotificationMinutes),
-      AppStrings.appName,
-      AppStrings.notificationBody,
-    );
     return CupertinoPageScaffold(
       backgroundColor: CupertinoColors.systemGroupedBackground,
       child: CustomScrollView(

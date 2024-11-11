@@ -12,6 +12,7 @@ class AppSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localNotice = LocalNoticeService();
     return CupertinoPageScaffold(
       backgroundColor: CupertinoColors.systemGroupedBackground,
       child: Consumer<AppSettingsState>(
@@ -89,6 +90,13 @@ class AppSettingsPage extends StatelessWidget {
                                 mode: CupertinoTimerPickerMode.hm,
                                 onTimerDurationChanged: (Duration time) {
                                   settings.changeNotificationTime = time;
+                                  if (settings.getDailyNotification) {
+                                    localNotice.dailyZonedScheduleNotification(
+                                      DateTime(2024, 12, 31, settings.getNotificationHours, settings.getNotificationMinutes),
+                                      AppStrings.appName,
+                                      AppStrings.notificationBody,
+                                    );
+                                  }
                                 },
                               ),
                             ),
@@ -114,8 +122,14 @@ class AppSettingsPage extends StatelessWidget {
                     value: settings.getDailyNotification,
                     onChanged: (bool value) {
                       settings.changeNotificationState = value;
-                      if (!value) {
-                        LocalNoticeService().cancelNotificationWithId(LocalNoticeService.dailyNotificationID);
+                      if (value) {
+                        localNotice.dailyZonedScheduleNotification(
+                          DateTime(2024, 12, 31, settings.getNotificationHours, settings.getNotificationMinutes),
+                          AppStrings.appName,
+                          AppStrings.notificationBody,
+                        );
+                      } else {
+                        localNotice.cancelNotificationWithId(LocalNoticeService.dailyNotificationID);
                       }
                     },
                   ),
@@ -160,8 +174,7 @@ class AppSettingsPage extends StatelessWidget {
               SliverToBoxAdapter(
                 child: CupertinoListTile(
                   onTap: () {
-                    _launchUrl(
-                        link: 'https://apps.apple.com/ru/developer/imanil-binyaminov/id1564920953');
+                    _launchUrl(link: 'https://apps.apple.com/ru/developer/imanil-binyaminov/id1564920953');
                   },
                   title: const Text(AppStrings.applications),
                   leading: Image.asset('assets/icons/appstore.png'),

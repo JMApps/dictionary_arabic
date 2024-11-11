@@ -13,6 +13,7 @@ class AppSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
+    final localNotice = LocalNoticeService();
     return Scaffold(
       body: Consumer<AppSettingsState>(
         builder: (BuildContext context, settings, _) {
@@ -39,8 +40,7 @@ class AppSettingsPage extends StatelessWidget {
               ),
               SliverToBoxAdapter(
                 child: ListTile(
-                  visualDensity:
-                      const VisualDensity(horizontal: -4, vertical: -4),
+                  visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
                   contentPadding: AppStyles.mardingSymmetricHor,
                   title: const Text(
                     AppStrings.openWithWordSearch,
@@ -106,6 +106,13 @@ class AppSettingsPage extends StatelessWidget {
                         (TimeOfDay? time) {
                           if (time != null) {
                             settings.changeNotificationTime = Duration(hours: time.hour, minutes: time.minute);
+                            if (settings.getDailyNotification) {
+                              localNotice.dailyZonedScheduleNotification(
+                                DateTime(2024, 12, 31, settings.getNotificationHours, settings.getNotificationMinutes),
+                                AppStrings.appName,
+                                AppStrings.notificationBody,
+                              );
+                            }
                           }
                         },
                       );
@@ -115,8 +122,14 @@ class AppSettingsPage extends StatelessWidget {
                     value: settings.getDailyNotification,
                     onChanged: (bool value) {
                       settings.changeNotificationState = value;
-                      if (!value) {
-                        LocalNoticeService().cancelNotificationWithId(LocalNoticeService.dailyNotificationID);
+                      if (value) {
+                        localNotice.dailyZonedScheduleNotification(
+                          DateTime(2024, 12, 31, settings.getNotificationHours, settings.getNotificationMinutes),
+                          AppStrings.appName,
+                          AppStrings.notificationBody,
+                        );
+                      } else {
+                        localNotice.cancelNotificationWithId(LocalNoticeService.dailyNotificationID);
                       }
                     },
                   ),
@@ -166,9 +179,7 @@ class AppSettingsPage extends StatelessWidget {
               SliverToBoxAdapter(
                 child: ListTile(
                   onTap: () {
-                    _launchUrl(
-                        link:
-                            'https://play.google.com/store/apps/dev?id=8649252597553656018');
+                    _launchUrl(link: 'https://play.google.com/store/apps/dev?id=8649252597553656018');
                   },
                   title: const Text(
                     AppStrings.applications,

@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../../../core/routes/route_names.dart';
 import '../../../../core/strings/app_strings.dart';
 import '../../../../core/styles/app_styles.dart';
-import '../../../../data/services/notifications/local_notice_service.dart';
 import '../../../../data/state/app_settings_state.dart';
 import '../../../../data/state/word_exact_match_state.dart';
 import '../collections/dialogs/add_collection_dialog.dart';
@@ -29,20 +28,13 @@ class _MainMaterialPageState extends State<MainMaterialPage> {
 
   Future<void> _isWordSearch() async {
     if (Provider.of<AppSettingsState>(context, listen: false).getIsSearchWord) {
-      await Future.delayed(const Duration(milliseconds: 0)).whenComplete(
-          () => Navigator.pushNamed(context, RouteNames.searchWordsPage));
+      await Future.delayed(const Duration(milliseconds: 0)).whenComplete(() => Navigator.pushNamed(context, RouteNames.searchWordsPage));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
-    final AppSettingsState settings = Provider.of<AppSettingsState>(context);
-    LocalNoticeService().dailyZonedScheduleNotification(
-      DateTime(2024, 12, 31, settings.getNotificationHours, settings.getNotificationMinutes),
-      AppStrings.appName,
-      AppStrings.notificationBody,
-    );
     return Scaffold(
       body: CustomScrollView(
         slivers: [
